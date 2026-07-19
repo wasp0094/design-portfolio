@@ -329,19 +329,99 @@ export const projects: Project[] = [
   },
 ];
 
-export const experience = [
+export type TimelineItem = {
+  year: string;
+  type: string;          // shown as a tag
+  accent: string;        // palette var
+  title: string;
+  org?: string;
+  description: string;
+  image?: string;        // filename in public/timeline/
+  placeholder?: boolean; // dashed styling until real details are added
+};
+
+export const timeline: TimelineItem[] = [
   {
-    company: "FourCore",
-    context: "Breach & Attack Simulation Platform · New Delhi",
-    period: "Feb 2024 — Present",
-    titles: "UI/UX Intern → Designer → Senior UI/UX Designer",
+    year: "2020",
+    type: "Education",
+    accent: "violet",
+    title: "Started B.Tech, Computer Science",
+    org: "Maharaja Agrasen Institute of Technology",
+    description:
+      "Where the foundation was laid — computer science, with a growing pull toward how products actually feel to use.",
+  },
+  {
+    year: "2022",
+    type: "Recognition",
+    accent: "coral",
+    title: "Hackathon breakthroughs",
+    org: "Google Solution Challenge · Smart India Hackathon",
+    description:
+      "Top 50 Global and Top 15 nationally with Proctify — my first taste of designing real products under pressure.",
+  },
+  {
+    year: "2022–23",
+    type: "Learning",
     accent: "yellow",
-    points: [
-      "Redesigned the FourCore website end-to-end (10+ screens, mobile & desktop) in a 2-month sprint, then led the ground-up redesign of the core adversary-emulation platform’s UI.",
-      "Built the product’s first design system — components, spacing, and interaction patterns — bringing visual consistency and speeding up how fast new screens ship.",
-      "Restructured how attack-simulation data is presented, turning dense security output into views users can read and act on quickly.",
-      "Promoted to Senior (Aug 2025); now lead a junior designer and work directly with PM and engineering to turn research into shipped features.",
-    ],
+    title: "Design certifications",
+    org: "Accenture · NPTEL · InnovateU",
+    description:
+      "UX Design, Product Design & Development, and more — turning instinct into deliberate craft.",
+  },
+  {
+    year: "Feb 2024",
+    type: "First role",
+    accent: "blue",
+    title: "UI/UX Design Intern at FourCore",
+    org: "Breach & Attack Simulation platform",
+    description:
+      "My first design internship — stepping straight into complex B2B cybersecurity.",
+  },
+  {
+    year: "2024",
+    type: "Conversion",
+    accent: "teal",
+    title: "Converted to full-time UI/UX Designer",
+    org: "FourCore",
+    description:
+      "Earned a full-time seat and built the product’s first design system from the ground up.",
+  },
+  {
+    year: "Aug 2024",
+    type: "Education",
+    accent: "violet",
+    title: "Graduated B.Tech — 8.91 / 10 CGPA",
+    org: "Maharaja Agrasen Institute of Technology",
+    description:
+      "Wrapped up the degree while already shipping design work at FourCore.",
+  },
+  {
+    year: "Oct 2024",
+    type: "Judge",
+    accent: "pink",
+    title: "Design competition judge",
+    org: "Design Verse · BVCOE, New Delhi",
+    description:
+      "Invited to judge Design Verse — a two-day design seminar & competition (IEEE Student Branch) — reviewing student projects and awarding the winning teams.",
+    image: "design-verse.jpg",
+  },
+  {
+    year: "Aug 2025",
+    type: "Promotion",
+    accent: "teal",
+    title: "Promoted to Senior UI/UX Designer",
+    org: "FourCore",
+    description:
+      "Now leading a junior designer and working directly with product and engineering to ship features.",
+  },
+  {
+    year: "2026",
+    type: "Promotion",
+    accent: "coral",
+    title: "Promoted to Product Designer",
+    org: "FourCore",
+    description:
+      "A formal step up from UI/UX to Product Designer — owning problems end-to-end, from research through shipped UI.",
   },
 ];
 

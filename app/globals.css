@@ -423,17 +423,61 @@ body.cursor-hover .cursor-ring {
 .chip.primary:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
 
 /* ============================================================
-   EXPERIENCE
+   TIMELINE — horizontal career ladder (scroll left→right)
    ============================================================ */
-.exp-card { border: 1.5px solid var(--ink); border-radius: 26px; background: var(--paper); box-shadow: 6px 6px 0 var(--ink); overflow: hidden; }
-.exp-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: clamp(24px, 3vw, 38px); background: var(--yellow); border-bottom: 1.5px solid var(--ink); }
-.exp-head h3 { font-family: var(--ff-display); font-weight: 800; font-size: clamp(30px, 4vw, 52px); letter-spacing: -0.03em; line-height: 1; }
-.exp-head .ctx { font-family: var(--ff-body); font-size: 14.5px; font-weight: 500; margin-top: 8px; color: var(--ink-2); }
-.exp-head .period { font-family: var(--ff-body); font-size: 15px; font-weight: 600; text-align: right; }
-.exp-head .titles { display: block; margin-top: 8px; font-weight: 600; font-family: var(--ff-body); font-size: 14.5px; }
-.exp-points { padding: clamp(20px, 2.6vw, 34px); display: grid; gap: 18px; }
-.exp-point { display: grid; grid-template-columns: 34px 1fr; gap: 6px; align-items: start; color: var(--ink-2); font-size: clamp(15px, 1.7vw, 17px); }
-.exp-point .idx { font-family: var(--ff-body); font-size: 14px; font-weight: 700; color: var(--accent); padding-top: 2px; }
+.tl-hint { font-weight: 600; font-size: 14px; color: var(--ink-3); display: inline-flex; gap: 8px; align-items: center; }
+.tl-hint .arw { display: inline-block; animation: nudge 1.6s ease-in-out infinite; color: var(--accent-ink, var(--coral)); }
+@keyframes nudge { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+
+.tl-scroll {
+  margin-top: clamp(26px, 3.5vw, 44px);
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+}
+.tl-scroll::-webkit-scrollbar { height: 8px; }
+.tl-scroll::-webkit-scrollbar-track { background: transparent; }
+.tl-scroll::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 999px; }
+.tl-scroll:hover::-webkit-scrollbar-thumb { background: var(--ink-3); }
+
+.tl-track { position: relative; display: flex; align-items: stretch; gap: clamp(16px, 1.8vw, 26px); width: max-content; padding: 0 var(--edge) 8px; }
+.tl-line { position: absolute; top: 44px; left: var(--edge); right: var(--edge); height: 3px; background: var(--line-2); border-radius: 999px; overflow: hidden; }
+.tl-fill {
+  position: absolute; inset: 0; transform-origin: left; transform: scaleX(0.02);
+  border-radius: 999px; transition: transform .12s linear;
+  background: linear-gradient(90deg, var(--coral), var(--yellow), var(--teal), var(--blue), var(--violet));
+}
+
+.tl-item { position: relative; flex: 0 0 clamp(256px, 80vw, 316px); padding-top: 82px; scroll-snap-align: start; }
+.tl-dot {
+  position: absolute; top: 34px; left: 26px; width: 22px; height: 22px; border-radius: 50%;
+  border: 2.5px solid var(--ink); background: var(--accent); box-shadow: 0 0 0 5px var(--bg); z-index: 2;
+}
+.tl-conn { position: absolute; top: 56px; left: 36px; width: 2.5px; height: 26px; background: var(--accent); }
+
+.tl-card {
+  height: 100%; border: 1.5px solid var(--ink); border-radius: 20px; background: var(--paper);
+  box-shadow: 5px 5px 0 var(--ink); overflow: hidden;
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+}
+.tl-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--ink); }
+.tl-card-body { padding: clamp(18px, 2vw, 24px); }
+.tl-photo { aspect-ratio: 16 / 10; border-bottom: 1.5px solid var(--ink); overflow: hidden; background: var(--bg-2); }
+.tl-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.tl-card:hover .tl-photo img { transform: scale(1.04); }
+.tl-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.tl-year { font-family: var(--ff-display); font-weight: 800; font-size: clamp(18px, 2vw, 23px); letter-spacing: -0.02em; color: var(--accent); }
+.tl-tag { padding: 4px 12px; border-radius: 999px; border: 1.5px solid var(--ink); background: color-mix(in srgb, var(--accent) 16%, var(--paper)); font-size: 11.5px; font-weight: 700; }
+.tl-title { font-family: var(--ff-display); font-weight: 800; font-size: clamp(19px, 2.1vw, 25px); letter-spacing: -0.02em; line-height: 1.08; }
+.tl-org { margin-top: 7px; font-weight: 600; color: var(--ink-2); font-size: 14.5px; }
+.tl-desc { margin-top: 11px; color: var(--ink-2); font-size: 14.5px; line-height: 1.55; }
+
+.tl-item.is-placeholder .tl-card { border-style: dashed; box-shadow: none; }
+.tl-item.is-placeholder .tl-card:hover { box-shadow: 5px 5px 0 var(--ink); }
+.tl-item.is-placeholder .tl-title,
+.tl-item.is-placeholder .tl-org,
+.tl-item.is-placeholder .tl-desc { color: var(--ink-3); }
 
 /* ============================================================
    RECOGNITION — highlight reel + tidy ledger

@@ -33,7 +33,9 @@ export default async function ProjectPage({
 
   const idx = projects.findIndex((x) => x.slug === slug);
   const next = projects[(idx + 1) % projects.length];
-  const heroSrc = `/projects/${p.dir}/${p.hero ?? p.cover}`;
+  const heroFile = p.hero ?? p.cover;
+  const heroSrc = p.dir && heroFile ? `/projects/${p.dir}/${heroFile}` : null;
+  const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0);
 
   return (
     <main className="detail" style={{ ["--accent" as string]: `var(--${p.accent})` }}>
@@ -66,10 +68,16 @@ export default async function ProjectPage({
         </header>
 
         <Reveal delay={0.1}>
-          <figure className="detail-hero">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={heroSrc} alt={`${p.title} — hero`} />
-          </figure>
+          {heroSrc ? (
+            <figure className="detail-hero">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={heroSrc} alt={`${p.title} — hero`} />
+            </figure>
+          ) : (
+            <div className="detail-hero detail-hero--empty">
+              <span className="detail-hero-mark">{p.template ? "+" : p.title.charAt(0)}</span>
+            </div>
+          )}
         </Reveal>
 
         <div className="detail-cols">
@@ -122,25 +130,35 @@ export default async function ProjectPage({
           </Reveal>
         </div>
 
-        <div className="detail-galhead">
-          <h2 className="detail-galtitle">Screens</h2>
-          <span className="detail-galcount">{p.gallery.length} frames</span>
-        </div>
+        {hasGallery ? (
+          <>
+            <div className="detail-galhead">
+              <h2 className="detail-galtitle">Screens</h2>
+              <span className="detail-galcount">{p.gallery!.length} frames</span>
+            </div>
 
-        <div className={`gallery ${p.layout ?? "web"}`}>
-          {p.gallery.map((f, i) => (
-            <Reveal key={f} delay={(i % 3) * 0.06} as="div">
-              <figure className="shot">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/projects/${p.dir}/${f}`} alt={`${p.title} screen ${i + 1}`} loading="lazy" />
-              </figure>
-            </Reveal>
-          ))}
-        </div>
+            <div className={`gallery ${p.layout ?? "web"}`}>
+              {p.gallery!.map((f, i) => (
+                <Reveal key={f} delay={(i % 3) * 0.06} as="div">
+                  <figure className="shot">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/projects/${p.dir}/${f}`} alt={`${p.title} screen ${i + 1}`} loading="lazy" />
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
 
-        <p className="detail-note">
-          This is a visual walkthrough — a full written case study is on the way.
-        </p>
+            <p className="detail-note">
+              This is a visual walkthrough — a full written case study is on the way.
+            </p>
+          </>
+        ) : (
+          <p className="detail-note">
+            {p.template
+              ? "This is a template — add screenshots and copy to bring it to life."
+              : "Screens and a full written case study are on the way — reach out for a walkthrough in the meantime."}
+          </p>
+        )}
 
         <Link href={`/work/${next.slug}`} className="detail-next" data-hover>
           <span className="lbl">Next project</span>

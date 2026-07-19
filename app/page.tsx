@@ -1,6 +1,5 @@
 import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
-import Stats from "@/components/sections/Stats";
 import Work from "@/components/sections/Work";
 import About from "@/components/sections/About";
 import Experience from "@/components/sections/Experience";
@@ -12,7 +11,6 @@ export default function Home() {
     <main>
       <Hero />
       <Marquee />
-      <Stats />
       <Work />
       <About />
       <Experience />

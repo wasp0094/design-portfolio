@@ -37,14 +37,14 @@ export const stats = [
 
 export type Project = {
   slug: string;
-  dir: string;               // folder in public/projects/
+  dir?: string;              // folder in public/projects/ (omit if no images yet)
   title: string;
   subtitle: string;
   role: string;
   timeline: string;
   year: string;
   accent: string;            // theme colour (CSS var name)
-  cover: string;             // card image filename
+  cover?: string;            // card image filename (omit → colourful lettermark)
   hero?: string;             // detail-page banner filename (defaults to cover)
   layout?: "web" | "mobile"; // gallery column style
   summary: string;           // one-liner for the card
@@ -53,9 +53,10 @@ export type Project = {
   tags: string[];
   tools?: string[];
   metrics?: { value: string; label: string }[];
-  gallery: string[];         // filenames shown on the detail page
+  gallery?: string[];        // filenames shown on the detail page
   link?: string;             // optional external link
   featured?: boolean;
+  template?: boolean;        // placeholder card to fill in later
 };
 
 export const projects: Project[] = [
@@ -85,6 +86,36 @@ export const projects: Project[] = [
     tags: ["Product Design", "Dashboard", "Cybersecurity", "B2B"],
     tools: ["Figma"],
     gallery: ["frame-10.png"],
+    featured: true,
+  },
+  {
+    slug: "formi",
+    title: "Formi",
+    subtitle: "Physiotherapy platform — two-sided product",
+    role: "Independent Product Design",
+    timeline: "Ongoing",
+    year: "2026",
+    accent: "teal",
+    // no images yet — shows a colourful lettermark until covers are added
+    layout: "web",
+    summary:
+      "Evolved from ‘Proctify’, a patients-only college project, into Formi — a full two-sided platform connecting physiotherapists and patients through AI-guided remote recovery.",
+    overview: [
+      "Formi is a physiotherapist-first digital health platform that keeps the care relationship productive between clinic visits — a professional practice-management and remote-monitoring tool for therapists, and a structured, AI-guided recovery experience for patients.",
+      "It began as ‘Proctify’, a patients-only college project (Top 15 at the Smart India Hackathon, Top 50 Global at the Google Solution Challenge). I independently reworked it into a full two-sided product — introducing a therapist-facing dashboard the original never scoped, and authoring the complete PRD and design system.",
+    ],
+    highlights: [
+      "Introduced a therapist-facing web dashboard the original concept never accounted for.",
+      "Rebuilt workflow, information architecture, and a programme-delivery model connecting therapist and patient.",
+      "Authored the complete PRD and design system — a 23-screen breakdown across both experiences.",
+    ],
+    tags: ["Product Design", "Design System", "Healthtech", "0 → 1"],
+    tools: ["Figma"],
+    metrics: [
+      { value: "23", label: "Screens" },
+      { value: "2", label: "Sided surfaces" },
+      { value: "Top 15", label: "Smart India Hackathon" },
+    ],
     featured: true,
   },
   {
@@ -203,6 +234,70 @@ export const projects: Project[] = [
       "iphone-14-15-pro-39.png",
     ],
     featured: true,
+  },
+
+  /* ---- TEMPLATE PROJECTS ------------------------------------
+     Fill one of these in to add a real project:
+     1. drop screenshots in public/projects/<dir>/
+     2. set `dir`, `cover`, optional `hero`, and `gallery`
+     3. replace the copy and remove `template: true`
+     ---------------------------------------------------------- */
+  {
+    slug: "project-6",
+    title: "Your next project",
+    subtitle: "One-line project subtitle",
+    role: "Your role",
+    timeline: "Timeline",
+    year: "20XX",
+    accent: "pink",
+    template: true,
+    layout: "web",
+    summary: "A short one-line description of the project, shown on the card.",
+    overview: [
+      "Add a paragraph describing the project — what it is, who it’s for, and the problem it solves.",
+      "Add a second paragraph about your approach, key decisions, and the outcome.",
+    ],
+    highlights: ["Key contribution #1", "Key contribution #2", "Key contribution #3"],
+    tags: ["Tag", "Tag", "Tag"],
+    tools: ["Figma"],
+  },
+  {
+    slug: "project-7",
+    title: "Your next project",
+    subtitle: "One-line project subtitle",
+    role: "Your role",
+    timeline: "Timeline",
+    year: "20XX",
+    accent: "yellow",
+    template: true,
+    layout: "web",
+    summary: "A short one-line description of the project, shown on the card.",
+    overview: [
+      "Add a paragraph describing the project — what it is, who it’s for, and the problem it solves.",
+      "Add a second paragraph about your approach, key decisions, and the outcome.",
+    ],
+    highlights: ["Key contribution #1", "Key contribution #2", "Key contribution #3"],
+    tags: ["Tag", "Tag", "Tag"],
+    tools: ["Figma"],
+  },
+  {
+    slug: "project-8",
+    title: "Your next project",
+    subtitle: "One-line project subtitle",
+    role: "Your role",
+    timeline: "Timeline",
+    year: "20XX",
+    accent: "blue",
+    template: true,
+    layout: "web",
+    summary: "A short one-line description of the project, shown on the card.",
+    overview: [
+      "Add a paragraph describing the project — what it is, who it’s for, and the problem it solves.",
+      "Add a second paragraph about your approach, key decisions, and the outcome.",
+    ],
+    highlights: ["Key contribution #1", "Key contribution #2", "Key contribution #3"],
+    tags: ["Tag", "Tag", "Tag"],
+    tools: ["Figma"],
   },
 ];
 

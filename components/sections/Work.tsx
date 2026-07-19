@@ -8,6 +8,10 @@ const MotionLink = motion.create(Link);
 
 type Size = "lg" | "md" | "wide";
 
+// bento rhythm for the current project list (falls back to md)
+const SIZES: Size[] = ["lg", "md", "md", "wide", "wide", "md", "md", "md"];
+const sizeFor = (i: number): Size => SIZES[i] ?? "md";
+
 const reveal = (i: number) => ({
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -18,30 +22,36 @@ const reveal = (i: number) => ({
 
 function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
   const big = size === "lg";
-  const cover = `/projects/${p.dir}/${p.cover}`;
+  const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
 
   return (
     <MotionLink
       href={`/work/${p.slug}`}
-      className={`tile ${size}`}
+      className={`tile ${size}${p.template ? " is-template" : ""}`}
       data-accent={p.accent}
       data-hover
       {...reveal(i)}
     >
       <div className="tile-media">
-        <span className="tile-mark">{p.title.charAt(0)}</span>
-        <img
-          className="tile-img"
-          src={cover}
-          alt={`${p.title} — ${p.subtitle}`}
-          onError={(e) => {
-            e.currentTarget.style.display = "none";
-          }}
-        />
+        <span className="tile-mark">{p.template ? "+" : p.title.charAt(0)}</span>
+        {cover && (
+          <img
+            className="tile-img"
+            src={cover}
+            alt={`${p.title} — ${p.subtitle}`}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        )}
         <div className="tile-tags">
-          {p.tags.slice(0, big ? 2 : 1).map((t) => (
-            <span className="tile-tag" key={t}>{t}</span>
-          ))}
+          {p.template ? (
+            <span className="tile-tag">Template</span>
+          ) : (
+            p.tags.slice(0, big ? 2 : 1).map((t) => (
+              <span className="tile-tag" key={t}>{t}</span>
+            ))
+          )}
         </div>
         <span className="tile-year">{p.year}</span>
       </div>
@@ -75,7 +85,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
         )}
 
         <div className="tile-cta">
-          View case study
+          {p.template ? "Add a project" : "View case study"}
           <span className="circle">↗</span>
         </div>
       </div>
@@ -83,9 +93,9 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
   );
 }
 
-const sizeFor = (i: number): Size => (i === 0 ? "lg" : i <= 2 ? "md" : "wide");
-
 export default function Work() {
+  const real = projects.filter((p) => !p.template).length;
+
   return (
     <section className="section" id="work">
       <div className="wrap">
@@ -96,7 +106,7 @@ export default function Work() {
               Things I’ve <em>shipped</em>
             </h2>
           </div>
-          <span className="pill">{projects.length} projects</span>
+          <span className="pill">{real} projects</span>
         </div>
 
         <div className="bento">

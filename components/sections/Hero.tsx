@@ -62,25 +62,27 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        <div className="hero-foot">
-          <motion.p variants={fade} initial="hidden" animate="show" transition={{ delay: 0.9 }}>
-            {profile.intro}
-          </motion.p>
-
-          <motion.div
-            className="hero-portrait"
-            data-hover
-            initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ delay: 1, duration: 0.9, ease: [0.2, 0.7, 0.2, 1] as const }}
-            whileHover={{ rotate: -2, y: -6 }}
-          >
-            <div className="ph">
-              <img src="/aditi-avatar.png" alt="Illustrated portrait of Aditi Agarwal" className="ph-img" />
-              <span className="ph-name">Aditi Agarwal</span>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          className="hero-intro"
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85, duration: 0.8, ease: [0.2, 0.7, 0.2, 1] as const }}
+        >
+          <div className="hero-avatar" data-hover>
+            <img src="/aditi-avatar.png" alt="Illustrated portrait of Aditi Agarwal" />
+          </div>
+          <div className="hero-statement-wrap">
+            <span className="hero-statement-kicker">The short version</span>
+            <p className="hero-statement">
+              Product &amp; UI/UX designer with <span className="hl hl-1">2+ years</span> taking{" "}
+              <span className="hl hl-2">B2B</span> and <span className="hl hl-3">healthtech</span>{" "}
+              products from messy research all the way to{" "}
+              <span className="hl hl-4">shipped, high-fidelity UI</span> — design systems, two-sided
+              products, and the <span className="hl hl-1">calm interfaces</span> in between.
+            </p>
+            <span className="hero-sign">{profile.name} · {profile.location}</span>
+          </div>
+        </motion.div>
 
         <motion.div
           className="scroll-cue"

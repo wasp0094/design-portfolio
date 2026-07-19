@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import Cursor from "@/components/ui/Cursor";
+import Nav from "@/components/sections/Nav";
 
 const display = Bricolage_Grotesque({
   variable: "--font-display",
@@ -40,7 +42,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Cursor />
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }

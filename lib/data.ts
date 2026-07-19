@@ -1,6 +1,7 @@
 /* ============================================================
    CONTENT — edit this file to update the site.
    Add a project by appending to the `projects` array.
+   Images live in public/projects/<dir>/.
    ============================================================ */
 
 export const profile = {
@@ -36,136 +37,172 @@ export const stats = [
 
 export type Project = {
   slug: string;
+  dir: string;               // folder in public/projects/
   title: string;
   subtitle: string;
   role: string;
   timeline: string;
   year: string;
-  accent: string;   // theme colour (CSS var name from palette)
-  image?: string;   // e.g. "/projects/formi.png" — drop file in public/projects/
-  summary: string;
+  accent: string;            // theme colour (CSS var name)
+  cover: string;             // card image filename
+  hero?: string;             // detail-page banner filename (defaults to cover)
+  layout?: "web" | "mobile"; // gallery column style
+  summary: string;           // one-liner for the card
+  overview: string[];        // paragraphs for the detail page
   highlights: string[];
   tags: string[];
+  tools?: string[];
   metrics?: { value: string; label: string }[];
-  link?: string;
+  gallery: string[];         // filenames shown on the detail page
+  link?: string;             // optional external link
   featured?: boolean;
 };
 
 export const projects: Project[] = [
   {
-    slug: "formi",
-    title: "Formi",
-    subtitle: "Physiotherapy platform — two-sided product",
-    role: "Independent Product Design",
-    timeline: "Ongoing",
-    year: "2026",
-    accent: "teal",
+    slug: "sachet",
+    dir: "sachet",
+    title: "Sachet",
+    subtitle: "Enterprise security operations (SOC) platform",
+    role: "Product & UI/UX Design",
+    timeline: "Case study",
+    year: "2025",
+    accent: "violet",
+    cover: "frame-10.png",
+    hero: "macbook-pro-14-1.png",
+    layout: "web",
     summary:
-      "Evolved from ‘Proctify’, a college project for patients only, into Formi — a full two-sided platform connecting physiotherapists and patients through AI-guided remote recovery.",
+      "A Security Operations Center platform that helps enterprises cut alert fatigue and respond to incidents faster — landing page and analytics dashboard.",
+    overview: [
+      "Sachet is a Security Operations Center (SOC) platform built to simplify security operations for the enterprise — giving teams complete visibility, less alert fatigue, and faster incident response from one intelligent dashboard.",
+      "The work spanned both the marketing site and the core product: turning dense security telemetry — real-time threat detection, automated incident-response workflows, unified analytics, and compliance-ready reporting — into a calm, scannable interface analysts can act on quickly.",
+    ],
     highlights: [
-      "Introduced a therapist-facing web dashboard the original concept never accounted for.",
-      "Rebuilt workflow, information architecture, and a programme-delivery model from the ground up.",
-      "Authored the complete PRD and design system — a 23-screen breakdown across both experiences.",
+      "Designed the marketing landing page and the SOC analytics dashboard.",
+      "Structured threat detection, incident-response workflows, and compliance reporting into one unified, scannable UI.",
+      "Balanced enterprise depth with startup-level clarity.",
     ],
-    tags: ["Product Design", "Design System", "Healthtech", "0→1"],
-    metrics: [
-      { value: "23", label: "Screens" },
-      { value: "2", label: "Sided surfaces" },
-      { value: "Top 15", label: "Smart India Hackathon" },
-    ],
+    tags: ["Product Design", "Dashboard", "Cybersecurity", "B2B"],
+    tools: ["Figma"],
+    gallery: ["frame-10.png"],
     featured: true,
   },
   {
-    slug: "conqr",
-    title: "Conqr.ai",
-    subtitle: "Legal AI assistant platform",
+    slug: "conqr-platform",
+    dir: "conqr-platform",
+    title: "Conqr.ai — Platform",
+    subtitle: "Legal-AI product — UI overhaul",
     role: "Solo Freelance",
     timeline: "~2 months",
     year: "2025",
     accent: "blue",
-    image: "/projects/conqr.png",
+    cover: "cover-image.jpg",
+    hero: "cover-image.jpg",
+    layout: "web",
     summary:
-      "Shaped a brief for an approachable, trustworthy legal AI into a calm, credible interface — designing the single-scroll marketing landing page from scratch and redesigning the existing product solo.",
+      "A ground-up UI overhaul of Conqr.ai's legal-AI product — the document workspace where legal teams draft, review, and manage agreements.",
+    overview: [
+      "Conqr.ai is a legal-AI assistant. This project was a ground-up UI overhaul of the product — the workspace where legal teams draft, review, track, and pay for their agreements.",
+      "Dense document management (all-documents views, dashboards, payments, approvals) was restructured into a calm, credible interface that feels approachable rather than intimidating — enterprise power with human simplicity.",
+    ],
     highlights: [
-      "Designed the single-scroll marketing landing page end-to-end.",
-      "Redesigned 10–12 existing product screens for clarity and trust.",
-      "Set the visual tone: calm, credible, and unmistakably approachable.",
+      "Redesigned 10–12 core product screens solo.",
+      "Restructured the document workspace: dashboard, all-documents, approvals, and payments.",
+      "Set a calm, trustworthy visual tone for a legal-AI product.",
     ],
-    tags: ["Landing Page", "Product Redesign", "AI", "Brand"],
-    metrics: [
-      { value: "1.8k+", label: "Behance views" },
-      { value: "12", label: "Screens redesigned" },
+    tags: ["Product Redesign", "SaaS", "Legal AI", "Design System"],
+    tools: ["Figma"],
+    metrics: [{ value: "12", label: "Screens redesigned" }],
+    gallery: ["home-dashboard.png", "home-alldocuments.png", "home-payments.png", "conqr.png"],
+    featured: true,
+  },
+  {
+    slug: "conqr-landing",
+    dir: "conqr-landing",
+    title: "Conqr.ai — Landing",
+    subtitle: "Legal-AI marketing landing page",
+    role: "Solo Freelance",
+    timeline: "~2 months",
+    year: "2025",
+    accent: "teal",
+    cover: "conqr.png",
+    hero: "conqr.png",
+    layout: "web",
+    summary:
+      "The single-scroll marketing landing page for Conqr.ai, designed from scratch — “Legal Intelligence. Perfected.”",
+    overview: [
+      "The single-scroll marketing landing page for Conqr.ai, designed from scratch. “Legal Intelligence. Perfected.” — the page positions an enterprise-grade legal-AI product with startup speed and human simplicity.",
+      "It leads with a confident value proposition and layered product previews that build trust quickly and drive toward a free-trial CTA.",
     ],
+    highlights: [
+      "Designed the single-scroll landing page end-to-end.",
+      "Crafted the hero, product previews, and conversion flow.",
+      "Shaped an approachable, trustworthy brand tone.",
+    ],
+    tags: ["Landing Page", "Marketing", "Brand", "Web"],
+    tools: ["Figma"],
+    metrics: [{ value: "1.8k+", label: "Behance views" }],
+    gallery: ["frame-785.png", "frame-746.png", "rectangle.png"],
     link: "https://www.behance.net/designwithaditi",
     featured: true,
   },
   {
-    slug: "sachet",
-    title: "Sachet",
-    subtitle: "UI/UX design project", // TODO: refine from Figma
-    role: "Product Design",
-    timeline: "Case study",
-    year: "2025",
-    accent: "pink",
-    image: "/projects/sachet.png",
-    // TODO: replace with real bullets from the Sachet Figma file
-    summary:
-      "A product design project — full case study coming soon. (Add the story from the Sachet Figma file.)",
-    highlights: [],
-    tags: ["UI/UX Design", "Product Design"],
-    featured: true,
-  },
-  {
     slug: "autumn",
+    dir: "autumn",
     title: "Autumn",
     subtitle: "Immersive e-book reader — mobile app",
     role: "Independent Project",
     timeline: "Concept",
     year: "2024",
     accent: "coral",
+    cover: "frame-44.png",
+    hero: "frame-36.png",
+    layout: "mobile",
     summary:
-      "A subscription e-book reader designed to feel as immersive as a physical book — with a signature feature: personalised, colour-coded tabs that slide out into a sticky-note panel without leaving the page.",
-    highlights: [
-      "Signature colour-coded tabs that slide into a sticky-note-style panel.",
-      "Bookmarking, notes, and highlights without breaking the reading flow.",
-      "A reading experience engineered for calm and focus.",
+      "A subscription e-book reader designed to feel as immersive as reading a physical book — with a signature colour-coded, sticky-note tab system.",
+    overview: [
+      "Autumn is a subscription e-book reader designed to feel as immersive as reading a physical book — with the goal of boosting reading engagement and authenticity.",
+      "Its signature feature is a set of personalised, colour-coded tabs that slide out into a sticky-note-style panel without leaving the page — alongside custom highlights, a distraction-free reading interface, bookmarks, and collapsible annotations, all in a warm, autumn-inspired visual system.",
     ],
-    tags: ["Mobile", "Interaction Design", "Concept", "Reading"],
+    highlights: [
+      "Signature colour-coded tabs that slide into a sticky-note panel.",
+      "Custom highlights, bookmarks, and collapsible annotations without leaving the page.",
+      "A warm, autumn-inspired system (Mulish type) tuned for calm, focused reading.",
+    ],
+    tags: ["Mobile", "Interaction Design", "Reading", "Concept"],
+    tools: ["Figma"],
     metrics: [{ value: "1", label: "Signature feature" }],
-    link: "https://www.behance.net/designwithaditi",
-    featured: true,
-  },
-  {
-    slug: "ux-research",
-    title: "UX Research Study",
-    subtitle: "UI/UX research assignment", // TODO: refine from Figma
-    role: "User Research",
-    timeline: "Case study",
-    year: "2025",
-    accent: "yellow",
-    image: "/projects/ux-research.png",
-    // TODO: replace with real bullets from the research Figma file
-    summary:
-      "An end-to-end UX research assignment — methods, findings, and design decisions. Full write-up coming soon.",
-    highlights: [],
-    tags: ["User Research", "UX", "Discovery"],
-    featured: true,
-  },
-  {
-    slug: "bottom-nav",
-    title: "Bottom Navigation Explorations",
-    subtitle: "UI micro-interaction studies",
-    role: "Exploration",
-    timeline: "Series",
-    year: "2024",
-    accent: "violet",
-    summary:
-      "A study series exploring the small, high-frequency moments of mobile navigation — the bar you touch a hundred times a day.",
-    highlights: [
-      "Motion, states, and affordance experiments for bottom navigation.",
+    gallery: [
+      "frame-44.png",
+      "reading-interface-6.png",
+      "reading-interface-7.png",
+      "book-info-page-4.png",
+      "book-info-page-5.png",
+      "book-info-prototype-1.png",
+      "book-info-prototype-2.png",
+      "book-info-prototype-3.png",
+      "highlights-menu-page-9.png",
+      "highlights-menu-page-11.png",
+      "bookmarks-menu-page-10.png",
+      "compact-tab-feature-page-12.png",
+      "compact-tab-feature-cont-page-13.png",
+      "compact-tab-feature-dark-mode-pg-14.png",
+      "compact-tab-feature-cont-dark-mode-pg-15.png",
+      "iphone-14-15-pro-7.png",
+      "iphone-14-15-pro-12.png",
+      "iphone-14-15-pro-19.png",
+      "iphone-14-15-pro-20.png",
+      "iphone-14-15-pro-22.png",
+      "iphone-14-15-pro-23.png",
+      "iphone-14-15-pro-24.png",
+      "iphone-14-15-pro-25.png",
+      "iphone-14-15-pro-26.png",
+      "iphone-14-15-pro-27.png",
+      "iphone-14-15-pro-28.png",
+      "iphone-14-15-pro-29.png",
+      "iphone-14-15-pro-39.png",
     ],
-    tags: ["UI", "Micro-interaction", "Mobile"],
-    link: "https://www.behance.net/designwithaditi",
+    featured: true,
   },
 ];
 
@@ -231,13 +268,11 @@ export const marqueeWords = [
 ];
 
 export const recognition = {
-  // top awards — shown big and colourful
   highlights: [
     { rank: "Top 50", scope: "Global", event: "Google Solution Challenge", year: "2022", accent: "coral" },
     { rank: "Top 15", scope: "National", event: "Smart India Hackathon", year: "2022", accent: "blue" },
     { rank: "Rank 4", scope: "of 150", event: "LiveTheCode Hackathon", year: "", accent: "violet" },
   ],
-  // minor placements — one quiet line
   alsoPlaced: [
     "Runner-Up — Evotech 5.0 Ideathon",
     "Top 50 / 115 — DotSlash 5.0",

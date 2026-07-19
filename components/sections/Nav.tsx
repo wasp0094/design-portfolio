@@ -6,9 +6,9 @@ import Magnetic from "../ui/Magnetic";
 import { profile } from "@/lib/data";
 
 const links = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Recognition", href: "#recognition" },
+  { label: "Work", href: "/#work" },
+  { label: "About", href: "/#about" },
+  { label: "Recognition", href: "/#recognition" },
 ];
 
 export default function Nav() {
@@ -29,7 +29,7 @@ export default function Nav() {
     >
       <div className="wrap">
       <div className="nav-inner">
-        <a href="#top" className="nav-brand">
+        <a href="/#top" className="nav-brand">
           <img className="nav-logo" src="/aditi-avatar.png" alt="Aditi Agarwal" width={30} height={30} />
           Aditi<span style={{ color: "var(--coral)" }}>.</span>
         </a>
@@ -40,7 +40,7 @@ export default function Nav() {
             </a>
           ))}
           <Magnetic strength={0.3}>
-            <a href="#contact" className="nav-cta">
+            <a href="/#contact" className="nav-cta">
               Let’s talk
             </a>
           </Magnetic>

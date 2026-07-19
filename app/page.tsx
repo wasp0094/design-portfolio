@@ -1,5 +1,3 @@
-import Cursor from "@/components/ui/Cursor";
-import Nav from "@/components/sections/Nav";
 import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
 import Stats from "@/components/sections/Stats";
@@ -11,19 +9,15 @@ import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
-    <>
-      <Cursor />
-      <Nav />
-      <main>
-        <Hero />
-        <Marquee />
-        <Stats />
-        <Work />
-        <About />
-        <Experience />
-        <Recognition />
-        <Contact />
-      </main>
-    </>
+    <main>
+      <Hero />
+      <Marquee />
+      <Stats />
+      <Work />
+      <About />
+      <Experience />
+      <Recognition />
+      <Contact />
+    </main>
   );
 }

@@ -8,6 +8,17 @@ export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
+/** turn a filename into a readable caption: "programme-builder-step1.png" → "Programme builder step 1" */
+function prettify(file: string): string {
+  return file
+    .replace(/\.[a-z0-9]+$/i, "")
+    .replace(/-/g, " ")
+    .replace(/(\d+)/g, " $1")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^./, (c) => c.toUpperCase());
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -142,7 +153,8 @@ export default async function ProjectPage({
                 <Reveal key={f} delay={(i % 3) * 0.06} as="div">
                   <figure className="shot">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/projects/${p.dir}/${f}`} alt={`${p.title} screen ${i + 1}`} loading="lazy" />
+                    <img src={`/projects/${p.dir}/${f}`} alt={`${p.title} — ${prettify(f)}`} loading="lazy" />
+                    {p.captions && <figcaption>{prettify(f)}</figcaption>}
                   </figure>
                 </Reveal>
               ))}

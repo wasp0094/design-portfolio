@@ -619,6 +619,11 @@ body.cursor-hover .cursor-ring {
 }
 .gallery .shot:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
 .gallery .shot img { width: 100%; height: auto; display: block; }
+.gallery .shot figcaption {
+  padding: 11px 16px; border-top: 1.5px solid var(--ink);
+  font-size: 13px; font-weight: 600; color: var(--ink-2);
+  background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+}
 
 .detail-note {
   margin: clamp(36px, 5vw, 60px) 0 clamp(30px, 4vw, 44px);

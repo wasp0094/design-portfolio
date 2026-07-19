@@ -57,9 +57,67 @@ export type Project = {
   link?: string;             // optional external link
   featured?: boolean;
   template?: boolean;        // placeholder card to fill in later
+  captions?: boolean;        // show per-screen captions in the gallery
 };
 
 export const projects: Project[] = [
+  {
+    slug: "formi",
+    dir: "formi",
+    title: "Formi",
+    subtitle: "Physiotherapy platform — two-sided product",
+    role: "Independent Product Design",
+    timeline: "Ongoing",
+    year: "2026",
+    accent: "teal",
+    cover: "dashboard.png",
+    hero: "dashboard.png",
+    layout: "web",
+    captions: true,
+    summary:
+      "Evolved from ‘Proctify’, a patients-only college project, into Formi — a full two-sided platform connecting physiotherapists and patients through AI-guided remote recovery.",
+    overview: [
+      "Formi is a physiotherapist-first digital health platform that keeps the care relationship productive between clinic visits — a professional practice-management and remote-monitoring tool for therapists, and a structured, AI-guided recovery experience for patients.",
+      "It began as ‘Proctify’, a patients-only college project (Top 15 at the Smart India Hackathon, Top 50 Global at the Google Solution Challenge). I independently reworked it into a full two-sided product — introducing the therapist-facing dashboard the original never scoped, and authoring the complete PRD and design system.",
+      "The therapist dashboard spans the whole practice: a home view that surfaces the patients who need attention, a practice-analytics layer for clinical outcomes and revenue, a step-by-step programme builder, per-patient progress tracking (pain trends, form accuracy, joint range), scheduling, in-app messaging, alerts, billing, and a physiotherapist-first onboarding flow.",
+    ],
+    highlights: [
+      "Designed the full therapist dashboard — from a needs-attention home view to practice analytics, scheduling, and billing.",
+      "Built a step-by-step programme builder and per-patient progress tracking (pain, form accuracy, joint range).",
+      "Introduced the therapist-facing surface the original patients-only concept never scoped.",
+      "Authored the complete PRD and design system — a 23-screen breakdown across both experiences.",
+    ],
+    tags: ["Product Design", "Design System", "Healthtech", "0 → 1"],
+    tools: ["Figma"],
+    metrics: [
+      { value: "23", label: "Screens" },
+      { value: "2", label: "Sided surfaces" },
+      { value: "Top 15", label: "Smart India Hackathon" },
+    ],
+    gallery: [
+      "analytics.png",
+      "patient-progress.png",
+      "patient-profile.png",
+      "programme-library.png",
+      "programme-builder-step1.png",
+      "programme-builder-step2.png",
+      "programme-builder-step3.png",
+      "programme-builder-step4.png",
+      "programme-published.png",
+      "schedule.png",
+      "session-log.png",
+      "inbox.png",
+      "messages.png",
+      "alerts.png",
+      "notifications.png",
+      "billing.png",
+      "reports.png",
+      "onboarding-flow.png",
+      "onboarding-split-variation.png",
+      "settings-profile.png",
+    ],
+    featured: true,
+  },
   {
     slug: "sachet",
     dir: "sachet",
@@ -86,36 +144,6 @@ export const projects: Project[] = [
     tags: ["Product Design", "Dashboard", "Cybersecurity", "B2B"],
     tools: ["Figma"],
     gallery: ["frame-10.png"],
-    featured: true,
-  },
-  {
-    slug: "formi",
-    title: "Formi",
-    subtitle: "Physiotherapy platform — two-sided product",
-    role: "Independent Product Design",
-    timeline: "Ongoing",
-    year: "2026",
-    accent: "teal",
-    // no images yet — shows a colourful lettermark until covers are added
-    layout: "web",
-    summary:
-      "Evolved from ‘Proctify’, a patients-only college project, into Formi — a full two-sided platform connecting physiotherapists and patients through AI-guided remote recovery.",
-    overview: [
-      "Formi is a physiotherapist-first digital health platform that keeps the care relationship productive between clinic visits — a professional practice-management and remote-monitoring tool for therapists, and a structured, AI-guided recovery experience for patients.",
-      "It began as ‘Proctify’, a patients-only college project (Top 15 at the Smart India Hackathon, Top 50 Global at the Google Solution Challenge). I independently reworked it into a full two-sided product — introducing a therapist-facing dashboard the original never scoped, and authoring the complete PRD and design system.",
-    ],
-    highlights: [
-      "Introduced a therapist-facing web dashboard the original concept never accounted for.",
-      "Rebuilt workflow, information architecture, and a programme-delivery model connecting therapist and patient.",
-      "Authored the complete PRD and design system — a 23-screen breakdown across both experiences.",
-    ],
-    tags: ["Product Design", "Design System", "Healthtech", "0 → 1"],
-    tools: ["Figma"],
-    metrics: [
-      { value: "23", label: "Screens" },
-      { value: "2", label: "Sided surfaces" },
-      { value: "Top 15", label: "Smart India Hackathon" },
-    ],
     featured: true,
   },
   {

@@ -83,6 +83,7 @@ export const projects: Project[] = [
     timeline: "~2 months",
     year: "2025",
     accent: "blue",
+    image: "/projects/conqr.png",
     summary:
       "Shaped a brief for an approachable, trustworthy legal AI into a calm, credible interface — designing the single-scroll marketing landing page from scratch and redesigning the existing product solo.",
     highlights: [
@@ -96,6 +97,22 @@ export const projects: Project[] = [
       { value: "12", label: "Screens redesigned" },
     ],
     link: "https://www.behance.net/designwithaditi",
+    featured: true,
+  },
+  {
+    slug: "sachet",
+    title: "Sachet",
+    subtitle: "UI/UX design project", // TODO: refine from Figma
+    role: "Product Design",
+    timeline: "Case study",
+    year: "2025",
+    accent: "pink",
+    image: "/projects/sachet.png",
+    // TODO: replace with real bullets from the Sachet Figma file
+    summary:
+      "A product design project — full case study coming soon. (Add the story from the Sachet Figma file.)",
+    highlights: [],
+    tags: ["UI/UX Design", "Product Design"],
     featured: true,
   },
   {
@@ -116,6 +133,22 @@ export const projects: Project[] = [
     tags: ["Mobile", "Interaction Design", "Concept", "Reading"],
     metrics: [{ value: "1", label: "Signature feature" }],
     link: "https://www.behance.net/designwithaditi",
+    featured: true,
+  },
+  {
+    slug: "ux-research",
+    title: "UX Research Study",
+    subtitle: "UI/UX research assignment", // TODO: refine from Figma
+    role: "User Research",
+    timeline: "Case study",
+    year: "2025",
+    accent: "yellow",
+    image: "/projects/ux-research.png",
+    // TODO: replace with real bullets from the research Figma file
+    summary:
+      "An end-to-end UX research assignment — methods, findings, and design decisions. Full write-up coming soon.",
+    highlights: [],
+    tags: ["User Research", "UX", "Discovery"],
     featured: true,
   },
   {

@@ -18,13 +18,22 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
 
   const media = (
     <div className="tile-media">
-      {p.image && <img className="tile-img" src={p.image} alt={`${p.title} — ${p.subtitle}`} />}
+      <span className="tile-mark">{p.title.charAt(0)}</span>
+      {p.image && (
+        <img
+          className="tile-img"
+          src={p.image}
+          alt={`${p.title} — ${p.subtitle}`}
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      )}
       <div className="tile-tags">
         {p.tags.slice(0, big ? 2 : 1).map((t) => (
           <span className="tile-tag" key={t}>{t}</span>
         ))}
       </div>
-      {!p.image && <span className="tile-mark">{p.title.charAt(0)}</span>}
       <span className="tile-year">{p.year}</span>
     </div>
   );

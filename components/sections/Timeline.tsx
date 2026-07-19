@@ -1,22 +1,17 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { timeline } from "@/lib/data";
 
-/** Horizontal career timeline — scroll left→right; the spine fills with scroll. */
+/** Vertical timeline — the spine fills as you scroll through the section. */
 export default function Timeline() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const fillRef = useRef<HTMLDivElement>(null);
-
-  const onScroll = () => {
-    const el = scrollRef.current;
-    const fill = fillRef.current;
-    if (!el || !fill) return;
-    const max = el.scrollWidth - el.clientWidth;
-    const p = max > 0 ? el.scrollLeft / max : 0;
-    fill.style.transform = `scaleX(${Math.max(0.02, p)})`;
-  };
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 78%", "end 55%"],
+  });
+  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <section className="section" id="experience">
@@ -28,46 +23,33 @@ export default function Timeline() {
               Growth <em>ladder</em>
             </h2>
           </div>
-          <span className="tl-hint">
-            Scroll <span className="arw">→</span>
-          </span>
+          <span className="pill">{timeline.length} milestones</span>
         </div>
-      </div>
 
-      <div className="tl-scroll" ref={scrollRef} onScroll={onScroll}>
-        <div className="tl-track">
-          <div className="tl-line" aria-hidden>
-            <div className="tl-fill" ref={fillRef} />
+        <div className="vtl" ref={ref}>
+          <div className="vtl-spine">
+            <motion.div className="vtl-fill" style={{ scaleY }} />
           </div>
 
           {timeline.map((m, i) => (
             <motion.div
               key={i}
-              className={`tl-item${m.placeholder ? " is-placeholder" : ""}`}
+              className={`vtl-item${m.placeholder ? " is-placeholder" : ""}`}
               style={{ ["--accent" as string]: `var(--${m.accent})` }}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-              transition={{ duration: 0.6, delay: (i % 4) * 0.06, ease: [0.2, 0.7, 0.2, 1] as const }}
+              initial={{ opacity: 0, x: 26 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+              transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] as const }}
             >
-              <span className="tl-dot" />
-              <span className="tl-conn" />
-              <div className="tl-card">
-                {m.image && (
-                  <div className="tl-photo">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/timeline/${m.image}`} alt={`${m.title} — ${m.org ?? ""}`} loading="lazy" />
-                  </div>
-                )}
-                <div className="tl-card-body">
-                  <div className="tl-top">
-                    <span className="tl-year">{m.year}</span>
-                    <span className="tl-tag">{m.type}</span>
-                  </div>
-                  <h3 className="tl-title">{m.title}</h3>
-                  {m.org && <div className="tl-org">{m.org}</div>}
-                  <p className="tl-desc">{m.description}</p>
+              <span className="vtl-dot" />
+              <div className="vtl-card">
+                <div className="tl-top">
+                  <span className="tl-year">{m.year}</span>
+                  <span className="tl-tag">{m.type}</span>
                 </div>
+                <h3 className="tl-title">{m.title}</h3>
+                {m.org && <div className="tl-org">{m.org}</div>}
+                <p className="tl-desc">{m.description}</p>
               </div>
             </motion.div>
           ))}

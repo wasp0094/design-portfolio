@@ -403,7 +403,7 @@ export const timeline: TimelineItem[] = [
     org: "Design Verse · BVCOE, New Delhi",
     description:
       "Invited to judge Design Verse — a two-day design seminar & competition (IEEE Student Branch) — reviewing student projects and awarding the winning teams.",
-    image: "design-verse.jpg",
+    // image kept in public/timeline/ — reference removed for now
   },
   {
     year: "Aug 2025",

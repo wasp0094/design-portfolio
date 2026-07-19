@@ -29,7 +29,7 @@ export default function Nav() {
     >
       <div className="nav-inner">
         <a href="#top" className="nav-brand">
-          <span className="nav-blob" />
+          <img className="nav-logo" src="/aditi-avatar.png" alt="Aditi Agarwal" width={30} height={30} />
           Aditi<span style={{ color: "var(--coral)" }}>.</span>
         </a>
         <div className="nav-links">

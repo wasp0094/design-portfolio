@@ -1,91 +1,91 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import Reveal from "../ui/Reveal";
+import { motion } from "motion/react";
 import { projects, type Project } from "@/lib/data";
 
-function ProjectCard({ p }: { p: Project }) {
-  // subtle 3D tilt toward cursor
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [4, -4]), { stiffness: 150, damping: 18 });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-4, 4]), { stiffness: 150, damping: 18 });
+type Size = "lg" | "md" | "wide";
 
-  const onMove = (e: React.MouseEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width - 0.5);
-    my.set((e.clientY - r.top) / r.height - 0.5);
-  };
-  const reset = () => { mx.set(0); my.set(0); };
+const reveal = (i: number) => ({
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "0px 0px -12% 0px" },
+  transition: { duration: 0.7, delay: (i % 3) * 0.08, ease: [0.2, 0.7, 0.2, 1] as const },
+  whileHover: { x: -4, y: -4 },
+});
 
-  const inner = (
-    <article
-      className="project"
-      data-accent={p.accent}
-      data-hover
-      onMouseMove={onMove}
-      onMouseLeave={reset}
-    >
-      <motion.div
-        className="project-grid"
-        style={{ rotateX: rx, rotateY: ry, transformPerspective: 1200 }}
-      >
-        <div className="project-visual">
-          <div className="ribbon">
-            {p.tags.slice(0, 2).map((t) => (
-              <span className="float-tag" key={t}>{t}</span>
-            ))}
-          </div>
-          <span className="mark">{p.title.charAt(0)}</span>
-          <span className="yearbig">{p.year}</span>
-        </div>
+function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
+  const big = size === "lg";
 
-        <div className="project-body">
-          <div className="project-role">
-            {p.role} <span className="sep" /> {p.timeline}
-          </div>
-          <h3 className="project-name">{p.title}</h3>
-          <div className="project-sub">{p.subtitle}</div>
-          <p className="project-summary">{p.summary}</p>
-
-          {p.metrics && (
-            <div className="project-metrics">
-              {p.metrics.map((m) => (
-                <div className="m" key={m.label}>
-                  <div className="v">{m.value}</div>
-                  <div className="l">{m.label}</div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <div className="project-tags">
-            {p.tags.map((t) => (
-              <span key={t}>{t}</span>
-            ))}
-          </div>
-
-          <div className="project-cta">
-            {p.link ? "View case study" : "Case study in progress"}
-            <span className="circle">↗</span>
-          </div>
-        </div>
-      </motion.div>
-    </article>
+  const media = (
+    <div className="tile-media">
+      {p.image && <img className="tile-img" src={p.image} alt={`${p.title} — ${p.subtitle}`} />}
+      <div className="tile-tags">
+        {p.tags.slice(0, big ? 2 : 1).map((t) => (
+          <span className="tile-tag" key={t}>{t}</span>
+        ))}
+      </div>
+      {!p.image && <span className="tile-mark">{p.title.charAt(0)}</span>}
+      <span className="tile-year">{p.year}</span>
+    </div>
   );
 
-  return (
-    <Reveal>
-      {p.link ? (
-        <a href={p.link} target="_blank" rel="noopener noreferrer">
-          {inner}
-        </a>
-      ) : (
-        inner
+  const info = (
+    <div className="tile-info">
+      <div className="tile-role">
+        {p.role} <span className="sep" /> {p.timeline}
+      </div>
+      <h3 className="tile-name">{p.title}</h3>
+      <div className="tile-sub">{p.subtitle}</div>
+
+      {big && <p className="tile-summary">{p.summary}</p>}
+
+      {big && p.metrics && (
+        <div className="tile-metrics">
+          {p.metrics.map((m) => (
+            <div key={m.label}>
+              <div className="v">{m.value}</div>
+              <div className="l">{m.label}</div>
+            </div>
+          ))}
+        </div>
       )}
-    </Reveal>
+
+      {big && (
+        <div className="tile-chiprow">
+          {p.tags.map((t) => (
+            <span key={t}>{t}</span>
+          ))}
+        </div>
+      )}
+
+      <div className="tile-cta">
+        {p.link ? "View case study" : "In progress"}
+        <span className="circle">↗</span>
+      </div>
+    </div>
+  );
+
+  const common = {
+    className: `tile ${size}`,
+    "data-accent": p.accent,
+    "data-hover": true as const,
+    ...reveal(i),
+  };
+
+  return p.link ? (
+    <motion.a {...common} href={p.link} target="_blank" rel="noopener noreferrer">
+      {media}
+      {info}
+    </motion.a>
+  ) : (
+    <motion.article {...common}>
+      {media}
+      {info}
+    </motion.article>
   );
 }
+
+const sizeFor = (i: number): Size => (i === 0 ? "lg" : i <= 2 ? "md" : "wide");
 
 export default function Work() {
   return (
@@ -101,10 +101,28 @@ export default function Work() {
           <span className="pill">{projects.length} projects</span>
         </div>
 
-        <div className="work-list">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} p={p} />
+        <div className="bento">
+          {projects.map((p, i) => (
+            <Tile key={p.slug} p={p} size={sizeFor(i)} i={i} />
           ))}
+
+          <motion.a
+            className="tile invite"
+            href="#contact"
+            data-hover
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+            transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] as const }}
+            whileHover={{ x: -4, y: -4 }}
+          >
+            <span className="eyebrow">Have a project in mind?</span>
+            <h3>Let’s design something people love to use.</h3>
+            <span className="go">
+              Start a conversation
+              <span className="circle">↗</span>
+            </span>
+          </motion.a>
         </div>
       </div>
     </section>

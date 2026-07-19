@@ -83,10 +83,8 @@ export default function Hero() {
             whileHover={{ rotate: -2, y: -6 }}
           >
             <div className="ph">
-              <div style={{ textAlign: "center" }}>
-                <div className="big">AA</div>
-                <div className="mono">Aditi Agarwal</div>
-              </div>
+              <img src="/aditi-avatar.png" alt="Illustrated portrait of Aditi Agarwal" className="ph-img" />
+              <span className="ph-name">Aditi Agarwal</span>
             </div>
           </motion.div>
         </div>

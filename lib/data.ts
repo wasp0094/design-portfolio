@@ -42,6 +42,7 @@ export type Project = {
   timeline: string;
   year: string;
   accent: string;   // theme colour (CSS var name from palette)
+  image?: string;   // e.g. "/projects/formi.png" — drop file in public/projects/
   summary: string;
   highlights: string[];
   tags: string[];

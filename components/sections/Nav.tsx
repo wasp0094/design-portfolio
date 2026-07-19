@@ -27,6 +27,7 @@ export default function Nav() {
       animate={{ y: hidden ? -120 : 0 }}
       transition={{ duration: 0.4, ease: [0.2, 0.7, 0.2, 1] as const }}
     >
+      <div className="wrap">
       <div className="nav-inner">
         <a href="#top" className="nav-brand">
           <img className="nav-logo" src="/aditi-avatar.png" alt="Aditi Agarwal" width={30} height={30} />
@@ -44,6 +45,7 @@ export default function Nav() {
             </a>
           </Magnetic>
         </div>
+      </div>
       </div>
     </motion.nav>
   );

@@ -17,8 +17,8 @@ export const profile = {
   intro:
     "Product & UI/UX designer with 2+ years taking B2B and healthtech products from messy research all the way to shipped, high-fidelity UI — design systems, two-sided products, and the calm interfaces in between.",
   phone: "+91 98183 77310",
-  // TODO: replace with Aditi's real email + LinkedIn URL
-  email: "hello@designwithaditi.com",
+  // TODO: replace with Aditi's real LinkedIn URL
+  email: "makedesignwithaditi@gmail.com",
   socials: [
     { label: "Behance", handle: "designwithaditi", href: "https://www.behance.net/designwithaditi" },
     { label: "Dribbble", handle: "designwithaditii", href: "https://dribbble.com/designwithaditii" },
@@ -152,20 +152,37 @@ export const experience = [
   },
 ];
 
-export const capabilities = {
-  design: [
-    "Product Design",
-    "UI/UX Design",
-    "Design Systems",
-    "User Research",
-    "Wireframing",
-    "Prototyping",
-    "Interaction Design",
-    "Typography",
-  ],
-  tools: ["Figma", "Sketch", "Canva", "Git", "GitHub", "GitLab"],
-  frontend: ["HTML", "CSS", "Tailwind", "Bootstrap", "React (basic)"],
-};
+export type Skill = { name: string; tier?: "primary" | "medium" };
+
+export const capabilities: { title: string; accent: string; skills: Skill[] }[] = [
+  {
+    title: "Design",
+    accent: "coral",
+    skills: [
+      { name: "Product Design", tier: "primary" },
+      { name: "UI/UX Design", tier: "primary" },
+      { name: "Design Systems", tier: "primary" },
+      { name: "User Research", tier: "medium" },
+      { name: "Prototyping", tier: "medium" },
+      { name: "Interaction Design" },
+      { name: "Wireframing" },
+      { name: "Typography" },
+    ],
+  },
+  {
+    title: "Tools",
+    accent: "blue",
+    skills: [
+      { name: "Figma", tier: "primary" },
+      { name: "Figma Make", tier: "primary" },
+      { name: "Sketch" },
+      { name: "Canva" },
+      { name: "Git" },
+      { name: "GitHub" },
+      { name: "GitLab" },
+    ],
+  },
+];
 
 export const marqueeWords = [
   "Product Design",
@@ -181,24 +198,34 @@ export const marqueeWords = [
 ];
 
 export const recognition = {
-  awards: [
-    "Top 50 Global — Google Solution Challenge 2022",
-    "Top 15 Teams — Smart India Hackathon 2022",
-    "Rank 4 / 150 — LiveTheCode Hackathon",
-    "Runner-Up — Evotech 5.0 Ideathon, BVPCOE",
+  // top awards — shown big and colourful
+  highlights: [
+    { rank: "Top 50", scope: "Global", event: "Google Solution Challenge", year: "2022", accent: "coral" },
+    { rank: "Top 15", scope: "National", event: "Smart India Hackathon", year: "2022", accent: "blue" },
+    { rank: "Rank 4", scope: "of 150", event: "LiveTheCode Hackathon", year: "", accent: "violet" },
+  ],
+  // minor placements — one quiet line
+  alsoPlaced: [
+    "Runner-Up — Evotech 5.0 Ideathon",
     "Top 50 / 115 — DotSlash 5.0",
   ],
-  certifications: [
-    "UX Design — Accenture",
-    "Product Design & Development — NPTEL (85%)",
-    "Functional & Conceptual Design — NPTEL (84%)",
-    "UX Design Workshop — InnovateU",
-  ],
+  certifications: {
+    featured: { name: "UX Design", by: "Accenture" },
+    others: [
+      "Product Design & Development — NPTEL (85%)",
+      "Functional & Conceptual Design — NPTEL (84%)",
+      "UX Design Workshop — InnovateU",
+    ],
+  },
   education: {
     degree: "B.Tech, Computer Science",
     school: "Maharaja Agrasen Institute of Technology",
-    detail: "2020 — 2024 · 8.91 / 10 CGPA",
+    years: "2020 — 2024",
+    cgpa: "8.91 / 10",
   },
-  mentorship:
-    "UI Development Mentor at Girl Code It — ran a Git & GitHub fundamentals session for 300+ students and mentored 5+ through a UI bootcamp.",
+  mentorship: {
+    num: "300+",
+    org: "Girl Code It",
+    text: "Ran a Git & GitHub fundamentals session for 300+ students and mentored 5+ through a UI development bootcamp.",
+  },
 };

@@ -38,13 +38,6 @@ export default function Hero() {
       </div>
 
       <div className="wrap hero-inner">
-        <motion.div className="hero-top" variants={fade} initial="hidden" animate="show">
-          <span className="badge-available">
-            <span className="dot-live" /> Available for freelance &amp; full-time
-          </span>
-          <span className="pill">{profile.location}</span>
-        </motion.div>
-
         <motion.h1 className="hero-title" variants={container} initial="hidden" animate="show">
           <span className="line">
             <motion.span className="word" variants={line}>

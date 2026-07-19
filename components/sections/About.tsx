@@ -36,30 +36,30 @@ export default function About() {
 
           <Reveal delay={0.12}>
             <div className="cap-block" data-hover>
-              <div className="cap-row">
-                <h4>Design</h4>
-                <div className="chips">
-                  {capabilities.design.map((c) => (
-                    <span className="chip" key={c}>{c}</span>
-                  ))}
+              {capabilities.map((group) => (
+                <div
+                  className="cap-row"
+                  key={group.title}
+                  style={{ ["--accent" as string]: `var(--${group.accent})` }}
+                >
+                  <h4>
+                    {group.title}
+                    {group.title === "Design" && (
+                      <span className="cap-hint">★ core strengths</span>
+                    )}
+                  </h4>
+                  <div className="chips">
+                    {group.skills.map((s) => (
+                      <span
+                        className={`chip${s.tier ? " " + s.tier : ""}`}
+                        key={s.name}
+                      >
+                        {s.name}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="cap-row">
-                <h4>Tools</h4>
-                <div className="chips">
-                  {capabilities.tools.map((c) => (
-                    <span className="chip" key={c}>{c}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="cap-row">
-                <h4>Frontend</h4>
-                <div className="chips">
-                  {capabilities.frontend.map((c) => (
-                    <span className="chip" key={c}>{c}</span>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </Reveal>
         </div>

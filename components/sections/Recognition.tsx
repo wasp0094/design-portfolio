@@ -1,15 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import Reveal from "../ui/Reveal";
 import { recognition } from "@/lib/data";
 
-const cell = (i: number) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "0px 0px -10% 0px" },
-  transition: { duration: 0.7, delay: i * 0.07, ease: [0.2, 0.7, 0.2, 1] as const },
-  whileHover: { x: -3, y: -3 },
-});
+const r = recognition;
 
 export default function Recognition() {
   return (
@@ -24,38 +19,78 @@ export default function Recognition() {
           </div>
         </div>
 
-        <div className="recog-bento">
-          <motion.div className="recog-card span-2x2 tint-lime" data-hover {...cell(0)}>
-            <h4>Awards</h4>
-            <ul className="recog-list" style={{ ["--accent" as string]: "var(--coral)" }}>
-              {recognition.awards.map((a) => (
-                <li key={a}>{a}</li>
-              ))}
-            </ul>
-          </motion.div>
+        {/* --- top awards, big & colourful --- */}
+        <div className="recog-highlights">
+          {r.highlights.map((a, i) => (
+            <motion.article
+              key={a.event}
+              className="award-card"
+              data-accent={a.accent}
+              data-hover
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] as const }}
+              whileHover={{ x: -4, y: -4 }}
+            >
+              {a.year && <span className="award-year">{a.year}</span>}
+              <span className="award-scope">{a.scope}</span>
+              <span className="award-rank">{a.rank}</span>
+              <span className="award-event">{a.event}</span>
+            </motion.article>
+          ))}
+        </div>
 
-          <motion.div className="recog-card span-2 tint-blue" data-hover {...cell(1)}>
-            <h4>Certifications</h4>
-            <ul className="recog-list" style={{ ["--accent" as string]: "var(--blue)" }}>
-              {recognition.certifications.map((c) => (
-                <li key={c}>{c}</li>
-              ))}
-            </ul>
-          </motion.div>
+        <Reveal>
+          <p className="recog-also">
+            Also placed at{" "}
+            {r.alsoPlaced.map((a, i) => (
+              <span key={a}>
+                <b>{a}</b>
+                {i < r.alsoPlaced.length - 1 ? " · " : ""}
+              </span>
+            ))}
+          </p>
+        </Reveal>
 
-          <motion.div className="recog-card span-2 tint-violet" data-hover {...cell(2)}>
-            <h4>Mentorship</h4>
-            <p className="mentor-txt">{recognition.mentorship}</p>
-          </motion.div>
-
-          <motion.div className="recog-card span-4 tint-pink" data-hover {...cell(3)}>
-            <h4>Education</h4>
-            <div className="edu-inner">
-              <span className="edu-degree">{recognition.education.degree}</span>
-              <span className="edu-school">{recognition.education.school}</span>
-              <span className="edu-detail">{recognition.education.detail}</span>
+        {/* --- credentials, clear headers + priority --- */}
+        <div className="recog-detail">
+          <Reveal className="recog-col" style={{ ["--accent" as string]: "var(--blue)" }}>
+            <div>
+              <h3 className="recog-h">Certifications</h3>
+              <div className="cert-featured">
+                <span className="star">★</span>
+                <span className="n">{r.certifications.featured.name}</span>
+                <span className="by">— {r.certifications.featured.by}</span>
+              </div>
+              <ul className="cert-list">
+                {r.certifications.others.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
             </div>
-          </motion.div>
+          </Reveal>
+
+          <Reveal className="recog-col" delay={0.08}>
+            <div style={{ ["--accent" as string]: "var(--coral)" }}>
+              <h3 className="recog-h">Education</h3>
+              <div className="edu-degree">{r.education.degree}</div>
+              <div className="edu-school">{r.education.school}</div>
+              <div className="edu-meta">
+                <span className="edu-cgpa">{r.education.cgpa}</span>
+                <span className="edu-years">CGPA · {r.education.years}</span>
+              </div>
+            </div>
+
+            <div style={{ ["--accent" as string]: "var(--violet)" }}>
+              <h3 className="recog-h">Mentorship</h3>
+              <div className="mentor-stat">
+                <span className="mentor-num">{r.mentorship.num}</span>
+                <span className="mentor-org">students taught · {r.mentorship.org}</span>
+              </div>
+              <p className="mentor-text">{r.mentorship.text}</p>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

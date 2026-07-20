@@ -463,6 +463,22 @@ body.cursor-hover .cursor-ring {
 .vtl-item.is-placeholder .tl-org,
 .vtl-item.is-placeholder .tl-desc { color: var(--ink-3); }
 
+/* big screens: centre spine with cards alternating left / right */
+@media (min-width: 1024px) {
+  .vtl-spine { left: 50%; transform: translateX(-50%); }
+  .vtl-item { padding-left: 0; display: flex; }
+  .vtl-item:nth-child(odd)  { justify-content: flex-start; }
+  .vtl-item:nth-child(even) { justify-content: flex-end; }
+  .vtl-dot { left: 50%; transform: translateX(-50%); }
+  .vtl-dot::after {
+    content: ""; position: absolute; top: 50%; height: 2.5px; width: 30px;
+    background: var(--accent); transform: translateY(-50%);
+  }
+  .vtl-item:nth-child(odd)  .vtl-dot::after { right: 100%; }
+  .vtl-item:nth-child(even) .vtl-dot::after { left: 100%; }
+  .vtl-card { width: calc(50% - 42px); max-width: none; }
+}
+
 /* ============================================================
    RECOGNITION — highlight reel + tidy ledger
    ============================================================ */

@@ -36,7 +36,7 @@ export default function Timeline() {
               key={i}
               className={`vtl-item${m.placeholder ? " is-placeholder" : ""}`}
               style={{ ["--accent" as string]: `var(--${m.accent})` }}
-              initial={{ opacity: 0, x: 26 }}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -28 : 28 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "0px 0px -12% 0px" }}
               transition={{ duration: 0.6, ease: [0.2, 0.7, 0.2, 1] as const }}

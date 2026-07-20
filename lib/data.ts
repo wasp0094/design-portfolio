@@ -95,6 +95,61 @@ export const projects: Project[] = [
       { value: "2", label: "Sided surfaces" },
       { value: "Top 15", label: "Smart India Hackathon" },
     ],
+    caseStudy: [
+      {
+        heading: "The problem — physios giving care away for free",
+        body: [
+          "India has roughly one physiotherapist for every 25,000 people. Independent practitioners already deliver remote care between visits — but informally, over WhatsApp: unpaid, invisible, and impossible to scale past 10–15 active patients without burning out.",
+          "The result is revenue leakage from dropout, WhatsApp chaos with no visibility between visits, ad-hoc cash/UPI billing, and progress that’s anecdotal rather than evidenced.",
+        ],
+      },
+      {
+        heading: "The strategic bet — physiotherapist-first",
+        body: [
+          "Most health apps acquire patients directly and treat the doctor as a distribution channel. Formi inverts that: the physiotherapist is the primary customer. They build programmes, set prices, and invite patients — the patient’s app is an extension of the therapist’s clinical work.",
+          "The model is financially aligned — Formi only earns a platform fee (8–12%) when a programme payment clears, so the product’s incentive is the therapist’s: more completed programmes. That’s the north-star metric — completed programmes per therapist per month.",
+        ],
+      },
+      {
+        heading: "The design challenge",
+        body: [
+          "The dashboard had to be a practice-management tool, not just a monitoring screen — reducing the cognitive load of running a multi-patient practice. The guiding constraint: a therapist should be able to do their full daily patient review in under 10 minutes.",
+          "That meant surfacing what needs attention without noise, and making billing and communication effortless.",
+        ],
+      },
+      {
+        heading: "Surfacing what matters — the overview dashboard",
+        body: [
+          "The home screen prioritises by urgency: flagged patients (pain spike, form deterioration, missed sessions) rise to the top, then active patients by last session, then upcoming starts. A banner states it plainly — ‘X patients need your attention.’",
+          "Each patient card carries last session, pain-trend arrow, completion %, payment status, and any active flags — so the therapist triages a whole caseload at a glance.",
+        ],
+      },
+      {
+        heading: "The programme builder — the gateway",
+        body: [
+          "Programme creation is the therapist’s primary action and the single gate every patient enters through. I designed a builder for setting duration, frequency, and per-exercise sets / reps / hold / rest from a clinician-validated exercise library — with per-exercise notes, transparent instalment pricing (platform fee shown before publishing), reusable templates, and draft states.",
+        ],
+      },
+      {
+        heading: "Alerts — the clinical safety layer",
+        body: [
+          "The alert system is the platform’s most important safety layer. It’s tiered Critical / Moderate / Informational so it surfaces action without flooding the therapist with noise: pain-spike (post-session pain up 2+ vs. the 3-session average), form-deterioration, missed-session, instalment-due, and programme-completion-approaching flags — each paired with a suggested action.",
+        ],
+      },
+      {
+        heading: "Billing without the admin",
+        body: [
+          "To replace cash-and-WhatsApp billing, the dashboard handles the money: a revenue view of collected vs. expected, per-patient payment logs with the platform fee shown, automatic instalment reminders, offline-payment marking, GST-compliant receipts, and weekly payouts — turning previously unbillable clinical time into tracked revenue.",
+        ],
+      },
+      {
+        heading: "One system, two apps — and the outcome",
+        body: [
+          "Everything sits on a design system I built from the ground up — the same teal, Inter type, and 4pt spacing shared with the patient app — so the two-sided product feels like one product, with dense clinical data rendered as calm, scannable views.",
+          "The result: a 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing, and reporting — the clinical-oversight half of Formi’s two-sided model, evolved from a patients-only college project into a full practice-management platform.",
+        ],
+      },
+    ],
     gallery: [
       "analytics.png",
       "patient-progress.png",
@@ -129,7 +184,7 @@ export const projects: Project[] = [
     year: "2026",
     accent: "teal",
     cover: "home.png",
-    hero: "session-summary.png",
+    hero: "splash.png",
     layout: "mobile",
     captions: true,
     summary:
@@ -247,40 +302,12 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "sachet",
-    dir: "sachet",
-    title: "Sachet",
-    subtitle: "Enterprise security operations (SOC) platform",
-    role: "Product & UI/UX Design",
-    timeline: "Case study",
-    year: "2025",
-    accent: "violet",
-    cover: "frame-10.png",
-    hero: "macbook-pro-14-1.png",
-    layout: "web",
-    summary:
-      "A Security Operations Center platform that helps enterprises cut alert fatigue and respond to incidents faster — landing page and analytics dashboard.",
-    overview: [
-      "Sachet is a Security Operations Center (SOC) platform built to simplify security operations for the enterprise — giving teams complete visibility, less alert fatigue, and faster incident response from one intelligent dashboard.",
-      "The work spanned both the marketing site and the core product: turning dense security telemetry — real-time threat detection, automated incident-response workflows, unified analytics, and compliance-ready reporting — into a calm, scannable interface analysts can act on quickly.",
-    ],
-    highlights: [
-      "Designed the marketing landing page and the SOC analytics dashboard.",
-      "Structured threat detection, incident-response workflows, and compliance reporting into one unified, scannable UI.",
-      "Balanced enterprise depth with startup-level clarity.",
-    ],
-    tags: ["Product Design", "Dashboard", "Cybersecurity", "B2B"],
-    tools: ["Figma"],
-    gallery: ["frame-10.png"],
-    featured: true,
-  },
-  {
     slug: "conqr-platform",
     dir: "conqr-platform",
     title: "Conqr.ai — Platform",
     subtitle: "Legal-AI product — UI overhaul",
     role: "Solo Freelance",
-    timeline: "~2 months",
+    timeline: "1 month",
     year: "2025",
     accent: "blue",
     cover: "cover-image.jpg",
@@ -299,8 +326,67 @@ export const projects: Project[] = [
     ],
     tags: ["Product Redesign", "SaaS", "Legal AI", "Design System"],
     tools: ["Figma"],
-    metrics: [{ value: "12", label: "Screens redesigned" }],
-    gallery: ["home-dashboard.png", "home-alldocuments.png", "home-payments.png", "conqr.png"],
+    metrics: [
+      { value: "12", label: "Screens redesigned" },
+      { value: "4", label: "Process stages" },
+      { value: "1 mo", label: "Timeline" },
+    ],
+    caseStudy: [
+      {
+        heading: "The project",
+        body: [
+          "Conqr.ai is an AI-powered legal co-pilot for corporate legal teams — it helps them automate document creation, track compliance, and streamline due-diligence workflows. I joined as the sole freelance UI designer to establish a cohesive visual identity across the product.",
+        ],
+      },
+      {
+        heading: "The problem",
+        body: [
+          "The platform had no unified visual language — screens felt inconsistent across components, typography, and colour usage. For a product that needs to feel precise and trustworthy to corporate legal teams, that inconsistency was quietly undermining credibility.",
+        ],
+      },
+      {
+        heading: "The process",
+        body: [
+          "I worked in four stages — Audit, Wireframe, Visual System, Final UI.",
+          "It began with a UI audit of the existing platform, cataloguing inconsistencies across components, typography, and colour — the map of everything to fix.",
+        ],
+      },
+      {
+        heading: "Wireframes — structure before style",
+        body: [
+          "Before committing to any visual direction, I mapped the core screens in low fidelity. The focus was structure, information hierarchy, content flow, and the user journey — without the distraction of colour or detail.",
+        ],
+      },
+      {
+        heading: "A visual system built for authority",
+        body: [
+          "The design language is a neutral base palette with a single purposeful accent — a deep navy (#0C4160) — keeping the interface modern and clean without losing the authority a corporate legal audience expects.",
+          "Merriweather and Lato were chosen for legibility and professionalism, and a component library was built in Figma so every screen stays consistent.",
+        ],
+      },
+      {
+        heading: "The redesign",
+        body: [
+          "I applied the system across the product: the dashboard, an all-documents workspace (table and kanban views), plan and pricing, and document upload / compare — turning dense legal document management into calm, consistent, scannable screens.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "A cohesive, componentised platform UI delivered end-to-end in a one-month freelance engagement — the product half of a project that also produced Conqr.ai’s landing page.",
+        ],
+      },
+    ],
+    gallery: [
+      "board-overview.jpg",
+      "board-wireframes.jpg",
+      "board-visual-system.jpg",
+      "board-platform-redesign.jpg",
+      "home-dashboard.png",
+      "home-alldocuments.png",
+      "home-payments.png",
+    ],
+    link: "https://www.behance.net/gallery/249693337/Conqrai-UI-Redesign-Landing-Page-Design",
     featured: true,
   },
   {
@@ -309,7 +395,7 @@ export const projects: Project[] = [
     title: "Conqr.ai — Landing",
     subtitle: "Legal-AI marketing landing page",
     role: "Solo Freelance",
-    timeline: "~2 months",
+    timeline: "1 month",
     year: "2025",
     accent: "teal",
     cover: "conqr.png",
@@ -328,9 +414,57 @@ export const projects: Project[] = [
     ],
     tags: ["Landing Page", "Marketing", "Brand", "Web"],
     tools: ["Figma"],
-    metrics: [{ value: "1.8k+", label: "Behance views" }],
-    gallery: ["frame-785.png", "frame-746.png", "rectangle.png"],
-    link: "https://www.behance.net/designwithaditi",
+    metrics: [
+      { value: "1.8k+", label: "Behance views" },
+      { value: "1 mo", label: "Timeline" },
+      { value: "Legal Tech", label: "Industry" },
+    ],
+    caseStudy: [
+      {
+        heading: "The project",
+        body: [
+          "Conqr.ai is an AI-powered legal co-pilot for corporate legal teams. Alongside overhauling the product UI, I was brought in — as the sole freelance designer — to give it something it didn’t have: a landing page.",
+        ],
+      },
+      {
+        heading: "The goal",
+        body: [
+          "The platform had no landing page to communicate its value to potential clients. I designed one from scratch to speak directly to corporate legal teams — an audience that prizes clarity, precision, and professionalism above all.",
+        ],
+      },
+      {
+        heading: "Grounded in one visual system",
+        body: [
+          "The landing page shares the product’s visual system — a neutral base with a single deep-navy accent (#0C4160) and the Merriweather / Lato pairing — so the marketing site and the product feel like one, credible brand.",
+        ],
+      },
+      {
+        heading: "Structure first",
+        body: [
+          "I wireframed the page in low fidelity to lock layout and hierarchy before any visual design — a strong hero, then capabilities, then trust.",
+        ],
+      },
+      {
+        heading: "The page",
+        body: [
+          "It leads with a bold hero — ‘Redefine Your Legal Process With Streamlined Solutions’ — then moves through the key capabilities (every document instantly searchable, due diligence at light speed, intelligence where you work), and builds trust with testimonials, an FAQ, and a ‘confidential by default’ security section. No clutter, no noise.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "A single-scroll marketing page that communicates Conqr.ai’s value clearly and quickly — built to convert a professional legal audience.",
+        ],
+      },
+    ],
+    gallery: [
+      "board-landing-page.jpg",
+      "board-overview.jpg",
+      "board-visual-system.jpg",
+      "frame-785.png",
+      "frame-746.png",
+    ],
+    link: "https://www.behance.net/gallery/249693337/Conqrai-UI-Redesign-Landing-Page-Design",
     featured: true,
   },
   {
@@ -343,7 +477,7 @@ export const projects: Project[] = [
     year: "2024",
     accent: "coral",
     cover: "frame-44.png",
-    hero: "frame-36.png",
+    hero: "frame-44.png",
     layout: "mobile",
     summary:
       "A subscription e-book reader designed to feel as immersive as reading a physical book — with a signature colour-coded, sticky-note tab system.",
@@ -359,8 +493,43 @@ export const projects: Project[] = [
     tags: ["Mobile", "Interaction Design", "Reading", "Concept"],
     tools: ["Figma"],
     metrics: [{ value: "1", label: "Signature feature" }],
+    caseStudy: [
+      {
+        heading: "The idea",
+        body: [
+          "The objective was to craft a digital reading interface that delivers a seamlessly immersive experience for readers — mirroring the engagement and authenticity of reading a physical copy.",
+        ],
+      },
+      {
+        heading: "The concept",
+        body: [
+          "Autumn is a harmonious blend of intuitive, user-friendly design and a carefully curated palette of warm colour tones — chosen to invoke a sense of warmth and familiarity, like flipping through the pages of a cherished novel.",
+        ],
+      },
+      {
+        heading: "Signature feature — sticky-note tabs",
+        body: [
+          "The stand-out interaction is a set of personalised, colour-coded tabs that slide out into a sticky-note-style panel without ever leaving the page — bringing the tactile, annotate-anywhere feeling of a physical book to the screen.",
+        ],
+      },
+      {
+        heading: "Core features",
+        body: ["The reading experience is built around four features:"],
+        list: [
+          "Custom highlights",
+          "A distraction-free reading interface",
+          "Bookmarks and highlights that don’t break the flow",
+          "Collapsible annotations",
+        ],
+      },
+      {
+        heading: "Colour & typography",
+        body: [
+          "A warm, autumn-inspired palette and the Mulish typeface (Light → Semi-Bold) keep the experience calm, legible, and focused — the visual equivalent of a quiet reading nook.",
+        ],
+      },
+    ],
     gallery: [
-      "frame-44.png",
       "reading-interface-6.png",
       "reading-interface-7.png",
       "book-info-page-4.png",

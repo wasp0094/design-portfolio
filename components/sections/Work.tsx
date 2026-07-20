@@ -6,10 +6,11 @@ import { projects, type Project } from "@/lib/data";
 
 const MotionLink = motion.create(Link);
 
-type Size = "lg" | "md" | "wide";
+type Size = "big" | "tall" | "hbig" | "small" | "flat";
 
-// first project is the large flagship; the rest are medium tiles
-const sizeFor = (i: number): Size => (i === 0 ? "lg" : "md");
+// bento arrangement from the layout sketch (per project index)
+const LAYOUT: Size[] = ["big", "tall", "hbig", "hbig", "big", "small", "small", "flat"];
+const sizeFor = (i: number): Size => LAYOUT[i] ?? "small";
 
 const reveal = (i: number) => ({
   initial: { opacity: 0, y: 30 },
@@ -20,7 +21,7 @@ const reveal = (i: number) => ({
 });
 
 function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
-  const big = size === "lg";
+  const rich = size === "big";
   const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
 
   return (
@@ -47,7 +48,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
           {p.template ? (
             <span className="tile-tag">Template</span>
           ) : (
-            p.tags.slice(0, big ? 2 : 1).map((t) => (
+            p.tags.slice(0, rich ? 2 : 1).map((t) => (
               <span className="tile-tag" key={t}>{t}</span>
             ))
           )}
@@ -62,9 +63,9 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
         <h3 className="tile-name">{p.title}</h3>
         <div className="tile-sub">{p.subtitle}</div>
 
-        {big && <p className="tile-summary">{p.summary}</p>}
+        {rich && <p className="tile-summary">{p.summary}</p>}
 
-        {big && p.metrics && (
+        {rich && p.metrics && (
           <div className="tile-metrics">
             {p.metrics.map((m) => (
               <div key={m.label}>
@@ -75,7 +76,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
           </div>
         )}
 
-        {big && (
+        {rich && (
           <div className="tile-chiprow">
             {p.tags.map((t) => (
               <span key={t}>{t}</span>
@@ -114,7 +115,7 @@ export default function Work() {
           ))}
 
           <motion.a
-            className="tile invite"
+            className="tile flat invite"
             href="#contact"
             data-hover
             initial={{ opacity: 0, y: 30 }}
@@ -124,9 +125,9 @@ export default function Work() {
             whileHover={{ x: -4, y: -4 }}
           >
             <span className="eyebrow">Have a project in mind?</span>
-            <h3>Let’s design something people love to use.</h3>
+            <h3>Let’s start a conversation.</h3>
             <span className="go">
-              Start a conversation
+              Say hello
               <span className="circle">↗</span>
             </span>
           </motion.a>

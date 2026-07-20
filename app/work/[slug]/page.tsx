@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Reveal from "@/components/ui/Reveal";
+import Gallery from "@/components/ui/Gallery";
 import { projects } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -175,17 +176,13 @@ export default async function ProjectPage({
               <span className="detail-galcount">{p.gallery!.length} frames</span>
             </div>
 
-            <div className={`gallery ${p.layout ?? "web"}`}>
-              {p.gallery!.map((f, i) => (
-                <Reveal key={f} delay={(i % 3) * 0.06} as="div">
-                  <figure className="shot">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/projects/${p.dir}/${f}`} alt={`${p.title} — ${prettify(f)}`} loading="lazy" />
-                    {p.captions && <figcaption>{prettify(f)}</figcaption>}
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
+            <Gallery
+              cols={p.layout === "mobile" ? 3 : 2}
+              items={p.gallery!.map((f) => ({
+                src: `/projects/${p.dir}/${f}`,
+                caption: p.captions ? prettify(f) : undefined,
+              }))}
+            />
 
             <p className="detail-note">
               This is a visual walkthrough — a full written case study is on the way.

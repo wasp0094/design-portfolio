@@ -1,7 +1,17 @@
 "use client";
 
 import Reveal from "../ui/Reveal";
-import { capabilities } from "@/lib/data";
+import { capabilities, profile } from "@/lib/data";
+
+function DownloadIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 3v12" />
+      <path d="M7 11l5 5 5-5" />
+      <path d="M4 19h16" />
+    </svg>
+  );
+}
 
 export default function About() {
   return (
@@ -31,6 +41,11 @@ export default function About() {
                 I like working directly with founders, PMs, and engineers, and I care
                 about the small, high-frequency moments most people scroll past.
               </p>
+            </Reveal>
+            <Reveal delay={0.22}>
+              <a className="resume-btn" href={profile.resume} target="_blank" rel="noopener noreferrer" data-hover>
+                <DownloadIcon /> Resume
+              </a>
             </Reveal>
           </div>
 

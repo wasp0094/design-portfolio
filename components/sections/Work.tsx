@@ -31,6 +31,7 @@ const reveal = (i: number) => ({
 function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
   const rich = size === "big";
   const brand = BRAND[p.slug];
+  const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
 
   return (
     <MotionLink
@@ -47,7 +48,19 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
         {brand ? (
           <img className="tile-logo" src={`/logos/${brand.logo}`} alt={`${p.title} logo`} />
         ) : (
-          <span className="tile-mark">{p.title.charAt(0)}</span>
+          <>
+            <span className="tile-mark">{p.title.charAt(0)}</span>
+            {cover && (
+              <img
+                className="tile-img"
+                src={cover}
+                alt={`${p.title} — ${p.subtitle}`}
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+            )}
+          </>
         )}
         <div className="tile-tags">
           {p.tags.slice(0, rich ? 2 : 1).map((t) => (

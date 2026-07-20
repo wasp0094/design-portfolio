@@ -24,6 +24,15 @@ export default function Contact() {
           </Magnetic>
         </Reveal>
 
+        <Reveal delay={0.16}>
+          <a className="resume-btn footer-resume" href={profile.resume} target="_blank" rel="noopener noreferrer" data-hover>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M12 3v12" /><path d="M7 11l5 5 5-5" /><path d="M4 19h16" />
+            </svg>
+            Download resume
+          </a>
+        </Reveal>
+
         <div className="contact-socials">
           {profile.socials.map((s) => (
             <a

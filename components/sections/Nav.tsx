@@ -9,6 +9,7 @@ const links = [
   { label: "Work", href: "/#work" },
   { label: "About", href: "/#about" },
   { label: "Recognition", href: "/#recognition" },
+  { label: "Resume", href: profile.resume, download: true },
 ];
 
 export default function Nav() {
@@ -35,7 +36,12 @@ export default function Nav() {
         </a>
         <div className="nav-links">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="hide-sm">
+            <a
+              key={l.href}
+              href={l.href}
+              className="hide-sm"
+              {...(l.download ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
               {l.label}
             </a>
           ))}

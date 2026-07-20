@@ -20,6 +20,7 @@ export const profile = {
   phone: "+91 98183 77310",
   // TODO: replace with Aditi's real LinkedIn URL
   email: "makedesignwithaditi@gmail.com",
+  resume: "https://wasp0094.github.io/resume.pdf",
   socials: [
     { label: "Behance", handle: "designwithaditi", href: "https://www.behance.net/designwithaditi" },
     { label: "Dribbble", handle: "designwithaditii", href: "https://dribbble.com/designwithaditii" },
@@ -66,12 +67,9 @@ export type Project = {
 /* brand logo (in /public/logos/) + a background colour that suits it,
    used for the card cover and the detail-page hero */
 export const BRAND: Record<string, { logo: string; bg: string; dark?: boolean }> = {
-  formi: { logo: "formi.svg", bg: "#E6F4F6" },
-  "formi-app": { logo: "formi.svg", bg: "#E6F4F6" },
+  "formi-app": { logo: "formi.svg", bg: "#1A7A8A", dark: true },
   fourcore: { logo: "fourcore.svg", bg: "#0B1C30", dark: true },
-  "fourcore-platform": { logo: "fourcore.svg", bg: "#0B1C30", dark: true },
   "conqr-platform": { logo: "conqr.svg", bg: "#F5EEE7" },
-  "conqr-landing": { logo: "conqr.svg", bg: "#F5EEE7" },
   autumn: { logo: "autumn.svg", bg: "#FBEDDF" },
 };
 
@@ -255,7 +253,7 @@ export const projects: Project[] = [
     timeline: "Ongoing",
     year: "2026",
     accent: "teal",
-    cover: "dashboard.png",
+    cover: "formi-webapp.png",
     hero: "dashboard.png",
     layout: "web",
     captions: true,
@@ -582,8 +580,8 @@ export const projects: Project[] = [
     timeline: "1 month",
     year: "2025",
     accent: "teal",
-    cover: "conqr.png",
-    hero: "conqr.png",
+    cover: "landing-hero.png",
+    hero: "landing-hero.png",
     layout: "web",
     summary:
       "The single-scroll marketing landing page for Conqr.ai, designed from scratch — “Legal Intelligence. Perfected.”",

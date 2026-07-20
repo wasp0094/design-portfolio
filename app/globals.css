@@ -295,7 +295,7 @@ body.cursor-hover .cursor-ring {
 .tile.hbig  { grid-column: span 3; grid-row: span 2; flex-direction: column; }
 .tile.small { grid-column: span 2; grid-row: span 1; flex-direction: column; }
 .tile.flat  { grid-column: span 3; grid-row: span 1; flex-direction: row; }
-.tile.wide  { grid-column: 1 / -1; grid-row: span 1; flex-direction: row; }
+.tile.wide  { grid-column: 1 / -1; grid-row: span 2; flex-direction: column; }
 .tile.wide .tile-name { font-size: clamp(28px, 3.4vw, 44px); }
 .tile.wide .tile-mark { font-size: clamp(60px, 8vw, 110px); }
 
@@ -316,7 +316,9 @@ body.cursor-hover .cursor-ring {
 }
 .tile.big .tile-media { width: 45%; border-right: 1.5px solid var(--ink); }
 .tile.flat .tile-media { width: 40%; border-right: 1.5px solid var(--ink); }
-.tile.wide .tile-media { width: 32%; border-right: 1.5px solid var(--ink); }
+.tile.wide .tile-media { width: 100%; flex: 1 1 auto; min-height: 220px; border-bottom: 1.5px solid var(--ink); }
+.tile.wide .tile-info { flex: 0 0 auto; }
+.tile.wide .tile-img { object-position: top center; }
 /* column tiles: let the image grow so it dominates, keep info compact */
 .tile.tall .tile-media, .tile.hbig .tile-media { flex: 1 1 auto; min-height: 160px; border-bottom: 1.5px solid var(--ink); }
 .tile.small .tile-media { flex: 1 1 auto; min-height: 100px; border-bottom: 1.5px solid var(--ink); }
@@ -418,6 +420,21 @@ body.cursor-hover .cursor-ring {
 .about-lead .mk { color: var(--accent); font-style: italic; }
 .about-text { margin-top: 24px; color: var(--ink-2); font-size: clamp(15px, 1.8vw, 17px); max-width: 46ch; }
 .about-text + .about-text { margin-top: 1em; }
+
+/* resume button (About section) */
+.resume-btn {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+  padding: 12px 22px; border-radius: 999px; border: 1.5px solid var(--ink);
+  background: var(--accent, var(--coral)); color: var(--paper);
+  font-weight: 700; font-size: 15px; box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.about-grid .resume-btn { --accent: var(--coral); }
+.resume-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.resume-btn svg { flex-shrink: 0; }
+/* footer variant on the dark contact background */
+.footer-resume { margin-top: clamp(28px, 4vw, 44px); background: var(--yellow); color: var(--ink); border-color: var(--bg); box-shadow: 4px 4px 0 var(--bg); }
+.footer-resume:hover { box-shadow: 6px 6px 0 var(--bg); }
 
 .cap-block { border: 1.5px solid var(--ink); border-radius: 22px; background: var(--paper); overflow: hidden; box-shadow: 5px 5px 0 var(--ink); }
 .cap-row { padding: 20px 22px; border-bottom: 1.5px solid var(--line); }
@@ -761,10 +778,14 @@ body.cursor-hover .cursor-ring {
   background: rgba(16, 14, 10, 0.93); backdrop-filter: blur(6px);
   display: grid; place-items: center; padding: clamp(16px, 5vw, 64px);
 }
-.lb-figure { max-width: 94vw; max-height: 90vh; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.lb-figure {
+  margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; max-width: 100%; max-height: 100%;
+}
 .lb-figure img {
-  max-width: 100%; max-height: 82vh; width: auto; height: auto; object-fit: contain;
-  border: 1.5px solid rgba(251, 243, 231, 0.5); border-radius: 10px; margin: 0 auto; display: block;
+  display: block; width: auto; height: auto;
+  max-width: min(95vw, 1700px); max-height: 84vh; object-fit: contain;
+  border: 1.5px solid rgba(251, 243, 231, 0.45); border-radius: 10px;
 }
 .lb-figure figcaption {
   display: flex; justify-content: center; gap: 16px; align-items: baseline;

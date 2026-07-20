@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Reveal from "@/components/ui/Reveal";
 import Gallery from "@/components/ui/Gallery";
-import { projects } from "@/lib/data";
+import { projects, BRAND } from "@/lib/data";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -81,7 +81,15 @@ export default async function ProjectPage({
         </header>
 
         <Reveal delay={0.1}>
-          {heroSrc ? (
+          {BRAND[p.slug] ? (
+            <figure
+              className={`detail-hero logo-hero${BRAND[p.slug].dark ? " on-dark" : ""}`}
+              style={{ background: BRAND[p.slug].bg }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="hero-logo" src={`/logos/${BRAND[p.slug].logo}`} alt={`${p.title} logo`} />
+            </figure>
+          ) : heroSrc ? (
             <figure className={`detail-hero${p.layout === "mobile" ? " is-mobile" : ""}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={heroSrc} alt={`${p.title} — hero`} />

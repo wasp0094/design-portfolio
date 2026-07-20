@@ -63,12 +63,109 @@ export type Project = {
   comparison?: { label: string; before: string; after: string }[];
 };
 
+/* brand logo (in /public/logos/) + a background colour that suits it,
+   used for the card cover and the detail-page hero */
+export const BRAND: Record<string, { logo: string; bg: string; dark?: boolean }> = {
+  formi: { logo: "formi.svg", bg: "#E6F4F6" },
+  "formi-app": { logo: "formi.svg", bg: "#E6F4F6" },
+  fourcore: { logo: "fourcore.svg", bg: "#0B1C30", dark: true },
+  "fourcore-platform": { logo: "fourcore.svg", bg: "#0B1C30", dark: true },
+  "conqr-platform": { logo: "conqr.svg", bg: "#F5EEE7" },
+  "conqr-landing": { logo: "conqr.svg", bg: "#F5EEE7" },
+  autumn: { logo: "autumn.svg", bg: "#FBEDDF" },
+};
+
 export const projects: Project[] = [
+  {
+    slug: "fourcore-platform",
+    dir: "fourcore-platform",
+    title: "FourCore — Platform",
+    subtitle: "Breach & attack simulation product",
+    role: "UI/UX → Senior → Product Designer",
+    timeline: "2+ years · ongoing",
+    year: "2024 — Now",
+    accent: "violet",
+    professional: true,
+    cover: "dashboard.png",
+    hero: "dashboard.png",
+    layout: "web",
+    summary:
+      "Two-plus years designing FourCore ATTACK — a breach-and-attack-simulation platform — building its design system from scratch and shipping 40+ new screens across new and upgraded features.",
+    overview: [
+      "FourCore ATTACK is a breach-and-attack-simulation (BAS) platform. Security teams use it to continuously emulate real-world adversaries — running attack techniques against their live systems — to validate whether their controls actually detect and block threats, then prioritise the gaps.",
+      "This is my longest-running professional engagement: over 2+ years I grew from UI/UX Designer to Senior UI/UX Designer to Product Designer — owning the product’s design system, designing brand-new features, and modernising existing ones.",
+    ],
+    highlights: [
+      "Built the product’s entire design system from scratch — brand, colour, type, components, iconography.",
+      "Designed and shipped 5+ new features and 40+ new screens, concept to production.",
+      "Upgraded existing features and pages to the new brand identity, including custom illustrations.",
+      "Partnered with marketing on brand collateral — event posters, mood boards, and merch.",
+    ],
+    tags: ["Product Design", "Design System", "Cybersecurity", "B2B"],
+    tools: ["Figma"],
+    metrics: [
+      { value: "40+", label: "New screens" },
+      { value: "5+", label: "Features shipped" },
+      { value: "2+ yrs", label: "Ongoing" },
+    ],
+    caseStudy: [
+      {
+        heading: "What is FourCore",
+        body: [
+          "FourCore ATTACK is a breach-and-attack-simulation platform in the cybersecurity space. It safely emulates real-world adversaries — executing attack techniques, moving laterally, escalating privileges — against an organisation’s live environment, then shows security teams exactly where their defenses held and where they broke, mapped to frameworks like MITRE ATT&CK.",
+        ],
+      },
+      {
+        heading: "My role — and how it grew",
+        body: [
+          "I joined as a UI/UX Designer, was promoted to Senior UI/UX Designer, and then to Product Designer — over 2+ years and counting. Across that arc I owned three threads: the design system, brand-new features, and the modernisation of everything that already existed.",
+        ],
+      },
+      {
+        heading: "The design system — from scratch",
+        body: [
+          "I built the product’s entire design system from the ground up: brand guidelines, colour theory, typography, the full UI component library, and a custom iconography set. In a dense, data-heavy security product, that system is what keeps a hundred different screens — dashboards, attack graphs, MITRE matrices, reports — feeling like one coherent tool, and it dramatically sped up how fast new screens ship.",
+        ],
+      },
+      {
+        heading: "New features — concept to production",
+        body: [
+          "I designed and shipped 5+ new features and 40+ new screens, owning them from first concept all the way to production alongside engineering. The specifics sit under an NDA, so I’ll keep this high-level — but the work spans the core surfaces of a modern BAS platform.",
+        ],
+      },
+      {
+        heading: "Upgrading what already existed",
+        body: [
+          "Beyond net-new work, I reworked existing features and pages to match the new brand identity — including custom illustrations — so the whole product moved forward together rather than becoming a patchwork of old and new.",
+        ],
+      },
+      {
+        heading: "Beyond the product — brand & marketing",
+        body: [
+          "I also worked closely with the marketing team, extending the design system beyond the app into brand collateral: event posters, mood boards, merch, and other materials — keeping FourCore consistent everywhere it shows up.",
+        ],
+      },
+    ],
+    gallery: [
+      "dashboard.png",
+      "mitre-attack.png",
+      "macbook-6.png",
+      "macbook-7.png",
+      "emerging-threats.png",
+      "calendar-view.png",
+      "schedule-details.png",
+      "preferences.png",
+      "sign-in.png",
+      "empty-screen.png",
+    ],
+    link: "https://fourcore.io/",
+    featured: true,
+  },
   {
     slug: "fourcore",
     dir: "fourcore",
-    title: "FourCore",
-    subtitle: "Cybersecurity platform — website overhaul",
+    title: "FourCore — Landing",
+    subtitle: "Marketing website overhaul",
     role: "Senior UI/UX Designer",
     timeline: "2-month sprint",
     year: "2025",
@@ -648,69 +745,6 @@ export const projects: Project[] = [
     featured: true,
   },
 
-  /* ---- TEMPLATE PROJECTS ------------------------------------
-     Fill one of these in to add a real project:
-     1. drop screenshots in public/projects/<dir>/
-     2. set `dir`, `cover`, optional `hero`, and `gallery`
-     3. replace the copy and remove `template: true`
-     ---------------------------------------------------------- */
-  {
-    slug: "project-6",
-    title: "Your next project",
-    subtitle: "One-line project subtitle",
-    role: "Your role",
-    timeline: "Timeline",
-    year: "20XX",
-    accent: "pink",
-    template: true,
-    layout: "web",
-    summary: "A short one-line description of the project, shown on the card.",
-    overview: [
-      "Add a paragraph describing the project — what it is, who it’s for, and the problem it solves.",
-      "Add a second paragraph about your approach, key decisions, and the outcome.",
-    ],
-    highlights: ["Key contribution #1", "Key contribution #2", "Key contribution #3"],
-    tags: ["Tag", "Tag", "Tag"],
-    tools: ["Figma"],
-  },
-  {
-    slug: "project-7",
-    title: "Your next project",
-    subtitle: "One-line project subtitle",
-    role: "Your role",
-    timeline: "Timeline",
-    year: "20XX",
-    accent: "yellow",
-    template: true,
-    layout: "web",
-    summary: "A short one-line description of the project, shown on the card.",
-    overview: [
-      "Add a paragraph describing the project — what it is, who it’s for, and the problem it solves.",
-      "Add a second paragraph about your approach, key decisions, and the outcome.",
-    ],
-    highlights: ["Key contribution #1", "Key contribution #2", "Key contribution #3"],
-    tags: ["Tag", "Tag", "Tag"],
-    tools: ["Figma"],
-  },
-  {
-    slug: "project-8",
-    title: "Your next project",
-    subtitle: "One-line project subtitle",
-    role: "Your role",
-    timeline: "Timeline",
-    year: "20XX",
-    accent: "blue",
-    template: true,
-    layout: "web",
-    summary: "A short one-line description of the project, shown on the card.",
-    overview: [
-      "Add a paragraph describing the project — what it is, who it’s for, and the problem it solves.",
-      "Add a second paragraph about your approach, key decisions, and the outcome.",
-    ],
-    highlights: ["Key contribution #1", "Key contribution #2", "Key contribution #3"],
-    tags: ["Tag", "Tag", "Tag"],
-    tools: ["Figma"],
-  },
 ];
 
 export type TimelineItem = {

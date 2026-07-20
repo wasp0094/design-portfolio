@@ -2,15 +2,23 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import { projects, type Project } from "@/lib/data";
+import { projects, BRAND, type Project } from "@/lib/data";
 
 const MotionLink = motion.create(Link);
 
-type Size = "big" | "tall" | "hbig" | "small" | "flat";
+type Size = "big" | "tall" | "hbig" | "small" | "flat" | "wide";
 
-// bento arrangement from the layout sketch (per project index)
-const LAYOUT: Size[] = ["big", "tall", "hbig", "hbig", "big", "small", "small", "flat", "flat"];
-const sizeFor = (i: number): Size => LAYOUT[i] ?? "small";
+// exact placement from the layout sketch
+const ORDER: { slug: string; size: Size }[] = [
+  { slug: "formi", size: "big" },
+  { slug: "formi-app", size: "tall" },
+  { slug: "fourcore", size: "hbig" },
+  { slug: "autumn", size: "hbig" },
+  { slug: "fourcore-platform", size: "big" },
+  { slug: "conqr-platform", size: "small" },
+  { slug: "conqr-landing", size: "wide" },
+];
+const INVITE_AFTER = 4; // insert the "start a conversation" tile after FourCore platform
 
 const reveal = (i: number) => ({
   initial: { opacity: 0, y: 30 },
@@ -22,36 +30,29 @@ const reveal = (i: number) => ({
 
 function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
   const rich = size === "big";
-  const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
+  const brand = BRAND[p.slug];
 
   return (
     <MotionLink
       href={`/work/${p.slug}`}
-      className={`tile ${size}${p.template ? " is-template" : ""}`}
+      className={`tile ${size}`}
       data-accent={p.accent}
       data-hover
       {...reveal(i)}
     >
-      <div className="tile-media">
-        <span className="tile-mark">{p.template ? "+" : p.title.charAt(0)}</span>
-        {cover && (
-          <img
-            className="tile-img"
-            src={cover}
-            alt={`${p.title} — ${p.subtitle}`}
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          />
+      <div
+        className={`tile-media${brand ? " logo-media" : ""}${brand?.dark ? " on-dark" : ""}`}
+        style={brand ? { background: brand.bg } : undefined}
+      >
+        {brand ? (
+          <img className="tile-logo" src={`/logos/${brand.logo}`} alt={`${p.title} logo`} />
+        ) : (
+          <span className="tile-mark">{p.title.charAt(0)}</span>
         )}
         <div className="tile-tags">
-          {p.template ? (
-            <span className="tile-tag">Template</span>
-          ) : (
-            p.tags.slice(0, rich ? 2 : 1).map((t) => (
-              <span className="tile-tag" key={t}>{t}</span>
-            ))
-          )}
+          {p.tags.slice(0, rich ? 2 : 1).map((t) => (
+            <span className="tile-tag" key={t}>{t}</span>
+          ))}
         </div>
         {p.professional && <span className="tile-pro">Professional</span>}
         <span className="tile-year">{p.year}</span>
@@ -86,7 +87,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
         )}
 
         <div className="tile-cta">
-          {p.template ? "Add a project" : "View case study"}
+          View case study
           <span className="circle">↗</span>
         </div>
       </div>
@@ -94,8 +95,35 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
   );
 }
 
+function InviteTile() {
+  return (
+    <motion.a
+      className="tile small invite"
+      href="#contact"
+      data-hover
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+      transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] as const }}
+      whileHover={{ x: -4, y: -4 }}
+    >
+      <span className="eyebrow">Have a project in mind?</span>
+      <h3>Let’s start a conversation.</h3>
+      <span className="go">
+        Say hello <span className="circle">↗</span>
+      </span>
+    </motion.a>
+  );
+}
+
 export default function Work() {
-  const real = projects.filter((p) => !p.template).length;
+  const bySlug = Object.fromEntries(projects.map((p) => [p.slug, p]));
+  const tiles: React.ReactNode[] = [];
+  ORDER.forEach((o, idx) => {
+    const p = bySlug[o.slug];
+    if (p) tiles.push(<Tile key={p.slug} p={p} size={o.size} i={idx} />);
+    if (idx === INVITE_AFTER) tiles.push(<InviteTile key="invite" />);
+  });
 
   return (
     <section className="section" id="work">
@@ -107,32 +135,10 @@ export default function Work() {
               Things I’ve <em>shipped</em>
             </h2>
           </div>
-          <span className="pill">{real} projects</span>
+          <span className="pill">{ORDER.length} projects</span>
         </div>
 
-        <div className="bento">
-          {projects.map((p, i) => (
-            <Tile key={p.slug} p={p} size={sizeFor(i)} i={i} />
-          ))}
-
-          <motion.a
-            className="tile invite"
-            href="#contact"
-            data-hover
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-            transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] as const }}
-            whileHover={{ x: -4, y: -4 }}
-          >
-            <span className="eyebrow">Have a project in mind?</span>
-            <h3>Let’s start a conversation.</h3>
-            <span className="go">
-              Say hello
-              <span className="circle">↗</span>
-            </span>
-          </motion.a>
-        </div>
+        <div className="bento">{tiles}</div>
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ const MotionLink = motion.create(Link);
 type Size = "big" | "tall" | "hbig" | "small" | "flat";
 
 // bento arrangement from the layout sketch (per project index)
-const LAYOUT: Size[] = ["big", "tall", "hbig", "hbig", "big", "small", "small", "flat"];
+const LAYOUT: Size[] = ["big", "tall", "hbig", "hbig", "big", "small", "small", "flat", "flat"];
 const sizeFor = (i: number): Size => LAYOUT[i] ?? "small";
 
 const reveal = (i: number) => ({
@@ -53,6 +53,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
             ))
           )}
         </div>
+        {p.professional && <span className="tile-pro">Professional</span>}
         <span className="tile-year">{p.year}</span>
       </div>
 
@@ -115,7 +116,7 @@ export default function Work() {
           ))}
 
           <motion.a
-            className="tile flat invite"
+            className="tile invite"
             href="#contact"
             data-hover
             initial={{ opacity: 0, y: 30 }}

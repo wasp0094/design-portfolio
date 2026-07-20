@@ -59,9 +59,96 @@ export type Project = {
   template?: boolean;        // placeholder card to fill in later
   captions?: boolean;        // show per-screen captions in the gallery
   caseStudy?: { heading: string; body: string[]; list?: string[] }[];
+  professional?: boolean;    // professional (employed) work, not freelance/independent
+  comparison?: { label: string; before: string; after: string }[];
 };
 
 export const projects: Project[] = [
+  {
+    slug: "fourcore",
+    dir: "fourcore",
+    title: "FourCore",
+    subtitle: "Cybersecurity platform — website overhaul",
+    role: "Senior UI/UX Designer",
+    timeline: "2-month sprint",
+    year: "2025",
+    accent: "blue",
+    professional: true,
+    cover: "new-home-hero.jpg",
+    hero: "new-home-hero.jpg",
+    layout: "web",
+    summary:
+      "A ground-up overhaul of FourCore’s marketing website — the public face of a breach-and-attack-simulation platform — from a cluttered legacy site to a focused, modern dark experience.",
+    overview: [
+      "FourCore ATTACK is a breach-and-attack-simulation platform — security teams use it to continuously emulate real-world adversaries and validate that their defenses actually work. This was my professional work as Senior UI/UX Designer at FourCore: a complete redesign of the company’s website.",
+      "The old site had grown cluttered and inconsistent. I rebuilt the core pages end-to-end — home, platform, demo, about, and blog, across desktop and mobile — into a focused, high-contrast dark experience that reads as serious, credible security tooling.",
+    ],
+    highlights: [
+      "Redesigned the FourCore website end-to-end (10+ screens, desktop & mobile) in a 2-month sprint.",
+      "Replaced a cluttered legacy hero with a single, confident message — ‘Security Control Validation. Supercharged.’",
+      "Established a consistent dark visual system and reusable components across every page.",
+      "Turned a raw Calendly demo embed into a designed conversion flow.",
+    ],
+    tags: ["Website", "Product Marketing", "Cybersecurity", "B2B"],
+    tools: ["Figma"],
+    metrics: [
+      { value: "10+", label: "Screens" },
+      { value: "2 mo", label: "Sprint" },
+      { value: "Live", label: "at fourcore.io" },
+    ],
+    caseStudy: [
+      {
+        heading: "The role — professional work at FourCore",
+        body: [
+          "This is my professional experience as Senior UI/UX Designer at FourCore. FourCore ATTACK is an adversary-emulation (breach-and-attack-simulation) platform that lets security teams continuously test whether their controls actually stop real-world threats. I lead the product’s design and, here, redesigned the company’s public website.",
+        ],
+      },
+      {
+        heading: "The problem",
+        body: [
+          "The legacy site had grown cluttered and inconsistent — a dense hero, mixed light/dark sections, and a raw Calendly-embed demo page, with no unifying visual system. For a product that sells trust and precision to security buyers, the site didn’t reflect the sophistication of the tool underneath.",
+        ],
+      },
+      {
+        heading: "The goal",
+        body: [
+          "Rebuild the marketing site into a focused, credible, modern experience that communicates the product’s value at a glance — and establish one consistent visual system across every page.",
+        ],
+      },
+      {
+        heading: "The approach",
+        body: [
+          "I redesigned the core pages end-to-end — home, platform, demo, about, and blog — for both desktop and mobile, in a two-month sprint. The site leads with a single, punchy message on a focused dark canvas, and every page is built from the same components so it all reads as one product.",
+        ],
+      },
+      {
+        heading: "Before → after",
+        body: [
+          "The clearest way to see the shift is side by side. The old hero (‘Validate Your Security Controls’) was heavy and split across mismatched sections; the new hero (‘Security Control Validation. Supercharged.’) is one confident line on a calm, high-contrast canvas. The old demo page was a bare Calendly embed; the redesign turns it into a designed flow.",
+        ],
+      },
+      {
+        heading: "The system",
+        body: [
+          "A dark navy base with a single electric-blue accent, consistent typography and spacing, and a reusable component set — so home, platform, about, and blog all feel unmistakably like FourCore.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "A cohesive, modern marketing site — live at fourcore.io — that presents FourCore ATTACK with the clarity and authority its security audience expects.",
+        ],
+      },
+    ],
+    comparison: [
+      { label: "Homepage hero", before: "old-home.jpg", after: "new-home-hero.jpg" },
+      { label: "Demo / get started", before: "old-demo.jpg", after: "new-demo.jpg" },
+      { label: "About", before: "old-about.jpg", after: "new-about.jpg" },
+    ],
+    gallery: ["new-home.jpg", "new-about.jpg", "new-demo.jpg", "new-blogs.jpg"],
+    link: "https://fourcore.io/",
+    featured: true,
+  },
   {
     slug: "formi",
     dir: "formi",

@@ -63,6 +63,7 @@ export default async function ProjectPage({
             <div className="detail-eyebrow">
               {p.role} <i /> {p.timeline} <i /> {p.year}
             </div>
+            {p.professional && <span className="detail-pro">Professional experience</span>}
           </Reveal>
           <Reveal delay={0.06}>
             <h1 className="detail-title">{p.title}</h1>
@@ -169,10 +170,38 @@ export default async function ProjectPage({
           </div>
         )}
 
+        {p.comparison && (
+          <div className="cmp">
+            <div className="detail-galhead">
+              <h2 className="detail-galtitle">Before → after</h2>
+              <span className="detail-galcount">{p.comparison.length} pages</span>
+            </div>
+            {p.comparison.map((c, i) => (
+              <Reveal key={i} as="div">
+                <div className="cmp-row">
+                  <div className="cmp-label">{c.label}</div>
+                  <div className="cmp-pair">
+                    <figure className="cmp-item before">
+                      <span className="cmp-tag">Before</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={`/projects/${p.dir}/${c.before}`} alt={`${c.label} — before`} loading="lazy" />
+                    </figure>
+                    <figure className="cmp-item after">
+                      <span className="cmp-tag">After</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={`/projects/${p.dir}/${c.after}`} alt={`${c.label} — after`} loading="lazy" />
+                    </figure>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
+
         {hasGallery ? (
           <>
             <div className="detail-galhead">
-              <h2 className="detail-galtitle">Screens</h2>
+              <h2 className="detail-galtitle">{p.comparison ? "The redesign, page by page" : "Screens"}</h2>
               <span className="detail-galcount">{p.gallery!.length} frames</span>
             </div>
 

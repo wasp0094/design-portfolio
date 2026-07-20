@@ -607,6 +607,12 @@ body.cursor-hover .cursor-ring {
   box-shadow: 8px 8px 0 var(--ink);
 }
 .detail-hero img { width: 100%; height: auto; display: block; }
+/* framed hero for mobile-app projects (portrait screens) */
+.detail-hero.is-mobile { display: grid; place-items: center; padding: clamp(26px, 4vw, 56px); }
+.detail-hero.is-mobile img {
+  width: auto; max-width: 100%; max-height: 620px; border-radius: 22px;
+  border: 1.5px solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+}
 .detail-hero--empty {
   min-height: clamp(240px, 38vw, 440px); display: grid; place-items: center;
   background:
@@ -643,6 +649,25 @@ body.cursor-hover .cursor-ring {
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .side-link:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+
+/* case study */
+.cs { margin: clamp(20px, 3vw, 40px) 0 clamp(40px, 5vw, 64px); border-top: 2px solid var(--ink); }
+.cs-section {
+  display: grid; grid-template-columns: 1fr 1.7fr; gap: clamp(18px, 4vw, 64px);
+  padding: clamp(28px, 4vw, 48px) 0; border-bottom: 1.5px solid var(--line);
+}
+.cs-heading {
+  font-family: var(--ff-display); font-weight: 800; font-size: clamp(23px, 2.8vw, 34px);
+  letter-spacing: -0.02em; line-height: 1.06; display: flex; gap: 14px; align-items: baseline;
+  align-self: start;
+}
+.cs-num { font-family: var(--ff-body); font-size: 14px; font-weight: 700; color: var(--accent); }
+.cs-body p { font-size: clamp(15px, 1.9vw, 18px); line-height: 1.62; color: var(--ink-2); max-width: 64ch; }
+.cs-body p + p { margin-top: 0.9em; }
+.cs-body .cs-list { margin-top: 16px; display: grid; gap: 11px; }
+.cs-list li { list-style: none; display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 15.5px; color: var(--ink); }
+.cs-list li::before { content: "→"; color: var(--accent); font-weight: 800; }
+@media (max-width: 760px) { .cs-section { grid-template-columns: 1fr; gap: 14px; } }
 
 .detail-galhead {
   display: flex; align-items: baseline; justify-content: space-between; gap: 16px;

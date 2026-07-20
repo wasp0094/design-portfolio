@@ -58,6 +58,7 @@ export type Project = {
   featured?: boolean;
   template?: boolean;        // placeholder card to fill in later
   captions?: boolean;        // show per-screen captions in the gallery
+  caseStudy?: { heading: string; body: string[]; list?: string[] }[];
 };
 
 export const projects: Project[] = [
@@ -115,6 +116,133 @@ export const projects: Project[] = [
       "onboarding-flow.png",
       "onboarding-split-variation.png",
       "settings-profile.png",
+    ],
+    featured: true,
+  },
+  {
+    slug: "formi-app",
+    dir: "formi-app",
+    title: "Formi — Patient App",
+    subtitle: "AI-guided recovery — patient mobile app",
+    role: "Independent Product Design",
+    timeline: "Ongoing",
+    year: "2026",
+    accent: "teal",
+    cover: "home.png",
+    hero: "session-summary.png",
+    layout: "mobile",
+    captions: true,
+    summary:
+      "The patient half of Formi — a React Native app that turns a physiotherapist’s prescription into a guided, AI-tracked daily recovery experience.",
+    overview: [
+      "Formi’s patient app is the home half of a two-sided physiotherapy platform. It answers one question: what does a patient do after they leave the clinic? It turns a physiotherapist’s prescription into a guided daily recovery experience on the phone.",
+      "Built for React Native (iOS + Android), it carries a patient from a therapist’s code through AI-tracked exercise sessions, pain logging, progress, and messaging — designed for real patients: often older, low digital literacy, exercising one-handed on the floor with patchy signal.",
+    ],
+    highlights: [
+      "Authored the complete patient-app design process — 30 screens across 7 groups and 5 journey phases.",
+      "Adapted the web design system to mobile: touch targets, thumb-zone actions, safe areas, and a 14px font floor that survives 1.3× system scaling.",
+      "Designed the core AI exercise session — live pose-tracking UI, real-time form correction, and glanceable rep counting.",
+      "Designed the activation funnel — code → programme preview → payment → account → health profile.",
+    ],
+    tags: ["Mobile", "Product Design", "Healthtech", "React Native"],
+    tools: ["Figma", "React Native"],
+    metrics: [
+      { value: "30", label: "Screens designed" },
+      { value: "5", label: "Journey phases" },
+      { value: "2", label: "Platforms (iOS + Android)" },
+    ],
+    caseStudy: [
+      {
+        heading: "The problem",
+        body: [
+          "Physiotherapy has a completion problem: 50–65% of patients never finish their prescribed home programme. Form breaks down without supervision, pain reduction gets mistaken for full recovery, and there’s no accountability between clinic visits.",
+          "The patient app is the connective tissue for that gap — it has to keep a patient exercising correctly, safely, and motivated, entirely on their own phone.",
+        ],
+      },
+      {
+        heading: "Who it’s for — and the constraints that shaped it",
+        body: [
+          "The primary users are patients aged 30–65 across urban and semi-urban India, with low-to-moderate digital literacy — often exercising one-handed while lying on the floor or steadying a limb.",
+          "That reality set hard, non-negotiable constraints for every screen:",
+        ],
+        list: [
+          "44/48pt minimum touch targets and thumb-zone primary actions — the session must be completable one-handed",
+          "A 14px body-text floor that doesn’t break at 1.3× system font scaling",
+          "Offline-first sessions with a clear sync state — patients exercise where signal is poor",
+          "Visual restraint during live camera tracking so pose estimation doesn’t drop frames on low-end Android",
+        ],
+      },
+      {
+        heading: "The design process",
+        body: [
+          "I worked in a deliberate order — mobile design system, then user-flow diagrams, lo-fi wireframes, a component library, high-fidelity screens, a device prototype, and finally developer handoff — because skipping the system and wireframe stages is expensive to fix later.",
+          "The full journey was mapped into five phases with clear entry and exit conditions: Discovery → Activation → Daily use → Progress → Completion. Every screen belongs to exactly one phase.",
+        ],
+      },
+      {
+        heading: "One design system, two apps",
+        body: [
+          "The patient app inherits the therapist dashboard’s design system — the same teal (#1A7A8A), Inter type, and 4pt spacing base — adapted for mobile. I built the component library first: a 10-dot pain scale, progress rings, a form-score badge, the AI-correction banner, streak indicators, and skeleton loaders — so every screen is composed from consistent, tested blocks.",
+        ],
+      },
+      {
+        heading: "Activation & payment — the make-or-break funnel",
+        body: [
+          "The most critical business interaction. A patient enters the code their physiotherapist shared, then sees a full programme preview — therapist, condition, duration, and what’s included — so they know exactly what they’re paying for before any account exists.",
+          "Payment runs through Razorpay; account creation happens after payment clears (a strong completion incentive), followed by a quick health profile and a deliberate ‘programme ready’ arrival moment.",
+        ],
+      },
+      {
+        heading: "The daily exercise session — the core",
+        body: [
+          "This is the hardest surface in the product: the camera is live, AI is processing, and the patient is physically moving — so every element has to be glanceable, never something to stop and read.",
+          "A pre-session pain and energy check-in (with a red-flag gate that notifies the therapist if pain is high) leads into a live camera view with a MediaPipe skeleton overlay, colour-coded green / amber / red by form. A large mono rep counter pulses on each rep, a calm voice cue and a single correction banner nudge form, and a rest timer scores each set.",
+        ],
+      },
+      {
+        heading: "Progress, motivation & retention",
+        body: [
+          "To fight dropout, the app scaffolds motivation: streaks that rest days don’t break, a weekly day-chip row, pain-trend sparklines, milestone confetti, and progress rings — plus reports and direct messaging that keep the therapist present between visits.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "The result is a complete, developer-ready design system and a 30-screen React Native specification — the patient half of Formi’s two-sided model, annotated for engineering with states, spacing, and interactions.",
+        ],
+      },
+    ],
+    gallery: [
+      "splash.png",
+      "welcome.png",
+      "join.png",
+      "programme-preview.png",
+      "payment-loading.png",
+      "payment-success.png",
+      "payment-failure.png",
+      "create-account.png",
+      "personal-info.png",
+      "home.png",
+      "notifications.png",
+      "rest.png",
+      "camera-setup.png",
+      "session-details.png",
+      "live-session.png",
+      "pause-session.png",
+      "session-summary.png",
+      "session-report.png",
+      "progress.png",
+      "trends.png",
+      "reports.png",
+      "history.png",
+      "conversation.png",
+      "messages.png",
+      "health.png",
+      "document-viewer.png",
+      "profile.png",
+      "security.png",
+      "about.png",
+      "help.png",
     ],
     featured: true,
   },

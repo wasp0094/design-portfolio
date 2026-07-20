@@ -8,9 +8,8 @@ const MotionLink = motion.create(Link);
 
 type Size = "lg" | "md" | "wide";
 
-// bento rhythm for the current project list (falls back to md)
-const SIZES: Size[] = ["lg", "md", "md", "wide", "wide", "md", "md", "md"];
-const sizeFor = (i: number): Size => SIZES[i] ?? "md";
+// first project is the large flagship; the rest are medium tiles
+const sizeFor = (i: number): Size => (i === 0 ? "lg" : "md");
 
 const reveal = (i: number) => ({
   initial: { opacity: 0, y: 30 },

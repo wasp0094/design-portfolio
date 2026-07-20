@@ -80,7 +80,7 @@ export default async function ProjectPage({
 
         <Reveal delay={0.1}>
           {heroSrc ? (
-            <figure className="detail-hero">
+            <figure className={`detail-hero${p.layout === "mobile" ? " is-mobile" : ""}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={heroSrc} alt={`${p.title} — hero`} />
             </figure>
@@ -140,6 +140,33 @@ export default async function ProjectPage({
             )}
           </Reveal>
         </div>
+
+        {p.caseStudy && (
+          <div className="cs">
+            {p.caseStudy.map((s, i) => (
+              <Reveal key={i} as="section">
+                <div className="cs-section">
+                  <h2 className="cs-heading">
+                    <span className="cs-num">{String(i + 1).padStart(2, "0")}</span>
+                    {s.heading}
+                  </h2>
+                  <div className="cs-body">
+                    {s.body.map((b, j) => (
+                      <p key={j}>{b}</p>
+                    ))}
+                    {s.list && (
+                      <ul className="cs-list">
+                        {s.list.map((l) => (
+                          <li key={l}>{l}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
 
         {hasGallery ? (
           <>

@@ -790,8 +790,6 @@ body.cursor-hover .cursor-ring {
 /* landscape / desktop screens break out to full width */
 .gallery .shot.wide { column-span: all; }
 .gallery .shot:not(:first-child).wide { margin-top: clamp(14px, 1.6vw, 20px); }
-.gallery.bento .shot.wide { column-span: none; margin-top: 0; }
-.gallery.bento .shot:nth-child(3n) { column-span: all; margin-top: clamp(14px, 1.6vw, 20px); }
 .gallery .shot { cursor: pointer; position: relative; }
 .shot-zoom {
   position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%;

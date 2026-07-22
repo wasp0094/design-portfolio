@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 type Item = { src: string; caption?: string };
 
 /** Masonry gallery (never crops) + a fullscreen lightbox with keyboard / arrow nav. */
-export default function Gallery({ items, cols, bento = false }: { items: Item[]; cols: number; bento?: boolean }) {
+export default function Gallery({ items, cols }: { items: Item[]; cols: number }) {
   const [open, setOpen] = useState<number | null>(null);
 
   const close = useCallback(() => setOpen(null), []);
@@ -32,7 +32,7 @@ export default function Gallery({ items, cols, bento = false }: { items: Item[];
 
   return (
     <>
-      <div className={`gallery${bento ? " bento" : ""}`} style={{ ["--cols" as string]: cols }}>
+      <div className="gallery" style={{ ["--cols" as string]: cols }}>
         {items.map((it, i) => (
           <Shot key={it.src} it={it} i={i} onOpen={() => setOpen(i)} />
         ))}

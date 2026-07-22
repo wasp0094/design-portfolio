@@ -20,6 +20,20 @@ function prettify(file: string): string {
     .replace(/^./, (c) => c.toUpperCase());
 }
 
+function linkLabel(url: string): string {
+  let host = "";
+
+  try {
+    host = new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "View website";
+  }
+
+  if (host.includes("behance.net")) return "View Behance";
+  if (host.includes("dribbble.com")) return "View Dribbble";
+  return "View website";
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -154,7 +168,7 @@ export default async function ProjectPage({
 
             {p.link && (
               <a className="side-link" href={p.link} target="_blank" rel="noopener noreferrer" data-hover>
-                View on Behance <span>↗</span>
+                {linkLabel(p.link)} <span>↗</span>
               </a>
             )}
           </Reveal>

@@ -684,6 +684,7 @@ export const projects: Project[] = [
     tags: ["Mobile", "Interaction Design", "Reading", "Concept"],
     tools: ["Figma"],
     metrics: [{ value: "1", label: "Signature feature" }],
+    link: "https://www.behance.net/gallery/190310823/Autumn-UIUX-Design-eBook-Reader-Application",
     caseStudy: [
       {
         heading: "The idea",

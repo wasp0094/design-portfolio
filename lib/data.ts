@@ -47,6 +47,7 @@ export type Project = {
   accent: string;            // theme colour (CSS var name)
   cover?: string;            // card image filename (omit → colourful lettermark)
   hero?: string;             // detail-page banner filename (defaults to cover)
+  heroGrid?: string[];       // optional four-image bento hero
   layout?: "web" | "mobile"; // gallery column style
   summary: string;           // one-liner for the card
   overview: string[];        // paragraphs for the detail page
@@ -255,6 +256,7 @@ export const projects: Project[] = [
     accent: "teal",
     cover: "formi-webapp.png",
     hero: "dashboard.png",
+    heroGrid: ["patient-progress.png", "analytics.png", "programme-builder-step2.png", "alerts.png"],
     layout: "web",
     captions: true,
     summary:
@@ -351,6 +353,7 @@ export const projects: Project[] = [
       "billing.png",
       "reports.png",
       "onboarding-flow.png",
+      "onboarding-profile.png",
       "onboarding-split-variation.png",
       "settings-profile.png",
     ],

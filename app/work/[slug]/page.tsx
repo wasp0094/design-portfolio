@@ -81,7 +81,16 @@ export default async function ProjectPage({
         </header>
 
         <Reveal delay={0.1}>
-          {BRAND[p.slug] ? (
+          {p.heroGrid && p.dir ? (
+            <div className="detail-hero-bento" aria-label={`${p.title} interface highlights`}>
+              {p.heroGrid.map((file, i) => (
+                <figure className={`detail-hero-bento-item item-${i + 1}`} key={file}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/projects/${p.dir}/${file}`} alt={`${p.title} — ${prettify(file)}`} />
+                </figure>
+              ))}
+            </div>
+          ) : BRAND[p.slug] ? (
             <figure
               className={`detail-hero logo-hero${BRAND[p.slug].dark ? " on-dark" : ""}`}
               style={{ background: BRAND[p.slug].bg }}

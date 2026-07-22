@@ -229,10 +229,6 @@ export default async function ProjectPage({
                 caption: p.captions ? prettify(f) : undefined,
               }))}
             />
-
-            <p className="detail-note">
-              This is a visual walkthrough — a full written case study is on the way.
-            </p>
           </>
         ) : (
           <p className="detail-note">

@@ -29,7 +29,7 @@ const reveal = (i: number) => ({
 });
 
 function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
-  const rich = size === "big";
+  const rich = size === "big" || size === "wide";
   const brand = BRAND[p.slug];
   const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
 
@@ -37,6 +37,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
     <MotionLink
       href={`/work/${p.slug}`}
       className={`tile ${size}`}
+      data-project={p.slug}
       data-accent={p.accent}
       data-hover
       {...reveal(i)}

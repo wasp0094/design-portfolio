@@ -320,7 +320,7 @@ body.cursor-hover .cursor-ring {
   background: #ffffff; padding: 0;
 }
 .tile.wide .tile-info { flex: 1 1 auto; }
-.tile.wide .tile-img { position: static; width: 100%; height: 100%; object-fit: contain; }
+.tile.wide .tile-img { position: static; width: 100%; height: 100%; object-fit: contain; transform: scale(1.035); }
 .tile.wide .tile-mark { display: none; }
 .tile.wide .tile-year { color: var(--ink-3); }
 /* column tiles: let the image grow so it dominates, keep info compact */
@@ -347,6 +347,7 @@ body.cursor-hover .cursor-ring {
 .tile:hover .tile-logo { transform: scale(1.05); }
 .tile-media.on-dark .tile-tag { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); color: #fff; }
 .tile-media.on-dark .tile-year { color: #fff; }
+.tile-media.logo-media:not(.on-dark) .tile-year { color: var(--ink-3); }
 .tile-tags { position: absolute; top: 16px; left: 16px; display: flex; gap: 7px; flex-wrap: wrap; z-index: 1; }
 .tile-tag {
   padding: 6px 12px; border-radius: 999px; background: var(--paper); border: 1.5px solid var(--ink);
@@ -379,8 +380,8 @@ body.cursor-hover .cursor-ring {
   margin-top: 12px; display: inline-flex; align-items: center; gap: 12px;
   font-family: var(--ff-body); font-size: 14.5px; font-weight: 700;
 }
-/* only the large rich tiles push the CTA to the bottom */
-.tile.big .tile-cta { margin-top: auto; padding-top: 16px; }
+/* rich horizontal tiles push the CTA to the bottom */
+.tile.big .tile-cta, .tile.wide .tile-cta { margin-top: auto; padding-top: 16px; }
 .tile-cta .circle {
   width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--ink);
   display: grid; place-items: center; background: var(--accent); transition: transform .35s ease;
@@ -408,8 +409,10 @@ body.cursor-hover .cursor-ring {
   background: var(--ink); color: var(--bg);
   font-family: var(--ff-body); font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em;
 }
+.tile[data-project="fourcore-platform"] .tile-pro { top: auto; right: auto; bottom: 14px; left: 16px; }
 /* CTA / invitation tile (inherits .small sizing) */
-.tile.invite { background: var(--ink); color: var(--bg); flex-direction: column; justify-content: space-between; padding: clamp(18px, 2vw, 26px); }
+.tile.invite { background: var(--ink); color: var(--bg); box-shadow: 6px 6px 0 var(--yellow); flex-direction: column; justify-content: space-between; padding: clamp(18px, 2vw, 26px); }
+.tile.invite:hover { box-shadow: 12px 12px 0 var(--yellow); }
 .tile.invite .eyebrow { font-family: var(--ff-body); font-size: 13px; font-weight: 600; color: var(--yellow); }
 .tile.invite h3 { font-family: var(--ff-display); font-weight: 800; font-size: clamp(20px, 2.3vw, 28px); line-height: 1.04; letter-spacing: -0.02em; margin-top: 8px; }
 .tile.invite .go { align-self: flex-start; margin-top: 16px; display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 15px; }

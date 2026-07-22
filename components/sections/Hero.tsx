@@ -11,11 +11,6 @@ const line = {
   hidden: { y: "110%" },
   show: { y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } },
 };
-const fade = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.7, 0.2, 1] as const } },
-};
-
 export default function Hero() {
   return (
     <header className="hero" id="top">
@@ -82,16 +77,6 @@ export default function Hero() {
             </p>
             <span className="hero-sign">{profile.name} · {profile.location}</span>
           </div>
-        </motion.div>
-
-        <motion.div
-          className="scroll-cue"
-          variants={fade}
-          initial="hidden"
-          animate="show"
-          transition={{ delay: 1.2 }}
-        >
-          <span className="arrow">↓</span> Scroll to explore the work
         </motion.div>
       </div>
     </header>

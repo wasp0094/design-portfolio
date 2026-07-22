@@ -32,7 +32,7 @@ export default function Nav() {
       <div className="nav-inner">
         <a href="/#top" className="nav-brand">
           <img className="nav-logo" src="/aditi-avatar.png" alt="Aditi Agarwal" width={30} height={30} />
-          Aditi<span style={{ color: "var(--coral)" }}>.</span>
+          Aditi
         </a>
         <div className="nav-links">
           {links.map((l) => (

@@ -204,6 +204,7 @@ body.cursor-hover .cursor-ring {
   max-width: 1000px;
 }
 .hero-avatar {
+  position: relative;
   width: clamp(124px, 15vw, 188px);
   aspect-ratio: 1;
   flex-shrink: 0;
@@ -216,7 +217,10 @@ body.cursor-hover .cursor-ring {
   transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
 }
 .hero-avatar:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 12px 12px 0 var(--coral); }
-.hero-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .35s ease; }
+.hero-avatar-photo { opacity: 0; }
+.hero-avatar:hover .hero-avatar-illustration { opacity: 0; }
+.hero-avatar:hover .hero-avatar-photo { opacity: 1; }
 
 .hero-statement-kicker {
   display: inline-flex; align-items: center; gap: 10px;

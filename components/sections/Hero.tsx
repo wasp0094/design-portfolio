@@ -64,7 +64,8 @@ export default function Hero() {
           transition={{ delay: 0.85, duration: 0.8, ease: [0.2, 0.7, 0.2, 1] as const }}
         >
           <div className="hero-avatar" data-hover>
-            <img src="/aditi-avatar.png" alt="Illustrated portrait of Aditi Agarwal" />
+            <img className="hero-avatar-illustration" src="/aditi-avatar.png" alt="Portrait of Aditi Agarwal" />
+            <img className="hero-avatar-photo" src="/aditi-photo.jpg" alt="" aria-hidden="true" />
           </div>
           <div className="hero-statement-wrap">
             <span className="hero-statement-kicker">The short version</span>

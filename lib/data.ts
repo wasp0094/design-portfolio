@@ -147,6 +147,7 @@ export const projects: Project[] = [
     ],
     gallery: [
       "dashboard.png",
+      "threat-intelligence.png",
       "mitre-attack.png",
       "macbook-6.png",
       "macbook-7.png",

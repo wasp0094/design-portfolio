@@ -224,6 +224,7 @@ export default async function ProjectPage({
 
             <Gallery
               cols={p.layout === "mobile" ? 3 : 2}
+              bento={p.slug === "conqr-platform" || p.slug === "conqr-landing"}
               items={p.gallery!.map((f) => ({
                 src: `/projects/${p.dir}/${f}`,
                 caption: p.captions ? prettify(f) : undefined,

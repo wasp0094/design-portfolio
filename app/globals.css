@@ -937,6 +937,11 @@ body.cursor-hover .cursor-ring {
   .bento { grid-template-columns: 1fr; }
   .tile.big, .tile.tall, .tile.hbig, .tile.small, .tile.flat, .tile.wide, .tile.invite { grid-column: 1 / -1; grid-row: span 1; flex-direction: column; }
   .tile.big .tile-media, .tile.flat .tile-media, .tile.wide .tile-media { width: 100%; }
+  .tile.wide .tile-media { min-height: 220px; }
+  .tile.wide .tile-img { object-fit: cover; transform: none; }
+  .tile.wide .tile-summary,
+  .tile.wide .tile-metrics,
+  .tile.wide .tile-chiprow { display: none; }
   .tile.small .tile-sub, .tile.small .tile-role, .tile.flat .tile-sub, .tile.flat .tile-role { display: block; }
   .nav-inner { padding: 8px 10px 8px 16px; }
   .side-metrics { gap: 18px; }

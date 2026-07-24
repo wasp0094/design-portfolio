@@ -606,7 +606,6 @@ export const projects: Project[] = [
     tags: ["Landing Page", "Marketing", "Brand", "Web"],
     tools: ["Figma"],
     metrics: [
-      { value: "1.8k+", label: "Behance views" },
       { value: "1 mo", label: "Timeline" },
       { value: "Legal Tech", label: "Industry" },
     ],

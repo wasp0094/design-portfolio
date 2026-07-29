@@ -862,6 +862,22 @@ export const capabilities: { title: string; accent: string; skills: Skill[] }[] 
       { name: "GitLab" },
     ],
   },
+  {
+    title: "AI & Productivity",
+    accent: "violet",
+    skills: [
+      { name: "Figma AI", tier: "primary" },
+      { name: "ChatGPT (GPT-5)", tier: "primary" },
+      { name: "Claude", tier: "primary" },
+      { name: "Prompt Engineering", tier: "medium" },
+      { name: "AI-assisted UX Research", tier: "medium" },
+      { name: "OpenAI Codex" },
+      { name: "OpenCode" },
+      { name: "PRD Authoring" },
+      { name: "Design Documentation" },
+      { name: "Frontend Prototyping" },
+    ],
+  },
 ];
 
 export const marqueeWords = [

@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Cursor from "@/components/ui/Cursor";
 import Nav from "@/components/sections/Nav";
+import { SITE } from "./sitemap";
 
 const display = Bricolage_Grotesque({
   variable: "--font-display",
@@ -26,6 +27,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE),
   title: "Aditi Agarwal — Product & UI/UX Designer",
   description:
     "Product & UI/UX designer in New Delhi taking B2B and healthtech products from research to shipped, high-fidelity UI. Selected work: Formi, Conqr.ai, Autumn.",
@@ -34,7 +36,10 @@ export const metadata: Metadata = {
     description:
       "Turning ambiguous problems into interfaces people actually use. Design systems, two-sided products, and calm healthtech UI.",
     type: "website",
+    url: SITE,
+    siteName: "Aditi Agarwal",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

@@ -74,7 +74,7 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
 
       <div className="tile-info">
         <div className="tile-role">
-          {p.role} <span className="sep" /> {p.timeline}
+          <span>{p.role}</span> <span className="sep" /> <span>{p.timeline}</span>
         </div>
         <h3 className="tile-name">{p.title}</h3>
         <div className="tile-sub">{p.subtitle}</div>

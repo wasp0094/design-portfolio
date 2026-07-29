@@ -78,9 +78,9 @@ export const projects: Project[] = [
   {
     slug: "fourcore-platform",
     dir: "fourcore-platform",
-    title: "FourCore — Platform",
+    title: "FourCore",
     subtitle: "Breach & attack simulation product",
-    role: "UI/UX → Senior → Product Designer",
+    role: "UI/UX → Senior",
     timeline: "2+ years · ongoing",
     year: "2024 — Now",
     accent: "violet",
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     hero: "dashboard.png",
     layout: "web",
     summary:
-      "Two-plus years designing FourCore ATTACK — a breach-and-attack-simulation platform — building its design system from scratch and shipping 40+ new screens across new and upgraded features.",
+      "2+ years designing FourCore ATTACK — a breach-and-attack-simulation platform — building its design system from scratch and shipping 40+ new screens across new and upgraded features.",
     overview: [
       "FourCore ATTACK is a breach-and-attack-simulation (BAS) platform. Security teams use it to continuously emulate real-world adversaries — running attack techniques against their live systems — to validate whether their controls actually detect and block threats, then prioritise the gaps.",
       "This is my longest-running professional engagement: over 2+ years I grew from UI/UX Designer to Senior UI/UX Designer to Product Designer — owning the product’s design system, designing brand-new features, and modernising existing ones.",
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     slug: "fourcore",
     dir: "fourcore",
     title: "FourCore — Landing",
-    subtitle: "Marketing website overhaul",
+    subtitle: "Breach and attack simulation platform",
     role: "Senior UI/UX Designer",
     timeline: "2-month sprint",
     year: "2025",

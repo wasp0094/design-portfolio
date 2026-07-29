@@ -868,7 +868,7 @@ export const capabilities: { title: string; accent: string; skills: Skill[] }[] 
     skills: [
       { name: "Figma AI", tier: "primary" },
       { name: "ChatGPT (GPT-5)", tier: "primary" },
-      { name: "Claude", tier: "primary" },
+      { name: "Claude Design", tier: "primary" },
       { name: "Prompt Engineering", tier: "medium" },
       { name: "AI-assisted UX Research", tier: "medium" },
       { name: "OpenAI Codex" },

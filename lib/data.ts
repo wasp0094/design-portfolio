@@ -803,15 +803,6 @@ export const timeline: TimelineItem[] = [
       "My first design internship — stepping straight into complex B2B cybersecurity.",
   },
   {
-    year: "Aug 2024",
-    type: "Education",
-    accent: "violet",
-    title: "Graduated B.Tech — 8.91 / 10 CGPA",
-    org: "Maharaja Agrasen Institute of Technology",
-    description:
-      "Wrapped up the degree while already shipping design work at FourCore.",
-  },
-  {
     year: "2024",
     type: "Conversion",
     accent: "teal",
@@ -838,15 +829,6 @@ export const timeline: TimelineItem[] = [
     org: "FourCore",
     description:
       "Now leading a junior designer and working directly with product and engineering to ship features.",
-  },
-  {
-    year: "2026",
-    type: "Promotion",
-    accent: "coral",
-    title: "Promoted to Product Designer",
-    org: "FourCore",
-    description:
-      "A formal step up from UI/UX to Product Designer — owning problems end-to-end, from research through shipped UI.",
   },
 ];
 

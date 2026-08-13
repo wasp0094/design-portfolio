@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Reveal from "@/components/ui/Reveal";
 import Gallery from "@/components/ui/Gallery";
-import { projects, BRAND } from "@/lib/data";
+import StudyHead from "@/components/case/StudyHead";
+import StudyHero from "@/components/case/StudyHero";
+import StudyBody from "@/components/case/StudyBody";
+import { projects, BRAND, type Project } from "@/lib/data";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -48,6 +51,52 @@ export async function generateMetadata({
   };
 }
 
+/** Shared by both the case-study template and the legacy layout. */
+function DetailHero({ p }: { p: Project }) {
+  const heroFile = p.hero ?? p.cover;
+  const heroSrc = p.dir && heroFile ? `/projects/${p.dir}/${heroFile}` : null;
+
+  if (p.heroGrid && p.dir) {
+    return (
+      <div className="detail-hero-bento" aria-label={`${p.title} interface highlights`}>
+        {p.heroGrid.map((file, i) => (
+          <figure className={`detail-hero-bento-item item-${i + 1}`} key={file}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/projects/${p.dir}/${file}`} alt={`${p.title} — ${prettify(file)}`} />
+          </figure>
+        ))}
+      </div>
+    );
+  }
+
+  if (BRAND[p.slug]) {
+    return (
+      <figure
+        className={`detail-hero logo-hero${BRAND[p.slug].dark ? " on-dark" : ""}`}
+        style={{ background: BRAND[p.slug].bg }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="hero-logo" src={`/logos/${BRAND[p.slug].logo}`} alt={`${p.title} logo`} />
+      </figure>
+    );
+  }
+
+  if (heroSrc) {
+    return (
+      <figure className={`detail-hero${p.layout === "mobile" ? " is-mobile" : ""}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={heroSrc} alt={`${p.title} — hero`} />
+      </figure>
+    );
+  }
+
+  return (
+    <div className="detail-hero detail-hero--empty">
+      <span className="detail-hero-mark">{p.template ? "+" : p.title.charAt(0)}</span>
+    </div>
+  );
+}
+
 export default async function ProjectPage({
   params,
 }: {
@@ -59,9 +108,8 @@ export default async function ProjectPage({
 
   const idx = projects.findIndex((x) => x.slug === slug);
   const next = projects[(idx + 1) % projects.length];
-  const heroFile = p.hero ?? p.cover;
-  const heroSrc = p.dir && heroFile ? `/projects/${p.dir}/${heroFile}` : null;
   const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0);
+  const study = p.study && p.study.sections.length > 0 ? p.study : null;
 
   return (
     <main className="detail" style={{ ["--accent" as string]: `var(--${p.accent})` }}>
@@ -95,35 +143,33 @@ export default async function ProjectPage({
         </header>
 
         <Reveal delay={0.1}>
-          {p.heroGrid && p.dir ? (
-            <div className="detail-hero-bento" aria-label={`${p.title} interface highlights`}>
-              {p.heroGrid.map((file, i) => (
-                <figure className={`detail-hero-bento-item item-${i + 1}`} key={file}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/projects/${p.dir}/${file}`} alt={`${p.title} — ${prettify(file)}`} />
-                </figure>
-              ))}
-            </div>
-          ) : BRAND[p.slug] ? (
-            <figure
-              className={`detail-hero logo-hero${BRAND[p.slug].dark ? " on-dark" : ""}`}
-              style={{ background: BRAND[p.slug].bg }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="hero-logo" src={`/logos/${BRAND[p.slug].logo}`} alt={`${p.title} logo`} />
-            </figure>
-          ) : heroSrc ? (
-            <figure className={`detail-hero${p.layout === "mobile" ? " is-mobile" : ""}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={heroSrc} alt={`${p.title} — hero`} />
-            </figure>
+          {study?.hero ? (
+            <StudyHero hero={study.hero} dir={p.dir} title={p.title} />
           ) : (
-            <div className="detail-hero detail-hero--empty">
-              <span className="detail-hero-mark">{p.template ? "+" : p.title.charAt(0)}</span>
-            </div>
+            <DetailHero p={p} />
           )}
         </Reveal>
 
+        {study ? (
+          <>
+            <StudyHead study={study} />
+            {p.link && (
+              <Reveal delay={0.1}>
+                <a
+                  className="side-link study-link"
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-hover
+                >
+                  {linkLabel(p.link)} <span>↗</span>
+                </a>
+              </Reveal>
+            )}
+            <StudyBody study={study} dir={p.dir} />
+          </>
+        ) : (
+          <>
         <div className="detail-cols">
           <Reveal className="detail-overview">
             {p.overview.map((par, i) => (
@@ -228,11 +274,19 @@ export default async function ProjectPage({
             ))}
           </div>
         )}
+          </>
+        )}
 
         {hasGallery ? (
           <>
             <div className="detail-galhead">
-              <h2 className="detail-galtitle">{p.comparison ? "The redesign, page by page" : "Screens"}</h2>
+              <h2 className="detail-galtitle">
+                {study
+                  ? "Every screen"
+                  : p.comparison
+                    ? "The redesign, page by page"
+                    : "Screens"}
+              </h2>
               <span className="detail-galcount">{p.gallery!.length} frames</span>
             </div>
 

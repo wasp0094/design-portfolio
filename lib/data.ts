@@ -36,6 +36,86 @@ export const stats = [
   { value: 300, suffix: "+", label: "Students mentored" },
 ];
 
+/* ============================================================
+   CASE STUDY — a study is a list of sections, each section an
+   ordered list of typed blocks. The block union *is* the template:
+   every case study is assembled from the same vocabulary, so pages
+   stay consistent while each project controls its own rhythm.
+   Mix `figure` blocks between `prose` / `decision` blocks to keep
+   screens and thinking interleaved rather than text-then-gallery.
+   ============================================================ */
+
+/** image paths in blocks are filenames inside the project's public/projects/<dir>/ */
+export type Block =
+  /** running paragraphs */
+  | { kind: "prose"; body: string[] }
+  /** one oversized statement paragraph — use sparingly, once per section at most */
+  | { kind: "lead"; text: string }
+  /** arrow-marked list */
+  | { kind: "list"; items: string[] }
+  /** evidence numbers; `source` renders as a small mono citation */
+  | { kind: "stats"; items: { value: string; label: string; source?: string }[] }
+  /** pull quote from a user or stakeholder */
+  | { kind: "quote"; text: string; author: string; role?: string }
+  /** research persona card */
+  | {
+      kind: "persona";
+      name: string;
+      age?: number;
+      role: string;
+      photo?: string;
+      goals: string[];
+      frustrations: string[];
+      quote?: string;
+    }
+  /** insight matrix — one row per theme, one cell-group per column */
+  | { kind: "themes"; columns: string[]; rows: { label: string; cells: string[][] }[] }
+  /** a single screen, optionally with numbered callouts explaining it */
+  | {
+      kind: "figure";
+      src: string;
+      caption?: string;
+      frame?: "web" | "mobile" | "bleed";
+      annotations?: { n: number; text: string }[];
+    }
+  /** a row/grid of screens */
+  | { kind: "figures"; cols?: 2 | 3 | 4; items: { src: string; caption?: string }[] }
+  /** before/after pair */
+  | { kind: "compare"; label?: string; before: string; after: string }
+  /** a design decision and why it was made */
+  | { kind: "decision"; title: string; problem: string; choice: string; implications?: string[] }
+  /** boxed constraint, "How might we", or aside */
+  | { kind: "callout"; title?: string; body: string }
+  /** process phases / journey steps */
+  | { kind: "flow"; steps: { label: string; note?: string }[] }
+  /** colour palette row */
+  | { kind: "swatches"; items: { hex: string; name: string }[] };
+
+export type StudySection = {
+  id: string;        // anchor + TOC target, e.g. "problem"
+  kicker?: string;   // small label above the heading, e.g. "Research"
+  heading: string;
+  blocks: Block[];
+};
+
+/** Composed product hero — a wide screen with a phone lifted over it.
+ *  Use for two-sided products; either half may be omitted. */
+export type StudyHero = {
+  web?: string;       // wide/desktop screen (paths may be absolute to cross projects)
+  app?: string;       // portrait phone screen
+  webLabel?: string;  // small pill, e.g. "Therapist dashboard — web"
+  appLabel?: string;  // small pill, e.g. "Patient app — iOS & Android"
+  alt?: string;
+};
+
+export type Study = {
+  hero?: StudyHero;                            // replaces the default detail-page hero
+  meta?: { label: string; value: string }[];   // Role / Platforms / Scope — the header strip
+  glance?: { value: string; label: string }[]; // outcome numbers, shown high on the page
+  glanceNote?: string;
+  sections: StudySection[];
+};
+
 export type Project = {
   slug: string;
   dir?: string;              // folder in public/projects/ (omit if no images yet)
@@ -63,6 +143,10 @@ export type Project = {
   caseStudy?: { heading: string; body: string[]; list?: string[] }[];
   professional?: boolean;    // professional (employed) work, not freelance/independent
   comparison?: { label: string; before: string; after: string }[];
+  /* Full case-study narrative. When present the detail page renders the
+     case-study template instead of the legacy overview + caseStudy layout.
+     `gallery` still renders underneath as the complete screen archive. */
+  study?: Study;
 };
 
 /* brand logo (in /public/logos/) + a background colour that suits it,
@@ -145,6 +229,17 @@ export const projects: Project[] = [
         ],
       },
     ],
+    /* TODO — case study. Fill `sections` to move this project onto the
+       case-study template; `formi` below is the worked example, and the
+       `Block` union above lists every block kind available. While `sections`
+       is empty the page keeps its current overview + caseStudy layout.
+       Suggested spine: context · problem · research · themes · strategy ·
+       system · surfaces · decisions · outcome */
+    study: {
+      meta: [],    // Role / Platforms / Scope / Timeline — the header strip
+      glance: [],  // outcome numbers, shown high on the page
+      sections: [],
+    },
     gallery: [
       "dashboard.png",
       "threat-intelligence.png",
@@ -237,6 +332,13 @@ export const projects: Project[] = [
         ],
       },
     ],
+    /* TODO — case study. See the note on `fourcore-platform` above.
+       This one has real before/after material: use `compare` blocks. */
+    study: {
+      meta: [],
+      glance: [],
+      sections: [],
+    },
     gallery: [
       "landing-01.png",
       "landing-02.png",
@@ -340,6 +442,377 @@ export const projects: Project[] = [
         ],
       },
     ],
+    study: {
+      hero: {
+        web: "hero-dashboard.png",
+        app: "hero-app.png",
+        webLabel: "Therapist dashboard — web",
+        appLabel: "Patient app — iOS & Android",
+        alt: "The Formi therapist dashboard with the patient app alongside it",
+      },
+      meta: [
+        { label: "Role", value: "Product Designer — 0 to 1 (PRD, research, UX, UI, design system)" },
+        { label: "Platforms", value: "Web dashboard for physiotherapists · Mobile app for patients" },
+        { label: "Scope", value: "53 screens across two products, one connected system" },
+        { label: "Timeline", value: "Ongoing · 2026" },
+      ],
+      glance: [
+        { value: "53", label: "Screens across two products" },
+        { value: "23 + 30", label: "Therapist dashboard + patient app" },
+        { value: "8–12%", label: "Platform fee — the whole business model" },
+        { value: "Top 50", label: "Google Solution Challenge, Global (as Proctify)" },
+      ],
+      glanceNote:
+        "A physiotherapist-first platform that keeps the care relationship productive between clinic visits. Evolved from ‘Proctify’, a patients-only college project, into a full two-sided product — I authored the PRD, the research, and the design system, and introduced the therapist-facing half the original never scoped.",
+      sections: [
+        {
+          id: "context",
+          kicker: "Overview",
+          heading: "Recovery doesn’t happen in the clinic",
+          blocks: [
+            {
+              kind: "lead",
+              text: "Physiotherapy recovery extends far beyond the appointment — yet almost every tool treats it as session-bound.",
+            },
+            {
+              kind: "prose",
+              body: [
+                "A physiotherapist sees a patient for forty minutes a week. The other six days and twenty-three hours — the part where recovery actually happens or doesn’t — are invisible to them. Patients go home with a printed sheet of exercises and no way to know whether they’re doing them correctly.",
+                "Formi closes that gap from both ends: a practice-management dashboard that gives therapists visibility into what happens at home, and a mobile app that gives patients real-time guidance while they exercise. One connected system, two very different jobs.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "dashboard.png",
+              frame: "web",
+              caption: "The therapist’s home view — the whole caseload triaged by who needs attention first.",
+            },
+          ],
+        },
+        {
+          id: "problem",
+          kicker: "Problem",
+          heading: "Care given away for free, in a gap no one can see",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "India has roughly one physiotherapist for every 25,000 people. Independent practitioners already deliver remote care between visits — but informally, over WhatsApp: unpaid, invisible, and impossible to scale past 10–15 active patients without burning out.",
+                "The result is revenue leakage from dropout, no clinical visibility between visits, ad-hoc cash and UPI billing, and progress that’s anecdotal rather than evidenced. Two completely different jobs exist inside one recovery programme — therapists manage it, patients live it — and most tools address only one side.",
+              ],
+            },
+            {
+              kind: "stats",
+              items: [
+                {
+                  value: "35%",
+                  label: "of physiotherapy patients fully adhere to their home exercise programme",
+                  source: "Sprypt, 2025",
+                },
+                {
+                  value: "50.6%",
+                  label: "potential revenue lost to patients dropping out before treatment goals are met",
+                  source: "Physiotutors clinical research review",
+                },
+                {
+                  value: "7 of 10",
+                  label: "trials showed an adherence boost from digital tracking tools",
+                  source: "Physitrack RCT meta-review",
+                },
+              ],
+            },
+            {
+              kind: "callout",
+              title: "The gap",
+              body:
+                "Recovery breaks down between appointments — and neither side can see it happening.",
+            },
+          ],
+        },
+        {
+          id: "research",
+          kicker: "User Research",
+          heading: "Two users, one programme",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "I built the product around two people whose needs only overlap at one point: the programme itself. Everything else — what they want to see, when they open the app, what a good day looks like — pulls in opposite directions.",
+              ],
+            },
+            {
+              kind: "persona",
+              name: "Dr. Ananya Rao",
+              age: 34,
+              role: "Independent physiotherapist running a small clinic",
+              // Unsplash photo-1623854767648-e7bb8009f0db (Unsplash License,
+              // free to use, no attribution required)
+              photo: "persona-ananya.jpg",
+              quote:
+                "I can prescribe the right programme, but I have no idea if it’s actually happening at home.",
+              goals: [
+                "See actual patient behaviour between visits",
+                "Cut down manual notes and follow-up chasing",
+                "Keep patients engaged through the full programme",
+              ],
+              frustrations: [
+                "No visibility once the patient leaves",
+                "Forced to rely on inaccurate self-reporting",
+                "Existing software prioritises billing over patient care",
+              ],
+            },
+            {
+              kind: "persona",
+              name: "Mary Cooper",
+              age: 56,
+              role: "Post-operative recovery patient",
+              // Unsplash photo-1764173039248-78beb636931a (Unsplash License,
+              // free to use, no attribution required)
+              photo: "persona-mary.jpg",
+              quote:
+                "I do the exercises, but I never know if I’m doing them properly until my next appointment.",
+              goals: [
+                "Recover fully and safely without reinjury",
+                "Get feedback on her form while she exercises",
+                "Track pain trends and see progress accumulate",
+              ],
+              frustrations: [
+                "Zero feedback between appointments",
+                "Uncertain about exercise form when alone",
+                "Loses track of progress over time",
+              ],
+            },
+          ],
+        },
+        {
+          id: "themes",
+          kicker: "Synthesis",
+          heading: "From insights to three themes",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Clustering what both groups told me produced three themes — and the useful finding was that each theme shows up on both sides of the relationship, as the same problem wearing different clothes.",
+              ],
+            },
+            {
+              kind: "themes",
+              columns: ["Therapist", "Patient"],
+              rows: [
+                {
+                  label: "Visibility",
+                  cells: [
+                    [
+                      "Can’t see what happens after the patient leaves",
+                      "By the time I find out something’s wrong, it’s been two sessions",
+                    ],
+                    [
+                      "Don’t know if I’m doing this right",
+                      "I only find out my form was wrong at the next appointment",
+                    ],
+                  ],
+                },
+                {
+                  label: "Continuity",
+                  cells: [
+                    ["I’m re-explaining the same programme every time"],
+                    [
+                      "I forget what I was even told to focus on",
+                      "Every visit feels disconnected from the last",
+                    ],
+                  ],
+                },
+                {
+                  label: "Motivation",
+                  cells: [
+                    [
+                      "Patients disengage without check-ins",
+                      "Silence between sessions usually means they’ve stopped",
+                      "No visibility means no way to intervene early",
+                    ],
+                    [
+                      "It’s easy to quit when no one notices",
+                      "Hard to stay consistent when I can’t see progress",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "strategy",
+          kicker: "Strategy",
+          heading: "The bet — physiotherapist-first",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Most health apps acquire patients directly and treat the clinician as a distribution channel. Formi inverts that. The physiotherapist is the primary customer: they build programmes, set prices, and invite patients. The patient’s app is an extension of the therapist’s clinical work, not a separate product competing for the same attention.",
+                "That choice set the constraint that shaped every dashboard screen: a therapist should be able to complete their full daily patient review in under ten minutes.",
+              ],
+            },
+            {
+              kind: "callout",
+              title: "North star",
+              body: "Completed programmes per therapist per month — not signups, not sessions logged.",
+            },
+          ],
+        },
+        {
+          id: "system",
+          kicker: "Design System",
+          heading: "One system, two apps",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                // TODO: the Vercel case study says Lato; the copy below and the
+                // formi-app entry both say Inter. Confirm which is correct.
+                "Both products sit on a design system I built from the ground up — shared colour, type, and a 4pt spacing base — so the two-sided product reads as one product rather than two apps that happen to talk to each other. Dense clinical data had to render as calm, scannable views.",
+              ],
+            },
+            {
+              kind: "swatches",
+              items: [
+                { hex: "#1A7A8A", name: "Primary teal" },
+                { hex: "#E6F4F6", name: "Teal light" },
+                { hex: "#F97316", name: "Orange accent" },
+                { hex: "#FFF0E8", name: "Warm off-white" },
+                { hex: "#1A1A18", name: "Near-black" },
+                { hex: "#E2E8F0", name: "Slate" },
+              ],
+            },
+            {
+              kind: "callout",
+              title: "The logomark",
+              body:
+                "Recovery isn’t a straight line — it loops, dips, and comes back around. The arc was the shape that captured that without needing to say it, and it reappears through the product as progress rings and session markers.",
+            },
+          ],
+        },
+        {
+          id: "surfaces",
+          kicker: "UI Design",
+          heading: "The therapist dashboard, surface by surface",
+          blocks: [
+            {
+              kind: "figure",
+              src: "patient-profile.png",
+              frame: "web",
+              caption: "Patient overview — everything needed to prepare for a session, in one view.",
+              annotations: [
+                { n: 1, text: "Clinical flags surface first — e.g. “hip compensation observed during lateral step-down”." },
+                { n: 2, text: "Pain trend charts daily reported pain across the whole programme, not just visit days." },
+                { n: 3, text: "Programme progress states plainly where the patient is: week 5 of 12, 42% complete." },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The home screen prioritises by urgency: flagged patients — pain spike, form deterioration, missed sessions — rise to the top, then active patients by last session, then upcoming starts. A banner states it plainly: ‘X patients need your attention.’",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "programme-builder-step2.png",
+              frame: "web",
+              caption: "The programme builder — the single gate every patient enters through.",
+              annotations: [
+                { n: 1, text: "Duration, frequency, and per-exercise sets / reps / hold / rest, from a clinician-validated library." },
+                { n: 2, text: "Per-exercise notes carry the therapist’s voice into the patient’s app." },
+                { n: 3, text: "Instalment pricing shows the platform fee before publishing — no surprises at payout." },
+                { n: 4, text: "Reusable templates and draft states, because most programmes are variations of a previous one." },
+              ],
+            },
+            {
+              kind: "figure",
+              src: "alerts.png",
+              frame: "web",
+              caption: "Alerts — tiered so they surface action without becoming noise.",
+              annotations: [
+                { n: 1, text: "Critical / Moderate / Informational tiers keep the urgent visually distinct." },
+                { n: 2, text: "Pain-spike fires when post-session pain rises 2+ against the 3-session average." },
+                { n: 3, text: "Every alert is paired with a suggested action, so triage doesn’t end in a dead end." },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The alert system is the platform’s most important safety layer — form-deterioration, missed-session, instalment-due, and programme-completion-approaching flags all run through the same tiering, so a therapist learns one mental model rather than five.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "billing.png", caption: "Billing — collected vs. expected, with the platform fee shown per patient." },
+                { src: "analytics.png", caption: "Practice analytics — where revenue comes from, and whether care is working." },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "To replace cash-and-WhatsApp billing, the dashboard handles the money end to end: per-patient payment logs, automatic instalment reminders, offline-payment marking, GST-compliant receipts, and weekly payouts — turning previously unbillable clinical time into tracked revenue.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "decisions",
+          kicker: "Key Decisions",
+          heading: "Two choices that defined the product",
+          blocks: [
+            {
+              kind: "decision",
+              title: "A platform fee, not a subscription",
+              problem:
+                "Subscriptions create misaligned incentives. Therapists pay whether or not they use the tool well, and patients pay regardless of whether they recover.",
+              choice:
+                "Patients pay nothing. Therapists are charged an 8–12% platform fee only when they prescribe a programme — so Formi earns when care is actually delivered.",
+              implications: [
+                "Zero-friction patient onboarding — no paywall appearing mid-recovery",
+                "The dashboard shows live programme earnings rather than subscription renewals",
+                "A therapist’s cost scales with their practice instead of preceding it",
+                "Worked example: ₹18,000 programme fee − ₹1,440 platform fee (8%) = ₹16,560, settled within 7 days",
+              ],
+            },
+            {
+              kind: "decision",
+              title: "Completion rate over renewal rate",
+              problem:
+                "Optimising for renewals subtly rewards prolonging treatment past the point of clinical necessity — the metric quietly works against the patient.",
+              choice:
+                "Completion rate is the primary KPI. A patient finishing their programme and being discharged is treated as a win, not a missed upsell.",
+              implications: [
+                "This quarter’s funnel: 96 packages sold, 100% entry rate",
+                "68 patients completed their course — a 71% completion rate",
+                "18 discontinued early, surfaced as a 19% dropout risk to act on",
+              ],
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Outcome",
+          heading: "Where it landed — and what’s next",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "A 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing, and reporting — the clinical-oversight half of a two-sided model that started life as a patients-only college project.",
+                "It isn’t validated yet, and I’d rather say so than imply otherwise. The next steps are real usability testing on the pose-tracking flow and a pilot with actual clinics to test whether the revenue model survives contact with practice.",
+              ],
+            },
+            {
+              kind: "quote",
+              text: "0 to 1 design is less about the pixels, and more about deciding what not to build yet.",
+              author: "What I took away",
+            },
+          ],
+        },
+      ],
+    },
     gallery: [
       "analytics.png",
       "patient-progress.png",
@@ -458,6 +931,14 @@ export const projects: Project[] = [
         ],
       },
     ],
+    /* TODO — case study. The companion piece to `formi`: keep it shorter and
+       scoped to the mobile surface, and cross-link back rather than restating
+       the shared research. Use `frame: "mobile"` on figure blocks. */
+    study: {
+      meta: [],
+      glance: [],
+      sections: [],
+    },
     gallery: [
       "splash.png",
       "welcome.png",
@@ -568,6 +1049,12 @@ export const projects: Project[] = [
         ],
       },
     ],
+    /* TODO — case study. See the note on `fourcore-platform` above. */
+    study: {
+      meta: [],
+      glance: [],
+      sections: [],
+    },
     gallery: [
       "board-overview.jpg",
       "board-wireframes.jpg",
@@ -647,6 +1134,12 @@ export const projects: Project[] = [
         ],
       },
     ],
+    /* TODO — case study. See the note on `fourcore-platform` above. */
+    study: {
+      meta: [],
+      glance: [],
+      sections: [],
+    },
     gallery: [
       "board-landing-page.jpg",
       "board-overview.jpg",
@@ -720,6 +1213,14 @@ export const projects: Project[] = [
         ],
       },
     ],
+    /* TODO — case study. See the note on `fourcore-platform` above.
+       A concept project, so lean on `callout` (the idea), `swatches` and
+       `figures` for the visual system, and be honest in `outcome`. */
+    study: {
+      meta: [],
+      glance: [],
+      sections: [],
+    },
     gallery: [
       "reading-interface-6.png",
       "reading-interface-7.png",

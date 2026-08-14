@@ -1,4 +1,5 @@
 import type { Block } from "@/lib/data";
+import Scrolly from "./Scrolly";
 
 /* One renderer per block kind. Server components — nothing here needs state.
    `dir` is the project's folder in public/projects/, prefixed onto every src. */
@@ -145,6 +146,9 @@ export default function Block({ block: b, dir }: Props) {
         </div>
       );
 
+    case "scrolly":
+      return <Scrolly steps={b.steps} dir={dir} />;
+
     case "figures":
       return (
         <div className="bk-figures" style={{ ["--fig-cols" as string]: b.cols ?? 2 }}>
@@ -181,24 +185,12 @@ export default function Block({ block: b, dir }: Props) {
     case "decision":
       return (
         <article className="bk-decision">
-          <h4 className="bk-decision-title">{b.title}</h4>
-          <div className="bk-decision-grid">
-            <div className="bk-decision-cell is-problem">
-              <h5>The problem</h5>
-              <p>{b.problem}</p>
-            </div>
-            <div className="bk-decision-cell is-choice">
-              <h5>What I did</h5>
-              <p>{b.choice}</p>
-            </div>
+          <h3 className="bk-decision-title">{b.title}</h3>
+          <div className="bk-decision-body">
+            {b.body.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
-          {b.implications && b.implications.length > 0 && (
-            <ul className="bk-list">
-              {b.implications.map((i) => (
-                <li key={i}>{i}</li>
-              ))}
-            </ul>
-          )}
         </article>
       );
 
@@ -221,6 +213,28 @@ export default function Block({ block: b, dir }: Props) {
             </li>
           ))}
         </ol>
+      );
+
+    /* recurses one level — the nested blocks aren't direct children of
+       .study-blocks, so they don't pick up the section inset twice */
+    case "split":
+      return (
+        <div
+          className={[
+            "bk-split",
+            `w-${b.weight ?? "media"}`,
+            b.align === "start" ? "align-start" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          <div className="bk-split-cell">
+            <Block block={b.left} dir={dir} />
+          </div>
+          <div className="bk-split-cell">
+            <Block block={b.right} dir={dir} />
+          </div>
+        </div>
       );
 
     case "swatches":

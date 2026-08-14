@@ -1197,6 +1197,12 @@ body.cursor-hover .cursor-ring {
 .bk-figure.frame-mobile img { width: auto; max-width: 100%; max-height: 540px; }
 .bk-figure.frame-mobile figcaption { text-align: center; }
 .bk-figure.frame-bleed img { border-radius: 0; border-left: none; border-right: none; }
+/* a UI card lifted off the page — for screenshots that already carry their
+   own white surface, so a hairline would read as a second border */
+.bk-figure.frame-card img {
+  border: none; border-radius: 20px;
+  box-shadow: 0 22px 44px -24px rgba(22, 19, 13, 0.3), 0 2px 8px rgba(22, 19, 13, 0.04);
+}
 
 .bk-notes { list-style: none; display: grid; gap: 16px; align-self: start; padding-top: 4px; }
 .bk-notes li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; }
@@ -1209,6 +1215,70 @@ body.cursor-hover .cursor-ring {
 .bk-notes .t { font-size: 14.5px; line-height: 1.62; color: var(--ink-2); }
 
 .bk-figures { display: grid; grid-template-columns: repeat(var(--fig-cols, 2), minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+
+/* --- pinned commentary beside scrolling screens --------------- */
+/* The text column sticks for the length of the media column while the
+   screens scroll past; copy crossfades to whichever screen is nearest
+   the middle of the viewport. */
+.bk-scrolly {
+  display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(28px, 4.5vw, 72px); align-items: start;
+}
+/* pinned to a fixed offset rather than centred in a 100vh column, so the
+   copy starts level with the first screen instead of half a viewport below it */
+.bk-scrolly-text {
+  position: sticky; top: clamp(96px, 13vh, 132px);
+  display: grid; align-content: start;
+}
+.bk-scrolly-stack { display: grid; }
+/* every panel occupies the same cell, so the stack is as tall as the
+   longest one and nothing shifts as the copy changes */
+.bk-scrolly-panel {
+  grid-area: 1 / 1; opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.bk-scrolly-panel.is-active { opacity: 1; transform: none; }
+.bk-scrolly-panel .n {
+  display: block; font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 14px;
+}
+.bk-scrolly-panel h4 {
+  font-family: var(--ff-display); font-weight: 700; font-size: clamp(21px, 2.3vw, 27px);
+  line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.bk-scrolly-panel p { font-size: 16px; line-height: 1.72; color: var(--ink-2); }
+.bk-scrolly-panel p + p { margin-top: 0.9em; }
+
+/* no top padding — the first screen has to start level with the copy.
+   The tail gives the last step room to settle before the section ends. */
+.bk-scrolly-media { display: grid; gap: clamp(64px, 14vh, 150px); padding-bottom: 10vh; }
+.bk-scrolly-shot { margin: 0; }
+.bk-scrolly-shot img {
+  width: 100%; height: auto; display: block;
+  border: 1.5px solid var(--line); border-radius: 16px;
+  opacity: 0.55; transition: opacity .5s ease;
+}
+.bk-scrolly-shot.is-active img { opacity: 1; }
+.bk-scrolly-inline { display: none; }
+
+@media (max-width: 900px) {
+  /* no room to pin — each screen carries its own copy instead */
+  .bk-scrolly { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .bk-scrolly-text { display: none; }
+  .bk-scrolly-media { gap: clamp(40px, 8vh, 72px); padding: 0; }
+  .bk-scrolly-shot img { opacity: 1; }
+  .bk-scrolly-inline { display: block; padding-top: 18px; }
+  .bk-scrolly-inline h4 {
+    font-family: var(--ff-display); font-weight: 700; font-size: 20px;
+    line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  .bk-scrolly-inline p { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+  .bk-scrolly-inline p + p { margin-top: 0.85em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-scrolly-panel, .bk-scrolly-shot img { transition: none; }
+}
 
 /* reuses the legacy .cmp-* markup, softened to match the reading column */
 .bk-compare { display: grid; gap: 14px; }
@@ -1225,17 +1295,15 @@ body.cursor-hover .cursor-ring {
 .bk-compare .cmp-item.before .cmp-tag { background: var(--bg-2); color: var(--ink-2); }
 .bk-compare .cmp-item.after .cmp-tag { background: var(--accent); color: var(--paper); }
 
-.bk-decision {
-  padding: clamp(22px, 2.8vw, 32px); border-radius: 20px;
-  border: 1.5px solid var(--line); background: var(--paper);
-  display: grid; gap: 22px;
+/* not a card — a heading and prose sitting on the page, so the artefact
+   beside it is unmistakably the thing being described */
+.bk-decision { display: grid; gap: clamp(16px, 2vw, 22px); }
+.bk-decision-title {
+  font-family: var(--ff-display); font-weight: 700;
+  font-size: clamp(26px, 3vw, 38px); line-height: 1.14; letter-spacing: -0.025em;
 }
-.bk-decision-title { font-family: var(--ff-display); font-weight: 700; font-size: clamp(19px, 2.1vw, 23px); letter-spacing: -0.015em; line-height: 1.3; }
-.bk-decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 32px); }
-.bk-decision-cell p { font-size: 15px; line-height: 1.65; color: var(--ink-2); }
-.bk-decision-cell.is-choice p { color: var(--ink); }
-.bk-decision-cell.is-choice h5 { color: var(--accent); }
-.bk-decision .bk-list { font-size: 14.5px; }
+.bk-decision-body p { font-size: 17px; line-height: 1.75; color: var(--ink-2); }
+.bk-decision-body p + p { margin-top: 1.05em; }
 
 /* the one place a tint still earns its keep — a deliberate aside */
 .bk-callout {
@@ -1260,6 +1328,20 @@ body.cursor-hover .cursor-ring {
 .bk-step .n { font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500; color: var(--accent); }
 .bk-step .lbl { font-family: var(--ff-display); font-weight: 700; font-size: 16px; letter-spacing: -0.01em; line-height: 1.25; }
 .bk-step .note { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+
+/* two blocks side by side — text against the artefact that proves it */
+.bk-split {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(22px, 3.2vw, 46px); align-items: center;
+}
+.bk-split.w-even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.bk-split.w-text { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.bk-split.align-start { align-items: start; }
+.bk-split-cell { min-width: 0; }
+/* a card in a split column is far narrower than the viewport, so its own
+   two-column grid has to stack — media queries can't see the column width */
+.bk-split .bk-persona-cols,
+.bk-split .bk-theme-cells { grid-template-columns: minmax(0, 1fr); }
 
 .bk-swatches { display: flex; flex-wrap: wrap; gap: clamp(14px, 1.8vw, 22px); }
 .bk-swatch { display: grid; gap: 3px; }
@@ -1319,6 +1401,11 @@ body.cursor-hover .cursor-ring {
   .bk-decision-grid,
   .bk-theme-cells { grid-template-columns: minmax(0, 1fr); }
   .bk-theme { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  /* the weight variants are two-class selectors, so they must be repeated
+     here to be overridden — a media query adds no specificity */
+  .bk-split,
+  .bk-split.w-even,
+  .bk-split.w-text { grid-template-columns: minmax(0, 1fr); }
   .bk-figures { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
   .bk-stats { gap: 22px; }
 }

@@ -45,6 +45,9 @@ export const stats = [
    screens and thinking interleaved rather than text-then-gallery.
    ============================================================ */
 
+/** one screen plus the commentary that pins beside it while it scrolls */
+export type ScrollyStep = { src: string; title: string; body: string[] };
+
 /** image paths in blocks are filenames inside the project's public/projects/<dir>/ */
 export type Block =
   /** running paragraphs */
@@ -75,21 +78,35 @@ export type Block =
       kind: "figure";
       src: string;
       caption?: string;
-      frame?: "web" | "mobile" | "bleed";
+      frame?: "web" | "mobile" | "bleed" | "card";
       annotations?: { n: number; text: string }[];
     }
   /** a row/grid of screens */
   | { kind: "figures"; cols?: 2 | 3 | 4; items: { src: string; caption?: string }[] }
   /** before/after pair */
   | { kind: "compare"; label?: string; before: string; after: string }
-  /** a design decision and why it was made */
-  | { kind: "decision"; title: string; problem: string; choice: string; implications?: string[] }
+  /** a design decision and why it was made — reads as flowing prose under a
+   *  large heading, not a boxed card, so it can sit beside the artefact */
+  | { kind: "decision"; title: string; body: string[] }
   /** boxed constraint, "How might we", or aside */
   | { kind: "callout"; title?: string; body: string }
   /** process phases / journey steps */
   | { kind: "flow"; steps: { label: string; note?: string }[] }
   /** colour palette row */
-  | { kind: "swatches"; items: { hex: string; name: string }[] };
+  | { kind: "swatches"; items: { hex: string; name: string }[] }
+  /** pinned commentary beside a scrolling stack of screens (desktop);
+   *  stacks with inline captions below 900px */
+  | { kind: "scrolly"; steps: ScrollyStep[] }
+  /** two blocks side by side — e.g. a callout next to the figure proving it.
+   *  `weight` favours the left (text) or right (media) column.
+   *  Stacks below 760px. Nest sparingly; one level is the intent. */
+  | {
+      kind: "split";
+      left: Block;
+      right: Block;
+      align?: "center" | "start";
+      weight?: "text" | "even" | "media";
+    };
 
 export type StudySection = {
   id: string;        // anchor + TOC target, e.g. "problem"
@@ -483,7 +500,7 @@ export const projects: Project[] = [
             },
             {
               kind: "figure",
-              src: "dashboard.png",
+              src: "hero-dashboard.png",
               frame: "web",
               caption: "The therapist’s home view — the whole caseload triaged by who needs attention first.",
             },
@@ -684,10 +701,20 @@ export const projects: Project[] = [
               ],
             },
             {
-              kind: "callout",
-              title: "The logomark",
-              body:
-                "Recovery isn’t a straight line — it loops, dips, and comes back around. The arc was the shape that captured that without needing to say it, and it reappears through the product as progress rings and session markers.",
+              kind: "split",
+              left: {
+                kind: "callout",
+                title: "The logomark",
+                body:
+                  "Recovery isn’t a straight line — it loops, dips, and comes back around. The arc was the shape that captured that without needing to say it, and it reappears through the product as progress rings and session markers.",
+              },
+              right: {
+                kind: "figure",
+                src: "logo-grid.png",
+                frame: "web",
+                caption:
+                  "Constructed, not drawn — both arcs are cut from two circles overlapping a 76px square.",
+              },
             },
           ],
         },
@@ -697,63 +724,56 @@ export const projects: Project[] = [
           heading: "The therapist dashboard, surface by surface",
           blocks: [
             {
-              kind: "figure",
-              src: "patient-profile.png",
-              frame: "web",
-              caption: "Patient overview — everything needed to prepare for a session, in one view.",
-              annotations: [
-                { n: 1, text: "Clinical flags surface first — e.g. “hip compensation observed during lateral step-down”." },
-                { n: 2, text: "Pain trend charts daily reported pain across the whole programme, not just visit days." },
-                { n: 3, text: "Programme progress states plainly where the patient is: week 5 of 12, 42% complete." },
-              ],
-            },
-            {
-              kind: "prose",
-              body: [
-                "The home screen prioritises by urgency: flagged patients — pain spike, form deterioration, missed sessions — rise to the top, then active patients by last session, then upcoming starts. A banner states it plainly: ‘X patients need your attention.’",
-              ],
-            },
-            {
-              kind: "figure",
-              src: "programme-builder-step2.png",
-              frame: "web",
-              caption: "The programme builder — the single gate every patient enters through.",
-              annotations: [
-                { n: 1, text: "Duration, frequency, and per-exercise sets / reps / hold / rest, from a clinician-validated library." },
-                { n: 2, text: "Per-exercise notes carry the therapist’s voice into the patient’s app." },
-                { n: 3, text: "Instalment pricing shows the platform fee before publishing — no surprises at payout." },
-                { n: 4, text: "Reusable templates and draft states, because most programmes are variations of a previous one." },
-              ],
-            },
-            {
-              kind: "figure",
-              src: "alerts.png",
-              frame: "web",
-              caption: "Alerts — tiered so they surface action without becoming noise.",
-              annotations: [
-                { n: 1, text: "Critical / Moderate / Informational tiers keep the urgent visually distinct." },
-                { n: 2, text: "Pain-spike fires when post-session pain rises 2+ against the 3-session average." },
-                { n: 3, text: "Every alert is paired with a suggested action, so triage doesn’t end in a dead end." },
-              ],
-            },
-            {
-              kind: "prose",
-              body: [
-                "The alert system is the platform’s most important safety layer — form-deterioration, missed-session, instalment-due, and programme-completion-approaching flags all run through the same tiering, so a therapist learns one mental model rather than five.",
-              ],
-            },
-            {
-              kind: "figures",
-              cols: 2,
-              items: [
-                { src: "billing.png", caption: "Billing — collected vs. expected, with the platform fee shown per patient." },
-                { src: "analytics.png", caption: "Practice analytics — where revenue comes from, and whether care is working." },
-              ],
-            },
-            {
-              kind: "prose",
-              body: [
-                "To replace cash-and-WhatsApp billing, the dashboard handles the money end to end: per-patient payment logs, automatic instalment reminders, offline-payment marking, GST-compliant receipts, and weekly payouts — turning previously unbillable clinical time into tracked revenue.",
+              kind: "scrolly",
+              steps: [
+                {
+                  src: "hero-dashboard.png",
+                  title: "Triage before anything else",
+                  body: [
+                    "The home screen sorts by urgency, not alphabetically. Flagged patients rise to the top — pain spike, form deterioration, missed sessions — then active patients by last session, then upcoming starts.",
+                    "A banner states the day plainly: X patients need your attention. That single line is what makes a ten-minute daily review possible.",
+                  ],
+                },
+                {
+                  src: "ui-patient-overview.png",
+                  title: "The patient overview",
+                  body: [
+                    "Everything needed to prepare for a session in one view — health summary and medications on the left, current status on the right, clinical snapshot underneath.",
+                    "Progress is stated in plain language: Post-Operative Knee Recovery, week 5 of 12, 42% complete. Pain score, form accuracy, joint range and adherence sit together, so the numbers are read as one clinical picture rather than four separate metrics.",
+                  ],
+                },
+                {
+                  src: "ui-programme-library.png",
+                  title: "Programmes as reusable objects",
+                  body: [
+                    "Most programmes start as a variation of a previous one, not a blank page. The library shows duration, exercise count, enrolled patients and progress at a glance, with view, edit and duplicate on every card.",
+                    "Creating from scratch is deliberately the one dashed card in the grid — available, but not the default path.",
+                  ],
+                },
+                {
+                  src: "ui-programme-builder.png",
+                  title: "The programme builder",
+                  body: [
+                    "Programme creation is the therapist’s primary action and the single gate every patient enters through. Exercises are dragged from a clinician-validated library into the session, each with its own sets, reps, hold and rest.",
+                    "Therapist instructions travel with the exercise, and a patient view preview shows exactly what will appear on the phone — so the therapist never has to guess how their prescription reads at the other end.",
+                  ],
+                },
+                {
+                  src: "ui-alerts.png",
+                  title: "Alerts as the safety layer",
+                  body: [
+                    "Tiered Critical, Moderate and Informational so urgency stays visually distinct. A pain spike carries its own suggested action — “pain increased from 4/10 to 7/10 over the last two sessions” — rather than leaving the therapist to work out what changed.",
+                    "Missed sessions, form deterioration, instalments due and completion milestones all run through the same tiering. One mental model to learn, not five, and every alert ends in a button rather than a dead end.",
+                  ],
+                },
+                {
+                  src: "ui-revenue.png",
+                  title: "Revenue that tracks the clinical goal",
+                  body: [
+                    "The money view replaces cash-and-WhatsApp billing: revenue per clinic hour, package sell-through, instalment tracking and weekly payouts, turning previously unbillable clinical time into tracked revenue.",
+                    "Completion rate sits in the header row beside revenue, and the treatment funnel states the intent in its own subtitle — completions are the goal, not a drop-off. The commercial metrics and the clinical ones point the same way by construction.",
+                  ],
+                },
               ],
             },
           ],
@@ -764,44 +784,84 @@ export const projects: Project[] = [
           heading: "Two choices that defined the product",
           blocks: [
             {
-              kind: "decision",
-              title: "A platform fee, not a subscription",
-              problem:
-                "Subscriptions create misaligned incentives. Therapists pay whether or not they use the tool well, and patients pay regardless of whether they recover.",
-              choice:
-                "Patients pay nothing. Therapists are charged an 8–12% platform fee only when they prescribe a programme — so Formi earns when care is actually delivered.",
-              implications: [
-                "Zero-friction patient onboarding — no paywall appearing mid-recovery",
-                "The dashboard shows live programme earnings rather than subscription renewals",
-                "A therapist’s cost scales with their practice instead of preceding it",
-                "Worked example: ₹18,000 programme fee − ₹1,440 platform fee (8%) = ₹16,560, settled within 7 days",
-              ],
+              kind: "split",
+              weight: "text",
+              left: {
+                kind: "decision",
+                title: "A platform fee, not a subscription",
+                body: [
+                  "Most tools in this space charge a subscription, either a flat cost to the therapist or a paid app for the patient. Both create the wrong incentive: a therapist pays whether they use it well or not, a patient pays regardless of how recovery is actually going.",
+                  "Formi takes a different route. Patients pay nothing. Therapists are charged a small platform fee, 8 to 12%, only when they prescribe a programme. No programme, no fee.",
+                  "That decision shaped the dashboard’s revenue section too. Not a subscription screen, but a live read on programmes prescribed and earnings tied to real usage. And it meant patients get zero friction onboarding, no paywall sitting in the middle of a recovery journey.",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "decision-financial-summary.png",
+                frame: "card",
+              },
             },
             {
-              kind: "decision",
-              title: "Completion rate over renewal rate",
-              problem:
-                "Optimising for renewals subtly rewards prolonging treatment past the point of clinical necessity — the metric quietly works against the patient.",
-              choice:
-                "Completion rate is the primary KPI. A patient finishing their programme and being discharged is treated as a win, not a missed upsell.",
-              implications: [
-                "This quarter’s funnel: 96 packages sold, 100% entry rate",
-                "68 patients completed their course — a 71% completion rate",
-                "18 discontinued early, surfaced as a 19% dropout risk to act on",
-              ],
+              kind: "split",
+              weight: "text",
+              left: {
+                kind: "decision",
+                title: "Completion rate over renewal rate",
+                body: [
+                  "The obvious metric for a platform like this is renewals. But optimising for renewals quietly rewards keeping someone in treatment longer than they need to be, which is the opposite of what a good physiotherapist is trying to do.",
+                  "So the dashboard leads with completion rate instead. A patient finishing their programme and being discharged reads as a win, not as revenue walking out of the door.",
+                  "It changes what the funnel is for. Early drop-off stops being churn to win back and becomes a clinical risk group to intervene on — which is exactly what the alerts layer already exists to catch.",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "decision-treatment-funnel.png",
+                frame: "card",
+              },
             },
           ],
         },
         {
           id: "outcome",
-          kicker: "Outcome",
-          heading: "Where it landed — and what’s next",
+          kicker: "Outcome & Reflection",
+          heading: "What shipped, and what’s still unproven",
           blocks: [
+            {
+              kind: "stats",
+              items: [
+                { value: "53", label: "Screens across two products" },
+                { value: "7", label: "Functional groups in the dashboard" },
+                { value: "2", label: "Native platforms specified" },
+                { value: "1", label: "Design system shared by both apps" },
+              ],
+            },
             {
               kind: "prose",
               body: [
-                "A 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing, and reporting — the clinical-oversight half of a two-sided model that started life as a patients-only college project.",
-                "It isn’t validated yet, and I’d rather say so than imply otherwise. The next steps are real usability testing on the pose-tracking flow and a pilot with actual clinics to test whether the revenue model survives contact with practice.",
+                "The work landed as a developer-ready specification, not a mood board. A 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing and reporting; a 30-screen patient app carrying someone from a therapist’s code through AI-tracked sessions to discharge. Both are composed from one design system, annotated with states, spacing and interactions.",
+                "It began as ‘Proctify’, a patients-only college project. The therapist half — the half that makes it a business rather than an app — wasn’t in the original scope at all.",
+              ],
+            },
+            {
+              kind: "callout",
+              title: "Being straight about it",
+              body:
+                "None of this is validated. It’s a designed system with an argument behind it, not a product with users.",
+            },
+            {
+              // TODO: reflection drafted from the documented validation gaps —
+              // review the wording before publishing.
+              kind: "prose",
+              body: [
+                "Two things I’d do differently. I designed the pose-tracking session on reasoning alone; it’s the riskiest surface in the product and the one that most needed a rough prototype in someone’s hands early, not a polished spec late. And I’d instrument completion rate from the first build rather than treating it as a reporting feature — the entire business model rests on that single number, so it should have been the first thing measurable.",
+              ],
+            },
+            {
+              kind: "list",
+              items: [
+                "Usability-test the guided session with real patients, on low-end Android, on the floor",
+                "Pilot with clinics to find out whether an 8–12% fee survives how therapists actually price",
+                "Track completion rate from day one — the north-star metric has to be observable",
               ],
             },
             {

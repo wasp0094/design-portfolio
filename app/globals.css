@@ -878,6 +878,548 @@ body.cursor-hover .cursor-ring {
 }
 
 /* ============================================================
+   CASE STUDY — the `study` template (lib/data.ts → Project.study)
+
+   Reading-first. The site's border + hard-offset-shadow idiom is
+   LOUD, so inside the reading column it's rationed to three weights:
+     0 — plain type on the page (most blocks). No border, no shadow.
+     1 — soft surface: --paper + a hairline, no shadow (persona,
+         decision, quote, theme) for genuinely self-contained units.
+     2 — the full brand treatment, kept for page furniture that
+         already had it: hero, gallery shots, next/CTA.
+   Separation between sections comes from whitespace and a short
+   accent rule, not from boxing everything.
+   ============================================================ */
+
+
+/* --- header strip: spec list + summary, then outcome numbers -- */
+.study-head { margin: clamp(34px, 5vw, 60px) 0 0; }
+
+/* the facts read as a vertical spec list, paired with the summary */
+.study-brief {
+  display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 5vw, 76px); align-items: start;
+  padding: clamp(24px, 3vw, 34px) 0;
+  border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line);
+}
+.study-meta { display: grid; }
+.study-meta > div {
+  display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 18px;
+  padding: 13px 0; border-top: 1.5px solid var(--line);
+}
+.study-meta > div:first-child { border-top: none; padding-top: 0; }
+.study-meta > div:last-child { padding-bottom: 0; }
+.study-meta dt {
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-3); padding-top: 3px;
+}
+.study-meta dd { font-size: 15px; font-weight: 500; color: var(--ink-2); line-height: 1.55; }
+.study-brief-note { font-size: 17px; color: var(--ink-2); line-height: 1.78; }
+
+/* the TL;DR — a full-width ledger of numbers */
+.study-glance { margin-top: clamp(30px, 4vw, 46px); }
+.study-glance-title {
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px;
+}
+.study-glance-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(20px, 2.6vw, 34px);
+}
+.study-glance-item { padding-left: clamp(16px, 2vw, 24px); border-left: 1.5px solid var(--line); }
+.study-glance-row > :first-child { padding-left: 0; border-left: none; }
+.study-glance-item .v {
+  font-family: var(--ff-display); font-weight: 800; font-size: clamp(27px, 3.1vw, 37px);
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--accent);
+}
+.study-glance-item .l { margin-top: 8px; font-size: 13px; font-weight: 500; color: var(--ink-3); line-height: 1.45; }
+.study-link { margin-top: clamp(22px, 3vw, 32px); }
+
+/* --- composed product hero ----------------------------------- */
+/* Wide screen on a tinted stage, phone lifted over its right edge.
+   Heights come from the images, so swapping a screen can't break it.
+   This is page furniture, so it keeps the full brand treatment. */
+.study-hero {
+  position: relative; margin: 0;
+  padding: clamp(20px, 3.4vw, 48px);
+  border: 1.5px solid var(--ink); border-radius: 26px;
+  box-shadow: 8px 8px 0 var(--ink); overflow: hidden;
+  background:
+    radial-gradient(120% 105% at 10% -10%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%),
+    color-mix(in srgb, var(--accent) 11%, var(--paper));
+}
+/* sized so the phone overlaps the screen's right edge by ~7% of the stage —
+   enough to read as layered, not enough to hide dashboard content */
+.study-hero-web { width: 86%; }
+.study-hero-web img {
+  width: 100%; height: auto; display: block;
+  border-radius: 14px; border: 1.5px solid var(--line);
+  box-shadow: 0 22px 50px -22px rgba(22, 19, 13, 0.32);
+}
+.study-hero-app {
+  position: absolute; width: 20%;
+  right: clamp(14px, 2.4vw, 34px); bottom: clamp(20px, 3.4vw, 48px);
+  display: grid; justify-items: center;
+}
+/* a slim dark bezel so the phone reads as a device, not a pasted screenshot */
+.study-hero-device {
+  padding: 0.9%; border-radius: 15%/7.2%; background: #17150f;
+  box-shadow: 0 26px 46px -18px rgba(22, 19, 13, 0.5);
+}
+.study-hero-device img { width: 100%; height: auto; display: block; border-radius: 13%/6.2%; }
+.study-hero-tag {
+  display: inline-block; margin-top: 14px; padding: 5px 12px; border-radius: 999px;
+  background: var(--paper); border: 1.5px solid var(--line);
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3);
+}
+.study-hero-app .study-hero-tag { margin-top: 12px; }
+/* single-screen projects: no overlap, just the screen centred on the stage */
+.study-hero.is-solo { display: grid; justify-items: center; }
+.study-hero.is-solo .study-hero-web { width: 100%; }
+.study-hero.is-solo .study-hero-app { position: static; width: min(46%, 260px); }
+
+/* --- shell: contents rail + body ----------------------------- */
+/* A tick rail: one bar per section. The active bar extends and reveals its
+   UX step; the rest stay as quiet marks, so the whole contents list costs
+   nine hairlines of visual weight instead of nine wrapped headings. */
+.study {
+  display: grid; grid-template-columns: 68px minmax(0, 1fr);
+  gap: clamp(18px, 2.6vw, 38px);
+  margin: clamp(44px, 6vw, 84px) 0 clamp(40px, 5vw, 64px);
+  align-items: start;
+}
+
+.study-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 210; pointer-events: none;
+  background: transparent;
+}
+.study-progress-fill {
+  height: 100%; transform-origin: 0 50%; transform: scaleX(0);
+  background: var(--accent);
+}
+
+.study-toc { position: sticky; top: 108px; z-index: 95; }
+.study-toc-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.study-toc ol, .study-toc-mobile ol { list-style: none; }
+
+/* Idle it is a stack of ticks — the current section is carried by colour
+   alone. Bar widths are set inline by StudyNav: the tick nearest the
+   pointer magnifies and its neighbours taper, dock-style. */
+.study-toc > ol { padding: 4px 0; }
+.study-toc-link {
+  position: relative; display: flex; align-items: center; min-width: 0;
+  padding: 7px 0; /* with the label taken out of flow, this sets the tick pitch */
+}
+.study-toc-link .bar {
+  flex: none; height: 2px; border-radius: 2px;
+  background: var(--line-2); opacity: 0.5;
+  transition: width .13s linear, background .2s ease, opacity .2s ease;
+}
+/* Absolutely positioned so the hidden label can't inflate the row height —
+   that is what was holding the ticks apart. It overflows the rail column,
+   so it carries a surface of its own to stay readable over the content. */
+.study-toc-link .t {
+  position: absolute; left: 74px; top: 50%;
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-2); white-space: nowrap;
+  padding: 4px 9px; border-radius: 999px;
+  background: var(--paper); border: 1px solid var(--line);
+  opacity: 0; transform: translate(-4px, -50%); pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.study-toc-link .t.is-shown { opacity: 1; transform: translate(0, -50%); }
+.study-toc-link:hover .bar { background: var(--ink-2); opacity: 1; }
+
+/* the only cue for the current section */
+.study-toc-link.is-active .bar { background: var(--accent); opacity: 1; }
+
+.study-toc-mobile { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .study-toc-link .bar { transition: none; }
+}
+
+/* --- sections ------------------------------------------------ */
+/* Generous space BETWEEN sections, tight space WITHIN them — proximity
+   does the grouping, so no section needs a box or a rule to be legible. */
+/* One full-width track. Every block — text and imagery alike — is inset by
+   --tpad, so the whole section shares one left and right edge. */
+.study-section {
+  --tpad: clamp(0px, 4.6vw, 66px);
+  scroll-margin-top: 96px; padding-top: clamp(52px, 7.5vw, 104px);
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  row-gap: clamp(22px, 2.6vw, 30px);
+}
+/* applied to the block wrappers, not the blocks — a nested block (a list
+   inside a decision card) would otherwise be inset a second time */
+.study-section > *,
+.study-blocks > * { margin-inline: var(--tpad); }
+.study-section:first-child { padding-top: 0; }
+/* `display: contents` puts each block directly in the section grid, so one
+   row-gap governs the whole section and no block can be inset by a wrapper */
+.study-blocks { display: contents; }
+.study-section > *,
+.study-blocks > * { min-width: 0; }
+
+.study-section-head { margin-bottom: clamp(6px, 1vw, 12px); }
+/* the short accent rule is the "new chapter" signal */
+.study-section-head::before {
+  content: ""; display: block; width: 40px; height: 2px;
+  background: var(--accent); margin-bottom: 18px;
+}
+.study-section-num {
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500; color: var(--accent);
+  margin-right: 12px;
+}
+.study-section-kicker {
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.study-section-title {
+  font-family: var(--ff-display); font-weight: 700; font-size: clamp(23px, 2.5vw, 31px);
+  line-height: 1.2; letter-spacing: -0.02em; margin-top: 12px;
+}
+
+/* --- blocks -------------------------------------------------- */
+/* weight 0 — plain type, held to a comfortable measure */
+/* No max-widths on text blocks — they run the full column width. Lines are
+   long at that width, so leading is opened up to keep them trackable. */
+.bk-prose p { font-size: 17px; line-height: 1.8; color: var(--ink-2); }
+.bk-prose p + p { margin-top: 1.1em; }
+
+.bk-lead {
+  font-family: var(--ff-display); font-weight: 500;
+  font-size: clamp(19px, 2.1vw, 25px); line-height: 1.4; letter-spacing: -0.015em;
+  color: var(--ink);
+  padding-left: clamp(16px, 2vw, 22px); border-left: 2px solid var(--accent);
+}
+
+.bk-list { display: grid; gap: 12px; }
+.bk-list li {
+  list-style: none; display: grid; grid-template-columns: 18px 1fr; gap: 10px;
+  font-size: 16px; line-height: 1.6; color: var(--ink-2);
+}
+.bk-list li::before { content: "→"; color: var(--accent); font-weight: 700; }
+
+/* evidence numbers — a ledger, not a row of cards */
+.bk-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: clamp(20px, 2.6vw, 36px);
+  padding: clamp(20px, 2.4vw, 28px) 0;
+  border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line);
+}
+.bk-stat .v {
+  font-family: var(--ff-display); font-weight: 800; font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--accent);
+}
+.bk-stat .l { margin-top: 10px; font-size: 14.5px; font-weight: 500; color: var(--ink-2); line-height: 1.5; }
+.bk-stat .src { margin-top: 10px; font-family: var(--ff-mono); font-size: 10.5px; color: var(--ink-3); line-height: 1.45; }
+
+/* weight 1 — soft surface, hairline, no shadow */
+.bk-quote {
+  padding: clamp(22px, 2.8vw, 32px); border-radius: 20px;
+  border: 1.5px solid var(--line); background: var(--paper);
+}
+.bk-quote blockquote {
+  font-family: var(--ff-display); font-weight: 500; font-size: clamp(18px, 2vw, 23px);
+  line-height: 1.45; letter-spacing: -0.015em; color: var(--ink);
+}
+.bk-quote blockquote::before { content: "“"; }
+.bk-quote blockquote::after { content: "”"; }
+.bk-quote figcaption { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; }
+.bk-quote .who { font-size: 14px; font-weight: 700; color: var(--ink); }
+.bk-quote .what { font-family: var(--ff-mono); font-size: 12px; color: var(--ink-3); }
+
+.bk-persona {
+  padding: clamp(20px, 2.6vw, 30px); border-radius: 20px;
+  border: 1.5px solid var(--line); background: var(--paper);
+}
+.bk-persona-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.bk-persona-photo, .bk-persona-mark {
+  width: 62px; height: 62px; border-radius: 50%; border: 1.5px solid var(--line); flex: none;
+  object-fit: cover; object-position: center top; display: grid; place-items: center;
+}
+.bk-persona-mark {
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg));
+  font-family: var(--ff-display); font-weight: 700; font-size: 21px; color: var(--accent);
+}
+.bk-persona-head h4 { font-family: var(--ff-display); font-weight: 700; font-size: 19px; letter-spacing: -0.015em; }
+.bk-persona-head .age { font-weight: 500; color: var(--ink-3); }
+.bk-persona-head .role { font-size: 13px; font-weight: 500; color: var(--ink-3); margin-top: 4px; }
+.bk-persona-quote {
+  font-family: var(--ff-display); font-weight: 500; font-size: 18px; line-height: 1.5;
+  color: var(--ink); margin-bottom: 22px;
+  padding-left: 16px; border-left: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.bk-persona-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 32px); }
+.bk-persona-cols h5, .bk-theme-cell h5, .bk-decision-cell h5 {
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px;
+}
+.bk-persona-cols ul, .bk-theme-cell ul { list-style: none; display: grid; gap: 10px; }
+.bk-persona-cols li, .bk-theme-cell li {
+  font-size: 14.5px; line-height: 1.6; color: var(--ink-2);
+  padding-left: 14px; position: relative;
+}
+.bk-persona-cols li::before, .bk-theme-cell li::before {
+  content: ""; position: absolute; left: 0; top: 9px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.65;
+}
+
+/* themes read as a table of findings — hairline rows, no cards */
+.bk-themes { display: grid; border-top: 1.5px solid var(--line); }
+.bk-theme {
+  display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: clamp(18px, 2.4vw, 32px);
+  padding: clamp(22px, 2.6vw, 30px) 0; border-bottom: 1.5px solid var(--line);
+}
+.bk-theme-label {
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--accent); padding-top: 2px;
+}
+.bk-theme-cells { display: grid; grid-template-columns: repeat(var(--theme-cols, 2), minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); }
+
+/* figures carry a hairline only — the screenshot is the content, the
+   frame shouldn't compete with it. Captions sit below as quiet mono. */
+.bk-figwrap { display: grid; gap: clamp(16px, 2vw, 24px); }
+.bk-figwrap.has-notes { grid-template-columns: minmax(0, 1.55fr) minmax(240px, 1fr); align-items: start; }
+/* no wrapper chrome: the hairline sits on the image, the caption below it */
+.bk-figure { display: block; }
+.bk-figure img {
+  width: 100%; height: auto; display: block;
+  border: 1.5px solid var(--line); border-radius: 16px;
+}
+.bk-figure figcaption {
+  padding-top: 12px; font-family: var(--ff-mono); font-size: 11.5px;
+  font-weight: 500; color: var(--ink-3); line-height: 1.5;
+}
+.bk-figure.frame-mobile { display: grid; justify-items: center; }
+.bk-figure.frame-mobile img { width: auto; max-width: 100%; max-height: 540px; }
+.bk-figure.frame-mobile figcaption { text-align: center; }
+.bk-figure.frame-bleed img { border-radius: 0; border-left: none; border-right: none; }
+/* a UI card lifted off the page — for screenshots that already carry their
+   own white surface, so a hairline would read as a second border */
+.bk-figure.frame-card img {
+  border: none; border-radius: 20px;
+  box-shadow: 0 22px 44px -24px rgba(22, 19, 13, 0.3), 0 2px 8px rgba(22, 19, 13, 0.04);
+}
+
+.bk-notes { list-style: none; display: grid; gap: 16px; align-self: start; padding-top: 4px; }
+.bk-notes li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; }
+.bk-notes .n {
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 500;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 16%, var(--bg)); color: var(--accent);
+  display: grid; place-items: center; margin-top: 2px;
+}
+.bk-notes .t { font-size: 14.5px; line-height: 1.62; color: var(--ink-2); }
+
+.bk-figures { display: grid; grid-template-columns: repeat(var(--fig-cols, 2), minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+
+/* --- pinned commentary beside scrolling screens --------------- */
+/* The text column sticks for the length of the media column while the
+   screens scroll past; copy crossfades to whichever screen is nearest
+   the middle of the viewport. */
+.bk-scrolly {
+  display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(28px, 4.5vw, 72px); align-items: start;
+}
+/* pinned to a fixed offset rather than centred in a 100vh column, so the
+   copy starts level with the first screen instead of half a viewport below it */
+.bk-scrolly-text {
+  position: sticky; top: clamp(96px, 13vh, 132px);
+  display: grid; align-content: start;
+}
+.bk-scrolly-stack { display: grid; }
+/* every panel occupies the same cell, so the stack is as tall as the
+   longest one and nothing shifts as the copy changes */
+.bk-scrolly-panel {
+  grid-area: 1 / 1; opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.bk-scrolly-panel.is-active { opacity: 1; transform: none; }
+.bk-scrolly-panel .n {
+  display: block; font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.1em; color: var(--accent); margin-bottom: 14px;
+}
+.bk-scrolly-panel h4 {
+  font-family: var(--ff-display); font-weight: 700; font-size: clamp(21px, 2.3vw, 27px);
+  line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.bk-scrolly-panel p { font-size: 16px; line-height: 1.72; color: var(--ink-2); }
+.bk-scrolly-panel p + p { margin-top: 0.9em; }
+
+/* no top padding — the first screen has to start level with the copy.
+   The tail gives the last step room to settle before the section ends. */
+.bk-scrolly-media { display: grid; gap: clamp(64px, 14vh, 150px); padding-bottom: 10vh; }
+.bk-scrolly-shot { margin: 0; }
+.bk-scrolly-shot img {
+  width: 100%; height: auto; display: block;
+  border: 1.5px solid var(--line); border-radius: 16px;
+  opacity: 0.55; transition: opacity .5s ease;
+}
+.bk-scrolly-shot.is-active img { opacity: 1; }
+.bk-scrolly-inline { display: none; }
+
+@media (max-width: 900px) {
+  /* no room to pin — each screen carries its own copy instead */
+  .bk-scrolly { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .bk-scrolly-text { display: none; }
+  .bk-scrolly-media { gap: clamp(40px, 8vh, 72px); padding: 0; }
+  .bk-scrolly-shot img { opacity: 1; }
+  .bk-scrolly-inline { display: block; padding-top: 18px; }
+  .bk-scrolly-inline h4 {
+    font-family: var(--ff-display); font-weight: 700; font-size: 20px;
+    line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  .bk-scrolly-inline p { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+  .bk-scrolly-inline p + p { margin-top: 0.85em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-scrolly-panel, .bk-scrolly-shot img { transition: none; }
+}
+
+/* reuses the legacy .cmp-* markup, softened to match the reading column */
+.bk-compare { display: grid; gap: 14px; }
+.bk-compare .cmp-label {
+  font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;
+}
+.bk-compare .cmp-item { border: none; border-radius: 0; background: none; box-shadow: none; }
+.bk-compare .cmp-item img { border: 1.5px solid var(--line); border-radius: 16px; }
+.bk-compare .cmp-tag {
+  border: none; font-family: var(--ff-mono); font-weight: 500; font-size: 10.5px;
+  letter-spacing: 0.06em; text-transform: uppercase; top: 14px; left: 14px;
+}
+.bk-compare .cmp-item.before .cmp-tag { background: var(--bg-2); color: var(--ink-2); }
+.bk-compare .cmp-item.after .cmp-tag { background: var(--accent); color: var(--paper); }
+
+/* not a card — a heading and prose sitting on the page, so the artefact
+   beside it is unmistakably the thing being described */
+.bk-decision { display: grid; gap: clamp(16px, 2vw, 22px); }
+.bk-decision-title {
+  font-family: var(--ff-display); font-weight: 700;
+  font-size: clamp(26px, 3vw, 38px); line-height: 1.14; letter-spacing: -0.025em;
+}
+.bk-decision-body p { font-size: 17px; line-height: 1.75; color: var(--ink-2); }
+.bk-decision-body p + p { margin-top: 1.05em; }
+
+/* the one place a tint still earns its keep — a deliberate aside */
+.bk-callout {
+  padding: clamp(4px, 1vw, 6px) 0 clamp(4px, 1vw, 6px) clamp(20px, 2.4vw, 28px);
+  border-left: 2px solid var(--accent);
+}
+.bk-callout h5 {
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
+}
+.bk-callout p {
+  font-family: var(--ff-display); font-weight: 500; font-size: clamp(17px, 1.9vw, 21px);
+  line-height: 1.45; color: var(--ink);
+}
+
+.bk-flow {
+  list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: clamp(16px, 2vw, 28px);
+  padding-top: 4px;
+}
+.bk-step { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 1.5px solid var(--line); }
+.bk-step .n { font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500; color: var(--accent); }
+.bk-step .lbl { font-family: var(--ff-display); font-weight: 700; font-size: 16px; letter-spacing: -0.01em; line-height: 1.25; }
+.bk-step .note { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+
+/* two blocks side by side — text against the artefact that proves it */
+.bk-split {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(22px, 3.2vw, 46px); align-items: center;
+}
+.bk-split.w-even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.bk-split.w-text { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.bk-split.align-start { align-items: start; }
+.bk-split-cell { min-width: 0; }
+/* a card in a split column is far narrower than the viewport, so its own
+   two-column grid has to stack — media queries can't see the column width */
+.bk-split .bk-persona-cols,
+.bk-split .bk-theme-cells { grid-template-columns: minmax(0, 1fr); }
+
+.bk-swatches { display: flex; flex-wrap: wrap; gap: clamp(14px, 1.8vw, 22px); }
+.bk-swatch { display: grid; gap: 3px; }
+.bk-swatch .chip {
+  display: block; width: 80px; height: 56px; border-radius: 12px;
+  border: 1.5px solid var(--line); margin-bottom: 8px;
+}
+.bk-swatch .name { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.bk-swatch .hex { font-family: var(--ff-mono); font-size: 10.5px; color: var(--ink-3); text-transform: uppercase; }
+
+/* --- case-study responsive ----------------------------------- */
+/* the notes column gets cramped long before the other two-column blocks do */
+@media (max-width: 980px) {
+  .bk-figwrap.has-notes { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .study { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .study-toc { display: none; }
+  .study-toc-mobile {
+    display: block; position: sticky; top: 86px; z-index: 90;
+    border: 1.5px solid var(--line); border-radius: 14px; background: var(--paper);
+    margin-bottom: clamp(22px, 3vw, 32px);
+  }
+  .study-toc-mobile summary {
+    cursor: pointer; padding: 13px 16px; font-family: var(--ff-mono);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-3); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;
+  }
+  .study-toc-mobile .cur { color: var(--ink); font-weight: 700; }
+  .study-toc-mobile ol { padding: 8px 10px 12px; border-top: 1.5px solid var(--line); }
+  /* the disclosure lists numbered steps rather than the tick rail */
+  .study-toc-mobile .study-toc-link { gap: 12px; padding: 8px 6px; }
+  .study-toc-mobile .study-toc-link .n {
+    font-family: var(--ff-mono); font-size: 10px; font-weight: 500; color: var(--ink-3);
+  }
+  /* plain text in the disclosure — no tick, so no pill and no overlay */
+  .study-toc-mobile .study-toc-link .t {
+    position: static; opacity: 1; transform: none;
+    background: none; border: none; padding: 0;
+    font-weight: 500; color: var(--ink-2);
+  }
+  .study-toc-mobile .study-toc-link.is-active .t { color: var(--ink); font-weight: 700; }
+  .study-toc-mobile .study-toc-link.is-active .n { color: var(--accent); }
+  .study-section { scroll-margin-top: 148px; }
+}
+@media (max-width: 860px) {
+  .study-brief { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 4vw, 32px); }
+}
+/* the phone can't stay an overlay once the stage gets narrow */
+@media (max-width: 700px) {
+  .study-hero { display: grid; justify-items: center; gap: clamp(16px, 3vw, 26px); }
+  .study-hero-web { width: 100%; }
+  .study-hero-app { position: static; width: min(44%, 200px); }
+}
+@media (max-width: 760px) {
+  .bk-persona-cols,
+  .bk-decision-grid,
+  .bk-theme-cells { grid-template-columns: minmax(0, 1fr); }
+  .bk-theme { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  /* the weight variants are two-class selectors, so they must be repeated
+     here to be overridden — a media query adds no specificity */
+  .bk-split,
+  .bk-split.w-even,
+  .bk-split.w-text { grid-template-columns: minmax(0, 1fr); }
+  .bk-figures { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .bk-stats { gap: 22px; }
+}
+@media (max-width: 600px) {
+  /* .wrap already supplies the edge padding at this size */
+  .study-section { --tpad: 0px; }
+}
+@media (max-width: 520px) {
+  .bk-swatch .chip { width: 68px; height: 50px; }
+  .study-glance-item { padding-left: 0; border-left: none; }
+  .study-glance-row { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ============================================================
    REVEAL
    ============================================================ */
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }

@@ -84,7 +84,9 @@ export type Block =
       kind: "figure";
       src: string;
       caption?: string;
-      frame?: "web" | "mobile" | "bleed" | "card";
+      /** `scroll` windows a full-page capture so it doesn't run for
+       *  thousands of pixels down the page */
+      frame?: "web" | "mobile" | "bleed" | "card" | "scroll";
       annotations?: { n: number; text: string }[];
     }
   /** a row/grid of screens */
@@ -1701,7 +1703,7 @@ export const projects: Project[] = [
         { label: "Client", value: "Conqr.ai — AI legal assistant for lawyers" },
         { label: "Project type", value: "Freelance / contract — solo, direct client engagement" },
         { label: "Timeline", value: "2 months" },
-        { label: "Scope", value: "Brand & design system redesign, plus a landing page built from scratch" },
+        { label: "Scope", value: "Brand & design system, a landing page from scratch, and a visual redesign of the product screens" },
       ],
       glance: [
         { value: "3–4", label: "Full iterations before a direction held" },
@@ -1709,7 +1711,7 @@ export const projects: Project[] = [
         { value: "Solo", label: "No PM, no team" },
       ],
       glanceNote:
-        "Not a product design engagement. Conqr.ai’s legal AI assistant was built separately — this work was the brand identity, the design system, and a standalone single-scroll landing page used for the product’s launch.",
+        "A visual redesign, not a product one. Conqr.ai’s legal AI assistant — its features and its flows — was built separately. This work was the brand identity, the design system, a landing page from scratch for the launch, and that system applied across the product’s existing screens.",
       sections: [
         {
           id: "context",
@@ -1739,17 +1741,23 @@ export const projects: Project[] = [
             },
             {
               kind: "figures",
-              cols: 2,
+              cols: 3,
               items: [
+                { src: "iter-11.png" },
+                { src: "iter-18.png" },
+                { src: "iter-20.png" },
+                { src: "iter-21.png" },
+                { src: "iter-22.png" },
+                { src: "iter-dashboard.png" },
+                { src: "iter-dashboard-2.png" },
                 { src: "board-visual-system.jpg", caption: "The visual system that eventually held" },
-                { src: "board-overview.jpg", caption: "Engagement overview" },
               ],
             },
             {
               kind: "todo",
               items: [
-                "The iteration trail is the most valuable thing to show here and it isn’t wired in yet — 3–4 thumbnails per round, rough to refined, with one line on what changed each time.",
-                "That progression communicates the ambiguity-to-clarity arc far better than the final result alone. Do you have the earlier rounds saved?",
+                "The iterations above are in filename order, not chronological order — tell me the actual sequence, rough to refined.",
+                "One line per round on what changed and why it moved the client. That progression is what communicates the ambiguity-to-clarity arc; without captions it reads as seven similar screens.",
               ],
             },
           ],
@@ -1766,30 +1774,14 @@ export const projects: Project[] = [
               ],
             },
             {
-              kind: "scrolly",
-              steps: [
-                {
-                  src: "landing-hero.png",
-                  title: "The hero",
-                  body: ["“Legal Intelligence. Perfected.” — the line the whole page had to earn."],
-                },
-                {
-                  src: "frame-746.png",
-                  title: "Product explanation",
-                  body: ["Placeholder caption — what this section had to communicate."],
-                },
-                {
-                  src: "frame-785.png",
-                  title: "Closing and CTA",
-                  body: ["Placeholder caption — how the page converts."],
-                },
-              ],
+              kind: "figure",
+              src: "landing-full.png",
+              frame: "scroll",
+              caption: "The full page, top to bottom — scroll inside the frame",
             },
             {
               kind: "todo",
               items: [
-                "A real line per section of the landing page, replacing the placeholder captions above.",
-                "Confirm the frames I picked are actually the sections I’ve labelled them as — I matched them by filename.",
                 "Whether to mention that Conqr.ai has since redesigned their landing page and platform again. If yes, frame it factually: “the version shown here was used for their [year] launch and has since been updated.” If you’d rather not, cut the line and let the page stand as a point-in-time record.",
               ],
             },
@@ -1803,7 +1795,8 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The same visual language was carried onto the product itself — the workspace where legal teams draft, review and pay for agreements. Dense document management was restructured into something calmer and more credible, so the marketing site and the product it sold no longer looked like two different companies.",
+                "The features and the flows were the client’s. The visual language was mine — and it was carried onto the product itself: the workspace where legal teams draft, review and pay for agreements.",
+                "Nothing about how the product worked changed. What changed was whether it looked like something a corporate legal team would hand a contract to. Dense document management stopped reading as unfinished software and started reading as a tool with a point of view, and the marketing site and the product it sold stopped looking like two different companies.",
               ],
             },
             {
@@ -1813,17 +1806,7 @@ export const projects: Project[] = [
                 { src: "/projects/conqr-platform/home-dashboard.png", caption: "Dashboard" },
                 { src: "/projects/conqr-platform/home-alldocuments.png", caption: "All documents" },
                 { src: "/projects/conqr-platform/home-payments.png", caption: "Payments" },
-                { src: "/projects/conqr-platform/board-wireframes.jpg", caption: "Wireframes — structure before style" },
               ],
-            },
-            {
-              kind: "todo",
-              items: [
-                "SCOPE CHECK — the brief for this engagement says it was brand, design system and landing page, and explicitly NOT product design. But these product screens exist, and the previous version of this page described a ground-up UI overhaul of the workspace. Which is right?",
-                "If the product work was in scope, this section should say what it actually involved and the “not a product design engagement” line in the summary above has to go.",
-                "If it wasn’t, delete this whole section and the platform screens with it.",
-              ],
-              note: "I merged the two pages as asked but did not resolve this contradiction — both versions of the story are yours to confirm, not mine to pick.",
             },
           ],
         },
@@ -1857,7 +1840,6 @@ export const projects: Project[] = [
       "frame-785.png",
       "frame-746.png",
       "/projects/conqr-platform/board-platform-redesign.jpg",
-      "/projects/conqr-platform/board-wireframes.jpg",
       "/projects/conqr-platform/home-dashboard.png",
       "/projects/conqr-platform/home-alldocuments.png",
       "/projects/conqr-platform/home-payments.png",

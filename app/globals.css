@@ -1197,6 +1197,19 @@ body.cursor-hover .cursor-ring {
 .bk-figure.frame-mobile img { width: auto; max-width: 100%; max-height: 540px; }
 .bk-figure.frame-mobile figcaption { text-align: center; }
 .bk-figure.frame-bleed img { border-radius: 0; border-left: none; border-right: none; }
+/* a full-page capture, windowed — a single-scroll landing page is 12,000px
+   tall and would otherwise run for five screens of the case study */
+.bk-figure.frame-scroll {
+  max-height: 72vh; overflow-y: auto; overscroll-behavior: contain;
+  border: 1.5px solid var(--line); border-radius: 16px;
+}
+.bk-figure.frame-scroll img { border: none; border-radius: 0; }
+.bk-figure.frame-scroll figcaption {
+  position: sticky; bottom: 0; padding: 8px 12px; text-align: right;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(4px);
+}
+
 /* a UI card lifted off the page — for screenshots that already carry their
    own white surface, so a hairline would read as a second border */
 .bk-figure.frame-card img {

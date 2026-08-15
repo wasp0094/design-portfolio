@@ -45,8 +45,14 @@ export const stats = [
    screens and thinking interleaved rather than text-then-gallery.
    ============================================================ */
 
-/** one screen plus the commentary that pins beside it while it scrolls */
-export type ScrollyStep = { src: string; title: string; body: string[] };
+/** One step of a pinned walkthrough: the commentary, plus either a single
+ *  screen or two–three staggered into a collage. A collage keeps portrait
+ *  phone screens from filling the column, and fits more of the flow in. */
+export type ScrollyStep = {
+  src: string | string[];
+  title: string;
+  body: string[];
+};
 
 /** image paths in blocks are filenames inside the project's public/projects/<dir>/ */
 export type Block =
@@ -462,8 +468,8 @@ export const projects: Project[] = [
     dir: "fourcore",
     title: "FourCore — Landing",
     subtitle: "Breach and attack simulation platform",
-    role: "Senior UI/UX Designer",
-    timeline: "2-month sprint",
+    role: "UI/UX Design Intern",
+    timeline: "2–3 month sprint",
     year: "2025",
     accent: "blue",
     professional: true,
@@ -473,11 +479,11 @@ export const projects: Project[] = [
     summary:
       "A ground-up overhaul of FourCore’s marketing website — the public face of a breach-and-attack-simulation platform — from a cluttered legacy site to a focused, modern dark experience.",
     overview: [
-      "FourCore ATTACK is a breach-and-attack-simulation platform — security teams use it to continuously emulate real-world adversaries and validate that their defenses actually work. This was my professional work as Senior UI/UX Designer at FourCore: a complete redesign of the company’s website.",
+      "FourCore ATTACK is a breach-and-attack-simulation platform — security teams use it to continuously emulate real-world adversaries and validate that their defenses actually work. This was my first project at FourCore, taken on as a UI/UX design intern: a complete redesign of the company’s website.",
       "The old site had grown cluttered and inconsistent. I rebuilt the core pages end-to-end — home, platform, demo, about, and blog, across desktop and mobile — into a focused, high-contrast dark experience that reads as serious, credible security tooling.",
     ],
     highlights: [
-      "Redesigned the FourCore website end-to-end (10+ screens, desktop & mobile) in a 2-month sprint.",
+      "Redesigned the FourCore website end-to-end (10+ screens, desktop & mobile) in a 2–3 month sprint.",
       "Replaced a cluttered legacy hero with a single, confident message — ‘Security Control Validation. Supercharged.’",
       "Established a consistent dark visual system and reusable components across every page.",
       "Turned a raw Calendly demo embed into a designed conversion flow.",
@@ -486,7 +492,7 @@ export const projects: Project[] = [
     tools: ["Figma"],
     metrics: [
       { value: "10+", label: "Screens" },
-      { value: "2 mo", label: "Sprint" },
+      { value: "2–3 mo", label: "Sprint" },
       { value: "Live", label: "at fourcore.io" },
     ],
     caseStudy: [
@@ -541,13 +547,14 @@ export const projects: Project[] = [
       },
       meta: [
         { label: "Company", value: "FourCore — breach & attack simulation (cybersecurity)" },
-        { label: "Project type", value: "In-house — first project after joining the design team" },
+        { label: "Role", value: "UI/UX Design Intern — first project after joining" },
         { label: "Scope", value: "5–6 page marketing website, redesigned solo" },
+        { label: "Timeline", value: "2–3 month sprint" },
         { label: "Status", value: "Live, and unchanged since it shipped" },
       ],
       glance: [
         { value: "5–6", label: "Pages redesigned end to end" },
-        { value: "Solo", label: "From brief to shipped site" },
+        { value: "2–3 mo", label: "From brief to shipped site, solo" },
         { value: "Live", label: "at fourcore.io" },
       ],
       glanceNote:
@@ -573,10 +580,8 @@ export const projects: Project[] = [
             {
               kind: "todo",
               items: [
-                "Timeline — how long the redesign ran.",
-                "The header on this page currently reads “Senior UI/UX Designer · 2-month sprint · 2025”, but the brief describes this as the earliest FourCore work, done as a UI/UX design intern. One of the two is wrong — which?",
+                "The year on this page still says 2025, but the FourCore Platform case study has you there as Senior UI/UX Designer from Feb 2024 — which would put this intern-era project before that, not after. What year did the redesign actually ship?",
               ],
-              note: "I haven’t written the intern framing into the copy, because it contradicts the role shown at the top of this page.",
             },
           ],
         },
@@ -648,14 +653,26 @@ export const projects: Project[] = [
         {
           id: "decisions",
           kicker: "Key Decision",
-          heading: "The call that set the direction",
+          heading: "Designing for a company that had already arrived",
           blocks: [
             {
-              kind: "todo",
-              items: [
-                "What was the specific design direction chosen to hit “modern and uplifted”? A typography choice, a colour shift, a layout system, a content restructure — one concrete decision with the alternative it beat.",
-              ],
-              note: "This is what gives the page a point of view instead of just before/after screens. Formi’s equivalent is “a platform fee, not a subscription”.",
+              kind: "split",
+              weight: "text",
+              left: {
+                kind: "decision",
+                title: "Make it look established, not launched",
+                body: [
+                  "The old site read as pre-launch. Not broken — just new. It carried the visual signals of a product still finding its footing, at a point where the product itself had long since moved past that.",
+                  "In security that’s a commercial problem, not a cosmetic one. FourCore sells to teams whose job is to be suspicious, and who are being asked to point the thing at their live environment. A site that looks provisional makes the product look provisional.",
+                  "So the brief wasn’t “modernise” in the abstract. It was to make the platform feel well-placed, premium and trustworthy — and every choice underneath, typography included, was made against that one test: does this read as a company that has arrived, or one that just showed up?",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "old-home-menu.jpg",
+                frame: "web",
+                caption: "The site the redesign was reacting to.",
+              },
             },
           ],
         },
@@ -668,12 +685,9 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "The site has been live since it shipped and hasn’t needed a further redesign — which, for a marketing site at a startup that has kept moving, is the outcome that matters.",
-              ],
-            },
-            {
-              kind: "todo",
-              items: [
-                "What this project meant as a first project at FourCore — first full site owned solo, first time designing against a company’s brand positioning, whatever is actually true.",
+                "It was also the first thing I ever shipped. Redesigning something from scratch turned out to be a different skill from designing screens: the work was less about what I wanted to make and more about reading what the company actually needed, then finding the version of that I could argue for and hand over.",
+                "Turning a client’s sense of what’s wrong into something actionable is the part I’d underestimated. “It should feel more modern” isn’t a brief — the job was getting from that to a decision I could defend on every page.",
+                "I was an intern when I took it on, and was converted to a full-time role after it went live.",
               ],
             },
           ],
@@ -1346,22 +1360,74 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "The therapist dashboard exists to give clinicians visibility between appointments. The patient app is the other end of that same connection — where the recovery actually happens: doing the exercises, getting real-time form feedback, watching pain and progress move week to week.",
-                "This page picks up from the dashboard case study rather than repeating it. The problem framing, the research and the business model all live there.",
+                "This page picks up from the dashboard case study rather than repeating it — the platform research and the business model live there. What follows is the same product seen from the other end.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "problem",
+          kicker: "Problem",
+          heading: "Recovery is something you do alone, badly, and can’t tell",
+          blocks: [
+            {
+              kind: "lead",
+              text:
+                "A patient leaves the clinic with a sheet of exercises and no way to know whether they’re doing any of them correctly.",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Physiotherapy has a completion problem. Most of a programme happens at home, unsupervised, in the days between appointments — and that is exactly where it falls apart. Form degrades with nobody watching. Pain easing gets mistaken for the injury being healed, so people stop early. Nothing and nobody registers that they stopped until the next visit, if there is one.",
+                "The people doing this are not the people the fitness-app category is designed for. They’re 30–65, across urban and semi-urban India, with low-to-moderate digital literacy — often exercising one-handed while lying on the floor or steadying a limb, on a mid-range Android, on patchy signal. Every assumption a polished consumer app makes about attention, dexterity and connectivity is wrong here.",
               ],
             },
             {
-              kind: "link",
-              href: "/work/formi",
-              label: "Formi — Therapist Dashboard",
-              note: "The practice-management side of the same platform",
+              kind: "stats",
+              items: [
+                {
+                  value: "50–65%",
+                  label: "of patients never finish their prescribed home programme",
+                },
+                {
+                  value: "35%",
+                  label: "fully adhere to a home exercise programme",
+                  source: "Sprypt, 2025",
+                },
+              ],
+            },
+            {
+              kind: "callout",
+              title: "The gap this app has to close",
+              body:
+                "Between one appointment and the next, nobody — not the patient, not the therapist — can tell whether recovery is actually happening.",
+            },
+            {
+              kind: "prose",
+              body: [
+                "And the patient is often not alone. A family member or guardian is frequently the one holding the phone, positioning the camera, or watching to catch the moment something looks wrong — carrying real responsibility for the recovery while the product speaks only to the patient.",
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "The caregiver paragraph above is reasoned from your definition, not from research. If there’s anything real behind it — something a patient or a family member actually said — it belongs here instead.",
+              ],
+              note: "Once there’s material on both sides, this section could become a two-column patient/caregiver breakdown, the same shape as the themes matrix on the dashboard case study.",
             },
           ],
         },
         {
           id: "user",
           kicker: "Who it’s for",
-          heading: "One user, alone, mid-exercise",
+          heading: "Two people in the room, not one",
           blocks: [
+            {
+              kind: "prose",
+              body: [
+                "A session at home is rarely a solo activity. There is the person recovering, and very often a second person holding the phone, setting up the camera, or just watching to make sure nothing goes wrong. The app has to work for both without ever confusing whose turn it is to act.",
+              ],
+            },
             {
               kind: "persona",
               name: "Mary Cooper",
@@ -1382,6 +1448,31 @@ export const projects: Project[] = [
               ],
             },
             {
+              kind: "persona",
+              name: "Rajesh Shah",
+              age: 58,
+              role: "Family caregiver — helps his wife through her daily sessions at home",
+              photo: "persona-rajesh.png",
+              quote:
+                "I want to help, but I genuinely don’t know if I’m helping or getting in the way.",
+              goals: [
+                "Know what he’s actually meant to do during a session",
+                "Be sure she isn’t pushing too hard and undoing the surgery",
+                "Know when something is worth calling the physiotherapist about",
+              ],
+              frustrations: [
+                "Every instruction is written for the patient; none of it is addressed to him",
+                "Can’t tell ordinary post-exercise soreness from the kind that means stop",
+                "Only finds out something was being done wrong at the next appointment",
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "The caregiver persona above is derived, not researched — I built it from your definition (family member or guardian assisting at home) plus the emergency-contact field the dashboard already carries. The goals and frustrations are reasoned, not things anyone told you. Confirm or correct them before this publishes.",
+              ],
+            },
+            {
               kind: "prose",
               body: [
                 "The full persona work sits on the dashboard case study — this is here so the page stands on its own for anyone landing on it directly.",
@@ -1398,31 +1489,43 @@ export const projects: Project[] = [
               kind: "scrolly",
               steps: [
                 {
-                  src: "live-session.png",
-                  title: "Guided sessions with real-time form feedback",
+                  src: [
+                    "ui-onboarding-join.png",
+                    "ui-onboarding-preview.png",
+                    "ui-onboarding-payment.png",
+                  ],
+                  title: "Onboarding, from a link the physiotherapist sends",
                   body: [
-                    "The core loop: a patient opens a prescribed exercise, the app guides them through it, and gives feedback on form as they go. It’s the piece that directly answers Mary’s “am I doing this right”, and it runs on AI-tracked pose estimation.",
+                    "A patient arrives through a link their physiotherapist gave them, and sees a preview of the programme before committing to anything — condition, duration, what’s included.",
+                    "Payment sits behind that preview as the gate: the programme activates the moment payment clears. Nobody is asked to create an account before they know what they’re buying.",
                   ],
                 },
                 {
-                  src: "progress.png",
-                  title: "Progress in plain terms",
+                  src: [
+                    "ui-session-live.png",
+                    "ui-session-camera-setup.png",
+                    "ui-session-rest.png",
+                  ],
+                  title: "AI pose-tracking, with voice and visual assistance",
                   body: [
-                    "Pain score, adherence and recovery progress surfaced back to the patient — mirroring the clinical snapshot the therapist sees, but written for someone without clinical training.",
+                    "During a session the AI tracks the patient’s pose and coaches them through it live — spoken cues alongside visual ones, so the patient never has to stop mid-movement to read anything.",
+                    "That dual channel is also what makes the session usable by a caregiver. A family member holding the phone can follow the same cues and correct the patient themselves, which is the only way this works for someone who can’t manage it alone.",
                   ],
                 },
                 {
-                  src: "payment-success.png",
-                  title: "Payment — swipe to pay",
+                  src: ["ui-messaging-conversation.png", "ui-messaging-video-call.png"],
+                  title: "The physiotherapist stays reachable",
                   body: [
-                    "A swipe-to-pay interaction handles the payment moment, with instalment plans rather than requiring the full amount upfront.",
+                    "Scheduled check-ins put the physiotherapist in the patient’s week by default rather than on request, so contact isn’t something the patient has to work up to asking for.",
+                    "Emergencies skip the schedule. A pain spike opens an immediate route to the therapist — messaging or a video call — because the alternative is a frightened patient guessing, or quietly stopping.",
                   ],
                 },
                 {
-                  src: "welcome.png",
-                  title: "Onboarding",
+                  src: ["ui-progress.png", "ui-progress-trends.png", "ui-progress-trends-2.png"],
+                  title: "Feedback, and proof that it’s working",
                   body: [
-                    "Getting from a therapist’s code to a ready programme, without an account standing in the way first.",
+                    "Every session ends with a question the patient can actually answer: what did the pain feel like? That single input drives an AI-written summary, which goes straight to the physiotherapist without the patient having to report anything themselves.",
+                    "What comes back to the patient is the plain-language version — where they are, what’s improving. For someone recovering alone, seeing the trend move is what makes the next session feel worth doing.",
                   ],
                 },
               ],
@@ -1430,12 +1533,10 @@ export const projects: Project[] = [
             {
               kind: "todo",
               items: [
-                "Guided session — what the patient actually sees during a session: the pose overlay, rep counter, form-correction cues, how feedback is surfaced without needing to be read mid-movement.",
-                "Swipe-to-pay — why a swipe specifically? What was considered instead (a standard button, a card form), and why this suited the moment. If it ties back to the dashboard’s “zero friction onboarding” decision, say so.",
-                "Onboarding — the live site lists an onboarding flow, an onboarding profile and a split variation, which suggests more than one approach was explored. Worth a before/after or A/B framing if that’s accurate.",
-                "Progress tracking — what the screen actually shows, and how the wording was pitched for a lay audience.",
+                "Swipe-to-pay — the payment gate is described above, but not why a swipe rather than a button or a card form. If it ties back to the dashboard’s “zero friction onboarding” decision, that’s the argument.",
+                "Onboarding — the gallery holds an onboarding flow, an onboarding profile and a split variation, which suggests more than one approach was explored. Worth an A/B framing if that’s accurate.",
               ],
-              note: "Screens are placeholders pulled from the existing gallery — swap in the real frames when they’re ready.",
+              note: "Collage frames are cropped to a phone aspect; the uncropped screens are in the gallery at the foot of the page.",
             },
           ],
         },
@@ -1771,7 +1872,7 @@ export const projects: Project[] = [
     title: "Autumn",
     subtitle: "Immersive e-book reader — mobile app",
     role: "Independent Project",
-    timeline: "Concept",
+    timeline: "Concept · 2–3 months",
     year: "2024",
     accent: "coral",
     cover: "frame-44.png",
@@ -1836,14 +1937,16 @@ export const projects: Project[] = [
         alt: "The Autumn reading interface",
       },
       meta: [
-        { label: "Project type", value: "Independent Product Design" },
+        { label: "Project type", value: "Independent Product Design — personal project" },
         { label: "Role", value: "Solo — first UI/UX project, designed entirely from scratch" },
         { label: "Platform", value: "Mobile app" },
+        { label: "Status", value: "Concept — designed, never built or shipped" },
+        { label: "Timeline", value: "2–3 months" },
       ],
       glance: [
-        { value: "4", label: "Core features designed" },
-        { value: "Solo", label: "First independent project" },
-        { value: "0 → 1", label: "From premise to prototype" },
+        { value: "12–15", label: "Screens designed" },
+        { value: "2–3 mo", label: "Solo, start to finish" },
+        { value: "Concept", label: "Never built" },
       ],
       glanceNote:
         "An e-book reader that starts from the physical reading experience instead of from a feature list — built to ask one narrow question rather than to compete with a Kindle.",
@@ -1865,12 +1968,10 @@ export const projects: Project[] = [
                 "What does an e-reader look like if it starts from the physical reading experience instead of the feature list of a Kindle?",
             },
             {
-              kind: "todo",
-              items: [
-                "Status — shipped prototype, concept, or archived?",
-                "Timeline.",
-                "Screen count, if known.",
-              ],
+              kind: "callout",
+              title: "Where this got to",
+              body:
+                "A concept, and only ever a concept — 12–15 screens designed over two to three months. Nothing here was built or shipped.",
             },
           ],
         },
@@ -1889,24 +1990,28 @@ export const projects: Project[] = [
               kind: "scrolly",
               steps: [
                 {
-                  src: "reading-interface-7.png",
+                  src: ["reading-interface-7.png", "reading-interface-6.png", "book-info-page-4.png"],
                   title: "Layout customisation",
                   body: [
                     "Text, spacing and background tuned to how someone actually likes to read, rather than to a default someone else picked.",
                   ],
                 },
                 {
-                  src: "bookmarks-menu-page-10.png",
+                  src: ["bookmarks-menu-page-10.png", "book-info-page-5.png", "book-info-prototype-1.png"],
                   title: "Bookmarks",
                   body: ["Mark a page the way you’d dog-ear it."],
                 },
                 {
-                  src: "highlights-menu-page-9.png",
+                  src: ["highlights-menu-page-9.png", "highlights-menu-page-11.png", "book-info-prototype-2.png"],
                   title: "Notes",
                   body: ["Margin-style annotation, written while reading rather than after it."],
                 },
                 {
-                  src: "compact-tab-feature-page-12.png",
+                  src: [
+                    "compact-tab-feature-page-12.png",
+                    "compact-tab-feature-cont-page-13.png",
+                    "compact-tab-feature-dark-mode-pg-14.png",
+                  ],
                   title: "Tabs",
                   body: [
                     "The standout feature: a digital analogue to leaving paper tabs sticking out of a book, marking chapters, favourite passages, or places to come back to.",
@@ -1968,9 +2073,10 @@ export const projects: Project[] = [
           heading: "The first one",
           blocks: [
             {
-              kind: "todo",
-              items: [
-                "A short, honest note in your own voice on what this first project taught you. First independent project, built from scratch, no client or team involved — 2–3 sentences, same register as Formi’s “Being straight about it”. No inflated claims.",
+              kind: "prose",
+              body: [
+                "A personal project, and the one that opened UI/UX design up for me. No client, no team, no brief — which meant the problem had to be found rather than handed over.",
+                "That turned out to be the actual lesson: noticing what’s wrong with something people already use, and then converting that noticing into a solution specific enough to design. Everything since has been a version of the same two steps.",
               ],
             },
           ],

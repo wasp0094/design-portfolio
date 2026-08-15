@@ -1290,6 +1290,27 @@ body.cursor-hover .cursor-ring {
   opacity: 0.55; transition: opacity .5s ease;
 }
 .bk-scrolly-shot.is-active img { opacity: 1; }
+
+/* Two or three portrait screens staggered into one composition. A single
+   phone screen would otherwise fill the whole column; this keeps each one
+   readable and fits more of the flow into a step. */
+.bk-scrolly-collage { display: flex; align-items: flex-start; justify-content: center; }
+/* Source screens vary from a single view to a full-scroll export, so each
+   frame is held to a phone aspect and cropped from the top. Without this
+   one frame renders twice the height of its neighbour. The uncropped
+   versions are still in the gallery at the foot of the page. */
+.bk-scrolly-collage img {
+  width: auto; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top center;
+  border-radius: 14px; box-shadow: 0 18px 36px -20px rgba(22, 19, 13, 0.35);
+}
+/* widths sum to just under 100% of the column once the overlaps are taken off */
+.bk-scrolly-collage[data-count="2"] > :nth-child(1) { width: 50%; z-index: 2; }
+.bk-scrolly-collage[data-count="2"] > :nth-child(2) { width: 45%; z-index: 1; margin: 9% 0 0 -6%; }
+/* leading screen sits lowest and in front, the other two step up behind it */
+.bk-scrolly-collage[data-count="3"] > :nth-child(1) { width: 40%; z-index: 3; margin-top: 7%; }
+.bk-scrolly-collage[data-count="3"] > :nth-child(2) { width: 36%; z-index: 2; margin: 0 0 0 -6%; }
+.bk-scrolly-collage[data-count="3"] > :nth-child(3) { width: 33%; z-index: 1; margin: 15% 0 0 -5%; }
+
 .bk-scrolly-inline { display: none; }
 
 @media (max-width: 900px) {
@@ -1298,6 +1319,12 @@ body.cursor-hover .cursor-ring {
   .bk-scrolly-text { display: none; }
   .bk-scrolly-media { gap: clamp(40px, 8vh, 72px); padding: 0; }
   .bk-scrolly-shot img { opacity: 1; }
+  /* a three-up collage lands at ~130px a frame here, too small to read.
+     Show the leading screen properly instead — the rest are in the gallery. */
+  /* [data-count] keeps the specificity level with the desktop rules above —
+     a media query adds none of its own */
+  .bk-scrolly-collage[data-count] > :nth-child(n + 2) { display: none; }
+  .bk-scrolly-collage[data-count] > :nth-child(1) { width: 68%; margin: 0; }
   .bk-scrolly-inline { display: block; padding-top: 18px; }
   .bk-scrolly-inline h4 {
     font-family: var(--ff-display); font-weight: 700; font-size: 20px;

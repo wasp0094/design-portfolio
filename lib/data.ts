@@ -295,6 +295,7 @@ export const projects: Project[] = [
               body:
                 "FourCore’s platform data is confidential. Every screen on this page uses placeholder data — no client names, threat data, addresses or account details appear anywhere.",
             },
+            /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
@@ -304,6 +305,7 @@ export const projects: Project[] = [
               ],
               note: "This section should be deleted once the page is gated, or kept and tightened if the page stays public.",
             },
+            */
           ],
         },
         {
@@ -317,12 +319,14 @@ export const projects: Project[] = [
                 "Security teams use FourCore ATTACK to run simulated attacks against their own systems and see where the gaps are, before a real adversary finds them. I joined as the sole design owner and have redesigned the platform end to end since — 40+ screens across the core product, plus new features shipped along the way as the product itself evolved.",
               ],
             },
+            /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
                 "A public-safe sentence or two on what the platform does for its users day to day. Keep it non-specific about actual client use cases — the line above is deliberately generic and should be checked before it stands.",
               ],
             },
+            */
           ],
         },
         {
@@ -361,6 +365,7 @@ export const projects: Project[] = [
                 },
               ],
             },
+            /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
@@ -372,6 +377,7 @@ export const projects: Project[] = [
                 "Confirm each screen above is actually the surface it’s labelled as — I matched them by filename, not by knowing the product.",
               ],
             },
+            */
           ],
         },
         {
@@ -393,6 +399,7 @@ export const projects: Project[] = [
                 { src: "schedule-details.png", caption: "Scheduler" },
               ],
             },
+            /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
@@ -401,6 +408,7 @@ export const projects: Project[] = [
                 "Playbooks — what a playbook is in this context and what it lets users do. No screen wired in yet.",
               ],
             },
+            */
           ],
         },
         {
@@ -414,6 +422,7 @@ export const projects: Project[] = [
                 "Exposures shipped as a standalone feature, then was scrapped and replaced — its functionality absorbed into a redesigned Threat Library workflow instead of continuing as a separate surface.",
               ],
             },
+            /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
@@ -423,6 +432,7 @@ export const projects: Project[] = [
               ],
               note: "Killing a feature and folding it into something else is a real product decision. It’s what turns 40+ screens into a case study rather than a screen dump — worth writing properly.",
             },
+            */
           ],
         },
         {
@@ -438,6 +448,7 @@ export const projects: Project[] = [
                 { value: "2 yrs", label: "Ongoing, sole design contributor" },
               ],
             },
+            /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
@@ -445,6 +456,7 @@ export const projects: Project[] = [
               ],
               note: "A few honest sentences will read better than trying to summarise everything shipped over two years.",
             },
+            */
           ],
         },
       ],

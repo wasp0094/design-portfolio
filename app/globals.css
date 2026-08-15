@@ -1351,8 +1351,16 @@ body.cursor-hover .cursor-ring {
   .bk-scrolly-panel, .bk-scrolly-shot img { transition: none; }
 }
 
+/* a long page cropped to a banner — for an "after" with no "before" to
+   sit beside, where the full capture would run for thousands of pixels */
+.bk-figure.frame-crop img { aspect-ratio: 4 / 3; object-fit: cover; object-position: top center; }
+
 /* reuses the legacy .cmp-* markup, softened to match the reading column */
 .bk-compare { display: grid; gap: 14px; }
+/* both sides cropped to one aspect from the top: full-page captures are
+   many thousands of pixels tall and the old screens are a different shape
+   again, so without this the pair never lines up */
+.bk-compare .cmp-item img { aspect-ratio: 4 / 3; object-fit: cover; object-position: top center; }
 .bk-compare .cmp-label {
   font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
   text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;

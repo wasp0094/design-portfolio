@@ -86,7 +86,7 @@ export type Block =
       caption?: string;
       /** `scroll` windows a full-page capture so it doesn't run for
        *  thousands of pixels down the page */
-      frame?: "web" | "mobile" | "bleed" | "card" | "scroll";
+      frame?: "web" | "mobile" | "bleed" | "card" | "scroll" | "crop";
       annotations?: { n: number; text: string }[];
     }
   /** a row/grid of screens */
@@ -472,7 +472,7 @@ export const projects: Project[] = [
     subtitle: "Breach and attack simulation platform",
     role: "UI/UX Design Intern",
     timeline: "2–3 month sprint",
-    year: "2025",
+    year: "2024",
     accent: "blue",
     professional: true,
     cover: "new-home-hero.jpg",
@@ -573,18 +573,6 @@ export const projects: Project[] = [
                 "The existing site didn’t read as a serious cybersecurity product. FourCore wanted something sharper, more modern and more credible-looking — something that matched where the product actually was rather than where it had started.",
               ],
             },
-            {
-              kind: "compare",
-              label: "Homepage",
-              before: "old-home.jpg",
-              after: "new-home.jpg",
-            },
-            {
-              kind: "todo",
-              items: [
-                "The year on this page still says 2025, but the FourCore Platform case study has you there as Senior UI/UX Designer from Feb 2024 — which would put this intern-era project before that, not after. What year did the redesign actually ship?",
-              ],
-            },
           ],
         },
         {
@@ -599,56 +587,29 @@ export const projects: Project[] = [
               ],
             },
             {
-              kind: "scrolly",
-              steps: [
-                {
-                  src: "new-home.jpg",
-                  title: "Home",
-                  body: [
-                    "The page carrying the most weight: what FourCore does, for whom, and why a security team should trust it.",
-                  ],
-                },
-                {
-                  src: "new-about.jpg",
-                  title: "About",
-                  body: [
-                    "The credibility page — who is behind the product, in a category where that question gets asked early.",
-                  ],
-                },
-                {
-                  src: "new-demo.jpg",
-                  title: "Demo",
-                  body: [
-                    "The conversion surface, and the one page where the redesign had to do commercial work rather than only look the part.",
-                  ],
-                },
-                {
-                  src: "new-blogs.jpg",
-                  title: "Blog",
-                  body: [
-                    "A publishing surface for security research, which is how a company like this earns attention in the first place.",
-                  ],
-                },
-              ],
+              kind: "compare",
+              label: "Home — what FourCore does, for whom, and why a security team should trust it",
+              before: "old-home.jpg",
+              after: "after-home.png",
             },
             {
               kind: "compare",
-              label: "About",
+              label: "About — the credibility page, in a category where that question gets asked early",
               before: "old-about.jpg",
-              after: "new-about.jpg",
+              after: "after-about.png",
             },
             {
               kind: "compare",
-              label: "Demo",
+              label: "Demo — the conversion surface, and the one page that had to do commercial work",
               before: "old-demo.jpg",
-              after: "new-demo.jpg",
+              after: "after-demo.png",
             },
             {
-              kind: "todo",
-              items: [
-                "Which pages were in scope, named individually — the four above are inferred from the available screens, not from the brief.",
-                "One line per page on what changed and why, to replace the placeholder captions in the walkthrough above.",
-              ],
+              kind: "figure",
+              src: "new-blogs.jpg",
+              frame: "crop",
+              caption:
+                "Blog — a publishing surface for security research, which is how a company like this earns attention. No before exists for this one; it didn’t have a blog until the redesign. Cropped from a full-page capture.",
             },
           ],
         },

@@ -1357,10 +1357,9 @@ body.cursor-hover .cursor-ring {
 
 /* reuses the legacy .cmp-* markup, softened to match the reading column */
 .bk-compare { display: grid; gap: 14px; }
-/* both sides cropped to one aspect from the top: full-page captures are
-   many thousands of pixels tall and the old screens are a different shape
-   again, so without this the pair never lines up */
-.bk-compare .cmp-item img { aspect-ratio: 4 / 3; object-fit: cover; object-position: top center; }
+/* full length, uncropped — the whole point of these pairs is seeing the
+   entire page change, so both sides run at their natural height and
+   top-align against each other */
 .bk-compare .cmp-label {
   font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
   text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px;

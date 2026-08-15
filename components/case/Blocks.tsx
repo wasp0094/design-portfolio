@@ -149,6 +149,35 @@ export default function Block({ block: b, dir }: Props) {
     case "scrolly":
       return <Scrolly steps={b.steps} dir={dir} />;
 
+    case "link":
+      return (
+        <a
+          className="bk-link"
+          href={b.href}
+          target={b.href.startsWith("http") ? "_blank" : undefined}
+          rel={b.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          data-hover
+        >
+          <span className="lbl">{b.label}</span>
+          {b.note && <span className="note">{b.note}</span>}
+          <span className="arw">→</span>
+        </a>
+      );
+
+    /* deliberately loud — this must never survive to a published page */
+    case "todo":
+      return (
+        <div className="bk-todo" role="note">
+          <span className="bk-todo-tag">To write</span>
+          <ul>
+            {b.items.map((i) => (
+              <li key={i}>{i}</li>
+            ))}
+          </ul>
+          {b.note && <p className="bk-todo-note">{b.note}</p>}
+        </div>
+      );
+
     case "figures":
       return (
         <div className="bk-figures" style={{ ["--fig-cols" as string]: b.cols ?? 2 }}>

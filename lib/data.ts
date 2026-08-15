@@ -97,6 +97,12 @@ export type Block =
   /** pinned commentary beside a scrolling stack of screens (desktop);
    *  stacks with inline captions below 900px */
   | { kind: "scrolly"; steps: ScrollyStep[] }
+  /** a link out — "see also", a live site, a related case study */
+  | { kind: "link"; href: string; label: string; note?: string }
+  /** UNWRITTEN CONTENT. Renders a loud placeholder so a half-finished case
+   *  study can't be published by accident. Every one of these must be
+   *  replaced or deleted before the page goes live. */
+  | { kind: "todo"; items: string[]; note?: string }
   /** two blocks side by side — e.g. a callout next to the figure proving it.
    *  `weight` favours the left (text) or right (media) column.
    *  Stacks below 760px. Nest sparingly; one level is the intent. */
@@ -246,16 +252,194 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* TODO — case study. Fill `sections` to move this project onto the
-       case-study template; `formi` below is the worked example, and the
-       `Block` union above lists every block kind available. While `sections`
-       is empty the page keeps its current overview + caseStudy layout.
-       Suggested spine: context · problem · research · themes · strategy ·
-       system · surfaces · decisions · outcome */
+    /* CONFIDENTIAL CLIENT. Nothing in this study may be invented — platform
+       data is sensitive and a plausible-sounding fabrication is a real risk,
+       not just a copywriting gap. Every gap is a `todo` block on purpose. */
     study: {
-      meta: [],    // Role / Platforms / Scope / Timeline — the header strip
-      glance: [],  // outcome numbers, shown high on the page
-      sections: [],
+      hero: {
+        web: "dashboard.png",
+        webLabel: "FourCore ATTACK — platform dashboard",
+        alt: "The FourCore ATTACK platform dashboard",
+      },
+      meta: [
+        { label: "Company", value: "FourCore — breach & attack simulation (cybersecurity)" },
+        { label: "Role", value: "Senior UI/UX Designer — sole independent contributor on design" },
+        { label: "Timeline", value: "Feb 2024 – present · 2+ years, ongoing" },
+        { label: "Scope", value: "Full platform redesign, 40+ screens, solo · plus 5+ new features since" },
+      ],
+      glance: [
+        { value: "40+", label: "Screens redesigned" },
+        { value: "5+", label: "Features shipped" },
+        { value: "2 yrs", label: "Ongoing" },
+        { value: "Solo", label: "Sole design contributor" },
+      ],
+      glanceNote:
+        "FourCore runs breach-and-attack simulations for security teams — letting them safely test how their defenses hold up against real attack techniques. I joined as the sole design owner and have redesigned the platform end to end since.",
+      sections: [
+        {
+          id: "confidentiality",
+          kicker: "Before you read",
+          heading: "A note on what’s shown here",
+          blocks: [
+            {
+              kind: "callout",
+              title: "Confidential product",
+              body:
+                "FourCore’s platform data is confidential. Every screen on this page uses placeholder data — no client names, threat data, addresses or account details appear anywhere.",
+            },
+            {
+              kind: "todo",
+              items: [
+                "DECIDE BEFORE PUBLISHING: password-protect this page, gate it behind a “request access” link, or split it — a light public version showing process and UI patterns only, plus a gated full version.",
+                "AUDIT EVERY SCREEN used on this page for real data before it goes live. The images currently wired in are the ones already on the site; they have not been re-checked against this stricter standard.",
+                "Confirm the claim in the callout above is actually true of the final screen set — I have written it as an intent, not a verified fact.",
+              ],
+              note: "This section should be deleted once the page is gated, or kept and tightened if the page stays public.",
+            },
+          ],
+        },
+        {
+          id: "context",
+          kicker: "Overview",
+          heading: "Two years, one designer, a platform that kept growing",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Security teams use FourCore ATTACK to run simulated attacks against their own systems and see where the gaps are, before a real adversary finds them. I joined as the sole design owner and have redesigned the platform end to end since — 40+ screens across the core product, plus new features shipped along the way as the product itself evolved.",
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "A public-safe sentence or two on what the platform does for its users day to day. Keep it non-specific about actual client use cases — the line above is deliberately generic and should be checked before it stands.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "surfaces",
+          kicker: "UI Design",
+          heading: "Surfaces redesigned",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Structured by surface rather than chronologically — two years doesn’t narrate well as a timeline, and each surface is really its own small case study.",
+              ],
+            },
+            {
+              kind: "scrolly",
+              steps: [
+                {
+                  src: "dashboard.png",
+                  title: "Dashboard",
+                  body: ["The screen a user lands on first, and the one that has to be understood fastest."],
+                },
+                {
+                  src: "threat-intelligence.png",
+                  title: "Threat Intelligence",
+                  body: ["Placeholder screen — pairing to be confirmed."],
+                },
+                {
+                  src: "mitre-attack.png",
+                  title: "Threat Library",
+                  body: ["Placeholder screen — this surface later absorbed the Exposures feature."],
+                },
+                {
+                  src: "preferences.png",
+                  title: "Settings",
+                  body: ["Placeholder screen — pairing to be confirmed."],
+                },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "Dashboard — what was wrong with the old one, what changed, and why.",
+                "Threat Library — what the page is for and what the redesign changed. (Note: the brief spells this “Thread Library” and “Thread Intelligence” throughout — confirm whether that’s Threat or Thread before this goes live.)",
+                "Threat Intelligence — purpose of the page and what changed.",
+                "Settings — scope of the redesign; anything notable such as permissions complexity or the number of sub-sections.",
+                "Integrations — what the page manages and what changed. No screen is wired in for this surface yet.",
+                "Confirm each screen above is actually the surface it’s labelled as — I matched them by filename, not by knowing the product.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "features",
+          kicker: "Shipped",
+          heading: "New features, beyond the redesign",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Five-plus net-new features have shipped since the redesign, as the product grew past what the original surfaces covered.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "emerging-threats.png", caption: "Emerging Threats workflow" },
+                { src: "schedule-details.png", caption: "Scheduler" },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "Emerging Threats — what problem it solves and how it works at a high level.",
+                "Scheduler — what gets scheduled, and why it mattered.",
+                "Playbooks — what a playbook is in this context and what it lets users do. No screen wired in yet.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "decisions",
+          kicker: "Key Decision",
+          heading: "Killing Exposures and folding it into the Threat Library",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Exposures shipped as a standalone feature, then was scrapped and replaced — its functionality absorbed into a redesigned Threat Library workflow instead of continuing as a separate surface.",
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "Why the standalone version didn’t work.",
+                "What the merged version does better.",
+                "Before/after screens of both states, if they exist — this is the strongest moment in the case study and deserves the visual.",
+              ],
+              note: "Killing a feature and folding it into something else is a real product decision. It’s what turns 40+ screens into a case study rather than a screen dump — worth writing properly.",
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Outcome & Reflection",
+          heading: "What two years as the only designer actually looks like",
+          blocks: [
+            {
+              kind: "stats",
+              items: [
+                { value: "40+", label: "Screens redesigned" },
+                { value: "5+", label: "Features shipped" },
+                { value: "2 yrs", label: "Ongoing, sole design contributor" },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "An honest reflection in the same register as Formi’s “Being straight about it” — what the role has actually meant. Owning design end to end with no team to share the load, holding a design system together as the product grew, whatever is true.",
+              ],
+              note: "A few honest sentences will read better than trying to summarise everything shipped over two years.",
+            },
+          ],
+        },
+      ],
     },
     gallery: [
       "dashboard.png",
@@ -349,12 +533,152 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* TODO — case study. See the note on `fourcore-platform` above.
-       This one has real before/after material: use `compare` blocks. */
     study: {
-      meta: [],
-      glance: [],
-      sections: [],
+      hero: {
+        web: "new-home-hero.jpg",
+        webLabel: "fourcore.io — redesigned",
+        alt: "The redesigned FourCore homepage",
+      },
+      meta: [
+        { label: "Company", value: "FourCore — breach & attack simulation (cybersecurity)" },
+        { label: "Project type", value: "In-house — first project after joining the design team" },
+        { label: "Scope", value: "5–6 page marketing website, redesigned solo" },
+        { label: "Status", value: "Live, and unchanged since it shipped" },
+      ],
+      glance: [
+        { value: "5–6", label: "Pages redesigned end to end" },
+        { value: "Solo", label: "From brief to shipped site" },
+        { value: "Live", label: "at fourcore.io" },
+      ],
+      glanceNote:
+        "A cybersecurity startup whose product had outgrown its website. The brief was simple to state and a real design problem underneath: make it read as a serious security product.",
+      sections: [
+        {
+          id: "context",
+          kicker: "Overview",
+          heading: "The product outgrew the website",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The existing site didn’t read as a serious cybersecurity product. FourCore wanted something sharper, more modern and more credible-looking — something that matched where the product actually was rather than where it had started.",
+              ],
+            },
+            {
+              kind: "compare",
+              label: "Homepage",
+              before: "old-home.jpg",
+              after: "new-home.jpg",
+            },
+            {
+              kind: "todo",
+              items: [
+                "Timeline — how long the redesign ran.",
+                "The header on this page currently reads “Senior UI/UX Designer · 2-month sprint · 2025”, but the brief describes this as the earliest FourCore work, done as a UI/UX design intern. One of the two is wrong — which?",
+              ],
+              note: "I haven’t written the intern framing into the copy, because it contradicts the role shown at the top of this page.",
+            },
+          ],
+        },
+        {
+          id: "surfaces",
+          kicker: "UI Design",
+          heading: "Page by page",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "A full redesign across five to six pages, from scratch — visual direction, layout, and the content structure of each page.",
+              ],
+            },
+            {
+              kind: "scrolly",
+              steps: [
+                {
+                  src: "new-home.jpg",
+                  title: "Home",
+                  body: [
+                    "The page carrying the most weight: what FourCore does, for whom, and why a security team should trust it.",
+                  ],
+                },
+                {
+                  src: "new-about.jpg",
+                  title: "About",
+                  body: [
+                    "The credibility page — who is behind the product, in a category where that question gets asked early.",
+                  ],
+                },
+                {
+                  src: "new-demo.jpg",
+                  title: "Demo",
+                  body: [
+                    "The conversion surface, and the one page where the redesign had to do commercial work rather than only look the part.",
+                  ],
+                },
+                {
+                  src: "new-blogs.jpg",
+                  title: "Blog",
+                  body: [
+                    "A publishing surface for security research, which is how a company like this earns attention in the first place.",
+                  ],
+                },
+              ],
+            },
+            {
+              kind: "compare",
+              label: "About",
+              before: "old-about.jpg",
+              after: "new-about.jpg",
+            },
+            {
+              kind: "compare",
+              label: "Demo",
+              before: "old-demo.jpg",
+              after: "new-demo.jpg",
+            },
+            {
+              kind: "todo",
+              items: [
+                "Which pages were in scope, named individually — the four above are inferred from the available screens, not from the brief.",
+                "One line per page on what changed and why, to replace the placeholder captions in the walkthrough above.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "decisions",
+          kicker: "Key Decision",
+          heading: "The call that set the direction",
+          blocks: [
+            {
+              kind: "todo",
+              items: [
+                "What was the specific design direction chosen to hit “modern and uplifted”? A typography choice, a colour shift, a layout system, a content restructure — one concrete decision with the alternative it beat.",
+              ],
+              note: "This is what gives the page a point of view instead of just before/after screens. Formi’s equivalent is “a platform fee, not a subscription”.",
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Outcome & Reflection",
+          heading: "Still standing",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The site has been live since it shipped and hasn’t needed a further redesign — which, for a marketing site at a startup that has kept moving, is the outcome that matters.",
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "What this project meant as a first project at FourCore — first full site owned solo, first time designing against a company’s brand positioning, whatever is actually true.",
+              ],
+            },
+          ],
+        },
+      ],
     },
     gallery: [
       "landing-01.png",
@@ -991,13 +1315,172 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* TODO — case study. The companion piece to `formi`: keep it shorter and
-       scoped to the mobile surface, and cross-link back rather than restating
-       the shared research. Use `frame: "mobile"` on figure blocks. */
+    /* Companion piece to `formi` — picks up from the dashboard case study
+       rather than restating its problem/research narrative. */
     study: {
-      meta: [],
-      glance: [],
-      sections: [],
+      hero: {
+        app: "/projects/formi/hero-app.png",
+        appLabel: "Patient app — iOS & Android",
+        alt: "The Formi patient app join screen",
+      },
+      meta: [
+        { label: "Role", value: "Product Designer — UX, UI, and design system (shared with the dashboard)" },
+        { label: "Platform", value: "Native mobile, iOS & Android" },
+        { label: "Scope", value: "30 screens" },
+        { label: "Timeline", value: "Ongoing · 2026 — same engagement as the dashboard" },
+      ],
+      glance: [
+        { value: "30", label: "Screens in the patient app" },
+        { value: "1", label: "Design system shared with the dashboard" },
+        { value: "2", label: "Native platforms — iOS & Android" },
+      ],
+      glanceNote:
+        "The other half of Formi. Where the therapist dashboard is built for a ten-minute daily review, the patient app is built for the moment someone is alone, mid-exercise, and needs to know whether they’re doing it right.",
+      sections: [
+        {
+          id: "context",
+          kicker: "Overview",
+          heading: "The half of the platform patients actually live in",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The therapist dashboard exists to give clinicians visibility between appointments. The patient app is the other end of that same connection — where the recovery actually happens: doing the exercises, getting real-time form feedback, watching pain and progress move week to week.",
+                "This page picks up from the dashboard case study rather than repeating it. The problem framing, the research and the business model all live there.",
+              ],
+            },
+            {
+              kind: "link",
+              href: "/work/formi",
+              label: "Formi — Therapist Dashboard",
+              note: "The practice-management side of the same platform",
+            },
+          ],
+        },
+        {
+          id: "user",
+          kicker: "Who it’s for",
+          heading: "One user, alone, mid-exercise",
+          blocks: [
+            {
+              kind: "persona",
+              name: "Mary Cooper",
+              age: 56,
+              role: "Post-operative recovery patient",
+              photo: "/projects/formi/persona-mary.jpg",
+              quote:
+                "I do the exercises, but I never know if I’m doing them properly until my next appointment.",
+              goals: [
+                "Recover fully and safely without reinjury",
+                "Get feedback on form while exercising, not a week later",
+                "Track pain trends and see progress accumulate",
+              ],
+              frustrations: [
+                "Zero feedback between appointments",
+                "Uncertain about form when alone",
+                "Loses track of progress over time",
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The full persona work sits on the dashboard case study — this is here so the page stands on its own for anyone landing on it directly.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "surfaces",
+          kicker: "UI Design",
+          heading: "What the app does",
+          blocks: [
+            {
+              kind: "scrolly",
+              steps: [
+                {
+                  src: "live-session.png",
+                  title: "Guided sessions with real-time form feedback",
+                  body: [
+                    "The core loop: a patient opens a prescribed exercise, the app guides them through it, and gives feedback on form as they go. It’s the piece that directly answers Mary’s “am I doing this right”, and it runs on AI-tracked pose estimation.",
+                  ],
+                },
+                {
+                  src: "progress.png",
+                  title: "Progress in plain terms",
+                  body: [
+                    "Pain score, adherence and recovery progress surfaced back to the patient — mirroring the clinical snapshot the therapist sees, but written for someone without clinical training.",
+                  ],
+                },
+                {
+                  src: "payment-success.png",
+                  title: "Payment — swipe to pay",
+                  body: [
+                    "A swipe-to-pay interaction handles the payment moment, with instalment plans rather than requiring the full amount upfront.",
+                  ],
+                },
+                {
+                  src: "welcome.png",
+                  title: "Onboarding",
+                  body: [
+                    "Getting from a therapist’s code to a ready programme, without an account standing in the way first.",
+                  ],
+                },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "Guided session — what the patient actually sees during a session: the pose overlay, rep counter, form-correction cues, how feedback is surfaced without needing to be read mid-movement.",
+                "Swipe-to-pay — why a swipe specifically? What was considered instead (a standard button, a card form), and why this suited the moment. If it ties back to the dashboard’s “zero friction onboarding” decision, say so.",
+                "Onboarding — the live site lists an onboarding flow, an onboarding profile and a split variation, which suggests more than one approach was explored. Worth a before/after or A/B framing if that’s accurate.",
+                "Progress tracking — what the screen actually shows, and how the wording was pitched for a lay audience.",
+              ],
+              note: "Screens are placeholders pulled from the existing gallery — swap in the real frames when they’re ready.",
+            },
+          ],
+        },
+        {
+          id: "decisions",
+          kicker: "Key Decision",
+          heading: "Designing the riskiest surface on reasoning alone",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The guided pose-tracking session is the highest-risk surface in the whole platform. It’s the one place where getting the UI wrong could mean a patient performing a rehab exercise incorrectly, unsupervised, with nobody watching.",
+                "It was designed without a working prototype in front of real patients. That’s stated here the same way it’s stated on the dashboard case study — the session flow is a considered argument, not a validated one.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Outcome & Reflection",
+          heading: "What exists, and what it still needs",
+          blocks: [
+            {
+              kind: "stats",
+              items: [
+                { value: "30", label: "Screens in the patient app" },
+                { value: "1", label: "Design system shared with the dashboard" },
+                { value: "2", label: "Native platforms — iOS & Android" },
+              ],
+            },
+            {
+              kind: "callout",
+              title: "Being straight about it",
+              body:
+                "Same caveat as the dashboard: this is a designed system with an argument behind it, not a validated product. The guided session in particular needs real usability testing on low-end Android, in someone’s hands, on the floor, before any claim that it works would be honest.",
+            },
+            {
+              kind: "todo",
+              items: [
+                "A closing line specific to the patient app, if you want one beyond what the dashboard page already says.",
+              ],
+            },
+          ],
+        },
+      ],
     },
     gallery: [
       "splash.png",
@@ -1109,11 +1592,31 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* TODO — case study. See the note on `fourcore-platform` above. */
+    /* SCOPE CONFLICT — the Conqr brief states this was NOT a product design
+       engagement ("the core product was built separately; the work was brand
+       identity, design system and a standalone landing page"), yet this entry
+       describes a product UI overhaul. Resolve before writing this page. */
     study: {
       meta: [],
       glance: [],
-      sections: [],
+      sections: [
+        {
+          id: "scope",
+          kicker: "Unresolved",
+          heading: "This page needs a decision before it’s written",
+          blocks: [
+            {
+              kind: "todo",
+              items: [
+                "The Conqr brief says the engagement was brand + design system + a landing page, and explicitly that it was NOT product design — but this project is described here as a ground-up UI overhaul of the legal-AI product workspace.",
+                "The brief describes ONE two-month engagement. The site splits Conqr into two projects of one month each.",
+                "Decide: fold this into “Conqr.ai — Landing” as a single case study, or keep it separate and tell me what the platform work actually was.",
+              ],
+              note: "I haven’t written this page, because either version would contradict something you’ve already published. Merging would also mean editing the ORDER array in components/sections/Work.tsx, since the homepage grid hardcodes both slugs.",
+            },
+          ],
+        },
+      ],
     },
     gallery: [
       "board-overview.jpg",
@@ -1194,11 +1697,134 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* TODO — case study. See the note on `fourcore-platform` above. */
+    /* Not a product design story — a story about managing an ambiguous
+       client engagement. The friction at the end is the credibility; it is
+       written plainly rather than smoothed over. */
     study: {
-      meta: [],
-      glance: [],
-      sections: [],
+      hero: {
+        web: "landing-hero.png",
+        webLabel: "Conqr.ai — the shipped landing page",
+        alt: "The Conqr.ai landing page",
+      },
+      meta: [
+        { label: "Client", value: "Conqr.ai — AI legal assistant for lawyers" },
+        { label: "Project type", value: "Freelance / contract — solo, direct client engagement" },
+        { label: "Timeline", value: "2 months" },
+        { label: "Scope", value: "Brand & design system redesign, plus a landing page built from scratch" },
+      ],
+      glance: [
+        { value: "3–4", label: "Full iterations before a direction held" },
+        { value: "2", label: "Deliverables — a design system and a landing page" },
+        { value: "Solo", label: "No PM, no team" },
+      ],
+      glanceNote:
+        "Not a product design engagement. Conqr.ai’s legal AI assistant was built separately — this work was the brand identity, the design system, and a standalone single-scroll landing page used for the product’s launch.",
+      sections: [
+        {
+          id: "context",
+          kicker: "Overview",
+          heading: "“Redesign our website” — with no sense of direction",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Conqr.ai came in with a clear ask and an unclear target. They wanted their website redesigned, but had no point of view on what it should look like, feel like, or say.",
+                "That’s a harder brief than a detailed one. There’s no direction to react to — only a blank page to fill on the client’s behalf, and no way to tell whether you’ve filled it correctly until you show them.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "process",
+          kicker: "Process",
+          heading: "Finding direction through iteration, not discovery",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "With no strong brief to anchor to, the process leaned on showing rather than asking. I brought a wide set of visual references to give the client something concrete to react to, then iterated on whatever pulled them in a direction — a loop of “does this feel more like it, or less”.",
+                "It took three to four full iterations before a direction solidified into an actual design system: a defined colour palette, typography, and a component language the client could commit to.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "board-visual-system.jpg", caption: "The visual system that eventually held" },
+                { src: "board-overview.jpg", caption: "Engagement overview" },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "The iteration trail is the most valuable thing to show here and it isn’t wired in yet — 3–4 thumbnails per round, rough to refined, with one line on what changed each time.",
+                "That progression communicates the ambiguity-to-clarity arc far better than the final result alone. Do you have the earlier rounds saved?",
+              ],
+            },
+          ],
+        },
+        {
+          id: "surfaces",
+          kicker: "UI Design",
+          heading: "What shipped",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Two deliverables came out of the two months: a brand design system — colour, typography and component language, arrived at through the iteration above — and the landing page itself, built from scratch rather than as a redesign of an existing page, single-scroll, used for the product’s public launch.",
+              ],
+            },
+            {
+              kind: "scrolly",
+              steps: [
+                {
+                  src: "landing-hero.png",
+                  title: "The hero",
+                  body: ["“Legal Intelligence. Perfected.” — the line the whole page had to earn."],
+                },
+                {
+                  src: "frame-746.png",
+                  title: "Product explanation",
+                  body: ["Placeholder caption — what this section had to communicate."],
+                },
+                {
+                  src: "frame-785.png",
+                  title: "Closing and CTA",
+                  body: ["Placeholder caption — how the page converts."],
+                },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "A real line per section of the landing page, replacing the placeholder captions above.",
+                "Confirm the frames I picked are actually the sections I’ve labelled them as — I matched them by filename.",
+                "Whether to mention that Conqr.ai has since redesigned their landing page and platform again. If yes, frame it factually: “the version shown here was used for their [year] launch and has since been updated.” If you’d rather not, cut the line and let the page stand as a point-in-time record.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Reflection",
+          heading: "Honest about the outcome",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The engagement ran the full two months, delivered a settled design system and a shipped landing page — and the client still wasn’t fully satisfied at the end. That’s part of the case study rather than something to smooth over.",
+                "What it taught: how to build a design system from a genuinely ambiguous brief, and how to convert vague, shifting requirements into decisions that actually ship — even when “shipped” and “everyone’s happy” don’t fully overlap.",
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "A more specific lesson, if you want to name one — e.g. what you’d do differently to reach alignment faster next time.",
+              ],
+            },
+          ],
+        },
+      ],
     },
     gallery: [
       "board-landing-page.jpg",
@@ -1273,13 +1899,154 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* TODO — case study. See the note on `fourcore-platform` above.
-       A concept project, so lean on `callout` (the idea), `swatches` and
-       `figures` for the visual system, and be honest in `outcome`. */
+    /* Deliberately short — a first project, not a flagship. One scroll. */
     study: {
-      meta: [],
-      glance: [],
-      sections: [],
+      hero: {
+        app: "reading-interface-6.png",
+        appLabel: "Reading view",
+        alt: "The Autumn reading interface",
+      },
+      meta: [
+        { label: "Project type", value: "Independent Product Design" },
+        { label: "Role", value: "Solo — first UI/UX project, designed entirely from scratch" },
+        { label: "Platform", value: "Mobile app" },
+      ],
+      glance: [
+        { value: "4", label: "Core features designed" },
+        { value: "Solo", label: "First independent project" },
+        { value: "0 → 1", label: "From premise to prototype" },
+      ],
+      glanceNote:
+        "An e-book reader that starts from the physical reading experience instead of from a feature list — built to ask one narrow question rather than to compete with a Kindle.",
+      sections: [
+        {
+          id: "context",
+          kicker: "Overview",
+          heading: "Reading lost its rituals when it went digital",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Physical books carry small rituals that most e-readers strip away without noticing: dog-earing a page, lending a book to a friend with a note in the margin, someone recommending exactly the right book at exactly the right time. Digital reading solved portability and lost the parts that made a book feel personal.",
+              ],
+            },
+            {
+              kind: "lead",
+              text:
+                "What does an e-reader look like if it starts from the physical reading experience instead of the feature list of a Kindle?",
+            },
+            {
+              kind: "todo",
+              items: [
+                "Status — shipped prototype, concept, or archived?",
+                "Timeline.",
+                "Screen count, if known.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "surfaces",
+          kicker: "UI Design",
+          heading: "What shipped",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The first independent project — built solo, end to end, with no client or team to answer to. Scope was deliberately core-first.",
+              ],
+            },
+            {
+              kind: "scrolly",
+              steps: [
+                {
+                  src: "reading-interface-7.png",
+                  title: "Layout customisation",
+                  body: [
+                    "Text, spacing and background tuned to how someone actually likes to read, rather than to a default someone else picked.",
+                  ],
+                },
+                {
+                  src: "bookmarks-menu-page-10.png",
+                  title: "Bookmarks",
+                  body: ["Mark a page the way you’d dog-ear it."],
+                },
+                {
+                  src: "highlights-menu-page-9.png",
+                  title: "Notes",
+                  body: ["Margin-style annotation, written while reading rather than after it."],
+                },
+                {
+                  src: "compact-tab-feature-page-12.png",
+                  title: "Tabs",
+                  body: [
+                    "The standout feature: a digital analogue to leaving paper tabs sticking out of a book, marking chapters, favourite passages, or places to come back to.",
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "decisions",
+          kicker: "Key Decision",
+          heading: "Tabs, not folders",
+          blocks: [
+            {
+              kind: "split",
+              weight: "text",
+              left: {
+                kind: "decision",
+                title: "Tabs, not folders",
+                body: [
+                  "Most e-readers organise saved content the way a file system does — folders, lists, favourites. That’s software logic applied to a book.",
+                  "Autumn’s tabs skip that model and mimic the physical habit directly: a tab sticks out from the edge of the page, visible while flipping through, findable by feel and memory rather than by opening a menu.",
+                  "It’s a small decision, but it’s the one that best captures the whole premise — digital reading should borrow its logic from books, not from software.",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "compact-tab-feature-cont-page-13.png",
+                frame: "mobile",
+              },
+            },
+          ],
+        },
+        {
+          id: "next",
+          kicker: "Where it’s headed",
+          heading: "Three directions, none of them designed",
+          blocks: [
+            {
+              kind: "callout",
+              title: "Not a roadmap",
+              body:
+                "None of what follows has been designed or scoped. No screens exist for any of it — this is a vision statement, not a set of implied deliverables.",
+            },
+            {
+              kind: "list",
+              items: [
+                "A marketplace — Kindle-style subscription access to a book library",
+                "Sharing and gifting — two subscribers exchanging an annotated copy, margin notes included, or gifting a book outright",
+                "Reading together — a collaborative mode where two people read the same book on their own time and leave annotations for each other to find",
+              ],
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Reflection",
+          heading: "The first one",
+          blocks: [
+            {
+              kind: "todo",
+              items: [
+                "A short, honest note in your own voice on what this first project taught you. First independent project, built from scratch, no client or team involved — 2–3 sentences, same register as Formi’s “Being straight about it”. No inflated claims.",
+              ],
+            },
+          ],
+        },
+      ],
     },
     gallery: [
       "reading-interface-6.png",

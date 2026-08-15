@@ -1216,6 +1216,37 @@ body.cursor-hover .cursor-ring {
 
 .bk-figures { display: grid; grid-template-columns: repeat(var(--fig-cols, 2), minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
 
+.bk-link {
+  display: inline-flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  padding: 12px 20px; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--paper);
+  transition: border-color .25s ease, transform .25s ease;
+}
+.bk-link:hover { border-color: var(--ink); transform: translateY(-2px); }
+.bk-link .lbl { font-size: 15px; font-weight: 600; color: var(--ink); }
+.bk-link .note { font-family: var(--ff-mono); font-size: 11px; color: var(--ink-3); }
+.bk-link .arw { color: var(--accent); font-weight: 700; }
+
+/* unwritten content — impossible to mistake for finished copy */
+.bk-todo {
+  padding: clamp(18px, 2.4vw, 26px); border-radius: 14px;
+  border: 2px dashed color-mix(in srgb, var(--coral) 55%, var(--line));
+  background: color-mix(in srgb, var(--coral) 6%, var(--paper));
+}
+.bk-todo-tag {
+  display: inline-block; margin-bottom: 14px; padding: 4px 11px; border-radius: 999px;
+  background: var(--coral); color: var(--paper);
+  font-family: var(--ff-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.bk-todo ul { list-style: none; display: grid; gap: 10px; }
+.bk-todo li {
+  display: grid; grid-template-columns: 16px 1fr; gap: 8px;
+  font-size: 15px; line-height: 1.6; color: var(--ink-2);
+}
+.bk-todo li::before { content: "?"; color: var(--coral); font-weight: 800; }
+.bk-todo-note { margin-top: 14px; font-size: 13.5px; line-height: 1.6; color: var(--ink-3); }
+
 /* --- pinned commentary beside scrolling screens --------------- */
 /* The text column sticks for the length of the media column while the
    screens scroll past; copy crossfades to whichever screen is nearest

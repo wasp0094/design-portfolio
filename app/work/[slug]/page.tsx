@@ -292,9 +292,11 @@ export default async function ProjectPage({
 
             <Gallery
               cols={p.layout === "mobile" ? 3 : 2}
+              /* absolute entries let a gallery pull from another project's
+                 folder — used by conqr, which merged two projects into one */
               items={p.gallery!.map((f) => ({
-                src: `/projects/${p.dir}/${f}`,
-                caption: p.captions ? prettify(f) : undefined,
+                src: f.startsWith("/") ? f : `/projects/${p.dir}/${f}`,
+                caption: p.captions ? prettify(f.split("/").pop()!) : undefined,
               }))}
             />
           </>

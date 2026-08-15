@@ -41,7 +41,7 @@ export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: st
         <div className="bk-scrolly-stack">
           {steps.map((s, i) => (
             <div
-              key={s.src}
+              key={s.title}
               className={`bk-scrolly-panel${i === active ? " is-active" : ""}`}
               aria-hidden={i !== active}
             >
@@ -58,26 +58,44 @@ export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: st
       </div>
 
       <div className="bk-scrolly-media">
-        {steps.map((s, i) => (
-          <figure
-            key={s.src}
-            className={`bk-scrolly-shot${i === active ? " is-active" : ""}`}
-            ref={(el) => {
-              shots.current[i] = el;
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src(s.src)} alt={s.title} loading="lazy" />
-            {/* the pinned column is hidden on narrow screens, so each shot
-                carries its own copy there instead */}
-            <figcaption className="bk-scrolly-inline">
-              <h4>{s.title}</h4>
-              {s.body.map((p, j) => (
-                <p key={j}>{p}</p>
-              ))}
-            </figcaption>
-          </figure>
-        ))}
+        {steps.map((s, i) => {
+          const frames = Array.isArray(s.src) ? s.src : [s.src];
+          return (
+            <figure
+              key={frames[0]}
+              className={`bk-scrolly-shot${i === active ? " is-active" : ""}`}
+              ref={(el) => {
+                shots.current[i] = el;
+              }}
+            >
+              {frames.length === 1 ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={src(frames[0])} alt={s.title} loading="lazy" />
+              ) : (
+                <div className="bk-scrolly-collage" data-count={frames.length}>
+                  {frames.map((f, k) => (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      key={f}
+                      src={src(f)}
+                      alt={k === 0 ? s.title : ""}
+                      aria-hidden={k > 0}
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+              )}
+              {/* the pinned column is hidden on narrow screens, so each shot
+                  carries its own copy there instead */}
+              <figcaption className="bk-scrolly-inline">
+                <h4>{s.title}</h4>
+                {s.body.map((p, j) => (
+                  <p key={j}>{p}</p>
+                ))}
+              </figcaption>
+            </figure>
+          );
+        })}
       </div>
     </div>
   );

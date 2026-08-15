@@ -15,8 +15,7 @@ const ORDER: { slug: string; size: Size }[] = [
   { slug: "fourcore", size: "hbig" },
   { slug: "autumn", size: "hbig" },
   { slug: "fourcore-platform", size: "big" },
-  { slug: "conqr-platform", size: "small" },
-  { slug: "conqr-landing", size: "wide" },
+  { slug: "conqr", size: "wide" },
 ];
 const INVITE_AFTER = 4; // insert the "start a conversation" tile after FourCore platform
 
@@ -112,7 +111,9 @@ function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
 function InviteTile() {
   return (
     <motion.a
-      className="tile small invite"
+      /* `tall` (2 cols x 2 rows) so it fills the space beside the `big`
+         FourCore tile — with six projects a `small` would leave a hole */
+      className="tile tall invite"
       href="#contact"
       data-hover
       initial={{ opacity: 0, y: 30 }}

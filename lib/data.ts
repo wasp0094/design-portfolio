@@ -1371,13 +1371,6 @@ export const projects: Project[] = [
                 "And the patient is often not alone. A family member or guardian is frequently the one holding the phone, positioning the camera, or watching to catch the moment something looks wrong — carrying real responsibility for the recovery while the product speaks only to the patient.",
               ],
             },
-            {
-              kind: "todo",
-              items: [
-                "The caregiver paragraph above is reasoned from your definition, not from research. If there’s anything real behind it — something a patient or a family member actually said — it belongs here instead.",
-              ],
-              note: "Once there’s material on both sides, this section could become a two-column patient/caregiver breakdown, the same shape as the themes matrix on the dashboard case study.",
-            },
           ],
         },
         {
@@ -1427,12 +1420,6 @@ export const projects: Project[] = [
                 "Every instruction is written for the patient; none of it is addressed to him",
                 "Can’t tell ordinary post-exercise soreness from the kind that means stop",
                 "Only finds out something was being done wrong at the next appointment",
-              ],
-            },
-            {
-              kind: "todo",
-              items: [
-                "The caregiver persona above is derived, not researched — I built it from your definition (family member or guardian assisting at home) plus the emergency-contact field the dashboard already carries. The goals and frustrations are reasoned, not things anyone told you. Confirm or correct them before this publishes.",
               ],
             },
             {
@@ -1493,14 +1480,6 @@ export const projects: Project[] = [
                 },
               ],
             },
-            {
-              kind: "todo",
-              items: [
-                "Swipe-to-pay — the payment gate is described above, but not why a swipe rather than a button or a card form. If it ties back to the dashboard’s “zero friction onboarding” decision, that’s the argument.",
-                "Onboarding — the gallery holds an onboarding flow, an onboarding profile and a split variation, which suggests more than one approach was explored. Worth an A/B framing if that’s accurate.",
-              ],
-              note: "Collage frames are cropped to a phone aspect; the uncropped screens are in the gallery at the foot of the page.",
-            },
           ],
         },
         {
@@ -1535,12 +1514,6 @@ export const projects: Project[] = [
               title: "Being straight about it",
               body:
                 "Same caveat as the dashboard: this is a designed system with an argument behind it, not a validated product. The guided session in particular needs real usability testing on low-end Android, in someone’s hands, on the floor, before any claim that it works would be honest.",
-            },
-            {
-              kind: "todo",
-              items: [
-                "A closing line specific to the patient app, if you want one beyond what the dashboard page already says.",
-              ],
             },
           ],
         },
@@ -1714,13 +1687,6 @@ export const projects: Project[] = [
                 { src: "board-visual-system.jpg", caption: "The visual system that eventually held" },
               ],
             },
-            {
-              kind: "todo",
-              items: [
-                "The iterations above are in filename order, not chronological order — tell me the actual sequence, rough to refined.",
-                "One line per round on what changed and why it moved the client. That progression is what communicates the ambiguity-to-clarity arc; without captions it reads as seven similar screens.",
-              ],
-            },
           ],
         },
         {
@@ -1739,12 +1705,6 @@ export const projects: Project[] = [
               src: "landing-full.png",
               frame: "scroll",
               caption: "The full page, top to bottom — scroll inside the frame",
-            },
-            {
-              kind: "todo",
-              items: [
-                "Whether to mention that Conqr.ai has since redesigned their landing page and platform again. If yes, frame it factually: “the version shown here was used for their [year] launch and has since been updated.” If you’d rather not, cut the line and let the page stand as a point-in-time record.",
-              ],
             },
           ],
         },
@@ -1781,12 +1741,6 @@ export const projects: Project[] = [
               body: [
                 "The engagement ran the full two months, delivered a settled design system and a shipped landing page — and the client still wasn’t fully satisfied at the end. That’s part of the case study rather than something to smooth over.",
                 "What it taught: how to build a design system from a genuinely ambiguous brief, and how to convert vague, shifting requirements into decisions that actually ship — even when “shipped” and “everyone’s happy” don’t fully overlap.",
-              ],
-            },
-            {
-              kind: "todo",
-              items: [
-                "A more specific lesson, if you want to name one — e.g. what you’d do differently to reach alignment faster next time.",
               ],
             },
           ],

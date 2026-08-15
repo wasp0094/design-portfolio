@@ -1517,146 +1517,36 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "conqr-platform",
-    dir: "conqr-platform",
-    title: "Conqr.ai — Platform",
-    subtitle: "Legal-AI product — UI overhaul",
-    role: "Solo Freelance",
-    timeline: "1 month",
-    year: "2025",
-    accent: "blue",
-    cover: "cover-image.jpg",
-    hero: "cover-image.jpg",
-    layout: "web",
-    summary:
-      "A ground-up UI overhaul of Conqr.ai's legal-AI product — the document workspace where legal teams draft, review, and manage agreements.",
-    overview: [
-      "Conqr.ai is a legal-AI assistant. This project was a ground-up UI overhaul of the product — the workspace where legal teams draft, review, track, and pay for their agreements.",
-      "Dense document management (all-documents views, dashboards, payments, approvals) was restructured into a calm, credible interface that feels approachable rather than intimidating — enterprise power with human simplicity.",
-    ],
-    highlights: [
-      "Redesigned 10–12 core product screens solo.",
-      "Restructured the document workspace: dashboard, all-documents, approvals, and payments.",
-      "Set a calm, trustworthy visual tone for a legal-AI product.",
-    ],
-    tags: ["Product Redesign", "SaaS", "Legal AI", "Design System"],
-    tools: ["Figma"],
-    metrics: [
-      { value: "12", label: "Screens redesigned" },
-      { value: "4", label: "Process stages" },
-      { value: "1 mo", label: "Timeline" },
-    ],
-    caseStudy: [
-      {
-        heading: "The project",
-        body: [
-          "Conqr.ai is an AI-powered legal co-pilot for corporate legal teams — it helps them automate document creation, track compliance, and streamline due-diligence workflows. I joined as the sole freelance UI designer to establish a cohesive visual identity across the product.",
-        ],
-      },
-      {
-        heading: "The problem",
-        body: [
-          "The platform had no unified visual language — screens felt inconsistent across components, typography, and colour usage. For a product that needs to feel precise and trustworthy to corporate legal teams, that inconsistency was quietly undermining credibility.",
-        ],
-      },
-      {
-        heading: "The process",
-        body: [
-          "I worked in four stages — Audit, Wireframe, Visual System, Final UI.",
-          "It began with a UI audit of the existing platform, cataloguing inconsistencies across components, typography, and colour — the map of everything to fix.",
-        ],
-      },
-      {
-        heading: "Wireframes — structure before style",
-        body: [
-          "Before committing to any visual direction, I mapped the core screens in low fidelity. The focus was structure, information hierarchy, content flow, and the user journey — without the distraction of colour or detail.",
-        ],
-      },
-      {
-        heading: "A visual system built for authority",
-        body: [
-          "The design language is a neutral base palette with a single purposeful accent — a deep navy (#0C4160) — keeping the interface modern and clean without losing the authority a corporate legal audience expects.",
-          "Merriweather and Lato were chosen for legibility and professionalism, and a component library was built in Figma so every screen stays consistent.",
-        ],
-      },
-      {
-        heading: "The redesign",
-        body: [
-          "I applied the system across the product: the dashboard, an all-documents workspace (table and kanban views), plan and pricing, and document upload / compare — turning dense legal document management into calm, consistent, scannable screens.",
-        ],
-      },
-      {
-        heading: "Outcome",
-        body: [
-          "A cohesive, componentised platform UI delivered end-to-end in a one-month freelance engagement — the product half of a project that also produced Conqr.ai’s landing page.",
-        ],
-      },
-    ],
-    /* SCOPE CONFLICT — the Conqr brief states this was NOT a product design
-       engagement ("the core product was built separately; the work was brand
-       identity, design system and a standalone landing page"), yet this entry
-       describes a product UI overhaul. Resolve before writing this page. */
-    study: {
-      meta: [],
-      glance: [],
-      sections: [
-        {
-          id: "scope",
-          kicker: "Unresolved",
-          heading: "This page needs a decision before it’s written",
-          blocks: [
-            {
-              kind: "todo",
-              items: [
-                "The Conqr brief says the engagement was brand + design system + a landing page, and explicitly that it was NOT product design — but this project is described here as a ground-up UI overhaul of the legal-AI product workspace.",
-                "The brief describes ONE two-month engagement. The site splits Conqr into two projects of one month each.",
-                "Decide: fold this into “Conqr.ai — Landing” as a single case study, or keep it separate and tell me what the platform work actually was.",
-              ],
-              note: "I haven’t written this page, because either version would contradict something you’ve already published. Merging would also mean editing the ORDER array in components/sections/Work.tsx, since the homepage grid hardcodes both slugs.",
-            },
-          ],
-        },
-      ],
-    },
-    gallery: [
-      "board-overview.jpg",
-      "board-wireframes.jpg",
-      "board-visual-system.jpg",
-      "board-platform-redesign.jpg",
-      "home-dashboard.png",
-      "home-alldocuments.png",
-      "home-payments.png",
-    ],
-    link: "https://www.behance.net/gallery/249693337/Conqrai-UI-Redesign-Landing-Page-Design",
-    featured: true,
-  },
-  {
-    slug: "conqr-landing",
+    /* Merged from the former `conqr-platform` and `conqr-landing` entries —
+       one two-month engagement, not two. Both old URLs redirect here via
+       next.config.ts. */
+    slug: "conqr",
     dir: "conqr-landing",
-    title: "Conqr.ai — Landing",
-    subtitle: "Legal-AI marketing landing page",
+    title: "Conqr.ai",
+    subtitle: "Brand, design system, and a launch landing page",
     role: "Solo Freelance",
-    timeline: "1 month",
+    timeline: "2 months",
     year: "2025",
     accent: "teal",
     cover: "landing-hero.png",
     hero: "landing-hero.png",
     layout: "web",
     summary:
-      "The single-scroll marketing landing page for Conqr.ai, designed from scratch — “Legal Intelligence. Perfected.”",
+      "Turning an undirected brief into a design system — brand, component language, and a single-scroll landing page built from scratch for a legal-AI product’s launch.",
     overview: [
-      "The single-scroll marketing landing page for Conqr.ai, designed from scratch. “Legal Intelligence. Perfected.” — the page positions an enterprise-grade legal-AI product with startup speed and human simplicity.",
-      "It leads with a confident value proposition and layered product previews that build trust quickly and drive toward a free-trial CTA.",
+      "Conqr.ai is an AI legal assistant for lawyers. The client wanted their website redesigned but had no point of view on what it should look like, feel like, or say — a harder brief than a detailed one.",
+      "Over two months the engagement produced a brand design system — colour, typography and a component language — and a single-scroll landing page built from scratch for the product’s public launch.",
     ],
     highlights: [
-      "Designed the single-scroll landing page end-to-end.",
-      "Crafted the hero, product previews, and conversion flow.",
-      "Shaped an approachable, trustworthy brand tone.",
+      "Built a design system out of an ambiguous brief, through 3–4 full iterations.",
+      "Designed the single-scroll launch landing page end to end.",
+      "Set a calm, credible visual tone for a product sold to corporate legal teams.",
     ],
-    tags: ["Landing Page", "Marketing", "Brand", "Web"],
+    tags: ["Brand Design", "Design System", "Landing Page", "Client Work"],
     tools: ["Figma"],
     metrics: [
-      { value: "1 mo", label: "Timeline" },
+      { value: "2 mo", label: "Engagement" },
+      { value: "3–4", label: "Iterations to a direction" },
       { value: "Legal Tech", label: "Industry" },
     ],
     caseStudy: [
@@ -1805,6 +1695,38 @@ export const projects: Project[] = [
           ],
         },
         {
+          id: "product",
+          kicker: "Applied",
+          heading: "The system on the product surfaces",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The same visual language was carried onto the product itself — the workspace where legal teams draft, review and pay for agreements. Dense document management was restructured into something calmer and more credible, so the marketing site and the product it sold no longer looked like two different companies.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "/projects/conqr-platform/home-dashboard.png", caption: "Dashboard" },
+                { src: "/projects/conqr-platform/home-alldocuments.png", caption: "All documents" },
+                { src: "/projects/conqr-platform/home-payments.png", caption: "Payments" },
+                { src: "/projects/conqr-platform/board-wireframes.jpg", caption: "Wireframes — structure before style" },
+              ],
+            },
+            {
+              kind: "todo",
+              items: [
+                "SCOPE CHECK — the brief for this engagement says it was brand, design system and landing page, and explicitly NOT product design. But these product screens exist, and the previous version of this page described a ground-up UI overhaul of the workspace. Which is right?",
+                "If the product work was in scope, this section should say what it actually involved and the “not a product design engagement” line in the summary above has to go.",
+                "If it wasn’t, delete this whole section and the platform screens with it.",
+              ],
+              note: "I merged the two pages as asked but did not resolve this contradiction — both versions of the story are yours to confirm, not mine to pick.",
+            },
+          ],
+        },
+        {
           id: "outcome",
           kicker: "Reflection",
           heading: "Honest about the outcome",
@@ -1826,12 +1748,19 @@ export const projects: Project[] = [
         },
       ],
     },
+    /* absolute entries pull in the former conqr-platform folder */
     gallery: [
       "board-landing-page.jpg",
       "board-overview.jpg",
       "board-visual-system.jpg",
       "frame-785.png",
       "frame-746.png",
+      "/projects/conqr-platform/board-platform-redesign.jpg",
+      "/projects/conqr-platform/board-wireframes.jpg",
+      "/projects/conqr-platform/home-dashboard.png",
+      "/projects/conqr-platform/home-alldocuments.png",
+      "/projects/conqr-platform/home-payments.png",
+      "/projects/conqr-platform/cover-image.jpg",
     ],
     link: "https://www.behance.net/gallery/249693337/Conqrai-UI-Redesign-Landing-Page-Design",
     featured: true,

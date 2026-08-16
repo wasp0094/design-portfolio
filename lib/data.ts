@@ -16,7 +16,7 @@ export const profile = {
     "actually use.",
   ],
   intro:
-    "Product & UI/UX designer with 2+ years taking B2B and healthtech products from messy research all the way to shipped, high-fidelity UI — design systems, two-sided products, and the calm interfaces in between.",
+    "Product & UI/UX designer with 2+ years taking B2B and healthtech products from messy research all the way to shipped, high-fidelity UI: design systems, two-sided products, and the calm interfaces in between.",
   phone: "+91 98183 77310",
   // TODO: replace with Aditi's real LinkedIn URL
   email: "makedesignwithaditi@gmail.com",
@@ -134,8 +134,8 @@ export type StudySection = {
 export type StudyHero = {
   web?: string;       // wide/desktop screen (paths may be absolute to cross projects)
   app?: string;       // portrait phone screen
-  webLabel?: string;  // small pill, e.g. "Therapist dashboard — web"
-  appLabel?: string;  // small pill, e.g. "Patient app — iOS & Android"
+  webLabel?: string;  // small pill, e.g. "Therapist dashboard (web)"
+  appLabel?: string;  // small pill, e.g. "Patient app (iOS & Android)"
   alt?: string;
 };
 
@@ -197,23 +197,23 @@ export const projects: Project[] = [
     subtitle: "Breach & attack simulation product",
     role: "UI/UX → Senior",
     timeline: "2+ years · ongoing",
-    year: "2024 — Now",
+    year: "2024 to Now",
     accent: "violet",
     professional: true,
     cover: "dashboard.png",
     hero: "dashboard.png",
     layout: "web",
     summary:
-      "2+ years designing FourCore ATTACK — a breach-and-attack-simulation platform — building its design system from scratch and shipping 40+ new screens across new and upgraded features.",
+      "2+ years designing FourCore ATTACK, a breach-and-attack-simulation platform, building its design system from scratch and shipping 40+ new screens across new and upgraded features.",
     overview: [
-      "FourCore ATTACK is a breach-and-attack-simulation (BAS) platform. Security teams use it to continuously emulate real-world adversaries — running attack techniques against their live systems — to validate whether their controls actually detect and block threats, then prioritise the gaps.",
-      "This is my longest-running professional engagement: over 2+ years I grew from UI/UX Designer to Senior UI/UX Designer to Product Designer — owning the product’s design system, designing brand-new features, and modernising existing ones.",
+      "FourCore ATTACK is a breach-and-attack-simulation (BAS) platform. Security teams use it to continuously emulate real-world adversaries, running attack techniques against their live systems, to validate whether their controls actually detect and block threats, then prioritise the gaps.",
+      "This is my longest-running professional engagement: over 2+ years I grew from UI/UX Designer to Senior UI/UX Designer to Product Designer: owning the product’s design system, designing brand-new features, and modernising existing ones.",
     ],
     highlights: [
-      "Built the product’s entire design system from scratch — brand, colour, type, components, iconography.",
+      "Built the product’s entire design system from scratch: brand, colour, type, components, iconography.",
       "Designed and shipped 5+ new features and 40+ new screens, concept to production.",
       "Upgraded existing features and pages to the new brand identity, including custom illustrations.",
-      "Partnered with marketing on brand collateral — event posters, mood boards, and merch.",
+      "Partnered with marketing on brand collateral: event posters, mood boards, and merch.",
     ],
     tags: ["Product Design", "Design System", "Cybersecurity", "B2B"],
     tools: ["Figma"],
@@ -226,37 +226,37 @@ export const projects: Project[] = [
       {
         heading: "What is FourCore",
         body: [
-          "FourCore ATTACK is a breach-and-attack-simulation platform in the cybersecurity space. It safely emulates real-world adversaries — executing attack techniques, moving laterally, escalating privileges — against an organisation’s live environment, then shows security teams exactly where their defenses held and where they broke, mapped to frameworks like MITRE ATT&CK.",
+          "FourCore ATTACK is a breach-and-attack-simulation platform in the cybersecurity space. It safely emulates real-world adversaries, executing attack techniques, moving laterally, escalating privileges, against an organisation’s live environment, then shows security teams exactly where their defenses held and where they broke, mapped to frameworks like MITRE ATT&CK.",
         ],
       },
       {
-        heading: "My role — and how it grew",
+        heading: "How my role grew",
         body: [
-          "I joined as a UI/UX Designer, was promoted to Senior UI/UX Designer, and then to Product Designer — over 2+ years and counting. Across that arc I owned three threads: the design system, brand-new features, and the modernisation of everything that already existed.",
+          "I joined as a UI/UX Designer, was promoted to Senior UI/UX Designer, and then to Product Designer, over 2+ years and counting. Across that arc I owned three threads: the design system, brand-new features, and the modernisation of everything that already existed.",
         ],
       },
       {
-        heading: "The design system — from scratch",
+        heading: "The design system, built from scratch",
         body: [
-          "I built the product’s entire design system from the ground up: brand guidelines, colour theory, typography, the full UI component library, and a custom iconography set. In a dense, data-heavy security product, that system is what keeps a hundred different screens — dashboards, attack graphs, MITRE matrices, reports — feeling like one coherent tool, and it dramatically sped up how fast new screens ship.",
+          "I built the product’s entire design system from the ground up: brand guidelines, colour theory, typography, the full UI component library, and a custom iconography set. In a dense, data-heavy security product, that system is what keeps a hundred different screens, dashboards, attack graphs, MITRE matrices, reports, feeling like one coherent tool, and it dramatically sped up how fast new screens ship.",
         ],
       },
       {
-        heading: "New features — concept to production",
+        heading: "New features, concept to production",
         body: [
-          "I designed and shipped 5+ new features and 40+ new screens, owning them from first concept all the way to production alongside engineering. The specifics sit under an NDA, so I’ll keep this high-level — but the work spans the core surfaces of a modern BAS platform.",
+          "I designed and shipped 5+ new features and 40+ new screens, owning them from first concept all the way to production alongside engineering. The specifics sit under an NDA, so I’ll keep this high-level, but the work spans the core surfaces of a modern BAS platform.",
         ],
       },
       {
         heading: "Upgrading what already existed",
         body: [
-          "Beyond net-new work, I reworked existing features and pages to match the new brand identity — including custom illustrations — so the whole product moved forward together rather than becoming a patchwork of old and new.",
+          "Beyond net-new work, I reworked existing features and pages to match the new brand identity, including custom illustrations, so the whole product moved forward together rather than becoming a patchwork of old and new.",
         ],
       },
       {
-        heading: "Beyond the product — brand & marketing",
+        heading: "Beyond the product, brand & marketing",
         body: [
-          "I also worked closely with the marketing team, extending the design system beyond the app into brand collateral: event posters, mood boards, merch, and other materials — keeping FourCore consistent everywhere it shows up.",
+          "I also worked closely with the marketing team, extending the design system beyond the app into brand collateral: event posters, mood boards, merch, and other materials, keeping FourCore consistent everywhere it shows up.",
         ],
       },
     ],
@@ -266,12 +266,12 @@ export const projects: Project[] = [
     study: {
       hero: {
         web: "dashboard.png",
-        webLabel: "FourCore ATTACK — platform dashboard",
+        webLabel: "FourCore ATTACK, platform dashboard",
         alt: "The FourCore ATTACK platform dashboard",
       },
       meta: [
-        { label: "Company", value: "FourCore — breach & attack simulation (cybersecurity)" },
-        { label: "Role", value: "Senior UI/UX Designer — sole independent contributor on design" },
+        { label: "Company", value: "FourCore, breach & attack simulation (cybersecurity)" },
+        { label: "Role", value: "Senior UI/UX Designer, sole independent contributor on design" },
         { label: "Timeline", value: "Feb 2024 – present · 2+ years, ongoing" },
         { label: "Scope", value: "Full platform redesign, 40+ screens, solo · plus 5+ new features since" },
       ],
@@ -282,7 +282,7 @@ export const projects: Project[] = [
         { value: "Solo", label: "Sole design contributor" },
       ],
       glanceNote:
-        "FourCore runs breach-and-attack simulations for security teams — letting them safely test how their defenses hold up against real attack techniques. I joined as the sole design owner and have redesigned the platform end to end since.",
+        "FourCore runs breach-and-attack simulations for security teams, letting them safely test how their defenses hold up against real attack techniques. I joined as the sole design owner and have redesigned the platform end to end since.",
       sections: [
         {
           id: "confidentiality",
@@ -293,15 +293,15 @@ export const projects: Project[] = [
               kind: "callout",
               title: "Confidential product",
               body:
-                "FourCore’s platform data is confidential. Every screen on this page uses placeholder data — no client names, threat data, addresses or account details appear anywhere.",
+                "FourCore’s platform data is confidential. Every screen on this page uses placeholder data: no client names, threat data, addresses or account details appear anywhere.",
             },
             /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
-                "DECIDE BEFORE PUBLISHING: password-protect this page, gate it behind a “request access” link, or split it — a light public version showing process and UI patterns only, plus a gated full version.",
+                "DECIDE BEFORE PUBLISHING: password-protect this page, gate it behind a “request access” link, or split it: a light public version showing process and UI patterns only, plus a gated full version.",
                 "AUDIT EVERY SCREEN used on this page for real data before it goes live. The images currently wired in are the ones already on the site; they have not been re-checked against this stricter standard.",
-                "Confirm the claim in the callout above is actually true of the final screen set — I have written it as an intent, not a verified fact.",
+                "Confirm the claim in the callout above is actually true of the final screen set: I have written it as an intent, not a verified fact.",
               ],
               note: "This section should be deleted once the page is gated, or kept and tightened if the page stays public.",
             },
@@ -316,14 +316,14 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Security teams use FourCore ATTACK to run simulated attacks against their own systems and see where the gaps are, before a real adversary finds them. I joined as the sole design owner and have redesigned the platform end to end since — 40+ screens across the core product, plus new features shipped along the way as the product itself evolved.",
+                "Security teams use FourCore ATTACK to run simulated attacks against their own systems and see where the gaps are, before a real adversary finds them. I joined as the sole design owner and have redesigned the platform end to end since: 40+ screens across the core product, plus new features shipped along the way as the product itself evolved.",
               ],
             },
             /* UNANSWERED — restore this block when the answers land:
             {
               kind: "todo",
               items: [
-                "A public-safe sentence or two on what the platform does for its users day to day. Keep it non-specific about actual client use cases — the line above is deliberately generic and should be checked before it stands.",
+                "A public-safe sentence or two on what the platform does for its users day to day. Keep it non-specific about actual client use cases, the line above is deliberately generic and should be checked before it stands.",
               ],
             },
             */
@@ -337,7 +337,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Structured by surface rather than chronologically — two years doesn’t narrate well as a timeline, and each surface is really its own small case study.",
+                "Structured by surface rather than chronologically: two years doesn’t narrate well as a timeline, and each surface is really its own small case study.",
               ],
             },
             {
@@ -351,17 +351,17 @@ export const projects: Project[] = [
                 {
                   src: "threat-intelligence.png",
                   title: "Threat Intelligence",
-                  body: ["Placeholder screen — pairing to be confirmed."],
+                  body: ["Placeholder screen, pairing to be confirmed."],
                 },
                 {
                   src: "mitre-attack.png",
                   title: "Threat Library",
-                  body: ["Placeholder screen — this surface later absorbed the Exposures feature."],
+                  body: ["Placeholder screen: this surface later absorbed the Exposures feature."],
                 },
                 {
                   src: "preferences.png",
                   title: "Settings",
-                  body: ["Placeholder screen — pairing to be confirmed."],
+                  body: ["Placeholder screen, pairing to be confirmed."],
                 },
               ],
             },
@@ -369,12 +369,12 @@ export const projects: Project[] = [
             {
               kind: "todo",
               items: [
-                "Dashboard — what was wrong with the old one, what changed, and why.",
-                "Threat Library — what the page is for and what the redesign changed. (Note: the brief spells this “Thread Library” and “Thread Intelligence” throughout — confirm whether that’s Threat or Thread before this goes live.)",
-                "Threat Intelligence — purpose of the page and what changed.",
-                "Settings — scope of the redesign; anything notable such as permissions complexity or the number of sub-sections.",
-                "Integrations — what the page manages and what changed. No screen is wired in for this surface yet.",
-                "Confirm each screen above is actually the surface it’s labelled as — I matched them by filename, not by knowing the product.",
+                "Dashboard: what was wrong with the old one, what changed, and why.",
+                "Threat Library, what the page is for and what the redesign changed. (Note: the brief spells this “Thread Library” and “Thread Intelligence” throughout, confirm whether that’s Threat or Thread before this goes live.)",
+                "Threat Intelligence, purpose of the page and what changed.",
+                "Settings, scope of the redesign; anything notable such as permissions complexity or the number of sub-sections.",
+                "Integrations, what the page manages and what changed. No screen is wired in for this surface yet.",
+                "Confirm each screen above is actually the surface it’s labelled as: I matched them by filename, not by knowing the product.",
               ],
             },
             */
@@ -403,9 +403,9 @@ export const projects: Project[] = [
             {
               kind: "todo",
               items: [
-                "Emerging Threats — what problem it solves and how it works at a high level.",
-                "Scheduler — what gets scheduled, and why it mattered.",
-                "Playbooks — what a playbook is in this context and what it lets users do. No screen wired in yet.",
+                "Emerging Threats, what problem it solves and how it works at a high level.",
+                "Scheduler: what gets scheduled, and why it mattered.",
+                "Playbooks, what a playbook is in this context and what it lets users do. No screen wired in yet.",
               ],
             },
             */
@@ -419,7 +419,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Exposures shipped as a standalone feature, then was scrapped and replaced — its functionality absorbed into a redesigned Threat Library workflow instead of continuing as a separate surface.",
+                "Exposures shipped as a standalone feature, then was scrapped and replaced: its functionality absorbed into a redesigned Threat Library workflow instead of continuing as a separate surface.",
               ],
             },
             /* UNANSWERED — restore this block when the answers land:
@@ -428,9 +428,9 @@ export const projects: Project[] = [
               items: [
                 "Why the standalone version didn’t work.",
                 "What the merged version does better.",
-                "Before/after screens of both states, if they exist — this is the strongest moment in the case study and deserves the visual.",
+                "Before/after screens of both states, if they exist: this is the strongest moment in the case study and deserves the visual.",
               ],
-              note: "Killing a feature and folding it into something else is a real product decision. It’s what turns 40+ screens into a case study rather than a screen dump — worth writing properly.",
+              note: "Killing a feature and folding it into something else is a real product decision. It’s what turns 40+ screens into a case study rather than a screen dump, worth writing properly.",
             },
             */
           ],
@@ -452,7 +452,7 @@ export const projects: Project[] = [
             {
               kind: "todo",
               items: [
-                "An honest reflection in the same register as Formi’s “Being straight about it” — what the role has actually meant. Owning design end to end with no team to share the load, holding a design system together as the product grew, whatever is true.",
+                "An honest reflection in the same register as Formi’s “Being straight about it”, what the role has actually meant. Owning design end to end with no team to share the load, holding a design system together as the product grew, whatever is true.",
               ],
               note: "A few honest sentences will read better than trying to summarise everything shipped over two years.",
             },
@@ -480,7 +480,7 @@ export const projects: Project[] = [
   {
     slug: "fourcore",
     dir: "fourcore",
-    title: "FourCore — Landing",
+    title: "FourCore: Landing",
     subtitle: "Breach and attack simulation platform",
     role: "UI/UX Design Intern",
     timeline: "2–3 month sprint",
@@ -491,14 +491,14 @@ export const projects: Project[] = [
     hero: "new-home-hero.jpg",
     layout: "web",
     summary:
-      "A ground-up overhaul of FourCore’s marketing website — the public face of a breach-and-attack-simulation platform — from a cluttered legacy site to a focused, modern dark experience.",
+      "A ground-up overhaul of FourCore’s marketing website, the public face of a breach-and-attack-simulation platform, from a cluttered legacy site to a focused, modern dark experience.",
     overview: [
-      "FourCore ATTACK is a breach-and-attack-simulation platform — security teams use it to continuously emulate real-world adversaries and validate that their defenses actually work. This was my first project at FourCore, taken on as a UI/UX design intern: a complete redesign of the company’s website.",
-      "The old site had grown cluttered and inconsistent. I rebuilt the core pages end-to-end — home, platform, demo, about, and blog, across desktop and mobile — into a focused, high-contrast dark experience that reads as serious, credible security tooling.",
+      "FourCore ATTACK is a breach-and-attack-simulation platform, security teams use it to continuously emulate real-world adversaries and validate that their defenses actually work. This was my first project at FourCore, taken on as a UI/UX design intern: a complete redesign of the company’s website.",
+      "The old site had grown cluttered and inconsistent. I rebuilt the core pages end-to-end, home, platform, demo, about, and blog, across desktop and mobile, into a focused, high-contrast dark experience that reads as serious, credible security tooling.",
     ],
     highlights: [
       "Redesigned the FourCore website end-to-end (10+ screens, desktop & mobile) in a 2–3 month sprint.",
-      "Replaced a cluttered legacy hero with a single, confident message — ‘Security Control Validation. Supercharged.’",
+      "Replaced a cluttered legacy hero with a single, confident message, ‘Security Control Validation. Supercharged.’",
       "Established a consistent dark visual system and reusable components across every page.",
       "Turned a raw Calendly demo embed into a designed conversion flow.",
     ],
@@ -511,7 +511,7 @@ export const projects: Project[] = [
     ],
     caseStudy: [
       {
-        heading: "The role — professional work at FourCore",
+        heading: "The role, professional work at FourCore",
         body: [
           "This is my professional experience as Senior UI/UX Designer at FourCore. FourCore ATTACK is an adversary-emulation (breach-and-attack-simulation) platform that lets security teams continuously test whether their controls actually stop real-world threats. I lead the product’s design and, here, redesigned the company’s public website.",
         ],
@@ -519,19 +519,19 @@ export const projects: Project[] = [
       {
         heading: "The problem",
         body: [
-          "The legacy site had grown cluttered and inconsistent — a dense hero, mixed light/dark sections, and a raw Calendly-embed demo page, with no unifying visual system. For a product that sells trust and precision to security buyers, the site didn’t reflect the sophistication of the tool underneath.",
+          "The legacy site had grown cluttered and inconsistent: a dense hero, mixed light/dark sections, and a raw Calendly-embed demo page, with no unifying visual system. For a product that sells trust and precision to security buyers, the site didn’t reflect the sophistication of the tool underneath.",
         ],
       },
       {
         heading: "The goal",
         body: [
-          "Rebuild the marketing site into a focused, credible, modern experience that communicates the product’s value at a glance — and establish one consistent visual system across every page.",
+          "Rebuild the marketing site into a focused, credible, modern experience that communicates the product’s value at a glance, and establish one consistent visual system across every page.",
         ],
       },
       {
         heading: "The approach",
         body: [
-          "I redesigned the core pages end-to-end — home, platform, demo, about, and blog — for both desktop and mobile, in a two-month sprint. The site leads with a single, punchy message on a focused dark canvas, and every page is built from the same components so it all reads as one product.",
+          "I redesigned the core pages end-to-end, home, platform, demo, about, and blog, for both desktop and mobile, in a two-month sprint. The site leads with a single, punchy message on a focused dark canvas, and every page is built from the same components so it all reads as one product.",
         ],
       },
       {
@@ -543,25 +543,25 @@ export const projects: Project[] = [
       {
         heading: "The system",
         body: [
-          "A dark navy base with a single electric-blue accent, consistent typography and spacing, and a reusable component set — so home, platform, about, and blog all feel unmistakably like FourCore.",
+          "A dark navy base with a single electric-blue accent, consistent typography and spacing, and a reusable component set: so home, platform, about, and blog all feel unmistakably like FourCore.",
         ],
       },
       {
         heading: "Outcome",
         body: [
-          "A cohesive, modern marketing site — live at fourcore.io — that presents FourCore ATTACK with the clarity and authority its security audience expects.",
+          "A cohesive, modern marketing site, live at fourcore.io, that presents FourCore ATTACK with the clarity and authority its security audience expects.",
         ],
       },
     ],
     study: {
       hero: {
         web: "new-home-hero.jpg",
-        webLabel: "fourcore.io — redesigned",
+        webLabel: "fourcore.io, redesigned",
         alt: "The redesigned FourCore homepage",
       },
       meta: [
-        { label: "Company", value: "FourCore — breach & attack simulation (cybersecurity)" },
-        { label: "Role", value: "UI/UX Design Intern — first project after joining" },
+        { label: "Company", value: "FourCore, breach & attack simulation (cybersecurity)" },
+        { label: "Role", value: "UI/UX Design Intern, first project after joining" },
         { label: "Scope", value: "5–6 page marketing website, redesigned solo" },
         { label: "Timeline", value: "2–3 month sprint" },
         { label: "Status", value: "Live, and unchanged since it shipped" },
@@ -582,7 +582,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The existing site didn’t read as a serious cybersecurity product. FourCore wanted something sharper, more modern and more credible-looking — something that matched where the product actually was rather than where it had started.",
+                "The existing site didn’t read as a serious cybersecurity product. FourCore wanted something sharper, more modern and more credible-looking, something that matched where the product actually was rather than where it had started.",
               ],
             },
           ],
@@ -595,24 +595,24 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "A full redesign across five to six pages, from scratch — visual direction, layout, and the content structure of each page.",
+                "A full redesign across five to six pages, from scratch: visual direction, layout, and the content structure of each page.",
               ],
             },
             {
               kind: "compare",
-              label: "Home — what FourCore does, for whom, and why a security team should trust it",
+              label: "Home: what FourCore does, for whom, and why a security team should trust it",
               before: "old-home.jpg",
               after: "after-home.png",
             },
             {
               kind: "compare",
-              label: "About — the credibility page, in a category where that question gets asked early",
+              label: "About: the credibility page, in a category where that question gets asked early",
               before: "old-about.jpg",
               after: "after-about.png",
             },
             {
               kind: "compare",
-              label: "Demo — the conversion surface, and the one page that had to do commercial work",
+              label: "Demo: the conversion surface, and the one page that had to do commercial work",
               before: "old-demo.jpg",
               after: "after-demo.png",
             },
@@ -621,7 +621,7 @@ export const projects: Project[] = [
               src: "new-blogs.jpg",
               frame: "crop",
               caption:
-                "Blog — a publishing surface for security research, which is how a company like this earns attention. No before exists for this one; it didn’t have a blog until the redesign. Cropped from a full-page capture.",
+                "Blog: a publishing surface for security research, which is how a company like this earns attention. No before exists for this one; it didn’t have a blog until the redesign. Cropped from a full-page capture.",
             },
           ],
         },
@@ -637,9 +637,9 @@ export const projects: Project[] = [
                 kind: "decision",
                 title: "Make it look established, not launched",
                 body: [
-                  "The old site read as pre-launch. Not broken — just new. It carried the visual signals of a product still finding its footing, at a point where the product itself had long since moved past that.",
+                  "The old site read as pre-launch. Not broken, just new. It carried the visual signals of a product still finding its footing, at a point where the product itself had long since moved past that.",
                   "In security that’s a commercial problem, not a cosmetic one. FourCore sells to teams whose job is to be suspicious, and who are being asked to point the thing at their live environment. A site that looks provisional makes the product look provisional.",
-                  "So the brief wasn’t “modernise” in the abstract. It was to make the platform feel well-placed, premium and trustworthy — and every choice underneath, typography included, was made against that one test: does this read as a company that has arrived, or one that just showed up?",
+                  "So the brief wasn’t “modernise” in the abstract. It was to make the platform feel well-placed, premium and trustworthy: and every choice underneath, typography included, was made against that one test: does this read as a company that has arrived, or one that just showed up?",
                 ],
               },
               right: {
@@ -659,9 +659,9 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The site has been live since it shipped and hasn’t needed a further redesign — which, for a marketing site at a startup that has kept moving, is the outcome that matters.",
+                "The site has been live since it shipped and hasn’t needed a further redesign: which, for a marketing site at a startup that has kept moving, is the outcome that matters.",
                 "It was also the first thing I ever shipped. Redesigning something from scratch turned out to be a different skill from designing screens: the work was less about what I wanted to make and more about reading what the company actually needed, then finding the version of that I could argue for and hand over.",
-                "Turning a client’s sense of what’s wrong into something actionable is the part I’d underestimated. “It should feel more modern” isn’t a brief — the job was getting from that to a decision I could defend on every page.",
+                "Turning a client’s sense of what’s wrong into something actionable is the part I’d underestimated. “It should feel more modern” isn’t a brief, the job was getting from that to a decision I could defend on every page.",
                 "I was an intern when I took it on, and was converted to a full-time role after it went live.",
               ],
             },
@@ -687,7 +687,7 @@ export const projects: Project[] = [
     slug: "formi",
     dir: "formi",
     title: "Formi",
-    subtitle: "Physiotherapy platform — two-sided product",
+    subtitle: "Physiotherapy platform, two-sided product",
     role: "Independent Product Design",
     timeline: "Ongoing",
     year: "2026",
@@ -698,17 +698,17 @@ export const projects: Project[] = [
     layout: "web",
     captions: true,
     summary:
-      "Evolved from ‘Proctify’, a patients-only college project, into Formi — a full two-sided platform connecting physiotherapists and patients through AI-guided remote recovery.",
+      "Evolved from ‘Proctify’, a patients-only college project, into Formi, a full two-sided platform connecting physiotherapists and patients through AI-guided remote recovery.",
     overview: [
-      "Formi is a physiotherapist-first digital health platform that keeps the care relationship productive between clinic visits — a professional practice-management and remote-monitoring tool for therapists, and a structured, AI-guided recovery experience for patients.",
-      "It began as ‘Proctify’, a patients-only college project (Top 15 at the Smart India Hackathon, Top 50 Global at the Google Solution Challenge). I independently reworked it into a full two-sided product — introducing the therapist-facing dashboard the original never scoped, and authoring the complete PRD and design system.",
+      "Formi is a physiotherapist-first digital health platform that keeps the care relationship productive between clinic visits: a professional practice-management and remote-monitoring tool for therapists, and a structured, AI-guided recovery experience for patients.",
+      "It began as ‘Proctify’, a patients-only college project (Top 15 at the Smart India Hackathon, Top 50 Global at the Google Solution Challenge). I independently reworked it into a full two-sided product: introducing the therapist-facing dashboard the original never scoped, and authoring the complete PRD and design system.",
       "The therapist dashboard spans the whole practice: a home view that surfaces the patients who need attention, a practice-analytics layer for clinical outcomes and revenue, a step-by-step programme builder, per-patient progress tracking (pain trends, form accuracy, joint range), scheduling, in-app messaging, alerts, billing, and a physiotherapist-first onboarding flow.",
     ],
     highlights: [
-      "Designed the full therapist dashboard — from a needs-attention home view to practice analytics, scheduling, and billing.",
+      "Designed the full therapist dashboard: from a needs-attention home view to practice analytics, scheduling, and billing.",
       "Built a step-by-step programme builder and per-patient progress tracking (pain, form accuracy, joint range).",
       "Introduced the therapist-facing surface the original patients-only concept never scoped.",
-      "Authored the complete PRD and design system — a 23-screen breakdown across both experiences.",
+      "Authored the complete PRD and design system, a 23-screen breakdown across both experiences.",
     ],
     tags: ["Product Design", "Design System", "Healthtech", "0 → 1"],
     tools: ["Figma"],
@@ -719,56 +719,56 @@ export const projects: Project[] = [
     ],
     caseStudy: [
       {
-        heading: "The problem — physios giving care away for free",
+        heading: "The problem, physios giving care away for free",
         body: [
-          "India has roughly one physiotherapist for every 25,000 people. Independent practitioners already deliver remote care between visits — but informally, over WhatsApp: unpaid, invisible, and impossible to scale past 10–15 active patients without burning out.",
+          "India has roughly one physiotherapist for every 25,000 people. Independent practitioners already deliver remote care between visits: but informally, over WhatsApp: unpaid, invisible, and impossible to scale past 10–15 active patients without burning out.",
           "The result is revenue leakage from dropout, WhatsApp chaos with no visibility between visits, ad-hoc cash/UPI billing, and progress that’s anecdotal rather than evidenced.",
         ],
       },
       {
-        heading: "The strategic bet — physiotherapist-first",
+        heading: "The strategic bet, physiotherapist-first",
         body: [
-          "Most health apps acquire patients directly and treat the doctor as a distribution channel. Formi inverts that: the physiotherapist is the primary customer. They build programmes, set prices, and invite patients — the patient’s app is an extension of the therapist’s clinical work.",
-          "The model is financially aligned — Formi only earns a platform fee (8–12%) when a programme payment clears, so the product’s incentive is the therapist’s: more completed programmes. That’s the north-star metric — completed programmes per therapist per month.",
+          "Most health apps acquire patients directly and treat the doctor as a distribution channel. Formi inverts that: the physiotherapist is the primary customer. They build programmes, set prices, and invite patients, the patient’s app is an extension of the therapist’s clinical work.",
+          "The model is financially aligned, Formi only earns a platform fee (8–12%) when a programme payment clears, so the product’s incentive is the therapist’s: more completed programmes. That’s the north-star metric, completed programmes per therapist per month.",
         ],
       },
       {
         heading: "The design challenge",
         body: [
-          "The dashboard had to be a practice-management tool, not just a monitoring screen — reducing the cognitive load of running a multi-patient practice. The guiding constraint: a therapist should be able to do their full daily patient review in under 10 minutes.",
+          "The dashboard had to be a practice-management tool, not just a monitoring screen, reducing the cognitive load of running a multi-patient practice. The guiding constraint: a therapist should be able to do their full daily patient review in under 10 minutes.",
           "That meant surfacing what needs attention without noise, and making billing and communication effortless.",
         ],
       },
       {
-        heading: "Surfacing what matters — the overview dashboard",
+        heading: "Surfacing what matters, the overview dashboard",
         body: [
-          "The home screen prioritises by urgency: flagged patients (pain spike, form deterioration, missed sessions) rise to the top, then active patients by last session, then upcoming starts. A banner states it plainly — ‘X patients need your attention.’",
-          "Each patient card carries last session, pain-trend arrow, completion %, payment status, and any active flags — so the therapist triages a whole caseload at a glance.",
+          "The home screen prioritises by urgency: flagged patients (pain spike, form deterioration, missed sessions) rise to the top, then active patients by last session, then upcoming starts. A banner states it plainly, ‘X patients need your attention.’",
+          "Each patient card carries last session, pain-trend arrow, completion %, payment status, and any active flags, so the therapist triages a whole caseload at a glance.",
         ],
       },
       {
-        heading: "The programme builder — the gateway",
+        heading: "The programme builder, the gateway",
         body: [
-          "Programme creation is the therapist’s primary action and the single gate every patient enters through. I designed a builder for setting duration, frequency, and per-exercise sets / reps / hold / rest from a clinician-validated exercise library — with per-exercise notes, transparent instalment pricing (platform fee shown before publishing), reusable templates, and draft states.",
+          "Programme creation is the therapist’s primary action and the single gate every patient enters through. I designed a builder for setting duration, frequency, and per-exercise sets / reps / hold / rest from a clinician-validated exercise library: with per-exercise notes, transparent instalment pricing (platform fee shown before publishing), reusable templates, and draft states.",
         ],
       },
       {
-        heading: "Alerts — the clinical safety layer",
+        heading: "Alerts, the clinical safety layer",
         body: [
-          "The alert system is the platform’s most important safety layer. It’s tiered Critical / Moderate / Informational so it surfaces action without flooding the therapist with noise: pain-spike (post-session pain up 2+ vs. the 3-session average), form-deterioration, missed-session, instalment-due, and programme-completion-approaching flags — each paired with a suggested action.",
+          "The alert system is the platform’s most important safety layer. It’s tiered Critical / Moderate / Informational so it surfaces action without flooding the therapist with noise: pain-spike (post-session pain up 2+ vs. the 3-session average), form-deterioration, missed-session, instalment-due, and programme-completion-approaching flags: each paired with a suggested action.",
         ],
       },
       {
         heading: "Billing without the admin",
         body: [
-          "To replace cash-and-WhatsApp billing, the dashboard handles the money: a revenue view of collected vs. expected, per-patient payment logs with the platform fee shown, automatic instalment reminders, offline-payment marking, GST-compliant receipts, and weekly payouts — turning previously unbillable clinical time into tracked revenue.",
+          "To replace cash-and-WhatsApp billing, the dashboard handles the money: a revenue view of collected vs. expected, per-patient payment logs with the platform fee shown, automatic instalment reminders, offline-payment marking, GST-compliant receipts, and weekly payouts, turning previously unbillable clinical time into tracked revenue.",
         ],
       },
       {
-        heading: "One system, two apps — and the outcome",
+        heading: "One system, two apps, and the outcome",
         body: [
-          "Everything sits on a design system I built from the ground up — the same teal, Inter type, and 4pt spacing shared with the patient app — so the two-sided product feels like one product, with dense clinical data rendered as calm, scannable views.",
-          "The result: a 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing, and reporting — the clinical-oversight half of Formi’s two-sided model, evolved from a patients-only college project into a full practice-management platform.",
+          "Everything sits on a design system I built from the ground up, the same teal, Inter type, and 4pt spacing shared with the patient app, so the two-sided product feels like one product, with dense clinical data rendered as calm, scannable views.",
+          "The result: a 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing, and reporting: the clinical-oversight half of Formi’s two-sided model, evolved from a patients-only college project into a full practice-management platform.",
         ],
       },
     ],
@@ -776,12 +776,12 @@ export const projects: Project[] = [
       hero: {
         web: "hero-dashboard.png",
         app: "hero-app.png",
-        webLabel: "Therapist dashboard — web",
-        appLabel: "Patient app — iOS & Android",
+        webLabel: "Therapist dashboard (web)",
+        appLabel: "Patient app (iOS & Android)",
         alt: "The Formi therapist dashboard with the patient app alongside it",
       },
       meta: [
-        { label: "Role", value: "Product Designer — 0 to 1 (PRD, research, UX, UI, design system)" },
+        { label: "Role", value: "Product Designer: 0 to 1 (PRD, research, UX, UI, design system)" },
         { label: "Platforms", value: "Web dashboard for physiotherapists · Mobile app for patients" },
         { label: "Scope", value: "53 screens across two products, one connected system" },
         { label: "Timeline", value: "Ongoing · 2026" },
@@ -789,11 +789,11 @@ export const projects: Project[] = [
       glance: [
         { value: "53", label: "Screens across two products" },
         { value: "23 + 30", label: "Therapist dashboard + patient app" },
-        { value: "8–12%", label: "Platform fee — the whole business model" },
+        { value: "8–12%", label: "Platform fee, the whole business model" },
         { value: "Top 50", label: "Google Solution Challenge, Global (as Proctify)" },
       ],
       glanceNote:
-        "A physiotherapist-first platform that keeps the care relationship productive between clinic visits. Evolved from ‘Proctify’, a patients-only college project, into a full two-sided product — I authored the PRD, the research, and the design system, and introduced the therapist-facing half the original never scoped.",
+        "A physiotherapist-first platform that keeps the care relationship productive between clinic visits. Evolved from ‘Proctify’, a patients-only college project, into a full two-sided product: I authored the PRD, the research, and the design system, and introduced the therapist-facing half the original never scoped.",
       sections: [
         {
           id: "context",
@@ -802,12 +802,12 @@ export const projects: Project[] = [
           blocks: [
             {
               kind: "lead",
-              text: "Physiotherapy recovery extends far beyond the appointment — yet almost every tool treats it as session-bound.",
+              text: "Physiotherapy recovery extends far beyond the appointment, yet almost every tool treats it as session-bound.",
             },
             {
               kind: "prose",
               body: [
-                "A physiotherapist sees a patient for forty minutes a week. The other six days and twenty-three hours — the part where recovery actually happens or doesn’t — are invisible to them. Patients go home with a printed sheet of exercises and no way to know whether they’re doing them correctly.",
+                "A physiotherapist sees a patient for forty minutes a week. The other six days and twenty-three hours, the part where recovery actually happens or doesn’t, are invisible to them. Patients go home with a printed sheet of exercises and no way to know whether they’re doing them correctly.",
                 "Formi closes that gap from both ends: a practice-management dashboard that gives therapists visibility into what happens at home, and a mobile app that gives patients real-time guidance while they exercise. One connected system, two very different jobs.",
               ],
             },
@@ -815,7 +815,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "hero-dashboard.png",
               frame: "web",
-              caption: "The therapist’s home view — the whole caseload triaged by who needs attention first.",
+              caption: "The therapist’s home view, the whole caseload triaged by who needs attention first.",
             },
           ],
         },
@@ -827,8 +827,8 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "India has roughly one physiotherapist for every 25,000 people. Independent practitioners already deliver remote care between visits — but informally, over WhatsApp: unpaid, invisible, and impossible to scale past 10–15 active patients without burning out.",
-                "The result is revenue leakage from dropout, no clinical visibility between visits, ad-hoc cash and UPI billing, and progress that’s anecdotal rather than evidenced. Two completely different jobs exist inside one recovery programme — therapists manage it, patients live it — and most tools address only one side.",
+                "India has roughly one physiotherapist for every 25,000 people. Independent practitioners already deliver remote care between visits: but informally, over WhatsApp: unpaid, invisible, and impossible to scale past 10–15 active patients without burning out.",
+                "The result is revenue leakage from dropout, no clinical visibility between visits, ad-hoc cash and UPI billing, and progress that’s anecdotal rather than evidenced. Two completely different jobs exist inside one recovery programme, therapists manage it, patients live it, and most tools address only one side.",
               ],
             },
             {
@@ -855,7 +855,7 @@ export const projects: Project[] = [
               kind: "callout",
               title: "The gap",
               body:
-                "Recovery breaks down between appointments — and neither side can see it happening.",
+                "Recovery breaks down between appointments, and neither side can see it happening.",
             },
           ],
         },
@@ -867,7 +867,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "I built the product around two people whose needs only overlap at one point: the programme itself. Everything else — what they want to see, when they open the app, what a good day looks like — pulls in opposite directions.",
+                "I built the product around two people whose needs only overlap at one point: the programme itself. Everything else, what they want to see, when they open the app, what a good day looks like, pulls in opposite directions.",
               ],
             },
             {
@@ -922,7 +922,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Clustering what both groups told me produced three themes — and the useful finding was that each theme shows up on both sides of the relationship, as the same problem wearing different clothes.",
+                "Clustering what both groups told me produced three themes: and the useful finding was that each theme shows up on both sides of the relationship, as the same problem wearing different clothes.",
               ],
             },
             {
@@ -973,7 +973,7 @@ export const projects: Project[] = [
         {
           id: "strategy",
           kicker: "Strategy",
-          heading: "The bet — physiotherapist-first",
+          heading: "The bet, physiotherapist-first",
           blocks: [
             {
               kind: "prose",
@@ -985,7 +985,7 @@ export const projects: Project[] = [
             {
               kind: "callout",
               title: "North star",
-              body: "Completed programmes per therapist per month — not signups, not sessions logged.",
+              body: "Completed programmes per therapist per month: not signups, not sessions logged.",
             },
           ],
         },
@@ -999,7 +999,7 @@ export const projects: Project[] = [
               body: [
                 // TODO: the Vercel case study says Lato; the copy below and the
                 // formi-app entry both say Inter. Confirm which is correct.
-                "Both products sit on a design system I built from the ground up — shared colour, type, and a 4pt spacing base — so the two-sided product reads as one product rather than two apps that happen to talk to each other. Dense clinical data had to render as calm, scannable views.",
+                "Both products sit on a design system I built from the ground up, shared colour, type, and a 4pt spacing base, so the two-sided product reads as one product rather than two apps that happen to talk to each other. Dense clinical data had to render as calm, scannable views.",
               ],
             },
             {
@@ -1019,14 +1019,14 @@ export const projects: Project[] = [
                 kind: "callout",
                 title: "The logomark",
                 body:
-                  "Recovery isn’t a straight line — it loops, dips, and comes back around. The arc was the shape that captured that without needing to say it, and it reappears through the product as progress rings and session markers.",
+                  "Recovery isn’t a straight line: it loops, dips, and comes back around. The arc was the shape that captured that without needing to say it, and it reappears through the product as progress rings and session markers.",
               },
               right: {
                 kind: "figure",
                 src: "logo-grid.png",
                 frame: "web",
                 caption:
-                  "Constructed, not drawn — both arcs are cut from two circles overlapping a 76px square.",
+                  "Constructed, not drawn: both arcs are cut from two circles overlapping a 76px square.",
               },
             },
           ],
@@ -1043,7 +1043,7 @@ export const projects: Project[] = [
                   src: "hero-dashboard.png",
                   title: "Triage before anything else",
                   body: [
-                    "The home screen sorts by urgency, not alphabetically. Flagged patients rise to the top — pain spike, form deterioration, missed sessions — then active patients by last session, then upcoming starts.",
+                    "The home screen sorts by urgency, not alphabetically. Flagged patients rise to the top, pain spike, form deterioration, missed sessions, then active patients by last session, then upcoming starts.",
                     "A banner states the day plainly: X patients need your attention. That single line is what makes a ten-minute daily review possible.",
                   ],
                 },
@@ -1051,7 +1051,7 @@ export const projects: Project[] = [
                   src: "ui-patient-overview.png",
                   title: "The patient overview",
                   body: [
-                    "Everything needed to prepare for a session in one view — health summary and medications on the left, current status on the right, clinical snapshot underneath.",
+                    "Everything needed to prepare for a session in one view: health summary and medications on the left, current status on the right, clinical snapshot underneath.",
                     "Progress is stated in plain language: Post-Operative Knee Recovery, week 5 of 12, 42% complete. Pain score, form accuracy, joint range and adherence sit together, so the numbers are read as one clinical picture rather than four separate metrics.",
                   ],
                 },
@@ -1060,7 +1060,7 @@ export const projects: Project[] = [
                   title: "Programmes as reusable objects",
                   body: [
                     "Most programmes start as a variation of a previous one, not a blank page. The library shows duration, exercise count, enrolled patients and progress at a glance, with view, edit and duplicate on every card.",
-                    "Creating from scratch is deliberately the one dashed card in the grid — available, but not the default path.",
+                    "Creating from scratch is deliberately the one dashed card in the grid: available, but not the default path.",
                   ],
                 },
                 {
@@ -1068,14 +1068,14 @@ export const projects: Project[] = [
                   title: "The programme builder",
                   body: [
                     "Programme creation is the therapist’s primary action and the single gate every patient enters through. Exercises are dragged from a clinician-validated library into the session, each with its own sets, reps, hold and rest.",
-                    "Therapist instructions travel with the exercise, and a patient view preview shows exactly what will appear on the phone — so the therapist never has to guess how their prescription reads at the other end.",
+                    "Therapist instructions travel with the exercise, and a patient view preview shows exactly what will appear on the phone, so the therapist never has to guess how their prescription reads at the other end.",
                   ],
                 },
                 {
                   src: "ui-alerts.png",
                   title: "Alerts as the safety layer",
                   body: [
-                    "Tiered Critical, Moderate and Informational so urgency stays visually distinct. A pain spike carries its own suggested action — “pain increased from 4/10 to 7/10 over the last two sessions” — rather than leaving the therapist to work out what changed.",
+                    "Tiered Critical, Moderate and Informational so urgency stays visually distinct. A pain spike carries its own suggested action, “pain increased from 4/10 to 7/10 over the last two sessions”, rather than leaving the therapist to work out what changed.",
                     "Missed sessions, form deterioration, instalments due and completion milestones all run through the same tiering. One mental model to learn, not five, and every alert ends in a button rather than a dead end.",
                   ],
                 },
@@ -1084,7 +1084,7 @@ export const projects: Project[] = [
                   title: "Revenue that tracks the clinical goal",
                   body: [
                     "The money view replaces cash-and-WhatsApp billing: revenue per clinic hour, package sell-through, instalment tracking and weekly payouts, turning previously unbillable clinical time into tracked revenue.",
-                    "Completion rate sits in the header row beside revenue, and the treatment funnel states the intent in its own subtitle — completions are the goal, not a drop-off. The commercial metrics and the clinical ones point the same way by construction.",
+                    "Completion rate sits in the header row beside revenue, and the treatment funnel states the intent in its own subtitle: completions are the goal, not a drop-off. The commercial metrics and the clinical ones point the same way by construction.",
                   ],
                 },
               ],
@@ -1123,7 +1123,7 @@ export const projects: Project[] = [
                 body: [
                   "The obvious metric for a platform like this is renewals. But optimising for renewals quietly rewards keeping someone in treatment longer than they need to be, which is the opposite of what a good physiotherapist is trying to do.",
                   "So the dashboard leads with completion rate instead. A patient finishing their programme and being discharged reads as a win, not as revenue walking out of the door.",
-                  "It changes what the funnel is for. Early drop-off stops being churn to win back and becomes a clinical risk group to intervene on — which is exactly what the alerts layer already exists to catch.",
+                  "It changes what the funnel is for. Early drop-off stops being churn to win back and becomes a clinical risk group to intervene on, which is exactly what the alerts layer already exists to catch.",
                 ],
               },
               right: {
@@ -1152,7 +1152,7 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "The work landed as a developer-ready specification, not a mood board. A 23-screen therapist dashboard spanning programme creation, patient monitoring, alerts, scheduling, billing and reporting; a 30-screen patient app carrying someone from a therapist’s code through AI-tracked sessions to discharge. Both are composed from one design system, annotated with states, spacing and interactions.",
-                "It began as ‘Proctify’, a patients-only college project. The therapist half — the half that makes it a business rather than an app — wasn’t in the original scope at all.",
+                "It began as ‘Proctify’, a patients-only college project. The therapist half, the half that makes it a business rather than an app, wasn’t in the original scope at all.",
               ],
             },
             {
@@ -1166,7 +1166,7 @@ export const projects: Project[] = [
               // review the wording before publishing.
               kind: "prose",
               body: [
-                "Two things I’d do differently. I designed the pose-tracking session on reasoning alone; it’s the riskiest surface in the product and the one that most needed a rough prototype in someone’s hands early, not a polished spec late. And I’d instrument completion rate from the first build rather than treating it as a reporting feature — the entire business model rests on that single number, so it should have been the first thing measurable.",
+                "Two things I’d do differently. I designed the pose-tracking session on reasoning alone; it’s the riskiest surface in the product and the one that most needed a rough prototype in someone’s hands early, not a polished spec late. And I’d instrument completion rate from the first build rather than treating it as a reporting feature: the entire business model rests on that single number, so it should have been the first thing measurable.",
               ],
             },
             {
@@ -1174,7 +1174,7 @@ export const projects: Project[] = [
               items: [
                 "Usability-test the guided session with real patients, on low-end Android, on the floor",
                 "Pilot with clinics to find out whether an 8–12% fee survives how therapists actually price",
-                "Track completion rate from day one — the north-star metric has to be observable",
+                "Track completion rate from day one, the north-star metric has to be observable",
               ],
             },
             {
@@ -1214,8 +1214,8 @@ export const projects: Project[] = [
   {
     slug: "formi-app",
     dir: "formi-app",
-    title: "Formi — Patient App",
-    subtitle: "AI-guided recovery — patient mobile app",
+    title: "Formi: Patient App",
+    subtitle: "AI-guided recovery, patient mobile app",
     role: "Independent Product Design",
     timeline: "Ongoing",
     year: "2026",
@@ -1225,16 +1225,16 @@ export const projects: Project[] = [
     layout: "mobile",
     captions: true,
     summary:
-      "The patient half of Formi — a React Native app that turns a physiotherapist’s prescription into a guided, AI-tracked daily recovery experience.",
+      "The patient half of Formi: a React Native app that turns a physiotherapist’s prescription into a guided, AI-tracked daily recovery experience.",
     overview: [
       "Formi’s patient app is the home half of a two-sided physiotherapy platform. It answers one question: what does a patient do after they leave the clinic? It turns a physiotherapist’s prescription into a guided daily recovery experience on the phone.",
-      "Built for React Native (iOS + Android), it carries a patient from a therapist’s code through AI-tracked exercise sessions, pain logging, progress, and messaging — designed for real patients: often older, low digital literacy, exercising one-handed on the floor with patchy signal.",
+      "Built for React Native (iOS + Android), it carries a patient from a therapist’s code through AI-tracked exercise sessions, pain logging, progress, and messaging: designed for real patients: often older, low digital literacy, exercising one-handed on the floor with patchy signal.",
     ],
     highlights: [
-      "Authored the complete patient-app design process — 30 screens across 7 groups and 5 journey phases.",
+      "Authored the complete patient-app design process, 30 screens across 7 groups and 5 journey phases.",
       "Adapted the web design system to mobile: touch targets, thumb-zone actions, safe areas, and a 14px font floor that survives 1.3× system scaling.",
-      "Designed the core AI exercise session — live pose-tracking UI, real-time form correction, and glanceable rep counting.",
-      "Designed the activation funnel — code → programme preview → payment → account → health profile.",
+      "Designed the core AI exercise session: live pose-tracking UI, real-time form correction, and glanceable rep counting.",
+      "Designed the activation funnel, code → programme preview → payment → account → health profile.",
     ],
     tags: ["Mobile", "Product Design", "Healthtech", "React Native"],
     tools: ["Figma", "React Native"],
@@ -1248,59 +1248,59 @@ export const projects: Project[] = [
         heading: "The problem",
         body: [
           "Physiotherapy has a completion problem: 50–65% of patients never finish their prescribed home programme. Form breaks down without supervision, pain reduction gets mistaken for full recovery, and there’s no accountability between clinic visits.",
-          "The patient app is the connective tissue for that gap — it has to keep a patient exercising correctly, safely, and motivated, entirely on their own phone.",
+          "The patient app is the connective tissue for that gap: it has to keep a patient exercising correctly, safely, and motivated, entirely on their own phone.",
         ],
       },
       {
-        heading: "Who it’s for — and the constraints that shaped it",
+        heading: "Who it’s for, and the constraints that shaped it",
         body: [
-          "The primary users are patients aged 30–65 across urban and semi-urban India, with low-to-moderate digital literacy — often exercising one-handed while lying on the floor or steadying a limb.",
+          "The primary users are patients aged 30–65 across urban and semi-urban India, with low-to-moderate digital literacy, often exercising one-handed while lying on the floor or steadying a limb.",
           "That reality set hard, non-negotiable constraints for every screen:",
         ],
         list: [
-          "44/48pt minimum touch targets and thumb-zone primary actions — the session must be completable one-handed",
+          "44/48pt minimum touch targets and thumb-zone primary actions, the session must be completable one-handed",
           "A 14px body-text floor that doesn’t break at 1.3× system font scaling",
-          "Offline-first sessions with a clear sync state — patients exercise where signal is poor",
+          "Offline-first sessions with a clear sync state, patients exercise where signal is poor",
           "Visual restraint during live camera tracking so pose estimation doesn’t drop frames on low-end Android",
         ],
       },
       {
         heading: "The design process",
         body: [
-          "I worked in a deliberate order — mobile design system, then user-flow diagrams, lo-fi wireframes, a component library, high-fidelity screens, a device prototype, and finally developer handoff — because skipping the system and wireframe stages is expensive to fix later.",
+          "I worked in a deliberate order, mobile design system, then user-flow diagrams, lo-fi wireframes, a component library, high-fidelity screens, a device prototype, and finally developer handoff, because skipping the system and wireframe stages is expensive to fix later.",
           "The full journey was mapped into five phases with clear entry and exit conditions: Discovery → Activation → Daily use → Progress → Completion. Every screen belongs to exactly one phase.",
         ],
       },
       {
         heading: "One design system, two apps",
         body: [
-          "The patient app inherits the therapist dashboard’s design system — the same teal (#1A7A8A), Inter type, and 4pt spacing base — adapted for mobile. I built the component library first: a 10-dot pain scale, progress rings, a form-score badge, the AI-correction banner, streak indicators, and skeleton loaders — so every screen is composed from consistent, tested blocks.",
+          "The patient app inherits the therapist dashboard’s design system: the same teal (#1A7A8A), Inter type, and 4pt spacing base, adapted for mobile. I built the component library first: a 10-dot pain scale, progress rings, a form-score badge, the AI-correction banner, streak indicators, and skeleton loaders: so every screen is composed from consistent, tested blocks.",
         ],
       },
       {
-        heading: "Activation & payment — the make-or-break funnel",
+        heading: "Activation & payment, the make-or-break funnel",
         body: [
-          "The most critical business interaction. A patient enters the code their physiotherapist shared, then sees a full programme preview — therapist, condition, duration, and what’s included — so they know exactly what they’re paying for before any account exists.",
+          "The most critical business interaction. A patient enters the code their physiotherapist shared, then sees a full programme preview, therapist, condition, duration, and what’s included, so they know exactly what they’re paying for before any account exists.",
           "Payment runs through Razorpay; account creation happens after payment clears (a strong completion incentive), followed by a quick health profile and a deliberate ‘programme ready’ arrival moment.",
         ],
       },
       {
-        heading: "The daily exercise session — the core",
+        heading: "The daily exercise session, the core",
         body: [
-          "This is the hardest surface in the product: the camera is live, AI is processing, and the patient is physically moving — so every element has to be glanceable, never something to stop and read.",
+          "This is the hardest surface in the product: the camera is live, AI is processing, and the patient is physically moving: so every element has to be glanceable, never something to stop and read.",
           "A pre-session pain and energy check-in (with a red-flag gate that notifies the therapist if pain is high) leads into a live camera view with a MediaPipe skeleton overlay, colour-coded green / amber / red by form. A large mono rep counter pulses on each rep, a calm voice cue and a single correction banner nudge form, and a rest timer scores each set.",
         ],
       },
       {
         heading: "Progress, motivation & retention",
         body: [
-          "To fight dropout, the app scaffolds motivation: streaks that rest days don’t break, a weekly day-chip row, pain-trend sparklines, milestone confetti, and progress rings — plus reports and direct messaging that keep the therapist present between visits.",
+          "To fight dropout, the app scaffolds motivation: streaks that rest days don’t break, a weekly day-chip row, pain-trend sparklines, milestone confetti, and progress rings, plus reports and direct messaging that keep the therapist present between visits.",
         ],
       },
       {
         heading: "Outcome",
         body: [
-          "The result is a complete, developer-ready design system and a 30-screen React Native specification — the patient half of Formi’s two-sided model, annotated for engineering with states, spacing, and interactions.",
+          "The result is a complete, developer-ready design system and a 30-screen React Native specification: the patient half of Formi’s two-sided model, annotated for engineering with states, spacing, and interactions.",
         ],
       },
     ],
@@ -1309,19 +1309,19 @@ export const projects: Project[] = [
     study: {
       hero: {
         app: "/projects/formi/hero-app.png",
-        appLabel: "Patient app — iOS & Android",
+        appLabel: "Patient app (iOS & Android)",
         alt: "The Formi patient app join screen",
       },
       meta: [
-        { label: "Role", value: "Product Designer — UX, UI, and design system (shared with the dashboard)" },
+        { label: "Role", value: "Product Designer: UX, UI, and design system (shared with the dashboard)" },
         { label: "Platform", value: "Native mobile, iOS & Android" },
         { label: "Scope", value: "30 screens" },
-        { label: "Timeline", value: "Ongoing · 2026 — same engagement as the dashboard" },
+        { label: "Timeline", value: "Ongoing · 2026, same engagement as the dashboard" },
       ],
       glance: [
         { value: "30", label: "Screens in the patient app" },
         { value: "1", label: "Design system shared with the dashboard" },
-        { value: "2", label: "Native platforms — iOS & Android" },
+        { value: "2", label: "Native platforms, iOS & Android" },
       ],
       glanceNote:
         "The other half of Formi. Where the therapist dashboard is built for a ten-minute daily review, the patient app is built for the moment someone is alone, mid-exercise, and needs to know whether they’re doing it right.",
@@ -1334,8 +1334,8 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The therapist dashboard exists to give clinicians visibility between appointments. The patient app is the other end of that same connection — where the recovery actually happens: doing the exercises, getting real-time form feedback, watching pain and progress move week to week.",
-                "This page picks up from the dashboard case study rather than repeating it — the platform research and the business model live there. What follows is the same product seen from the other end.",
+                "The therapist dashboard exists to give clinicians visibility between appointments. The patient app is the other end of that same connection: where the recovery actually happens: doing the exercises, getting real-time form feedback, watching pain and progress move week to week.",
+                "This page picks up from the dashboard case study rather than repeating it, the platform research and the business model live there. What follows is the same product seen from the other end.",
               ],
             },
           ],
@@ -1353,8 +1353,8 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Physiotherapy has a completion problem. Most of a programme happens at home, unsupervised, in the days between appointments — and that is exactly where it falls apart. Form degrades with nobody watching. Pain easing gets mistaken for the injury being healed, so people stop early. Nothing and nobody registers that they stopped until the next visit, if there is one.",
-                "The people doing this are not the people the fitness-app category is designed for. They’re 30–65, across urban and semi-urban India, with low-to-moderate digital literacy — often exercising one-handed while lying on the floor or steadying a limb, on a mid-range Android, on patchy signal. Every assumption a polished consumer app makes about attention, dexterity and connectivity is wrong here.",
+                "Physiotherapy has a completion problem. Most of a programme happens at home, unsupervised, in the days between appointments, and that is exactly where it falls apart. Form degrades with nobody watching. Pain easing gets mistaken for the injury being healed, so people stop early. Nothing and nobody registers that they stopped until the next visit, if there is one.",
+                "The people doing this are not the people the fitness-app category is designed for. They’re 30–65, across urban and semi-urban India, with low-to-moderate digital literacy: often exercising one-handed while lying on the floor or steadying a limb, on a mid-range Android, on patchy signal. Every assumption a polished consumer app makes about attention, dexterity and connectivity is wrong here.",
               ],
             },
             {
@@ -1375,12 +1375,12 @@ export const projects: Project[] = [
               kind: "callout",
               title: "The gap this app has to close",
               body:
-                "Between one appointment and the next, nobody — not the patient, not the therapist — can tell whether recovery is actually happening.",
+                "Between one appointment and the next, nobody, not the patient, not the therapist, can tell whether recovery is actually happening.",
             },
             {
               kind: "prose",
               body: [
-                "And the patient is often not alone. A family member or guardian is frequently the one holding the phone, positioning the camera, or watching to catch the moment something looks wrong — carrying real responsibility for the recovery while the product speaks only to the patient.",
+                "And the patient is often not alone. A family member or guardian is frequently the one holding the phone, positioning the camera, or watching to catch the moment something looks wrong, carrying real responsibility for the recovery while the product speaks only to the patient.",
               ],
             },
           ],
@@ -1419,7 +1419,7 @@ export const projects: Project[] = [
               kind: "persona",
               name: "Rajesh Shah",
               age: 58,
-              role: "Family caregiver — helps his wife through her daily sessions at home",
+              role: "Family caregiver, helps his wife through her daily sessions at home",
               photo: "persona-rajesh.png",
               quote:
                 "I want to help, but I genuinely don’t know if I’m helping or getting in the way.",
@@ -1437,7 +1437,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The full persona work sits on the dashboard case study — this is here so the page stands on its own for anyone landing on it directly.",
+                "The full persona work sits on the dashboard case study: this is here so the page stands on its own for anyone landing on it directly.",
               ],
             },
           ],
@@ -1458,7 +1458,7 @@ export const projects: Project[] = [
                   ],
                   title: "Onboarding, from a link the physiotherapist sends",
                   body: [
-                    "A patient arrives through a link their physiotherapist gave them, and sees a preview of the programme before committing to anything — condition, duration, what’s included.",
+                    "A patient arrives through a link their physiotherapist gave them, and sees a preview of the programme before committing to anything: condition, duration, what’s included.",
                     "Payment sits behind that preview as the gate: the programme activates the moment payment clears. Nobody is asked to create an account before they know what they’re buying.",
                   ],
                 },
@@ -1470,7 +1470,7 @@ export const projects: Project[] = [
                   ],
                   title: "AI pose-tracking, with voice and visual assistance",
                   body: [
-                    "During a session the AI tracks the patient’s pose and coaches them through it live — spoken cues alongside visual ones, so the patient never has to stop mid-movement to read anything.",
+                    "During a session the AI tracks the patient’s pose and coaches them through it live: spoken cues alongside visual ones, so the patient never has to stop mid-movement to read anything.",
                     "That dual channel is also what makes the session usable by a caregiver. A family member holding the phone can follow the same cues and correct the patient themselves, which is the only way this works for someone who can’t manage it alone.",
                   ],
                 },
@@ -1479,7 +1479,7 @@ export const projects: Project[] = [
                   title: "The physiotherapist stays reachable",
                   body: [
                     "Scheduled check-ins put the physiotherapist in the patient’s week by default rather than on request, so contact isn’t something the patient has to work up to asking for.",
-                    "Emergencies skip the schedule. A pain spike opens an immediate route to the therapist — messaging or a video call — because the alternative is a frightened patient guessing, or quietly stopping.",
+                    "Emergencies skip the schedule. A pain spike opens an immediate route to the therapist, messaging or a video call, because the alternative is a frightened patient guessing, or quietly stopping.",
                   ],
                 },
                 {
@@ -1487,7 +1487,7 @@ export const projects: Project[] = [
                   title: "Feedback, and proof that it’s working",
                   body: [
                     "Every session ends with a question the patient can actually answer: what did the pain feel like? That single input drives an AI-written summary, which goes straight to the physiotherapist without the patient having to report anything themselves.",
-                    "What comes back to the patient is the plain-language version — where they are, what’s improving. For someone recovering alone, seeing the trend move is what makes the next session feel worth doing.",
+                    "What comes back to the patient is the plain-language version: where they are, what’s improving. For someone recovering alone, seeing the trend move is what makes the next session feel worth doing.",
                   ],
                 },
               ],
@@ -1503,7 +1503,7 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "The guided pose-tracking session is the highest-risk surface in the whole platform. It’s the one place where getting the UI wrong could mean a patient performing a rehab exercise incorrectly, unsupervised, with nobody watching.",
-                "It was designed without a working prototype in front of real patients. That’s stated here the same way it’s stated on the dashboard case study — the session flow is a considered argument, not a validated one.",
+                "It was designed without a working prototype in front of real patients. That’s stated here the same way it’s stated on the dashboard case study: the session flow is a considered argument, not a validated one.",
               ],
             },
           ],
@@ -1518,7 +1518,7 @@ export const projects: Project[] = [
               items: [
                 { value: "30", label: "Screens in the patient app" },
                 { value: "1", label: "Design system shared with the dashboard" },
-                { value: "2", label: "Native platforms — iOS & Android" },
+                { value: "2", label: "Native platforms, iOS & Android" },
               ],
             },
             {
@@ -1581,10 +1581,10 @@ export const projects: Project[] = [
     hero: "landing-hero.png",
     layout: "web",
     summary:
-      "Turning an undirected brief into a design system — brand, component language, and a single-scroll landing page built from scratch for a legal-AI product’s launch.",
+      "Turning an undirected brief into a design system: brand, component language, and a single-scroll landing page built from scratch for a legal-AI product’s launch.",
     overview: [
-      "Conqr.ai is an AI legal assistant for lawyers. The client wanted their website redesigned but had no point of view on what it should look like, feel like, or say — a harder brief than a detailed one.",
-      "Over two months the engagement produced a brand design system — colour, typography and a component language — and a single-scroll landing page built from scratch for the product’s public launch.",
+      "Conqr.ai is an AI legal assistant for lawyers. The client wanted their website redesigned but had no point of view on what it should look like, feel like, or say, a harder brief than a detailed one.",
+      "Over two months the engagement produced a brand design system, colour, typography and a component language, and a single-scroll landing page built from scratch for the product’s public launch.",
     ],
     highlights: [
       "Built a design system out of an ambiguous brief, through 3–4 full iterations.",
@@ -1602,37 +1602,37 @@ export const projects: Project[] = [
       {
         heading: "The project",
         body: [
-          "Conqr.ai is an AI-powered legal co-pilot for corporate legal teams. Alongside overhauling the product UI, I was brought in — as the sole freelance designer — to give it something it didn’t have: a landing page.",
+          "Conqr.ai is an AI-powered legal co-pilot for corporate legal teams. Alongside overhauling the product UI, I was brought in, as the sole freelance designer, to give it something it didn’t have: a landing page.",
         ],
       },
       {
         heading: "The goal",
         body: [
-          "The platform had no landing page to communicate its value to potential clients. I designed one from scratch to speak directly to corporate legal teams — an audience that prizes clarity, precision, and professionalism above all.",
+          "The platform had no landing page to communicate its value to potential clients. I designed one from scratch to speak directly to corporate legal teams: an audience that prizes clarity, precision, and professionalism above all.",
         ],
       },
       {
         heading: "Grounded in one visual system",
         body: [
-          "The landing page shares the product’s visual system — a neutral base with a single deep-navy accent (#0C4160) and the Merriweather / Lato pairing — so the marketing site and the product feel like one, credible brand.",
+          "The landing page shares the product’s visual system, a neutral base with a single deep-navy accent (#0C4160) and the Merriweather / Lato pairing, so the marketing site and the product feel like one, credible brand.",
         ],
       },
       {
         heading: "Structure first",
         body: [
-          "I wireframed the page in low fidelity to lock layout and hierarchy before any visual design — a strong hero, then capabilities, then trust.",
+          "I wireframed the page in low fidelity to lock layout and hierarchy before any visual design: a strong hero, then capabilities, then trust.",
         ],
       },
       {
         heading: "The page",
         body: [
-          "It leads with a bold hero — ‘Redefine Your Legal Process With Streamlined Solutions’ — then moves through the key capabilities (every document instantly searchable, due diligence at light speed, intelligence where you work), and builds trust with testimonials, an FAQ, and a ‘confidential by default’ security section. No clutter, no noise.",
+          "It leads with a bold hero, ‘Redefine Your Legal Process With Streamlined Solutions’, then moves through the key capabilities (every document instantly searchable, due diligence at light speed, intelligence where you work), and builds trust with testimonials, an FAQ, and a ‘confidential by default’ security section. No clutter, no noise.",
         ],
       },
       {
         heading: "Outcome",
         body: [
-          "A single-scroll marketing page that communicates Conqr.ai’s value clearly and quickly — built to convert a professional legal audience.",
+          "A single-scroll marketing page that communicates Conqr.ai’s value clearly and quickly, built to convert a professional legal audience.",
         ],
       },
     ],
@@ -1642,33 +1642,33 @@ export const projects: Project[] = [
     study: {
       hero: {
         web: "landing-hero.png",
-        webLabel: "Conqr.ai — the shipped landing page",
+        webLabel: "Conqr.ai, the shipped landing page",
         alt: "The Conqr.ai landing page",
       },
       meta: [
-        { label: "Client", value: "Conqr.ai — AI legal assistant for lawyers" },
-        { label: "Project type", value: "Freelance / contract — solo, direct client engagement" },
+        { label: "Client", value: "Conqr.ai, AI legal assistant for lawyers" },
+        { label: "Project type", value: "Freelance / contract: solo, direct client engagement" },
         { label: "Timeline", value: "2 months" },
         { label: "Scope", value: "Brand & design system, a landing page from scratch, and a visual redesign of the product screens" },
       ],
       glance: [
         { value: "3–4", label: "Full iterations before a direction held" },
-        { value: "2", label: "Deliverables — a design system and a landing page" },
+        { value: "2", label: "Deliverables, a design system and a landing page" },
         { value: "Solo", label: "No PM, no team" },
       ],
       glanceNote:
-        "A visual redesign, not a product one. Conqr.ai’s legal AI assistant — its features and its flows — was built separately. This work was the brand identity, the design system, a landing page from scratch for the launch, and that system applied across the product’s existing screens.",
+        "A visual redesign, not a product one. Conqr.ai’s legal AI assistant, its features and its flows, was built separately. This work was the brand identity, the design system, a landing page from scratch for the launch, and that system applied across the product’s existing screens.",
       sections: [
         {
           id: "context",
           kicker: "Overview",
-          heading: "“Redesign our website” — with no sense of direction",
+          heading: "“Redesign our website”, with no sense of direction",
           blocks: [
             {
               kind: "prose",
               body: [
                 "Conqr.ai came in with a clear ask and an unclear target. They wanted their website redesigned, but had no point of view on what it should look like, feel like, or say.",
-                "That’s a harder brief than a detailed one. There’s no direction to react to — only a blank page to fill on the client’s behalf, and no way to tell whether you’ve filled it correctly until you show them.",
+                "That’s a harder brief than a detailed one. There’s no direction to react to: only a blank page to fill on the client’s behalf, and no way to tell whether you’ve filled it correctly until you show them.",
               ],
             },
           ],
@@ -1681,7 +1681,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "With no strong brief to anchor to, the process leaned on showing rather than asking. I brought a wide set of visual references to give the client something concrete to react to, then iterated on whatever pulled them in a direction — a loop of “does this feel more like it, or less”.",
+                "With no strong brief to anchor to, the process leaned on showing rather than asking. I brought a wide set of visual references to give the client something concrete to react to, then iterated on whatever pulled them in a direction: a loop of “does this feel more like it, or less”.",
                 "It took three to four full iterations before a direction solidified into an actual design system: a defined colour palette, typography, and a component language the client could commit to.",
               ],
             },
@@ -1709,14 +1709,14 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Two deliverables came out of the two months: a brand design system — colour, typography and component language, arrived at through the iteration above — and the landing page itself, built from scratch rather than as a redesign of an existing page, single-scroll, used for the product’s public launch.",
+                "Two deliverables came out of the two months: a brand design system, colour, typography and component language, arrived at through the iteration above, and the landing page itself, built from scratch rather than as a redesign of an existing page, single-scroll, used for the product’s public launch.",
               ],
             },
             {
               kind: "figure",
               src: "landing-full.png",
               frame: "scroll",
-              caption: "The full page, top to bottom — scroll inside the frame",
+              caption: "The full page, top to bottom, scroll inside the frame",
             },
           ],
         },
@@ -1728,7 +1728,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The features and the flows were the client’s. The visual language was mine — and it was carried onto the product itself: the workspace where legal teams draft, review and pay for agreements.",
+                "The features and the flows were the client’s. The visual language was mine: and it was carried onto the product itself: the workspace where legal teams draft, review and pay for agreements.",
                 "Nothing about how the product worked changed. What changed was whether it looked like something a corporate legal team would hand a contract to. Dense document management stopped reading as unfinished software and started reading as a tool with a point of view, and the marketing site and the product it sold stopped looking like two different companies.",
               ],
             },
@@ -1751,8 +1751,8 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The engagement ran the full two months, delivered a settled design system and a shipped landing page — and the client still wasn’t fully satisfied at the end. That’s part of the case study rather than something to smooth over.",
-                "What it taught: how to build a design system from a genuinely ambiguous brief, and how to convert vague, shifting requirements into decisions that actually ship — even when “shipped” and “everyone’s happy” don’t fully overlap.",
+                "The engagement ran the full two months, delivered a settled design system and a shipped landing page, and the client still wasn’t fully satisfied at the end. That’s part of the case study rather than something to smooth over.",
+                "What it taught: how to build a design system from a genuinely ambiguous brief, and how to convert vague, shifting requirements into decisions that actually ship, even when “shipped” and “everyone’s happy” don’t fully overlap.",
               ],
             },
           ],
@@ -1779,7 +1779,7 @@ export const projects: Project[] = [
     slug: "autumn",
     dir: "autumn",
     title: "Autumn",
-    subtitle: "Immersive e-book reader — mobile app",
+    subtitle: "Immersive e-book reader, mobile app",
     role: "Independent Project",
     timeline: "Concept · 2–3 months",
     year: "2024",
@@ -1788,10 +1788,10 @@ export const projects: Project[] = [
     hero: "frame-44.png",
     layout: "mobile",
     summary:
-      "A subscription e-book reader designed to feel as immersive as reading a physical book — with a signature colour-coded, sticky-note tab system.",
+      "A subscription e-book reader designed to feel as immersive as reading a physical book: with a signature colour-coded, sticky-note tab system.",
     overview: [
-      "Autumn is a subscription e-book reader designed to feel as immersive as reading a physical book — with the goal of boosting reading engagement and authenticity.",
-      "Its signature feature is a set of personalised, colour-coded tabs that slide out into a sticky-note-style panel without leaving the page — alongside custom highlights, a distraction-free reading interface, bookmarks, and collapsible annotations, all in a warm, autumn-inspired visual system.",
+      "Autumn is a subscription e-book reader designed to feel as immersive as reading a physical book, with the goal of boosting reading engagement and authenticity.",
+      "Its signature feature is a set of personalised, colour-coded tabs that slide out into a sticky-note-style panel without leaving the page: alongside custom highlights, a distraction-free reading interface, bookmarks, and collapsible annotations, all in a warm, autumn-inspired visual system.",
     ],
     highlights: [
       "Signature colour-coded tabs that slide into a sticky-note panel.",
@@ -1806,19 +1806,19 @@ export const projects: Project[] = [
       {
         heading: "The idea",
         body: [
-          "The objective was to craft a digital reading interface that delivers a seamlessly immersive experience for readers — mirroring the engagement and authenticity of reading a physical copy.",
+          "The objective was to craft a digital reading interface that delivers a seamlessly immersive experience for readers, mirroring the engagement and authenticity of reading a physical copy.",
         ],
       },
       {
         heading: "The concept",
         body: [
-          "Autumn is a harmonious blend of intuitive, user-friendly design and a carefully curated palette of warm colour tones — chosen to invoke a sense of warmth and familiarity, like flipping through the pages of a cherished novel.",
+          "Autumn is a harmonious blend of intuitive, user-friendly design and a carefully curated palette of warm colour tones: chosen to invoke a sense of warmth and familiarity, like flipping through the pages of a cherished novel.",
         ],
       },
       {
-        heading: "Signature feature — sticky-note tabs",
+        heading: "Signature feature, sticky-note tabs",
         body: [
-          "The stand-out interaction is a set of personalised, colour-coded tabs that slide out into a sticky-note-style panel without ever leaving the page — bringing the tactile, annotate-anywhere feeling of a physical book to the screen.",
+          "The stand-out interaction is a set of personalised, colour-coded tabs that slide out into a sticky-note-style panel without ever leaving the page: bringing the tactile, annotate-anywhere feeling of a physical book to the screen.",
         ],
       },
       {
@@ -1834,7 +1834,7 @@ export const projects: Project[] = [
       {
         heading: "Colour & typography",
         body: [
-          "A warm, autumn-inspired palette and the Mulish typeface (Light → Semi-Bold) keep the experience calm, legible, and focused — the visual equivalent of a quiet reading nook.",
+          "A warm, autumn-inspired palette and the Mulish typeface (Light → Semi-Bold) keep the experience calm, legible, and focused, the visual equivalent of a quiet reading nook.",
         ],
       },
     ],
@@ -1846,10 +1846,10 @@ export const projects: Project[] = [
         alt: "The Autumn reading interface",
       },
       meta: [
-        { label: "Project type", value: "Independent Product Design — personal project" },
-        { label: "Role", value: "Solo — first UI/UX project, designed entirely from scratch" },
+        { label: "Project type", value: "Independent Product Design, personal project" },
+        { label: "Role", value: "Solo: first UI/UX project, designed entirely from scratch" },
         { label: "Platform", value: "Mobile app" },
-        { label: "Status", value: "Concept — designed, never built or shipped" },
+        { label: "Status", value: "Concept: designed, never built or shipped" },
         { label: "Timeline", value: "2–3 months" },
       ],
       glance: [
@@ -1858,7 +1858,7 @@ export const projects: Project[] = [
         { value: "Concept", label: "Never built" },
       ],
       glanceNote:
-        "An e-book reader that starts from the physical reading experience instead of from a feature list — built to ask one narrow question rather than to compete with a Kindle.",
+        "An e-book reader that starts from the physical reading experience instead of from a feature list, built to ask one narrow question rather than to compete with a Kindle.",
       sections: [
         {
           id: "context",
@@ -1880,7 +1880,7 @@ export const projects: Project[] = [
               kind: "callout",
               title: "Where this got to",
               body:
-                "A concept, and only ever a concept — 12–15 screens designed over two to three months. Nothing here was built or shipped.",
+                "A concept, and only ever a concept, 12–15 screens designed over two to three months. Nothing here was built or shipped.",
             },
           ],
         },
@@ -1892,7 +1892,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The first independent project — built solo, end to end, with no client or team to answer to. Scope was deliberately core-first.",
+                "The first independent project: built solo, end to end, with no client or team to answer to. Scope was deliberately core-first.",
               ],
             },
             {
@@ -1942,9 +1942,9 @@ export const projects: Project[] = [
                 kind: "decision",
                 title: "Tabs, not folders",
                 body: [
-                  "Most e-readers organise saved content the way a file system does — folders, lists, favourites. That’s software logic applied to a book.",
+                  "Most e-readers organise saved content the way a file system does: folders, lists, favourites. That’s software logic applied to a book.",
                   "Autumn’s tabs skip that model and mimic the physical habit directly: a tab sticks out from the edge of the page, visible while flipping through, findable by feel and memory rather than by opening a menu.",
-                  "It’s a small decision, but it’s the one that best captures the whole premise — digital reading should borrow its logic from books, not from software.",
+                  "It’s a small decision, but it’s the one that best captures the whole premise: digital reading should borrow its logic from books, not from software.",
                 ],
               },
               right: {
@@ -1964,14 +1964,14 @@ export const projects: Project[] = [
               kind: "callout",
               title: "Not a roadmap",
               body:
-                "None of what follows has been designed or scoped. No screens exist for any of it — this is a vision statement, not a set of implied deliverables.",
+                "None of what follows has been designed or scoped. No screens exist for any of it: this is a vision statement, not a set of implied deliverables.",
             },
             {
               kind: "list",
               items: [
-                "A marketplace — Kindle-style subscription access to a book library",
-                "Sharing and gifting — two subscribers exchanging an annotated copy, margin notes included, or gifting a book outright",
-                "Reading together — a collaborative mode where two people read the same book on their own time and leave annotations for each other to find",
+                "A marketplace, Kindle-style subscription access to a book library",
+                "Sharing and gifting: two subscribers exchanging an annotated copy, margin notes included, or gifting a book outright",
+                "Reading together, a collaborative mode where two people read the same book on their own time and leave annotations for each other to find",
               ],
             },
           ],
@@ -1984,7 +1984,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "A personal project, and the one that opened UI/UX design up for me. No client, no team, no brief — which meant the problem had to be found rather than handed over.",
+                "A personal project, and the one that opened UI/UX design up for me. No client, no team, no brief, which meant the problem had to be found rather than handed over.",
                 "That turned out to be the actual lesson: noticing what’s wrong with something people already use, and then converting that noticing into a solution specific enough to design. Everything since has been a version of the same two steps.",
               ],
             },
@@ -2045,7 +2045,7 @@ export const timeline: TimelineItem[] = [
     title: "Started B.Tech, Computer Science",
     org: "Maharaja Agrasen Institute of Technology",
     description:
-      "Where the foundation was laid — computer science, with a growing pull toward how products actually feel to use.",
+      "Where the foundation was laid: computer science, with a growing pull toward how products actually feel to use.",
   },
   {
     year: "2022",
@@ -2054,7 +2054,7 @@ export const timeline: TimelineItem[] = [
     title: "Hackathon breakthroughs",
     org: "Google Solution Challenge · Smart India Hackathon",
     description:
-      "Top 50 Global and Top 15 nationally with Proctify — my first taste of designing real products under pressure.",
+      "Top 50 Global and Top 15 nationally with Proctify, my first taste of designing real products under pressure.",
   },
   {
     year: "2022–23",
@@ -2063,7 +2063,7 @@ export const timeline: TimelineItem[] = [
     title: "Design certifications",
     org: "Accenture · NPTEL · InnovateU",
     description:
-      "UX Design, Product Design & Development, and more — turning instinct into deliberate craft.",
+      "UX Design, Product Design & Development, and more, turning instinct into deliberate craft.",
   },
   {
     year: "Feb 2024",
@@ -2072,7 +2072,7 @@ export const timeline: TimelineItem[] = [
     title: "UI/UX Design Intern at FourCore",
     org: "Breach & Attack Simulation platform",
     description:
-      "My first design internship — stepping straight into complex B2B cybersecurity.",
+      "My first design internship, stepping straight into complex B2B cybersecurity.",
   },
   {
     year: "2024",
@@ -2090,7 +2090,7 @@ export const timeline: TimelineItem[] = [
     title: "Design competition judge",
     org: "Design Verse · BVCOE, New Delhi",
     description:
-      "Invited to judge Design Verse — a two-day design seminar & competition (IEEE Student Branch) — reviewing student projects and awarding the winning teams.",
+      "Invited to judge Design Verse, a two-day design seminar & competition (IEEE Student Branch), reviewing student projects and awarding the winning teams.",
     // image kept in public/timeline/ — reference removed for now
   },
   {
@@ -2172,21 +2172,21 @@ export const recognition = {
     { rank: "Rank 4", scope: "of 150", event: "LiveTheCode Hackathon", year: "", accent: "violet" },
   ],
   alsoPlaced: [
-    "Runner-Up — Evotech 5.0 Ideathon",
-    "Top 50 / 115 — DotSlash 5.0",
+    "Runner-Up, Evotech 5.0 Ideathon",
+    "Top 50 / 115, DotSlash 5.0",
   ],
   certifications: {
     featured: { name: "UX Design", by: "Accenture" },
     others: [
-      "Product Design & Development — NPTEL (85%)",
-      "Functional & Conceptual Design — NPTEL (84%)",
-      "UX Design Workshop — InnovateU",
+      "Product Design & Development, NPTEL (85%)",
+      "Functional & Conceptual Design, NPTEL (84%)",
+      "UX Design Workshop, InnovateU",
     ],
   },
   education: {
     degree: "B.Tech, Computer Science",
     school: "Maharaja Agrasen Institute of Technology",
-    years: "2020 — 2024",
+    years: "2020, 2024",
     cgpa: "8.91 / 10",
   },
   mentorship: {

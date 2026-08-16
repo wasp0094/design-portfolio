@@ -24,14 +24,14 @@ export default function About() {
               <p className="about-lead">
                 I’m a product designer who’s just as comfortable in{" "}
                 <span className="mk">founder chaos</span> as in a tidy{" "}
-                <span className="mk">design system</span> — turning ambiguous
+                <span className="mk">design system</span>, turning ambiguous
                 briefs into interfaces that actually ship.
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="about-text">
                 Over 2+ years I’ve taken B2B and healthtech products from research
-                through high-fidelity UI — building a cybersecurity platform’s first
+                through high-fidelity UI: building a cybersecurity platform’s first
                 design system from scratch, and independently expanding a
                 physiotherapy app into a full two-sided product.
               </p>

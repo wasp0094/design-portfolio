@@ -61,7 +61,7 @@ export default function Recognition() {
               <div className="cert-featured">
                 <span className="star">★</span>
                 <span className="n">{r.certifications.featured.name}</span>
-                <span className="by">— {r.certifications.featured.by}</span>
+                <span className="by">by {r.certifications.featured.by}</span>
               </div>
               <ul className="cert-list">
                 {r.certifications.others.map((c) => (

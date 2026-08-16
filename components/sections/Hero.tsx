@@ -73,7 +73,7 @@ export default function Hero() {
               Product &amp; UI/UX designer with <span className="hl hl-1">2+ years</span> taking{" "}
               <span className="hl hl-2">B2B</span> and <span className="hl hl-3">healthtech</span>{" "}
               products from messy research all the way to{" "}
-              <span className="hl hl-4">shipped, high-fidelity UI</span> — design systems, two-sided
+              <span className="hl hl-4">shipped, high-fidelity UI</span>: design systems, two-sided
               products, and the <span className="hl hl-1">calm interfaces</span> in between.
             </p>
             <span className="hero-sign">{profile.name} · {profile.location}</span>

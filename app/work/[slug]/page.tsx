@@ -303,8 +303,8 @@ export default async function ProjectPage({
         ) : (
           <p className="detail-note">
             {p.template
-              ? "This is a template — add screenshots and copy to bring it to life."
-              : "Screens and a full written case study are on the way — reach out for a walkthrough in the meantime."}
+              ? "This is a template. Add screenshots and copy to bring it to life."
+              : "Screens and a full written case study are on the way. Reach out for a walkthrough in the meantime."}
           </p>
         )}
 

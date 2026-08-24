@@ -436,7 +436,7 @@ export const projects: Project[] = [
               src: "dashboard.png",
               frame: "scroll",
               caption:
-                "The full dashboard, top to bottom. Scroll inside the frame — the real screen runs about seven thousand pixels.",
+                "The full dashboard, top to bottom. Scroll inside the frame: the real screen runs about seven thousand pixels.",
             },
             {
               kind: "callout",
@@ -491,7 +491,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "threat-intel-listing.png",
               frame: "wide",
-              caption: "Threat Intelligence — spotlights, reports and in-the-wild activity in one feed",
+              caption: "Threat Intelligence: spotlights, reports and in-the-wild activity in one feed",
             },
             {
               kind: "prose",
@@ -503,7 +503,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "threat-intel-detail.png",
               frame: "wide",
-              caption: "A threat, opened — abstract, who it targets, and your own performance against it",
+              caption: "A threat, opened: abstract, who it targets, and your own performance against it",
             },
             {
               kind: "prose",
@@ -515,7 +515,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "integrations.png",
               frame: "wide",
-              caption: "Integrations — what is connected, then what FourCore suggests connecting next",
+              caption: "Integrations: what is connected, then what FourCore suggests connecting next",
             },
             {
               kind: "prose",
@@ -552,7 +552,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The asset detail page carries two audiences at once. The top half is machine facts — OS, kernel, CPU, memory, agent version, last seen — which an engineer needs and nobody else reads. The bottom half is history: blocked and alerted rates over time, and the full run log with the same analytics column used everywhere else in the product.",
+                "The asset detail page carries two audiences at once. The top half is machine facts, the kind an engineer needs and nobody else reads: OS, kernel, CPU, memory, agent version, last seen. The bottom half is history: blocked and alerted rates over time, and the full run log with the same analytics column used everywhere else in the product.",
                 "Splitting them vertically rather than into tabs means the person who came for the run history scrolls past the specification once and never has to think about it again, while the person debugging an agent gets it without a click.",
               ],
             },
@@ -560,7 +560,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "asset-add-windows.png",
               frame: "wide",
-              caption: "Adding an endpoint — the install laid out as numbered steps, per platform",
+              caption: "Adding an endpoint: the install laid out as numbered steps, per platform",
             },
             {
               kind: "prose",
@@ -592,7 +592,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Sign-in and registration share one composition: a full-bleed gradient panel on the left holding the brand, the form on the right, and nothing else on the page. The gradient is doing real work — it is the only place in the entire product where the brand gets to be loud, because every screen after this one belongs to the customer’s data.",
+                "Sign-in and registration share one composition: a full-bleed gradient panel on the left holding the brand, the form on the right, and nothing else on the page. The gradient is doing real work: it is the only place in the entire product where the brand gets to be loud, because every screen after this one belongs to the customer’s data.",
               ],
             },
             {
@@ -612,7 +612,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Team management is where a single-seat trial becomes an account with a security team on it. The table carries the three things an admin checks — who they are, what they can do, and whether the invite was ever accepted — without a click.",
+                "Team management is where a single-seat trial becomes an account with a security team on it. The table carries, without a click, the three things an admin checks: who they are, what they can do, and whether the invite was ever accepted.",
               ],
             },
             {
@@ -633,7 +633,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "preferences.png",
               frame: "wide",
-              caption: "Preferences — organisation, time zone and alerting",
+              caption: "Preferences: organisation, time zone and alerting",
             },
           ],
         },
@@ -675,7 +675,7 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "The zero states are the ones I care most about. A new account opens a dashboard where every number is legitimately 0% and every chart is legitimately empty, and that screen has to read as “nothing has run yet”, not as “this product is broken”.",
-                "So the empty chart keeps its own skeleton — the bars are still there, greyed, holding their shape — and the zeroed card hides a Simulate Attack button until you hover it. The card is not just reporting that nothing has happened; it is offering to make something happen.",
+                "So the empty chart keeps its own skeleton: the bars are still there, greyed, holding their shape. And the zeroed card hides a Simulate Attack button until you hover it. The card is not just reporting that nothing has happened; it is offering to make something happen.",
               ],
             },
           ],
@@ -706,7 +706,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The problem was that simulation-finished emails were firing on everything, so people either muted them or ignored them. The fix was to let an admin narrow what triggers an alert: which assets, which users, which execution types, and — the important one — which results.",
+                "The problem was that simulation-finished emails were firing on everything, so people either muted them or ignored them. The fix was to let an admin narrow what triggers an alert: which assets, which users, which execution types, and most importantly which results.",
                 "The sketch already has the whole structure in it. Four filters, each with its own on/off so the defaults stay quiet, and a result filter that needed a range rather than a value. That last control is the only thing that really changed between the two: the loose slider in the notebook became a two-handled threshold with the numbers called out, so “alert me when successful attacks land between 40% and 60%” is something you can read back off the screen.",
               ],
             },
@@ -734,7 +734,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The asset table went the same way. The first version answered “what is connected” — hostname, version, IP, OS, last seen. The later pass answers “what matters”, adding a criticality level and the business environment each asset belongs to, so a list of machines becomes a list of machines you can prioritise.",
+                "The asset table went the same way. The first version answered “what is connected”: hostname, version, IP, OS, last seen. The later pass answers “what matters”, adding a criticality level and the business environment each asset belongs to, so a list of machines becomes a list of machines you can prioritise.",
               ],
             },
             {
@@ -761,7 +761,7 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "Both cards were drawn twice: once as a ranked list that fits five rows in the height of a dashboard tile, and once as a fuller record with a ring per row, the exposure count, and the security tools covering each asset.",
-                "The lean version is the one on the dashboard. On a screen where a card is competing with eleven others, the job is to name the worst offenders and hand you a link — the detail belongs on the page you land on when you take it.",
+                "The lean version is the one on the dashboard. On a screen where a card is competing with eleven others, the job is to name the worst offenders and hand you a link: the detail belongs on the page you land on when you take it.",
               ],
             },
           ],
@@ -788,7 +788,7 @@ export const projects: Project[] = [
               left: {
                 kind: "prose",
                 body: [
-                  "The component had to survive every value the data could hand it, not just the demo-friendly middle. A full ring at 100% and an empty one at 0% both have to stay legible at sixteen pixels, and the colour has to carry meaning without being the only thing carrying it — blocked, successful and alerted are green, red and amber, but they are also three different icons.",
+                  "The component had to survive every value the data could hand it, not just the demo-friendly middle. A full ring at 100% and an empty one at 0% both have to stay legible at sixteen pixels, and the colour has to carry meaning without being the only thing carrying it: blocked, successful and alerted are green, red and amber, but they are also three different icons.",
                   "The row that mattered most was the one that is not a number at all. When an attack fails to execute there is no percentage to show, and the honest answer is to say so in words and grey the rest of the row out, rather than render a 0% that reads as “nothing got through”.",
                 ],
               },
@@ -808,7 +808,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "In place, three rings sit in the width a single percentage used to take. The table keeps its density — attack name, assets, date, actions all still fit — and the column that used to be read row by row can now be skimmed down.",
+                "In place, three rings sit in the width a single percentage used to take. The table keeps its density, with attack name, assets, date and actions all still fitting, and the column that used to be read row by row can now be skimmed down.",
               ],
             },
             {
@@ -872,10 +872,10 @@ export const projects: Project[] = [
             {
               kind: "list",
               items: [
-                "Emerging Threats — a feed of live malware campaigns you can run against yourself",
-                "The scheduler — everything the platform runs, on a calendar",
-                "Playbooks — attack chains grouped into the stages of a real intrusion",
-                "Exposures — the ranked list of what to fix",
+                "Emerging Threats: a feed of live malware campaigns you can run against yourself",
+                "The scheduler: everything the platform runs, on a calendar",
+                "Playbooks: attack chains grouped into the stages of a real intrusion",
+                "Exposures: the ranked list of what to fix",
                 "Reporting, rebuilt",
               ],
             },
@@ -915,9 +915,9 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "The top of the screen answers “how exposed am I, overall”, and it does it twice, along the two axes that change what you would actually do about it. Exposure by filetype tells you what to tighten — if 56% of your vulnerable files are DLLs, that is a different afternoon than if they are Office documents. Exposure by vector tells you where to tighten it: on disk, through the web proxy, or in email.",
+                "The top of the screen answers “how exposed am I, overall”, and it does it twice, along the two axes that change what you would actually do about it. Exposure by filetype tells you what to tighten: if 56% of your vulnerable files are DLLs, that is a different afternoon than if they are Office documents. Exposure by vector tells you where to tighten it: on disk, through the web proxy, or in email.",
                 "Both are single stacked bars rather than pie charts, with the high-risk slice called out in words rather than left to colour alone. Underneath, the ranked list carries the same three rings used everywhere else in the product, so a rate here means what a rate means anywhere.",
-                "Each row is a campaign, tagged by the industries, regions and threat actors it is associated with — the three things a reader uses to decide whether it is aimed at someone like them. And the primary action sits on the row itself. There is no detail page to visit first, because the whole point is to shorten the distance between reading about a threat and testing yourself against it.",
+                "Each row is a campaign, tagged by the industries, regions and threat actors it is associated with: the three things a reader uses to decide whether it is aimed at someone like them. And the primary action sits on the row itself. There is no detail page to visit first, because the whole point is to shorten the distance between reading about a threat and testing yourself against it.",
               ],
             },
             {
@@ -939,25 +939,25 @@ export const projects: Project[] = [
               kind: "figure",
               src: "et-intro-1.png",
               frame: "wide",
-              caption: "01 — Say what it is",
+              caption: "01: Say what it is",
             },
             {
               kind: "figure",
               src: "et-intro-2.png",
               frame: "wide",
-              caption: "02 — Then say why it is theirs",
+              caption: "02: Then say why it is theirs",
             },
             {
               kind: "figure",
               src: "et-intro-3.png",
               frame: "wide",
-              caption: "03 — Then ask for the one decision",
+              caption: "03: Then ask for the one decision",
             },
             {
               kind: "prose",
               body: [
-                "Three steps, each doing a different job. The first names the thing. The second is the one that turns a global feed into something personal — the platform maps worldwide activity onto your assets, your regions, your sectors. Without that step, Emerging Threats reads as a news ticker; with it, the list behind the dialog is a list about you.",
-                "The third step is the reason the flow exists at all. Automation is what makes the feature useful without anyone remembering to open it, so it is marked Recommended and given a real button — but the way out is a plain “Skip for now”, set at the same size as the thing it declines. A first-run flow that traps people is worse than no first-run flow.",
+                "Three steps, each doing a different job. The first names the thing. The second is the one that turns a global feed into something personal: the platform maps worldwide activity onto your assets, your regions, your sectors. Without that step, Emerging Threats reads as a news ticker; with it, the list behind the dialog is a list about you.",
+                "The third step is the reason the flow exists at all. Automation is what makes the feature useful without anyone remembering to open it, so it is marked Recommended and given a real button, but the way out is a plain “Skip for now”, set at the same size as the thing it declines. A first-run flow that traps people is worse than no first-run flow.",
                 "All three sit over the live screen rather than on a blank page, blurred but still legible at the edges, so the reader can see the thing being described while it is described.",
               ],
             },
@@ -972,7 +972,7 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "Opening a campaign has to serve two readers at once. The analyst wants the write-up, the source links, and the payload hashes. The person who has to make a decision wants to know whether it applies to them and what happened last time it ran.",
-                "So the narrative sits on the left and the attributes — first observed, discovered on, threat actors, industries, regions — sit in a scannable right rail. Simulate Now is at the top next to the current rates, because the most common reason to open this page is to decide whether to run it.",
+                "So the narrative sits on the left, and the attributes sit in a scannable right rail: first observed, discovered on, threat actors, industries, regions. Simulate Now is at the top next to the current rates, because the most common reason to open this page is to decide whether to run it.",
                 "Below that, trend analysis over time, then the payloads themselves. That order is deliberate: the trend is the thing you can act on, the payload list is the thing you check afterwards.",
               ],
             },
@@ -980,7 +980,7 @@ export const projects: Project[] = [
               kind: "prose",
               body: [
                 "The payload row is the densest object in the feature, so it was specified as a small state machine rather than a static row: resting, hovered, and expanded.",
-                "Collapsed, it shows the filename, the filetype and the rates. Expanded, it adds what the file actually did, its behavioural tags, and the hashes an analyst will paste into their own tooling — each with a copy button, because nobody types a SHA256 by hand.",
+                "Collapsed, it shows the filename, the filetype and the rates. Expanded, it adds what the file actually did, its behavioural tags, and the hashes an analyst will paste into their own tooling, each with a copy button, because nobody types a SHA256 by hand.",
               ],
             },
             {
@@ -997,19 +997,19 @@ export const projects: Project[] = [
               kind: "figure",
               src: "et-create-ai.png",
               frame: "wide",
-              caption: "The AI-assisted path — hand it the report you already have",
+              caption: "The AI-assisted path: hand it the report you already have",
             },
             {
               kind: "figure",
               src: "et-create-manual.png",
               frame: "scroll",
-              caption: "The manual path — the same campaign, entered field by field",
+              caption: "The manual path: the same campaign, entered field by field",
             },
             {
               kind: "prose",
               body: [
-                "Customers also need to test threats that are not in the feed — something their own intel team found, or a report a vendor sent them. That is a lot of structured data to enter by hand: campaign name, actor, industry, region, threat family, category, and every payload.",
-                "The AI-assisted path takes the artefact people already have — a PDF report or a URL — and extracts that structure automatically. The manual path is the same campaign, entered field by field.",
+                "Customers also need to test threats that are not in the feed: something their own intel team found, or a report a vendor sent them. That is a lot of structured data to enter by hand: campaign name, actor, industry, region, threat family, category, and every payload.",
+                "The AI-assisted path takes the artefact people already have, a PDF report or a URL, and extracts that structure automatically. The manual path is the same campaign, entered field by field.",
                 "Neither is hidden behind the other. Each drawer ends with a plain-text link to its opposite: “I want to enter threat details manually”, and “Switch to AI-based malware upload”. That link is the whole design decision. An automated path that cannot be escaped is a trap when the extraction gets it wrong, and a manual path with no shortcut is a chore when it would have got it right.",
               ],
             },
@@ -1017,17 +1017,17 @@ export const projects: Project[] = [
               kind: "figures",
               cols: 2,
               items: [
-                { src: "et-automation-enabled.png", caption: "Automation, switched on — the config read back as a receipt" },
+                { src: "et-automation-enabled.png", caption: "Automation, switched on: the config read back as a receipt" },
                 { src: "et-delete-campaign.png", caption: "Deleting a one-off campaign" },
-                { src: "et-delete-automation.png", caption: "Deleting a recurring automation — “Edit instead”, not just Cancel" },
+                { src: "et-delete-automation.png", caption: "Deleting a recurring automation: “Edit instead”, not just Cancel" },
               ],
             },
             {
               kind: "prose",
               body: [
-                "Automation runs attacks against production systems on a schedule, so the moments where it is switched on and off get the same care as the feature itself. Every one of these dialogs restates the thing being acted on in full — the schedule, the industries, the regions, the actors, the named assets — rather than asking “are you sure?” about an abstraction.",
+                "Automation runs attacks against production systems on a schedule, so the moments where it is switched on and off get the same care as the feature itself. Every one of these dialogs restates the thing being acted on in full, naming the schedule, the industries, the regions, the actors and the named assets, rather than asking “are you sure?” about an abstraction.",
                 "The confirmation screen doubles as a receipt: it is the first time the reader sees their configuration written out as a sentence, and Edit Preferences sits right there in case reading it back changes their mind.",
-                "The two delete dialogs differ by one word, and it is the word that matters. Deleting a one-off campaign offers Cancel. Deleting a recurring automation offers “Edit instead” — because someone deleting a schedule usually wants it to stop doing what it currently does, not to stop existing.",
+                "The two delete dialogs differ by one word, and it is the word that matters. Deleting a one-off campaign offers Cancel. Deleting a recurring automation offers “Edit instead”, because someone deleting a schedule usually wants it to stop doing what it currently does, not to stop existing.",
               ],
             },
             /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
@@ -1050,7 +1050,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Everything the platform can run — a chain, an exposure test, a playbook, an emerging threat, an automated campaign — can also be run on a schedule. Which means the scheduler quietly became the surface where the whole product shows up in one place, and where the question stops being “what can I run” and becomes “what is already running, and when.”",
+                "Everything the platform can run can also be run on a schedule: a chain, an exposure test, a playbook, an emerging threat, an automated campaign. Which means the scheduler quietly became the surface where the whole product shows up in one place, and where the question stops being “what can I run” and becomes “what is already running, and when.”",
                 "It ships as two views of the same data. The calendar is for “what is happening this month”. The list is for “tell me the rules”. Neither is a subset of the other, so they get equal billing behind one toggle rather than one being buried.",
               ],
             },
@@ -1058,7 +1058,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "sch-calendar.png",
               frame: "wide",
-              caption: "The calendar view — a month of scheduled simulations, colour-coded by type",
+              caption: "The calendar view: a month of scheduled simulations, colour-coded by type",
             },
             {
               kind: "prose",
@@ -1088,7 +1088,7 @@ export const projects: Project[] = [
               kind: "figure",
               src: "sch-list.png",
               frame: "wide",
-              caption: "The list view — the same schedules, stated as rules",
+              caption: "The list view: the same schedules, stated as rules",
             },
             {
               kind: "prose",
@@ -1101,14 +1101,14 @@ export const projects: Project[] = [
               kind: "figure",
               src: "sch-edit-drawer.png",
               frame: "scroll",
-              caption: "Editing a schedule — recurrence, end condition, targets, and the sentence that checks your work",
+              caption: "Editing a schedule: recurrence, end condition, targets, and the sentence that checks your work",
             },
             {
               kind: "prose",
               body: [
                 "The edit drawer is the hardest screen in the feature, because recurrence rules are famously easy to build and famously hard to verify. Someone sets a start date, a frequency, an interval, two weekdays and an end condition, and then has no way of knowing whether the thing they just described is the thing they meant.",
                 "So the drawer ends by reading the whole configuration back as one sentence: repeat every three weeks on Wednesday and Friday at 10:00 AM, from this date to that one. Every control above it is an input to that sentence, and the sentence is the answer to “did I get this right”.",
-                "The rest is guardrails. The start date says up front that it cannot be changed after the first run, rather than failing later. End condition is three explicit choices — never, after a number of runs, on a date — instead of an optional field that silently means “never” when left blank.",
+                "The rest is guardrails. The start date says up front that it cannot be changed after the first run, rather than failing later. End condition is three explicit choices: never, after a number of runs, or on a date. That beats an optional field that silently means “never” when left blank.",
               ],
             },
             {
@@ -1173,13 +1173,13 @@ export const projects: Project[] = [
               kind: "figure",
               src: "playbooks-listing.png",
               frame: "wide",
-              caption: "The playbook library — each card sized by what it covers",
+              caption: "The playbook library: each card sized by what it covers",
             },
             {
               kind: "prose",
               body: [
                 "Every card answers the same three questions in the same order: how big is this (chains and actions), what does it get me (exposures tackled, MITRE techniques covered), and is it current (last updated). Those are the terms a security lead compares options in, so they are the terms the card is built from rather than a description they would have to read four times.",
-                "Some playbooks carry a Dynamic marker, which sets them apart from the fixed ones — a distinction the card makes with a single pill instead of a separate section of the library.",
+                "Some playbooks carry a Dynamic marker, which sets them apart from the fixed ones, a distinction the card makes with a single pill instead of a separate section of the library.",
               ],
             },
             {
@@ -1190,7 +1190,7 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Inside, a playbook is broken into named stages that follow the shape of a real intrusion — this one covers initial compromise — and each stage gets a plain-language explanation of what it is simulating before any chain appears. That sentence is the difference between a tool a security engineer can use and a tool only its authors understand.",
+                "Inside, a playbook is broken into named stages that follow the shape of a real intrusion, this one covering initial compromise, and each stage gets a plain-language explanation of what it is simulating before any chain appears. That sentence is the difference between a tool a security engineer can use and a tool only its authors understand.",
                 "Each stage also carries its own scoreboard: chains, actions and exposures on the left, with the successful and blocked split right underneath. So you can see which stage of the attack your defenses actually broke at, rather than getting one number for the whole playbook. Stages collapse, because a long playbook read end to end is a wall.",
               ],
             },
@@ -1213,21 +1213,21 @@ export const projects: Project[] = [
             {
               kind: "prose",
               body: [
-                "Everything else in the platform produces evidence. Exposures is where that evidence turns into a list of things to fix, in order — which is the output the whole product exists to produce.",
+                "Everything else in the platform produces evidence. Exposures is where that evidence turns into a list of things to fix, in order, which is the output the whole product exists to produce.",
               ],
             },
             {
               kind: "figure",
               src: "exposures-overview.png",
               frame: "wide",
-              caption: "Exposures — coverage by control class, then the ranked list of what to fix",
+              caption: "Exposures: coverage by control class, then the ranked list of what to fix",
             },
             {
               kind: "prose",
               body: [
-                "The top of the screen is scoped by control class — endpoint, email, web, firewall — because that is how remediation work gets assigned. The team that fixes an email gateway is rarely the team that fixes endpoint policy, and each card carries both progress fractions a lead needs: how many exposures have been assessed at all, and how many actions have actually run.",
+                "The top of the screen is scoped by control class: endpoint, email, web, firewall. That is how remediation work gets assigned. The team that fixes an email gateway is rarely the team that fixes endpoint policy, and each card carries both progress fractions a lead needs: how many exposures have been assessed at all, and how many actions have actually run.",
                 "Below it, every exposure leads with a score. That score is the reason the page works: it turns a list into a ranking, and a ranking is the only form of this information anyone can act on before lunch.",
-                "Each row then carries what you need to decide and what you need to act. The chips count the actions behind the finding and the detection rules that exist for it — Sigma and YARA, the formats a detection engineer already writes in — and the body text is remediation guidance, not a restatement of the problem. A finding that tells you what is wrong without telling you what to do is a ticket someone else has to write.",
+                "Each row then carries what you need to decide and what you need to act. The chips count the actions behind the finding and the detection rules that exist for it, in Sigma and YARA, the formats a detection engineer already writes in. The body text is remediation guidance, not a restatement of the problem. A finding that tells you what is wrong without telling you what to do is a ticket someone else has to write.",
               ],
             },
             /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */

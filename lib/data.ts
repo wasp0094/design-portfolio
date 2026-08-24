@@ -375,18 +375,9 @@ export const projects: Project[] = [
                 "My first responsibility was the public face of the company. FourCore’s website had grown cluttered and inconsistent, which is a problem when the thing you are selling is precision and trust to security buyers. I redesigned it end to end across 10+ screens, for both mobile and desktop, in a two-month sprint.",
               ],
             },
-            {
-              kind: "compare",
-              label: "Home page",
-              before: "/projects/fourcore/old-home.jpg",
-              after: "/projects/fourcore/new-home.jpg",
-            },
-            {
-              kind: "compare",
-              label: "Book a demo",
-              before: "/projects/fourcore/old-demo.jpg",
-              after: "/projects/fourcore/new-demo.jpg",
-            },
+            /* No screens here on purpose: the marketing-site work has its own
+               case study, and the before/after pairs that used to sit in this
+               section were the wrong exports. Send the reader there instead. */
             {
               kind: "link",
               href: "/work/fourcore",

@@ -1210,6 +1210,12 @@ body.cursor-hover .cursor-ring {
   backdrop-filter: blur(4px);
 }
 
+/* a flagship screen, pulled back out past the section's text inset so a
+   dense dashboard gets the full column. `--tpad` is 0 below 900px, so this
+   quietly becomes a no-op on mobile. */
+.bk-figwrap.is-wide { margin-inline: calc(-1 * var(--tpad)); }
+.bk-figure.frame-wide img { border-radius: 14px; }
+
 /* a UI card lifted off the page — for screenshots that already carry their
    own white surface, so a hairline would read as a second border */
 .bk-figure.frame-card img {
@@ -1589,4 +1595,128 @@ body.cursor-hover .cursor-ring {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   PASSWORD GATE + PLACEHOLDERS
+   A gated study is split in two: a public short version, and a
+   detailed version at /work/<slug>/full behind CASE_STUDY_PASSWORD.
+   ============================================================ */
+
+/* --- stand-in image badge — must read as "not final" at a glance --- */
+.bk-placeholder {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  background: var(--coral); color: var(--paper);
+  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
+}
+.bk-figure.is-placeholder { position: relative; }
+.bk-figure.is-placeholder > .bk-placeholder { position: absolute; top: 12px; right: 12px; z-index: 2; }
+.bk-figure.is-placeholder img { opacity: 0.72; filter: saturate(0.55); }
+.bk-compare.is-placeholder .cmp-item img { opacity: 0.72; filter: saturate(0.55); }
+.bk-compare.is-placeholder .cmp-label { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+/* --- the "there is more behind a password" card ------------------ */
+.gate-cta {
+  margin-top: clamp(48px, 6vw, 84px);
+  padding: clamp(24px, 3.2vw, 40px);
+  border: 1.5px solid var(--ink); border-radius: 20px;
+  background: var(--paper); box-shadow: 6px 6px 0 var(--ink);
+}
+.gate-cta-head { display: flex; gap: 16px; align-items: flex-start; }
+.gate-cta-mark {
+  flex: none; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1.5px solid var(--ink); background: var(--accent); color: var(--paper);
+}
+.gate-cta-title {
+  font-family: var(--ff-display); font-weight: 800;
+  font-size: clamp(22px, 2.8vw, 30px); letter-spacing: -0.02em; line-height: 1.15;
+}
+.gate-cta-note { margin-top: 8px; font-size: 15.5px; line-height: 1.62; color: var(--ink-2); max-width: 62ch; }
+.gate-cta-list { list-style: none; display: grid; gap: 9px; margin: clamp(20px, 2.4vw, 26px) 0; }
+.gate-cta-list li {
+  display: grid; grid-template-columns: 18px 1fr; gap: 10px;
+  font-size: 15px; line-height: 1.55; color: var(--ink-2);
+}
+.gate-cta-list li::before { content: "→"; color: var(--accent); font-weight: 700; }
+.gate-cta-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 13px 24px; border-radius: 999px;
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
+  font-size: 15px; font-weight: 600;
+  transition: transform .25s ease, background .25s ease;
+}
+.gate-cta-btn:hover { transform: translateY(-2px); background: var(--accent); }
+.gate-cta-btn .arw { font-weight: 700; }
+
+/* --- the password prompt itself ---------------------------------- */
+.gate { display: grid; place-items: center; padding: clamp(40px, 9vw, 110px) 0; }
+.gate-card {
+  width: min(560px, 100%); text-align: center;
+  padding: clamp(28px, 4vw, 48px);
+  border: 1.5px solid var(--ink); border-radius: 22px;
+  background: var(--paper); box-shadow: 8px 8px 0 var(--ink);
+}
+.gate-mark {
+  display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 20px;
+  border-radius: 50%; border: 1.5px solid var(--ink);
+  background: var(--accent); color: var(--paper);
+}
+.gate-title {
+  font-family: var(--ff-display); font-weight: 800;
+  font-size: clamp(26px, 4vw, 38px); letter-spacing: -0.025em; line-height: 1.1;
+}
+.gate-note {
+  margin: 14px auto 26px; max-width: 46ch;
+  font-size: 15px; line-height: 1.62; color: var(--ink-2);
+}
+.gate-form { text-align: left; }
+.gate-label {
+  display: block; margin-bottom: 8px;
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+}
+.gate-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.gate-input {
+  flex: 1 1 200px; min-width: 0;
+  padding: 13px 18px; border-radius: 999px;
+  border: 1.5px solid var(--line-2); background: var(--bg);
+  font-family: var(--ff-body); font-size: 15px; color: var(--ink);
+  transition: border-color .2s ease;
+}
+.gate-input:focus { outline: none; border-color: var(--accent); }
+.gate-submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 24px; border-radius: 999px;
+  border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper);
+  font-size: 15px; font-weight: 600;
+  transition: transform .25s ease, background .25s ease, opacity .2s ease;
+}
+.gate-submit:hover:not(:disabled) { transform: translateY(-2px); background: var(--accent); }
+.gate-submit:disabled { opacity: 0.55; cursor: progress; }
+.gate-error {
+  margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--coral);
+}
+.gate-ask { margin-top: 24px; font-size: 13.5px; line-height: 1.6; color: var(--ink-3); }
+.gate-ask a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* --- unlocked state ---------------------------------------------- */
+.detail-pro.is-unlocked { background: var(--teal); border-color: var(--ink); color: var(--paper); }
+.gate-relock { margin-top: clamp(40px, 5vw, 64px); }
+.gate-relock button {
+  padding: 10px 20px; border-radius: 999px;
+  border: 1.5px solid var(--line-2); background: transparent;
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-3);
+  transition: border-color .2s ease, color .2s ease;
+}
+.gate-relock button:hover { border-color: var(--ink); color: var(--ink); }
+
+@media (max-width: 560px) {
+  .gate-cta { box-shadow: 4px 4px 0 var(--ink); }
+  .gate-card { box-shadow: 5px 5px 0 var(--ink); }
+  .gate-cta-head { flex-direction: column; gap: 12px; }
+  .gate-row { flex-direction: column; }
+  .gate-submit { justify-content: center; }
 }

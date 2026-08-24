@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import Reveal from "../ui/Reveal";
-import { recognition } from "@/lib/data";
+import { recognition } from "@/lib/site";
 
 const r = recognition;
 

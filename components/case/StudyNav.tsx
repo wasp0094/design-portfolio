@@ -2,9 +2,12 @@
 
 import { motion, useMotionValue, useMotionValueEvent, useScroll } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { StudySection } from "@/lib/data";
+/** Only the fields the rail draws. Deliberately NOT StudySection: this is a
+ *  client component, so whatever it receives is serialised into the page.
+ *  Passing whole sections would ship every gated block to the browser. */
+export type TocItem = { id: string; kicker?: string; heading: string };
 
-type Props = { sections: StudySection[]; bodyId: string };
+type Props = { sections: TocItem[]; bodyId: string };
 
 /* dock-style magnification: the bar nearest the pointer extends furthest,
    its neighbours taper off over FALLOFF px. */
@@ -77,7 +80,7 @@ export default function StudyNav({ sections, bodyId }: Props) {
   if (sections.length < 2) return null;
 
   /** the rail names the UX step, not the long descriptive heading */
-  const label = (s: StudySection) => s.kicker ?? s.heading;
+  const label = (s: TocItem) => s.kicker ?? s.heading;
 
   const dists = centers.current.map((c) =>
     hoverY == null ? Number.POSITIVE_INFINITY : Math.abs(c - hoverY),

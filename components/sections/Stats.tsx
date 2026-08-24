@@ -2,7 +2,7 @@
 
 import Reveal from "../ui/Reveal";
 import CountUp from "../ui/CountUp";
-import { stats } from "@/lib/data";
+import { stats } from "@/lib/site";
 
 export default function Stats() {
   return (

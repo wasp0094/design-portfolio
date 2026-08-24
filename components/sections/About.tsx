@@ -1,7 +1,7 @@
 "use client";
 
 import Reveal from "../ui/Reveal";
-import { capabilities, profile } from "@/lib/data";
+import { capabilities, profile } from "@/lib/site";
 
 function DownloadIcon() {
   return (

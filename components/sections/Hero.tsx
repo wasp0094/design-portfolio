@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { profile } from "@/lib/data";
+import { profile } from "@/lib/site";
 
 const container = {
   hidden: {},

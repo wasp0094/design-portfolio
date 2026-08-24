@@ -2,7 +2,8 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import { projects, BRAND, type Project } from "@/lib/data";
+import { BRAND } from "@/lib/site";
+import type { WorkCard } from "@/lib/data";
 
 const MotionLink = motion.create(Link);
 
@@ -10,14 +11,14 @@ type Size = "big" | "tall" | "hbig" | "small" | "flat" | "wide";
 
 // exact placement from the layout sketch
 const ORDER: { slug: string; size: Size }[] = [
-  { slug: "formi", size: "big" },
+  { slug: "fourcore-platform", size: "big" },
   { slug: "formi-app", size: "tall" },
   { slug: "fourcore", size: "hbig" },
   { slug: "autumn", size: "hbig" },
-  { slug: "fourcore-platform", size: "big" },
+  { slug: "formi", size: "big" },
   { slug: "conqr", size: "wide" },
 ];
-const INVITE_AFTER = 4; // insert the "start a conversation" tile after FourCore platform
+const INVITE_AFTER = 4; // insert the "start a conversation" tile after Formi
 
 const reveal = (i: number) => ({
   initial: { opacity: 0, y: 30 },
@@ -27,7 +28,7 @@ const reveal = (i: number) => ({
   whileHover: { x: -4, y: -4 },
 });
 
-function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
+function Tile({ p, size, i }: { p: WorkCard; size: Size; i: number }) {
   const rich = size === "big" || size === "wide";
   const brand = BRAND[p.slug];
   const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
@@ -112,7 +113,7 @@ function InviteTile() {
   return (
     <motion.a
       /* `tall` (2 cols x 2 rows) so it fills the space beside the `big`
-         FourCore tile — with six projects a `small` would leave a hole */
+         Formi tile — with six projects a `small` would leave a hole */
       className="tile tall invite"
       href="#contact"
       data-hover
@@ -131,8 +132,11 @@ function InviteTile() {
   );
 }
 
-export default function Work() {
-  const bySlug = Object.fromEntries(projects.map((p) => [p.slug, p]));
+/** `cards` is passed in from the server rather than imported: this is a
+ *  client component, and importing the case studies here would ship every
+ *  study body, gated ones included, to the browser. */
+export default function Work({ cards }: { cards: WorkCard[] }) {
+  const bySlug = Object.fromEntries(cards.map((p) => [p.slug, p]));
   const tiles: React.ReactNode[] = [];
   ORDER.forEach((o, idx) => {
     const p = bySlug[o.slug];

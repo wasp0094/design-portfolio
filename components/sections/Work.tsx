@@ -11,14 +11,14 @@ type Size = "big" | "tall" | "hbig" | "small" | "flat" | "wide";
 
 // exact placement from the layout sketch
 const ORDER: { slug: string; size: Size }[] = [
-  { slug: "formi", size: "big" },
+  { slug: "fourcore-platform", size: "big" },
   { slug: "formi-app", size: "tall" },
   { slug: "fourcore", size: "hbig" },
   { slug: "autumn", size: "hbig" },
-  { slug: "fourcore-platform", size: "big" },
+  { slug: "formi", size: "big" },
   { slug: "conqr", size: "wide" },
 ];
-const INVITE_AFTER = 4; // insert the "start a conversation" tile after FourCore platform
+const INVITE_AFTER = 4; // insert the "start a conversation" tile after Formi
 
 const reveal = (i: number) => ({
   initial: { opacity: 0, y: 30 },
@@ -113,7 +113,7 @@ function InviteTile() {
   return (
     <motion.a
       /* `tall` (2 cols x 2 rows) so it fills the space beside the `big`
-         FourCore tile — with six projects a `small` would leave a hole */
+         Formi tile — with six projects a `small` would leave a hole */
       className="tile tall invite"
       href="#contact"
       data-hover

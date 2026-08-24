@@ -6,7 +6,10 @@ import Gallery from "@/components/ui/Gallery";
 import StudyHead from "@/components/case/StudyHead";
 import StudyHero from "@/components/case/StudyHero";
 import StudyBody from "@/components/case/StudyBody";
-import { projects, BRAND, type Project } from "@/lib/data";
+// GATE DISABLED — see lib/data.ts
+// import GateCta from "@/components/case/GateCta";
+import { BRAND } from "@/lib/site";
+import { projects, type Project } from "@/lib/data";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -108,8 +111,13 @@ export default async function ProjectPage({
 
   const idx = projects.findIndex((x) => x.slug === slug);
   const next = projects[(idx + 1) % projects.length];
-  const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0);
   const study = p.study && p.study.sections.length > 0 ? p.study : null;
+  /* GATE DISABLED — gated studies used to hide their `more` blocks and screens
+     behind a password on /full. Everything is now shown here instead.
+       const gate = study?.gated ?? null;
+       // when a study is gated its screens live on /full, not here
+       const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0 && !gate); */
+  const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0);
 
   return (
     <main className="detail" style={{ ["--accent" as string]: `var(--${p.accent})` }}>
@@ -166,7 +174,13 @@ export default async function ProjectPage({
                 </a>
               </Reveal>
             )}
-            <StudyBody study={study} dir={p.dir} />
+            {/* GATE DISABLED — `detailed` renders the formerly gated `more` blocks */}
+            <StudyBody study={study} dir={p.dir} detailed />
+            {/* {gate && (
+              <Reveal>
+                <GateCta slug={p.slug} teaser={gate.teaser} includes={gate.includes} />
+              </Reveal>
+            )} */}
           </>
         ) : (
           <>

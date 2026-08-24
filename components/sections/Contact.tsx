@@ -2,7 +2,7 @@
 
 import Reveal from "../ui/Reveal";
 import Magnetic from "../ui/Magnetic";
-import { profile } from "@/lib/data";
+import { profile } from "@/lib/site";
 
 export default function Contact() {
   const year = 2026;

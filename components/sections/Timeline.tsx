@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { timeline } from "@/lib/data";
+import { timeline } from "@/lib/site";
 
 /** Vertical timeline — the spine fills as you scroll through the section. */
 export default function Timeline() {

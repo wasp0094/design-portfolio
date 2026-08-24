@@ -3,7 +3,7 @@
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
 import Magnetic from "../ui/Magnetic";
-import { profile } from "@/lib/data";
+import { profile } from "@/lib/site";
 
 const links = [
   { label: "Work", href: "/#work" },

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { marqueeWords } from "@/lib/data";
+import { marqueeWords } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger);
 

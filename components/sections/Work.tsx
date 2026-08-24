@@ -2,7 +2,8 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import { projects, BRAND, type Project } from "@/lib/data";
+import { BRAND } from "@/lib/site";
+import type { WorkCard } from "@/lib/data";
 
 const MotionLink = motion.create(Link);
 
@@ -27,7 +28,7 @@ const reveal = (i: number) => ({
   whileHover: { x: -4, y: -4 },
 });
 
-function Tile({ p, size, i }: { p: Project; size: Size; i: number }) {
+function Tile({ p, size, i }: { p: WorkCard; size: Size; i: number }) {
   const rich = size === "big" || size === "wide";
   const brand = BRAND[p.slug];
   const cover = p.cover && p.dir ? `/projects/${p.dir}/${p.cover}` : null;
@@ -131,8 +132,11 @@ function InviteTile() {
   );
 }
 
-export default function Work() {
-  const bySlug = Object.fromEntries(projects.map((p) => [p.slug, p]));
+/** `cards` is passed in from the server rather than imported: this is a
+ *  client component, and importing the case studies here would ship every
+ *  study body, gated ones included, to the browser. */
+export default function Work({ cards }: { cards: WorkCard[] }) {
+  const bySlug = Object.fromEntries(cards.map((p) => [p.slug, p]));
   const tiles: React.ReactNode[] = [];
   ORDER.forEach((o, idx) => {
     const p = bySlug[o.slug];

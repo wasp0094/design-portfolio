@@ -9,6 +9,10 @@ type Props = { block: Block; dir?: string };
 const src = (dir: string | undefined, file: string) =>
   file.startsWith("/") ? file : `/projects/${dir}/${file}`;
 
+/** Marks a borrowed screen standing in for one that hasn't been exported
+ *  yet, so a stand-in can never quietly pass as the real thing. */
+const Stand = () => <span className="bk-placeholder">Placeholder</span>;
+
 export default function Block({ block: b, dir }: Props) {
   switch (b.kind) {
     case "prose":
@@ -126,8 +130,19 @@ export default function Block({ block: b, dir }: Props) {
 
     case "figure":
       return (
-        <div className={`bk-figwrap${b.annotations?.length ? " has-notes" : ""}`}>
-          <figure className={`bk-figure frame-${b.frame ?? "web"}`}>
+        <div
+          className={[
+            "bk-figwrap",
+            b.annotations?.length ? "has-notes" : "",
+            b.frame === "wide" ? "is-wide" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          <figure
+            className={`bk-figure frame-${b.frame ?? "web"}${b.placeholder ? " is-placeholder" : ""}`}
+          >
+            {b.placeholder && <Stand />}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src(dir, b.src)} alt={b.caption ?? ""} loading="lazy" />
             {b.caption && <figcaption>{b.caption}</figcaption>}
@@ -182,7 +197,11 @@ export default function Block({ block: b, dir }: Props) {
       return (
         <div className="bk-figures" style={{ ["--fig-cols" as string]: b.cols ?? 2 }}>
           {b.items.map((it) => (
-            <figure className="bk-figure" key={it.src}>
+            <figure
+              className={`bk-figure${it.placeholder ? " is-placeholder" : ""}`}
+              key={`${it.src}-${it.caption ?? ""}`}
+            >
+              {it.placeholder && <Stand />}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src(dir, it.src)} alt={it.caption ?? ""} loading="lazy" />
               {it.caption && <figcaption>{it.caption}</figcaption>}
@@ -194,8 +213,13 @@ export default function Block({ block: b, dir }: Props) {
     /* reuses the existing .cmp-* styles from the legacy detail page */
     case "compare":
       return (
-        <div className="bk-compare">
-          {b.label && <div className="cmp-label">{b.label}</div>}
+        <div className={`bk-compare${b.placeholder ? " is-placeholder" : ""}`}>
+          {b.label && (
+            <div className="cmp-label">
+              {b.label}
+              {b.placeholder && <Stand />}
+            </div>
+          )}
           <div className="cmp-pair">
             <figure className="cmp-item before">
               <span className="cmp-tag">Before</span>

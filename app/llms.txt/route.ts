@@ -1,4 +1,5 @@
-import { profile, projects, capabilities, recognition } from "@/lib/data";
+import { profile, capabilities, recognition } from "@/lib/site";
+import { projects } from "@/lib/data";
 import { SITE } from "../sitemap";
 
 export const dynamic = "force-static";

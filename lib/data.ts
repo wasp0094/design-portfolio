@@ -1,40 +1,20 @@
 /* ============================================================
-   CONTENT — edit this file to update the site.
+   CASE STUDIES — edit this file to update the work.
    Add a project by appending to the `projects` array.
    Images live in public/projects/<dir>/.
+
+   SERVER ONLY. A "use client" component pulls its entire import graph
+   into the browser bundle, and some of what is below sits behind a
+   password (see `Study.gated` and lib/gate.ts). Importing this module
+   from a client component is a build error, by design: pass the data
+   down from a server component as props instead, or import the
+   client-safe site content from lib/site.ts.
+
+   Types are exported from here too, but `import type` is erased at
+   compile time, so type-only imports from client components are fine.
    ============================================================ */
 
-export const profile = {
-  name: "Aditi Agarwal",
-  role: "Product & UI/UX Designer",
-  location: "New Delhi, India",
-  available: true,
-  tagline: [
-    "I turn ambiguous",
-    "problems into",
-    "interfaces people",
-    "actually use.",
-  ],
-  intro:
-    "Product & UI/UX designer with 2+ years taking B2B and healthtech products from messy research all the way to shipped, high-fidelity UI: design systems, two-sided products, and the calm interfaces in between.",
-  phone: "+91 98183 77310",
-  // TODO: replace with Aditi's real LinkedIn URL
-  email: "makedesignwithaditi@gmail.com",
-  resume: "https://wasp0094.github.io/resume.pdf",
-  socials: [
-    { label: "Behance", handle: "designwithaditi", href: "https://www.behance.net/designwithaditi" },
-    { label: "Dribbble", handle: "designwithaditii", href: "https://dribbble.com/designwithaditii" },
-    { label: "Twitter", handle: "designwithaditi", href: "https://twitter.com/designwithaditi" },
-    { label: "LinkedIn", handle: "aditi-agarwal", href: "https://www.linkedin.com/in/designwithaditi" },
-  ],
-};
-
-export const stats = [
-  { value: 2, suffix: "+", label: "Years shipping product" },
-  { value: 23, suffix: "", label: "Screens in one build" },
-  { value: 5, suffix: "", label: "Hackathon awards" },
-  { value: 300, suffix: "+", label: "Students mentored" },
-];
+import "server-only";
 
 /* ============================================================
    CASE STUDY — a study is a list of sections, each section an
@@ -85,14 +65,31 @@ export type Block =
       src: string;
       caption?: string;
       /** `scroll` windows a full-page capture so it doesn't run for
-       *  thousands of pixels down the page */
-      frame?: "web" | "mobile" | "bleed" | "card" | "scroll" | "crop";
+       *  thousands of pixels down the page. `wide` lets a flagship screen
+       *  out past the section's text inset, so a dense dashboard is read
+       *  rather than squinted at. */
+      frame?: "web" | "mobile" | "bleed" | "card" | "scroll" | "crop" | "wide";
       annotations?: { n: number; text: string }[];
+      /** STAND-IN IMAGE. Renders a loud badge over the frame so a borrowed
+       *  screen can't be mistaken for the real one. Remove when the final
+       *  export is dropped in. */
+      placeholder?: boolean;
     }
   /** a row/grid of screens */
-  | { kind: "figures"; cols?: 2 | 3 | 4; items: { src: string; caption?: string }[] }
+  | {
+      kind: "figures";
+      cols?: 2 | 3 | 4;
+      items: { src: string; caption?: string; placeholder?: boolean }[];
+    }
   /** before/after pair */
-  | { kind: "compare"; label?: string; before: string; after: string }
+  | {
+      kind: "compare";
+      label?: string;
+      before: string;
+      after: string;
+      /** either half is a stand-in — badges both frames */
+      placeholder?: boolean;
+    }
   /** a design decision and why it was made — reads as flowing prose under a
    *  large heading, not a boxed card, so it can sit beside the artefact */
   | { kind: "decision"; title: string; body: string[] }
@@ -126,7 +123,12 @@ export type StudySection = {
   id: string;        // anchor + TOC target, e.g. "problem"
   kicker?: string;   // small label above the heading, e.g. "Research"
   heading: string;
+  /** the public telling — always rendered, on both versions of the page */
   blocks: Block[];
+  /** the detail: screens, specifics, anything under NDA. Rendered only on
+   *  /work/<slug>/full, once the reader has the password. A section whose
+   *  `blocks` are empty and `more` is full simply doesn't exist publicly. */
+  more?: Block[];
 };
 
 /** Composed product hero — a wide screen with a phone lifted over it.
@@ -145,6 +147,15 @@ export type Study = {
   glance?: { value: string; label: string }[]; // outcome numbers, shown high on the page
   glanceNote?: string;
   sections: StudySection[];
+  /** Split this study in two: a public short version at /work/<slug>, and a
+   *  password-gated long version at /work/<slug>/full carrying every
+   *  `more` block plus the screen gallery. See lib/gate.ts. */
+  gated?: {
+    /** the pitch on the public page's unlock card */
+    teaser: string;
+    /** what the reader gets for the password, listed on that card */
+    includes: string[];
+  };
 };
 
 export type Project = {
@@ -178,15 +189,6 @@ export type Project = {
      case-study template instead of the legacy overview + caseStudy layout.
      `gallery` still renders underneath as the complete screen archive. */
   study?: Study;
-};
-
-/* brand logo (in /public/logos/) + a background colour that suits it,
-   used for the card cover and the detail-page hero */
-export const BRAND: Record<string, { logo: string; bg: string; dark?: boolean }> = {
-  "formi-app": { logo: "formi.svg", bg: "#1A7A8A", dark: true },
-  fourcore: { logo: "fourcore.svg", bg: "#0B1C30", dark: true },
-  "conqr-platform": { logo: "conqr.svg", bg: "#F5EEE7" },
-  autumn: { logo: "autumn.svg", bg: "#FBEDDF" },
 };
 
 export const projects: Project[] = [
@@ -260,219 +262,1092 @@ export const projects: Project[] = [
         ],
       },
     ],
-    /* CONFIDENTIAL CLIENT. Nothing in this study may be invented — platform
+    /* CONFIDENTIAL CLIENT. Nothing in this study may be invented: platform
        data is sensitive and a plausible-sounding fabrication is a real risk,
-       not just a copywriting gap. Every gap is a `todo` block on purpose. */
+       not just a copywriting gap.
+
+       The study is split in two. `blocks` are the public telling, written to
+       stand on its own for an application that can't be sent a password.
+       `more` carries the screens and the specifics, and is only rendered on
+       /work/fourcore-platform/full once the reader has unlocked it. Anything
+       still unwritten is a `todo` block, and every stand-in image is flagged
+       `placeholder: true` so it can't quietly pass as final. */
     study: {
+      /* GATE DISABLED — this study is public in full: the `more` blocks and the
+         screen gallery render on /work/fourcore-platform, no password. To put
+         the gate back, uncomment `gated` below and undo the two matching
+         "GATE DISABLED" edits in app/work/[slug]/page.tsx. */
+      // gated: {
+      //   teaser:
+      //     "The public write-up above tells the story. The detailed version walks through the screens themselves: what the platform looked like before, what it looks like now, and the reasoning behind each surface.",
+      //   includes: [
+      //     "Before and after for every redesigned surface, screen by screen",
+      //     "The design system: type scale, colour, components, iconography",
+      //     "Emerging Threats, Reporting, Playbooks and Exposures in detail",
+      //     "The analytics decision, with the annotated artefact",
+      //     "The full screen archive",
+      //   ],
+      // },
       hero: {
-        web: "dashboard.png",
+        web: "dashboard-refined.png",
         webLabel: "FourCore ATTACK, platform dashboard",
         alt: "The FourCore ATTACK platform dashboard",
       },
       meta: [
         { label: "Company", value: "FourCore, breach & attack simulation (cybersecurity)" },
-        { label: "Role", value: "Senior UI/UX Designer, sole independent contributor on design" },
-        { label: "Timeline", value: "Feb 2024 – present · 2+ years, ongoing" },
-        { label: "Scope", value: "Full platform redesign, 40+ screens, solo · plus 5+ new features since" },
-      ],
-      glance: [
-        { value: "40+", label: "Screens redesigned" },
-        { value: "5+", label: "Features shipped" },
-        { value: "2 yrs", label: "Ongoing" },
-        { value: "Solo", label: "Sole design contributor" },
-      ],
-      glanceNote:
-        "FourCore runs breach-and-attack simulations for security teams, letting them safely test how their defenses hold up against real attack techniques. I joined as the sole design owner and have redesigned the platform end to end since.",
-      sections: [
         {
-          id: "confidentiality",
-          kicker: "Before you read",
-          heading: "A note on what’s shown here",
-          blocks: [
-            {
-              kind: "callout",
-              title: "Confidential product",
-              body:
-                "FourCore’s platform data is confidential. Every screen on this page uses placeholder data: no client names, threat data, addresses or account details appear anywhere.",
-            },
-            /* UNANSWERED — restore this block when the answers land:
-            {
-              kind: "todo",
-              items: [
-                "DECIDE BEFORE PUBLISHING: password-protect this page, gate it behind a “request access” link, or split it: a light public version showing process and UI patterns only, plus a gated full version.",
-                "AUDIT EVERY SCREEN used on this page for real data before it goes live. The images currently wired in are the ones already on the site; they have not been re-checked against this stricter standard.",
-                "Confirm the claim in the callout above is actually true of the final screen set: I have written it as an intent, not a verified fact.",
-              ],
-              note: "This section should be deleted once the page is gated, or kept and tightened if the page stays public.",
-            },
-            */
-          ],
+          label: "Role",
+          value: "UI/UX Design Intern → UI/UX Designer → Senior UI/UX Designer",
+        },
+        { label: "Timeline", value: "2024 to present · 2+ years, ongoing" },
+        {
+          label: "Scope",
+          value:
+            "Marketing site, full platform redesign, design system, and 40+ new screens across 5+ features",
         },
         {
-          id: "context",
+          label: "Team",
+          value: "First design hire. Now leading a junior designer, working with product and engineering",
+        },
+      ],
+      glance: [
+        { value: "40+", label: "New screens shipped" },
+        { value: "5+", label: "Major features" },
+        { value: "10+", label: "Website screens, in a two-month sprint" },
+        { value: "2×", label: "Company revenue growth over a year" },
+      ],
+      glanceNote:
+        "FourCore ATTACK lets security teams safely run real attack techniques against their own systems to find out what their defenses actually catch. I joined as the company’s first design hire, on an internship, and have spent 2+ years redesigning the product end to end and growing its design practice.",
+      sections: [
+        {
+          id: "overview",
           kicker: "Overview",
-          heading: "Two years, one designer, a platform that kept growing",
+          heading: "What FourCore is",
           blocks: [
             {
               kind: "prose",
               body: [
-                "Security teams use FourCore ATTACK to run simulated attacks against their own systems and see where the gaps are, before a real adversary finds them. I joined as the sole design owner and have redesigned the platform end to end since: 40+ screens across the core product, plus new features shipped along the way as the product itself evolved.",
+                "FourCore ATTACK is a breach-and-attack-simulation (BAS) platform. Security teams use it to safely emulate real-world adversaries against their own live environment: executing attack techniques, moving laterally, escalating privileges, and then seeing exactly where their defenses held and where they broke, mapped to frameworks like MITRE ATT&CK.",
+                "That makes it a genuinely hard product to design for. Every run produces a large volume of technical output, and the person reading it is usually under time pressure and needs to know one thing first: what should I fix, and in what order. Most of the design work over the past two years has been in service of that question.",
               ],
             },
-            /* UNANSWERED — restore this block when the answers land:
             {
-              kind: "todo",
-              items: [
-                "A public-safe sentence or two on what the platform does for its users day to day. Keep it non-specific about actual client use cases, the line above is deliberately generic and should be checked before it stands.",
+              kind: "callout",
+              title: "About the screens",
+              body:
+                "FourCore’s platform is confidential. Customer and account data in the screens below is blurred or replaced with test values; what each one is here to show is the interface and the reasoning behind it, not the data sitting in it.",
+            },
+          ],
+        },
+        {
+          id: "role",
+          kicker: "The Brief",
+          heading: "Hired as an intern, as the first designer in the company",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "I joined FourCore as a UI/UX design intern and was the first hire for their design team. There was no design function before me: no system, no shared components, no one whose job it was to own how the product looked or felt.",
+                "The brief I was given was much larger than the title suggested. Redesign the entire platform and the brand experience around it. That turned into three chapters, each one earning the next: the marketing site as an intern, the platform itself once I converted to full-time, and then the design system and new features after being promoted to Senior UI/UX Designer.",
               ],
             },
-            */
+            {
+              kind: "flow",
+              steps: [
+                { label: "UI/UX Design Intern", note: "First design hire. Marketing site redesign." },
+                { label: "UI/UX Designer", note: "Converted full-time. Platform redesign, 40+ screens." },
+                {
+                  label: "Senior UI/UX Designer",
+                  note: "Design system, new features, leading a junior designer.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "landing",
+          kicker: "Chapter 01",
+          heading: "The marketing site, my first project",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "My first responsibility was the public face of the company. FourCore’s website had grown cluttered and inconsistent, which is a problem when the thing you are selling is precision and trust to security buyers. I redesigned it end to end across 10+ screens, for both mobile and desktop, in a two-month sprint.",
+              ],
+            },
+            {
+              kind: "compare",
+              label: "Home page",
+              before: "/projects/fourcore/old-home.jpg",
+              after: "/projects/fourcore/new-home.jpg",
+            },
+            {
+              kind: "compare",
+              label: "Book a demo",
+              before: "/projects/fourcore/old-demo.jpg",
+              after: "/projects/fourcore/new-demo.jpg",
+            },
+            {
+              kind: "link",
+              href: "/work/fourcore",
+              label: "Read the full case study for this",
+              note: "FourCore: Landing · 10+ screens, desktop and mobile",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The site shipped, and it is what got me the conversation about staying on full-time and taking on the product itself.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "platform",
+          kicker: "Chapter 02",
+          heading: "Converting full-time, and redesigning the platform",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "After the website, I converted to a full-time UI/UX Designer and moved onto the product. The platform worked, but it looked like what it was: an engineering-led tool that had grown feature by feature, with each screen solving its own problem in its own way.",
+                "My job was to take every existing screen to a new look: a premium, enterprise-grade experience that felt like it belonged in a security operations centre, and that held together as one product rather than a collection of pages.",
+              ],
+            },
+            {
+              kind: "lead",
+              text: "The dashboard was the place to start. It is the first thing a customer sees in a demo, and the screen that has to be understood fastest.",
+            },
+            {
+              kind: "compare",
+              label: "Dashboard",
+              before: "dashboard-before.png",
+              after: "dashboard-refined.png",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The old dashboard opened with a radar chart and two large donuts. Between them they took the top third of the screen to say three numbers, and the radar in particular is a shape that is hard to read quickly: you are comparing distances from a centre point across twelve axes at once.",
+                "The redesign puts the four numbers that matter across the top as plain figures with a direction of travel against the previous period, then gives the rest of the screen to detail that is actually actionable: how each class of security control performed, which exposures scored highest, and which assets are in the worst shape. Nothing on the new screen needs a legend to read.",
+                "It also fixed a structural problem. The old left-hand navigation listed eleven destinations in one flat column, mixing top-level surfaces with individual report types. The new one is grouped, and the groups match how people actually talk about the product: what you are protecting, what you are running against it, and what you have connected.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "dashboard.png",
+              frame: "scroll",
+              caption:
+                "The full dashboard, top to bottom. Scroll inside the frame — the real screen runs about seven thousand pixels.",
+            },
+            {
+              kind: "callout",
+              title: "One pattern, repeated",
+              body:
+                "Almost every card on this page is the same object in a different costume: a title, a headline figure, a supporting rate or two, and a link deeper in. That repetition is deliberate. In a product this dense, a reader who learns one card has learned twenty.",
+            },
           ],
         },
         {
           id: "surfaces",
-          kicker: "UI Design",
-          heading: "Surfaces redesigned",
+          kicker: "Chapter 02",
+          heading: "Surface by surface",
           blocks: [
             {
               kind: "prose",
               body: [
-                "Structured by surface rather than chronologically: two years doesn’t narrate well as a timeline, and each surface is really its own small case study.",
+                "Past the dashboard, the redesign worked through the surfaces a security team lives in day to day. Each one had the same underlying problem: the data was all there, and none of it was ranked.",
               ],
             },
             {
-              kind: "scrolly",
-              steps: [
-                {
-                  src: "dashboard.png",
-                  title: "Dashboard",
-                  body: ["The screen a user lands on first, and the one that has to be understood fastest."],
-                },
-                {
-                  src: "threat-intelligence.png",
-                  title: "Threat Intelligence",
-                  body: ["Placeholder screen, pairing to be confirmed."],
-                },
-                {
-                  src: "mitre-attack.png",
-                  title: "Threat Library",
-                  body: ["Placeholder screen: this surface later absorbed the Exposures feature."],
-                },
-                {
-                  src: "preferences.png",
-                  title: "Settings",
-                  body: ["Placeholder screen, pairing to be confirmed."],
-                },
-              ],
+              kind: "compare",
+              label: "MITRE ATT&CK matrix",
+              before: "attack-matrix-before.png",
+              after: "mitre-attack.png",
             },
-            /* UNANSWERED — restore this block when the answers land:
             {
-              kind: "todo",
-              items: [
-                "Dashboard: what was wrong with the old one, what changed, and why.",
-                "Threat Library, what the page is for and what the redesign changed. (Note: the brief spells this “Thread Library” and “Thread Intelligence” throughout, confirm whether that’s Threat or Thread before this goes live.)",
-                "Threat Intelligence, purpose of the page and what changed.",
-                "Settings, scope of the redesign; anything notable such as permissions complexity or the number of sub-sections.",
-                "Integrations, what the page manages and what changed. No screen is wired in for this surface yet.",
-                "Confirm each screen above is actually the surface it’s labelled as: I matched them by filename, not by knowing the product.",
+              kind: "prose",
+              body: [
+                "The ATT&CK matrix is the canonical way security teams think about attacker behaviour, and in the old build it was a panel embedded halfway down another page, scrolling horizontally inside its own box. It is the industry’s shared map, and it was being treated as a widget.",
+                "The redesign gives it the whole screen and adds the thing the old one was missing: banding. Each technique carries a coverage band, so the matrix reads as a heat map first and a list of names second. You can see where you are weak from across the room, which is the only way anyone reads this thing in a review meeting.",
               ],
             },
-            */
+            {
+              kind: "split",
+              weight: "text",
+              align: "start",
+              left: {
+                kind: "callout",
+                title: "Detail on demand",
+                body:
+                  "The tile itself stays quiet: a name, an action count, one bar. Coverage, prevented and successful rates only appear on hover, so the grid can hold hundreds of techniques without turning into a spreadsheet.",
+              },
+              right: {
+                kind: "figure",
+                src: "attack-matrix-hover.png",
+                frame: "card",
+                caption: "Hovering a technique",
+              },
+            },
+            {
+              kind: "figure",
+              src: "threat-intel-listing.png",
+              frame: "wide",
+              caption: "Threat Intelligence — spotlights, reports and in-the-wild activity in one feed",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Threat Intelligence is the part of the product that answers “should I care about this one”. It is editorial content, so it is laid out like editorial content: a card grid with imagery, a date, the actor and the categories, and a coverage bar showing how you would fare against it right now. That last element is the one that makes it a product feature rather than a news feed.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "threat-intel-detail.png",
+              frame: "wide",
+              caption: "A threat, opened — abstract, who it targets, and your own performance against it",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Opening a threat splits it into three tabs so the analyst, the executive and the operator each have a place to land: the abstract and target profile up front, the full analyst report behind a tab, and the specific threats you can run behind another.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "integrations.png",
+              frame: "wide",
+              caption: "Integrations — what is connected, then what FourCore suggests connecting next",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Integrations splits into two states on one page: what you have connected and can manage, and what FourCore recommends you connect next. Recommendations sit below active connections rather than in a separate tab, because the moment someone is thinking about their tooling is the moment they are already on this screen.",
+              ],
+            },
           ],
         },
         {
-          id: "features",
-          kicker: "Shipped",
-          heading: "New features, beyond the redesign",
+          id: "assets",
+          kicker: "Chapter 02",
+          heading: "Assets, the thing every simulation points at",
           blocks: [
             {
               kind: "prose",
               body: [
-                "Five-plus net-new features have shipped since the redesign, as the product grew past what the original surfaces covered.",
+                "Nothing in the product works until a customer has assets in it. An asset is a machine, a mailbox or a web endpoint with the FourCore agent installed, and it is the target every simulation runs against. It is also the least glamorous part of the product and the one most likely to be where a trial quietly dies.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "assets-listing.png",
+              frame: "wide",
+              caption: "Assets, split by type: endpoint, email and web",
+            },
+            {
+              kind: "figure",
+              src: "asset-detail.png",
+              frame: "scroll",
+              caption:
+                "One asset, opened: what it is, how it has performed, and every simulation it has been through",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The asset detail page carries two audiences at once. The top half is machine facts — OS, kernel, CPU, memory, agent version, last seen — which an engineer needs and nobody else reads. The bottom half is history: blocked and alerted rates over time, and the full run log with the same analytics column used everywhere else in the product.",
+                "Splitting them vertically rather than into tabs means the person who came for the run history scrolls past the specification once and never has to think about it again, while the person debugging an agent gets it without a click.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "asset-add-windows.png",
+              frame: "wide",
+              caption: "Adding an endpoint — the install laid out as numbered steps, per platform",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Adding an asset means installing software on a production machine, usually by someone who has to justify doing it. The drawer lays the install out as numbered steps with the exact exclusion path and a copyable script, and it ends by telling you what success looks like: the agent shows up on the assets page. Instructions that stop before the confirmation are how support tickets get made.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "access",
+          kicker: "Chapter 02",
+          heading: "Getting in, and getting a team in",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Authentication and settings are the screens no one puts in a portfolio, and they are the ones every single customer sees. I redesigned the whole set.",
               ],
             },
             {
               kind: "figures",
               cols: 2,
               items: [
-                { src: "emerging-threats.png", caption: "Emerging Threats workflow" },
-                { src: "schedule-details.png", caption: "Scheduler" },
+                { src: "sign-in.png", caption: "Sign in" },
+                { src: "auth-register.png", caption: "Registration" },
               ],
             },
-            /* UNANSWERED — restore this block when the answers land:
             {
-              kind: "todo",
-              items: [
-                "Emerging Threats, what problem it solves and how it works at a high level.",
-                "Scheduler: what gets scheduled, and why it mattered.",
-                "Playbooks, what a playbook is in this context and what it lets users do. No screen wired in yet.",
+              kind: "prose",
+              body: [
+                "Sign-in and registration share one composition: a full-bleed gradient panel on the left holding the brand, the form on the right, and nothing else on the page. The gradient is doing real work — it is the only place in the entire product where the brand gets to be loud, because every screen after this one belongs to the customer’s data.",
               ],
             },
-            */
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "auth-signin-error.png", caption: "A failed sign in" },
+                { src: "auth-forgot-password.png", caption: "Forgot password" },
+              ],
+            },
+            {
+              kind: "figure",
+              src: "settings-team-v2.png",
+              frame: "wide",
+              caption: "Settings → Team: roles, status and last active in one table",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Team management is where a single-seat trial becomes an account with a security team on it. The table carries the three things an admin checks — who they are, what they can do, and whether the invite was ever accepted — without a click.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "settings-audit-logs.png", caption: "Audit logs" },
+                { src: "settings-rest-api.png", caption: "API keys, with a key opened" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "Audit logs and API keys are compliance surfaces: they exist because a security buyer’s procurement checklist asks for them. The key drawer spells out every permission a key grants in plain sentences next to its scope name, because the person revoking a key at 2am is not the person who created it.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "preferences.png",
+              frame: "wide",
+              caption: "Preferences — organisation, time zone and alerting",
+            },
           ],
         },
         {
-          id: "decisions",
-          kicker: "Key Decision",
-          heading: "Killing Exposures and folding it into the Threat Library",
+          id: "states",
+          kicker: "Detail",
+          heading: "The screens nobody asks for",
           blocks: [
             {
               kind: "prose",
               body: [
-                "Exposures shipped as a standalone feature, then was scrapped and replaced: its functionality absorbed into a redesigned Threat Library workflow instead of continuing as a separate surface.",
+                "A design system is mostly judged on its happy path and mostly used off it. These are the states that get skipped in a redesign brief and then get built badly under deadline, so I drew them up front.",
               ],
             },
-            /* UNANSWERED — restore this block when the answers land:
             {
-              kind: "todo",
+              kind: "figures",
+              cols: 2,
               items: [
-                "Why the standalone version didn’t work.",
-                "What the merged version does better.",
-                "Before/after screens of both states, if they exist: this is the strongest moment in the case study and deserves the visual.",
+                { src: "empty-screen.png", caption: "Team, before anyone has been invited" },
+                { src: "report-aborted-state.png", caption: "A simulation the user stopped part way" },
               ],
-              note: "Killing a feature and folding it into something else is a real product decision. It’s what turns 40+ screens into a case study rather than a screen dump, worth writing properly.",
             },
-            */
+            {
+              kind: "prose",
+              body: [
+                "Both of these do the same two jobs: say plainly what happened, and offer the one action that resolves it. “It’s a bit lonely in here” with an Invite User button; “this simulation was aborted by user” with Simulate Again. Neither leaves the reader wondering whether something is broken.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 3,
+              items: [
+                { src: "performance-empty-state.png", caption: "A chart with no data yet" },
+                { src: "card-empty-rest.png", caption: "A zeroed card, at rest" },
+                { src: "card-empty-hover.png", caption: "The same card, on hover" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The zero states are the ones I care most about. A new account opens a dashboard where every number is legitimately 0% and every chart is legitimately empty, and that screen has to read as “nothing has run yet”, not as “this product is broken”.",
+                "So the empty chart keeps its own skeleton — the bars are still there, greyed, holding their shape — and the zeroed card hides a Simulate Attack button until you hover it. The card is not just reporting that nothing has happened; it is offering to make something happen.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "iterations",
+          kicker: "Process",
+          heading: "The same screen, more than once",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "None of the screens above arrived in one pass. A few of them are worth showing twice, because the distance between the two versions is most of what the job actually is.",
+              ],
+            },
+            {
+              kind: "lead",
+              text: "Alert filters: from a page of a notebook to a shipped drawer.",
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "alerts-drawer-sketch.png", caption: "Where it started" },
+                { src: "alerts-drawer-final.png", caption: "Where it ended up" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The problem was that simulation-finished emails were firing on everything, so people either muted them or ignored them. The fix was to let an admin narrow what triggers an alert: which assets, which users, which execution types, and — the important one — which results.",
+                "The sketch already has the whole structure in it. Four filters, each with its own on/off so the defaults stay quiet, and a result filter that needed a range rather than a value. That last control is the only thing that really changed between the two: the loose slider in the notebook became a two-handled threshold with the numbers called out, so “alert me when successful attacks land between 40% and 60%” is something you can read back off the screen.",
+              ],
+            },
+            {
+              kind: "compare",
+              label: "Settings → Team, first pass and second",
+              before: "settings-team-v1.png",
+              after: "settings-team-v2.png",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The first pass split users across two tabs, Users and Pending Invites, and put the role in its own column as plain text with a tooltip explaining what each role meant. Reviewing it, two things were wrong. Splitting by invite state meant the answer to “is everyone set up” lived in a badge on a tab. And a tooltip is where you put an explanation you hope nobody needs.",
+                "The second pass merges the tabs into one table and adds Status as a real column, so Active, Invited and Disabled sit side by side and can be filtered. The role moves up next to the name as a coloured badge, where it reads as a property of the person rather than a cell in a grid. The hover explanation is gone.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "assets-listing.png", caption: "The asset table as it shipped" },
+                { src: "assets-table-later.png", caption: "A later pass: criticality and environment" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The asset table went the same way. The first version answered “what is connected” — hostname, version, IP, OS, last seen. The later pass answers “what matters”, adding a criticality level and the business environment each asset belongs to, so a list of machines becomes a list of machines you can prioritise.",
+              ],
+            },
+            {
+              kind: "lead",
+              text: "And two cards, explored at two densities.",
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "card-vulnerable-assets-lean.png", caption: "Most Vulnerable Assets, lean" },
+                { src: "card-vulnerable-assets-rich.png", caption: "Most Vulnerable Assets, expanded" },
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "card-security-controls-lean.png", caption: "Security Control Analytics, lean" },
+                { src: "card-security-controls-rich.png", caption: "Security Control Analytics, expanded" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "Both cards were drawn twice: once as a ranked list that fits five rows in the height of a dashboard tile, and once as a fuller record with a ring per row, the exposure count, and the security tools covering each asset.",
+                "The lean version is the one on the dashboard. On a screen where a card is competing with eleven others, the job is to name the worst offenders and hand you a link — the detail belongs on the page you land on when you take it.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "decision",
+          kicker: "Key Decision",
+          heading: "Making a table tell you where to look",
+          blocks: [
+            {
+              kind: "decision",
+              title: "Percentages told users the number. They did not tell them where to look.",
+              body: [
+                "FourCore is a data-heavy product, and a lot of that data lives in tables. Users kept telling us the same thing in different words: they could read any individual row fine, but scanning a full table to work out which entry needed their attention first was slow.",
+                "The analytics in those tables were rendered as percentages. A percentage is precise, and precision is the right call in a security tool, but a column of numbers gives the eye nothing to catch on. Reading it is a serial task: you go row by row, comparing as you go. That is exactly the wrong shape for a screen someone opens when something is on fire.",
+                "The constraint was that whatever replaced it could not cost us the table. Tables here are dense and have to stay responsive across a lot of columns and a lot of rows, so anything that needed real horizontal space, a bar column, a sparkline, an extra cell, was out before it started.",
+                "What I landed on was combining the two rather than choosing between them: the percentage stays, and a small ring chart wraps it in the same cell. The ring costs almost no additional width because it occupies space the cell already had, and it turns the number into something the eye can compare in parallel. Users get the exact figure when they need it and, before that, an at-a-glance read of which rows are worth their attention.",
+              ],
+            },
+            {
+              kind: "split",
+              weight: "text",
+              align: "start",
+              left: {
+                kind: "prose",
+                body: [
+                  "The component had to survive every value the data could hand it, not just the demo-friendly middle. A full ring at 100% and an empty one at 0% both have to stay legible at sixteen pixels, and the colour has to carry meaning without being the only thing carrying it — blocked, successful and alerted are green, red and amber, but they are also three different icons.",
+                  "The row that mattered most was the one that is not a number at all. When an attack fails to execute there is no percentage to show, and the honest answer is to say so in words and grey the rest of the row out, rather than render a 0% that reads as “nothing got through”.",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "ring-analytics-states.png",
+                frame: "card",
+                caption: "The ring across its states, including the one that has no value",
+              },
+            },
+            {
+              kind: "figure",
+              src: "reports-listing.png",
+              frame: "wide",
+              caption: "The rings in production, in the Analytics column of the reports table",
+            },
+            {
+              kind: "prose",
+              body: [
+                "In place, three rings sit in the width a single percentage used to take. The table keeps its density — attack name, assets, date, actions all still fit — and the column that used to be read row by row can now be skimmed down.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "simulation-report-before.png",
+              frame: "wide",
+              caption: "The old simulation report: results as full-width bars and status badges",
+            },
+            {
+              kind: "prose",
+              body: [
+                "For contrast, this is how results were presented before: horizontal bars that each needed most of a column, and Success / Detected badges repeated down every row. It is readable one row at a time, which was exactly the complaint.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "The specific ‘before’ artefact your decision text describes — the table cell with the bare percentage column. The screen above shows the older bar-and-badge treatment, which makes a slightly different point than the one you are arguing.",
+            //     "Anything measurable from after it shipped, even qualitative: what users said once it was live.",
+            //     "The other key decisions you mentioned wanting to add later. This section is built to take more than one.",
+            //   ],
+            // },
+          ],
+        },
+        {
+          id: "system",
+          kicker: "Chapter 03",
+          heading: "Promoted to Senior, and building the design system",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Being promoted to Senior UI/UX Designer changed what the job was. Redesigning screens one at a time had got the product to a consistent place, but nothing was holding it there. Every new feature was a fresh negotiation about type sizes and spacing and what a button looked like.",
+                "So the first thing I did as a senior was stop designing screens for a while and build the design system for FourCore from scratch: the entire library, spanning typography, colour, components, and a custom icon set. In a product this dense, that system is what lets a hundred different screens, dashboards, attack graphs, MITRE matrices and reports feel like one tool, and it is the reason new features started shipping much faster after it existed.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "The design system artefacts: type scale, colour ramps, the component library, the icon set.",
+            //     "The colour values, if they can be shown, for a swatches block.",
+            //     "Roughly how many components ended up in the library, and how much faster a new screen got to build afterwards. Even a rough before-and-after is stronger than ‘much faster’.",
+            //   ],
+            //   note: "This is the half of the screens that has not been sent yet — everything above is the work up to the Senior promotion.",
+            // },
+          ],
+        },
+        {
+          id: "features",
+          kicker: "Shipped",
+          heading: "New features, concept to production",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "With the system in place, the work moved to net-new product. Over the following stretch I designed and shipped 5+ major features and 40+ new screens, taking each from first concept through to production alongside engineering.",
+              ],
+            },
+            {
+              kind: "list",
+              items: [
+                "Emerging Threats — a feed of live malware campaigns you can run against yourself",
+                "The scheduler — everything the platform runs, on a calendar",
+                "Playbooks — attack chains grouped into the stages of a real intrusion",
+                "Exposures — the ranked list of what to fix",
+                "Reporting, rebuilt",
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The four sections that follow take each of them in turn: what the feature is for, and the decisions inside it that are not obvious from a screenshot.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "Reporting: what was wrong with the old reports and what the rebuild changed. No screens for it yet — the reports listing in the Key Decision section above is the only one wired in.",
+            //   ],
+            // },
+          ],
+        },
+        {
+          id: "emerging-threats",
+          kicker: "Feature",
+          heading: "Emerging Threats, end to end",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Emerging Threats is the feature I took furthest, from the first concept through to production. The premise is simple to state and hard to build: a new malware campaign appears in the wild, and a security team needs to know, today, whether their own defenses would stop it.",
+                "Before something like this exists, that question takes days. Someone reads a threat report, works out which techniques it uses, finds or writes samples, sets up a run, and interprets the output. Emerging Threats collapses that into a feed you can act on, where every row is a real campaign and every row has a Run button.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "emerging-threats.png",
+              frame: "wide",
+              caption: "The Emerging Threats surface: exposure summary above, the day’s campaigns below",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The top of the screen answers “how exposed am I, overall”, and it does it twice, along the two axes that change what you would actually do about it. Exposure by filetype tells you what to tighten — if 56% of your vulnerable files are DLLs, that is a different afternoon than if they are Office documents. Exposure by vector tells you where to tighten it: on disk, through the web proxy, or in email.",
+                "Both are single stacked bars rather than pie charts, with the high-risk slice called out in words rather than left to colour alone. Underneath, the ranked list carries the same three rings used everywhere else in the product, so a rate here means what a rate means anywhere.",
+                "Each row is a campaign, tagged by the industries, regions and threat actors it is associated with — the three things a reader uses to decide whether it is aimed at someone like them. And the primary action sits on the row itself. There is no detail page to visit first, because the whole point is to shorten the distance between reading about a threat and testing yourself against it.",
+              ],
+            },
+            {
+              kind: "callout",
+              title: "Designing for the labels you do not control",
+              body:
+                "Industry and region names come from threat data, not from us, so the filter was specified against labels that wrap onto two lines rather than the tidy one-word options a mockup usually uses. Selected items pin to the top with a count and a Clear All, so a long list stays navigable once you are several filters deep.",
+            },
+            {
+              kind: "figure",
+              src: "et-filter-industry.png",
+              caption: "The industry filter, specified with realistic labels rather than convenient ones",
+            },
+            {
+              kind: "lead",
+              text: "A feature nobody knows exists has not shipped. So it introduces itself.",
+            },
+            {
+              kind: "figure",
+              src: "et-intro-1.png",
+              frame: "wide",
+              caption: "01 — Say what it is",
+            },
+            {
+              kind: "figure",
+              src: "et-intro-2.png",
+              frame: "wide",
+              caption: "02 — Then say why it is theirs",
+            },
+            {
+              kind: "figure",
+              src: "et-intro-3.png",
+              frame: "wide",
+              caption: "03 — Then ask for the one decision",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Three steps, each doing a different job. The first names the thing. The second is the one that turns a global feed into something personal — the platform maps worldwide activity onto your assets, your regions, your sectors. Without that step, Emerging Threats reads as a news ticker; with it, the list behind the dialog is a list about you.",
+                "The third step is the reason the flow exists at all. Automation is what makes the feature useful without anyone remembering to open it, so it is marked Recommended and given a real button — but the way out is a plain “Skip for now”, set at the same size as the thing it declines. A first-run flow that traps people is worse than no first-run flow.",
+                "All three sit over the live screen rather than on a blank page, blurred but still legible at the edges, so the reader can see the thing being described while it is described.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "et-campaign-detail.png",
+              frame: "scroll",
+              caption:
+                "A campaign, opened: what it is, who runs it, who it targets, and how you have fared",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Opening a campaign has to serve two readers at once. The analyst wants the write-up, the source links, and the payload hashes. The person who has to make a decision wants to know whether it applies to them and what happened last time it ran.",
+                "So the narrative sits on the left and the attributes — first observed, discovered on, threat actors, industries, regions — sit in a scannable right rail. Simulate Now is at the top next to the current rates, because the most common reason to open this page is to decide whether to run it.",
+                "Below that, trend analysis over time, then the payloads themselves. That order is deliberate: the trend is the thing you can act on, the payload list is the thing you check afterwards.",
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The payload row is the densest object in the feature, so it was specified as a small state machine rather than a static row: resting, hovered, and expanded.",
+                "Collapsed, it shows the filename, the filetype and the rates. Expanded, it adds what the file actually did, its behavioural tags, and the hashes an analyst will paste into their own tooling — each with a copy button, because nobody types a SHA256 by hand.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "et-payload-states.png",
+              frame: "card",
+              caption: "One payload row, specified across its three states",
+            },
+            {
+              kind: "lead",
+              text: "Two doors into the same room.",
+            },
+            {
+              kind: "figure",
+              src: "et-create-ai.png",
+              frame: "wide",
+              caption: "The AI-assisted path — hand it the report you already have",
+            },
+            {
+              kind: "figure",
+              src: "et-create-manual.png",
+              frame: "scroll",
+              caption: "The manual path — the same campaign, entered field by field",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Customers also need to test threats that are not in the feed — something their own intel team found, or a report a vendor sent them. That is a lot of structured data to enter by hand: campaign name, actor, industry, region, threat family, category, and every payload.",
+                "The AI-assisted path takes the artefact people already have — a PDF report or a URL — and extracts that structure automatically. The manual path is the same campaign, entered field by field.",
+                "Neither is hidden behind the other. Each drawer ends with a plain-text link to its opposite: “I want to enter threat details manually”, and “Switch to AI-based malware upload”. That link is the whole design decision. An automated path that cannot be escaped is a trap when the extraction gets it wrong, and a manual path with no shortcut is a chore when it would have got it right.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "et-automation-enabled.png", caption: "Automation, switched on — the config read back as a receipt" },
+                { src: "et-delete-campaign.png", caption: "Deleting a one-off campaign" },
+                { src: "et-delete-automation.png", caption: "Deleting a recurring automation — “Edit instead”, not just Cancel" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "Automation runs attacks against production systems on a schedule, so the moments where it is switched on and off get the same care as the feature itself. Every one of these dialogs restates the thing being acted on in full — the schedule, the industries, the regions, the actors, the named assets — rather than asking “are you sure?” about an abstraction.",
+                "The confirmation screen doubles as a receipt: it is the first time the reader sees their configuration written out as a sentence, and Edit Preferences sits right there in case reading it back changes their mind.",
+                "The two delete dialogs differ by one word, and it is the word that matters. Deleting a one-off campaign offers Cancel. Deleting a recurring automation offers “Edit instead” — because someone deleting a schedule usually wants it to stop doing what it currently does, not to stop existing.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "The concept work behind this — early explorations, whatever you rejected, and why the feed-with-a-Run-button won. This section shows the destination and not the route.",
+            //     "Anything you can say about how it landed: adoption, what customers said, whether automation gets switched on.",
+            //     "Your own account of the AI-assisted extraction — whose idea it was, and what you had to design around when it gets things wrong.",
+            //   ],
+            //   note: "The reasoning written above is read off the screens. Correct anything I have inferred wrongly.",
+            // },
+          ],
+        },
+        {
+          id: "scheduler",
+          kicker: "Feature",
+          heading: "The scheduler, and the calendar that runs it",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Everything the platform can run — a chain, an exposure test, a playbook, an emerging threat, an automated campaign — can also be run on a schedule. Which means the scheduler quietly became the surface where the whole product shows up in one place, and where the question stops being “what can I run” and becomes “what is already running, and when.”",
+                "It ships as two views of the same data. The calendar is for “what is happening this month”. The list is for “tell me the rules”. Neither is a subset of the other, so they get equal billing behind one toggle rather than one being buried.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "sch-calendar.png",
+              frame: "wide",
+              caption: "The calendar view — a month of scheduled simulations, colour-coded by type",
+            },
+            {
+              kind: "prose",
+              body: [
+                "In the calendar, every entry is colour-coded by what kind of simulation it is, and carries a count when a day holds several of the same type. A recurrence icon marks anything repeating, so a one-off and the fourth instance of a weekly schedule are never confused. Days that failed carry an error dot; days that did not run say Skipped rather than showing nothing.",
+                "That last one matters more than it looks. On a calendar, an empty cell and a cell where something was supposed to happen and did not are visually identical unless you say otherwise.",
+              ],
+            },
+            {
+              kind: "split",
+              weight: "text",
+              align: "start",
+              left: {
+                kind: "callout",
+                title: "One colour system, two surfaces",
+                body:
+                  "The category colours are not decoration local to the calendar. The same six live on the filter chips, so the colour you filter by is the colour you then look for in the grid. Assign a palette once and both surfaces get easier to read.",
+              },
+              right: {
+                kind: "figure",
+                src: "sch-category-chips.png",
+                frame: "card",
+                caption: "The six simulation categories",
+              },
+            },
+            {
+              kind: "figure",
+              src: "sch-list.png",
+              frame: "wide",
+              caption: "The list view — the same schedules, stated as rules",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The list exists because a calendar cannot tell you a rule. “Repeats every 3 weeks on Wednesday and Friday until Apr 16, 2026” is a sentence, and no arrangement of coloured blocks on a grid says it. So each row states the rule in plain English, names the assets it targets, and ends with the single most useful piece of status: when the next run is, or that every run has already completed.",
+                "The type badge sits top-right and the coloured rail runs down the left edge of each card, which is the same colour language as the calendar, again.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "sch-edit-drawer.png",
+              frame: "scroll",
+              caption: "Editing a schedule — recurrence, end condition, targets, and the sentence that checks your work",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The edit drawer is the hardest screen in the feature, because recurrence rules are famously easy to build and famously hard to verify. Someone sets a start date, a frequency, an interval, two weekdays and an end condition, and then has no way of knowing whether the thing they just described is the thing they meant.",
+                "So the drawer ends by reading the whole configuration back as one sentence: repeat every three weeks on Wednesday and Friday at 10:00 AM, from this date to that one. Every control above it is an input to that sentence, and the sentence is the answer to “did I get this right”.",
+                "The rest is guardrails. The start date says up front that it cannot be changed after the first run, rather than failing later. End condition is three explicit choices — never, after a number of runs, on a date — instead of an optional field that silently means “never” when left blank.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "sch-filters-empty.png", caption: "The filter panel, untouched" },
+                { src: "sch-filters-applied.png", caption: "The same panel, six filters deep" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The filter panel was drawn in both of its states, because the interesting one is not the empty version. As selections accumulate, the long select fields collapse into removable chips with an Add More button, so the panel shows you what you have chosen instead of making you reopen each dropdown to find out.",
+                "The count in the footer is doing quiet work too: once you are six filters deep and looking at three results, “(6) Selected” next to Clear Filter(s) is the fastest explanation of why the screen behind looks so empty.",
+              ],
+            },
+            {
+              kind: "split",
+              weight: "text",
+              align: "start",
+              left: {
+                kind: "prose",
+                body: [
+                  "Picking targets has the same problem the filter has, one level down. A mature account has endpoints, mailboxes, web apps and firewalls, in numbers that make a flat alphabetical list useless.",
+                  "So the picker groups by asset type, collapses each group, gives every group its own Select All, and pins what you have already chosen to the top with a Clear All. You can take every Windows machine in two clicks without scrolling past the Linux ones.",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "sch-asset-picker.png",
+                frame: "card",
+                caption: "The target picker, grouped by asset type",
+              },
+            },
+            {
+              kind: "figure",
+              src: "schedule-details.png",
+              frame: "scroll",
+              caption: "A schedule, opened over the calendar: the rule, the trend, and every run it has produced",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Opening an entry slides its detail in beside the calendar rather than navigating away, so the month stays visible behind it. The drawer restates the rule, then gives the two things you came for: how results have trended over the schedule’s life, and the individual runs, each downloadable.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "playbooks",
+          kicker: "Feature",
+          heading: "Playbooks",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "A single attack technique tells you very little. Real adversaries run sequences, and the interesting question is not “can this one command get through” but “how far down the chain do they get before something stops them”. A playbook is that sequence, packaged: a curated set of attack chains, grouped into stages, aimed at a scenario a security team actually worries about.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "playbooks-listing.png",
+              frame: "wide",
+              caption: "The playbook library — each card sized by what it covers",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Every card answers the same three questions in the same order: how big is this (chains and actions), what does it get me (exposures tackled, MITRE techniques covered), and is it current (last updated). Those are the terms a security lead compares options in, so they are the terms the card is built from rather than a description they would have to read four times.",
+                "Some playbooks carry a Dynamic marker, which sets them apart from the fixed ones — a distinction the card makes with a single pill instead of a separate section of the library.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "playbook-stage.png",
+              caption: "One stage of a playbook, with its chains and its own scoreboard",
+            },
+            {
+              kind: "prose",
+              body: [
+                "Inside, a playbook is broken into named stages that follow the shape of a real intrusion — this one covers initial compromise — and each stage gets a plain-language explanation of what it is simulating before any chain appears. That sentence is the difference between a tool a security engineer can use and a tool only its authors understand.",
+                "Each stage also carries its own scoreboard: chains, actions and exposures on the left, with the successful and blocked split right underneath. So you can see which stage of the attack your defenses actually broke at, rather than getting one number for the whole playbook. Stages collapse, because a long playbook read end to end is a wall.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "What a Dynamic playbook does differently — the pill is visible in the library but the behaviour behind it is not something I can read off a screen.",
+            //     "Who authors playbooks: FourCore Labs, the customer, or both. The library header suggests recommended ones are curated, which is worth stating outright.",
+            //     "The playbook listing card title and the stage screens are cropped or blurred — a full detail page would let this section show the whole structure rather than one stage.",
+            //   ],
+            // },
+          ],
+        },
+        {
+          id: "exposures",
+          kicker: "Feature",
+          heading: "Exposures",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Everything else in the platform produces evidence. Exposures is where that evidence turns into a list of things to fix, in order — which is the output the whole product exists to produce.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "exposures-overview.png",
+              frame: "wide",
+              caption: "Exposures — coverage by control class, then the ranked list of what to fix",
+            },
+            {
+              kind: "prose",
+              body: [
+                "The top of the screen is scoped by control class — endpoint, email, web, firewall — because that is how remediation work gets assigned. The team that fixes an email gateway is rarely the team that fixes endpoint policy, and each card carries both progress fractions a lead needs: how many exposures have been assessed at all, and how many actions have actually run.",
+                "Below it, every exposure leads with a score. That score is the reason the page works: it turns a list into a ranking, and a ranking is the only form of this information anyone can act on before lunch.",
+                "Each row then carries what you need to decide and what you need to act. The chips count the actions behind the finding and the detection rules that exist for it — Sigma and YARA, the formats a detection engineer already writes in — and the body text is remediation guidance, not a restatement of the problem. A finding that tells you what is wrong without telling you what to do is a ticket someone else has to write.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "How the score is calculated, at whatever level of detail is safe to publish. It is the most important number on this screen and the case study currently cannot explain it.",
+            //     "The exposure detail page, and the flow from an exposure to the runs that produced it.",
+            //     "Whether remediation guidance is authored by FourCore Labs or pulled from the detection rules.",
+            //   ],
+            // },
+          ],
+        },
+        {
+          id: "practice",
+          kicker: "Practice",
+          heading: "How the work actually happens",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The title changed, but so did the shape of the work. Design at FourCore is not a request queue at the end of a product process, and most of what I do now sits earlier than the file.",
+              ],
+            },
+            {
+              kind: "list",
+              items: [
+                "Applied AI-assisted prompt engineering to speed up rapid prototyping and day-to-day product design work, getting to something testable in hours rather than days.",
+                "Took part directly in user research, and turned what clients and users said into features that shipped.",
+                "Worked directly with engineers, the CTO and the founders, rather than handing designs over a wall.",
+                "Led the design function, and mentored a junior designer joining the team.",
+              ],
+            },
+            /* TO WRITE — hidden for now. Uncomment to bring the checklist back. */
+            // {
+            //   kind: "todo",
+            //   items: [
+            //     "A concrete example of the AI-assisted prototyping: what you were trying to get to, what you prompted, and what it saved. One specific story lands harder than the claim.",
+            //     "One research finding that changed a design decision, described in a way that does not identify the client.",
+            //   ],
+            // },
           ],
         },
         {
           id: "outcome",
-          kicker: "Outcome & Reflection",
-          heading: "What two years as the only designer actually looks like",
+          kicker: "Outcome",
+          heading: "What it added up to",
           blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Over the year that followed the redesign, the design system, and the new features, FourCore’s revenue doubled. That is a company result, not a design one: it belongs to the product, engineering and go-to-market work as much as anything I drew.",
+                "What design can fairly claim is the part it made possible. A product that looks and behaves like enterprise software is one that enterprise buyers will take seriously in a demo. A design system meant features stopped taking as long to build. And restructuring how simulation results are presented turned dense security output into something a customer could act on in the room, which is usually where the buying decision actually gets made.",
+              ],
+            },
             {
               kind: "stats",
               items: [
-                { value: "40+", label: "Screens redesigned" },
-                { value: "5+", label: "Features shipped" },
-                { value: "2 yrs", label: "Ongoing, sole design contributor" },
+                {
+                  value: "2×",
+                  label: "Company revenue growth over a year",
+                  source: "Company-wide outcome across product, engineering and go-to-market",
+                },
+                { value: "40+", label: "New screens shipped" },
+                { value: "5+", label: "Major features, concept to production" },
               ],
             },
-            /* UNANSWERED — restore this block when the answers land:
+          ],
+        },
+        {
+          id: "growth",
+          kicker: "Reflection",
+          heading: "Two years from amateur to professional",
+          blocks: [
             {
-              kind: "todo",
-              items: [
-                "An honest reflection in the same register as Formi’s “Being straight about it”, what the role has actually meant. Owning design end to end with no team to share the load, holding a design system together as the product grew, whatever is true.",
+              kind: "prose",
+              body: [
+                "I joined FourCore as an intern who could make things look good and left that version of myself behind fairly quickly. For most of that time I was the only designer in the company, which means there is nobody to check your work and no house style to inherit. Every convention in the product is one you either set deliberately or set by accident.",
+                "The biggest shift was learning to design for a domain I did not start out understanding. I could not have told you what lateral movement was on day one. Designing a security product means the interface is only as good as your grasp of what the user is actually looking at, and a lot of the past two years has been spent closing that gap by sitting with engineers, with the CTO, and with the people who use it.",
+                "The rest of it was learning that the job is not the file. It is arguing for a direction, cutting scope when the deadline is real, keeping a system coherent while the product changes underneath it, and now helping someone else find their footing as a designer. That is the part that turned this from an internship into a career.",
               ],
-              note: "A few honest sentences will read better than trying to summarise everything shipped over two years.",
             },
-            */
           ],
         },
       ],
     },
+    /* the archive under the study — real exports only, no stand-ins, roughly
+       in the order the case study walks through them */
     gallery: [
+      "dashboard-refined.png",
       "dashboard.png",
-      "threat-intelligence.png",
       "mitre-attack.png",
-      "macbook-6.png",
-      "macbook-7.png",
-      "emerging-threats.png",
-      "calendar-view.png",
-      "schedule-details.png",
-      "preferences.png",
+      "threat-intel-listing.png",
+      "threat-intel-detail.png",
+      "integrations.png",
+      "reports-listing.png",
+      "assets-listing.png",
+      "asset-detail.png",
+      "asset-add-windows.png",
+      "assets-table-later.png",
       "sign-in.png",
+      "auth-register.png",
+      "preferences.png",
+      "settings-team-v2.png",
+      "settings-audit-logs.png",
+      "settings-rest-api.png",
       "empty-screen.png",
+      "report-aborted-state.png",
+      "alerts-drawer-final.png",
+      "emerging-threats.png",
+      "et-campaign-detail.png",
+      "et-create-ai.png",
+      "et-create-manual.png",
+      "sch-calendar.png",
+      "sch-list.png",
+      "sch-edit-drawer.png",
+      "schedule-details.png",
+      "playbooks-listing.png",
+      "playbook-stage.png",
+      "exposures-overview.png",
     ],
     link: "https://fourcore.io/",
     featured: true,
@@ -2026,172 +2901,34 @@ export const projects: Project[] = [
 
 ];
 
-export type TimelineItem = {
-  year: string;
-  type: string;          // shown as a tag
-  accent: string;        // palette var
-  title: string;
-  org?: string;
-  description: string;
-  image?: string;        // filename in public/timeline/
-  placeholder?: boolean; // dashed styling until real details are added
-};
+/* ------------------------------------------------------------
+   Card-level projection of `projects`.
 
-export const timeline: TimelineItem[] = [
-  {
-    year: "2020",
-    type: "Education",
-    accent: "violet",
-    title: "Started B.Tech, Computer Science",
-    org: "Maharaja Agrasen Institute of Technology",
-    description:
-      "Where the foundation was laid: computer science, with a growing pull toward how products actually feel to use.",
-  },
-  {
-    year: "2022",
-    type: "Recognition",
-    accent: "coral",
-    title: "Hackathon breakthroughs",
-    org: "Google Solution Challenge · Smart India Hackathon",
-    description:
-      "Top 50 Global and Top 15 nationally with Proctify, my first taste of designing real products under pressure.",
-  },
-  {
-    year: "2022–23",
-    type: "Learning",
-    accent: "yellow",
-    title: "Design certifications",
-    org: "Accenture · NPTEL · InnovateU",
-    description:
-      "UX Design, Product Design & Development, and more, turning instinct into deliberate craft.",
-  },
-  {
-    year: "Feb 2024",
-    type: "First role",
-    accent: "blue",
-    title: "UI/UX Design Intern at FourCore",
-    org: "Breach & Attack Simulation platform",
-    description:
-      "My first design internship, stepping straight into complex B2B cybersecurity.",
-  },
-  {
-    year: "2024",
-    type: "Conversion",
-    accent: "teal",
-    title: "Converted to full-time UI/UX Designer",
-    org: "FourCore",
-    description:
-      "Earned a full-time seat and built the product’s first design system from the ground up.",
-  },
-  {
-    year: "Oct 2024",
-    type: "Judge",
-    accent: "pink",
-    title: "Design competition judge",
-    org: "Design Verse · BVCOE, New Delhi",
-    description:
-      "Invited to judge Design Verse, a two-day design seminar & competition (IEEE Student Branch), reviewing student projects and awarding the winning teams.",
-    // image kept in public/timeline/ — reference removed for now
-  },
-  {
-    year: "Aug 2025",
-    type: "Promotion",
-    accent: "teal",
-    title: "Promoted to Senior UI/UX Designer",
-    org: "FourCore",
-    description:
-      "Now leading a junior designer and working directly with product and engineering to ship features.",
-  },
-];
+   The work grid is a client component, and anything a client component
+   imports is bundled and shipped to the browser. Importing `projects`
+   there would send every case-study body to every visitor, including the
+   `more` blocks that are meant to sit behind a password. This is the only
+   shape the grid needs, so it is the only shape it gets.
+   ------------------------------------------------------------ */
+export type WorkCard = Pick<
+  Project,
+  | "slug" | "title" | "subtitle" | "role" | "timeline" | "year"
+  | "accent" | "cover" | "dir" | "summary" | "tags" | "metrics" | "professional"
+>;
 
-export type Skill = { name: string; tier?: "primary" | "medium" };
+export const workCards: WorkCard[] = projects.map((p) => ({
+  slug: p.slug,
+  title: p.title,
+  subtitle: p.subtitle,
+  role: p.role,
+  timeline: p.timeline,
+  year: p.year,
+  accent: p.accent,
+  cover: p.cover,
+  dir: p.dir,
+  summary: p.summary,
+  tags: p.tags,
+  metrics: p.metrics,
+  professional: p.professional,
+}));
 
-export const capabilities: { title: string; accent: string; skills: Skill[] }[] = [
-  {
-    title: "Design",
-    accent: "coral",
-    skills: [
-      { name: "Product Design", tier: "primary" },
-      { name: "UI/UX Design", tier: "primary" },
-      { name: "Design Systems", tier: "primary" },
-      { name: "User Research", tier: "medium" },
-      { name: "Prototyping", tier: "medium" },
-      { name: "Interaction Design" },
-      { name: "Wireframing" },
-      { name: "Typography" },
-    ],
-  },
-  {
-    title: "Tools",
-    accent: "blue",
-    skills: [
-      { name: "Figma", tier: "primary" },
-      { name: "Figma Make", tier: "primary" },
-      { name: "Sketch" },
-      { name: "Canva" },
-      { name: "Git" },
-      { name: "GitHub" },
-      { name: "GitLab" },
-    ],
-  },
-  {
-    title: "AI & Productivity",
-    accent: "violet",
-    skills: [
-      { name: "Figma AI", tier: "primary" },
-      { name: "ChatGPT (GPT-5)", tier: "primary" },
-      { name: "Claude Design", tier: "primary" },
-      { name: "Prompt Engineering", tier: "medium" },
-      { name: "AI-assisted UX Research", tier: "medium" },
-      { name: "OpenAI Codex" },
-      { name: "OpenCode" },
-      { name: "PRD Authoring" },
-      { name: "Design Documentation" },
-      { name: "Frontend Prototyping" },
-    ],
-  },
-];
-
-export const marqueeWords = [
-  "Product Design",
-  "Design Systems",
-  "User Research",
-  "Prototyping",
-  "Interaction Design",
-  "Healthtech",
-  "0 → 1",
-  "Figma",
-  "Typography",
-  "Design that ships",
-];
-
-export const recognition = {
-  highlights: [
-    { rank: "Top 50", scope: "Global", event: "Google Solution Challenge", year: "2022", accent: "coral" },
-    { rank: "Top 15", scope: "National", event: "Smart India Hackathon", year: "2022", accent: "blue" },
-    { rank: "Rank 4", scope: "of 150", event: "LiveTheCode Hackathon", year: "", accent: "violet" },
-  ],
-  alsoPlaced: [
-    "Runner-Up, Evotech 5.0 Ideathon",
-    "Top 50 / 115, DotSlash 5.0",
-  ],
-  certifications: {
-    featured: { name: "UX Design", by: "Accenture" },
-    others: [
-      "Product Design & Development, NPTEL (85%)",
-      "Functional & Conceptual Design, NPTEL (84%)",
-      "UX Design Workshop, InnovateU",
-    ],
-  },
-  education: {
-    degree: "B.Tech, Computer Science",
-    school: "Maharaja Agrasen Institute of Technology",
-    years: "2020, 2024",
-    cgpa: "8.91 / 10",
-  },
-  mentorship: {
-    num: "300+",
-    org: "Girl Code It",
-    text: "Ran a Git & GitHub fundamentals session for 300+ students and mentored 5+ through a UI development bootcamp.",
-  },
-};

@@ -17,6 +17,7 @@ const ORDER: { slug: string; size: Size }[] = [
   { slug: "autumn", size: "hbig" },
   { slug: "formi", size: "big" },
   { slug: "conqr", size: "wide" },
+  { slug: "vaulted", size: "wide" },
 ];
 const INVITE_AFTER = 4; // insert the "start a conversation" tile after Formi
 

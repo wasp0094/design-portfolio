@@ -2899,7 +2899,10 @@ export const projects: Project[] = [
     timeline: "2.5-day design sprint",
     year: "2026",
     accent: "yellow",
-    cover: "dashboard.png",
+    /* the grid's `wide` tile sizes its media by the cover's intrinsic aspect,
+       so a portrait phone frame would stretch the tile to ~3x the row height.
+       cover-wide.png is a landscape composite of three screens, built for it. */
+    cover: "cover-wide.png",
     hero: "item-detail.png",
     layout: "mobile",
     captions: true,

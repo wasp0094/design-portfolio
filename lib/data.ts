@@ -2890,6 +2890,354 @@ export const projects: Project[] = [
     featured: true,
   },
 
+  {
+    slug: "vaulted",
+    dir: "vaulted",
+    title: "Vaulted",
+    subtitle: "Fractional ownership of collectables",
+    role: "Product Design — concept",
+    timeline: "2.5-day design sprint",
+    year: "2026",
+    accent: "yellow",
+    cover: "dashboard.png",
+    hero: "item-detail.png",
+    layout: "mobile",
+    captions: true,
+    summary:
+      "A mobile app for buying and trading shares in collectables — a Dhoni World Cup ball, a Raza canvas, a 1911 mohur. Designed for a bank’s product-design brief, built around the one problem that killed every Western platform in this category: liquidity.",
+    overview: [
+      "Vaulted is a concept app for fractional investment in collectables. The platform buys an object outright, vaults it, and lists it as 1,000 shares at a fixed price. Holders make money two ways — selling shares to other users, or an item buyout, where an outside collector purchases the whole object, it leaves the platform, and every shareholder is paid out.",
+      "The brief asked for a dashboard, an items listing, and an item detail page. The interesting part was what it didn’t ask for: the category this product belongs to has largely collapsed, and the failure modes are user-experience problems, not just business-model problems. I designed to those failures rather than around them.",
+    ],
+    highlights: [
+      "Researched the fractional-collectables category and found a single shared failure — no secondary-market liquidity — then made the market model the central design decision rather than a backend detail.",
+      "Chose weekly market sessions with a queued-order (AMO) state over a continuous order book, and designed the closed state as the hero: it is the state the app is in roughly 95% of the week.",
+      "Designed the six-step buyout flow — offer, review, 48-hour shareholder vote, live tally, board decision, payout — the primary payout mechanism and the part of the brief most submissions skip.",
+      "Built a dual-mode art direction: dark for market surfaces, light catalogue for provenance and custody, switching once, on scroll, at the provenance divider.",
+      "Removed every FOMO mechanic — no scarcity counters, no urgency timers, no projected-return headlines — and argued the restraint as the product.",
+    ],
+    tags: ["Mobile", "Product Design", "Fintech", "Concept"],
+    tools: ["Figma", "React", "pen.dev"],
+    metrics: [
+      { value: "22", label: "Screens designed" },
+      { value: "6", label: "Steps in the buyout flow" },
+      { value: "3", label: "Market states designed" },
+    ],
+    study: {
+      meta: [
+        { label: "Role", value: "Product Designer — research, IA, UI, design system, prototype" },
+        { label: "Platform", value: "Native mobile, 393×852" },
+        { label: "Scope", value: "22 screens, one interactive prototype" },
+        { label: "Context", value: "Design assignment for a leading Indian bank · 2.5 days" },
+      ],
+      glance: [
+        { value: "3", label: "Platforms in this category that shut down, 2022–2024" },
+        { value: "~95%", label: "Of the week the market is closed — so that state got designed first" },
+        { value: "0", label: "Scarcity counters, urgency timers or projected-return claims" },
+      ],
+      glanceNote:
+        "A 2.5-day assignment. The brief asked for three screens; the research said the category dies of illiquidity and broken trust, so I designed the market model and the buyout — the two things that actually decide whether this product works.",
+      sections: [
+        {
+          id: "brief",
+          kicker: "The brief",
+          heading: "Design a mobile app for trading shares in collectables",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "A leading Indian bank set the assignment. Design a mobile concept for a platform that buys collectables outright — art, vintage cars, memorabilia — stores them, and lists each one as N shares at a fixed price per share. The worked example in the brief: the ball MS Dhoni hit for six to win the 2011 World Cup final. A thousand shares at ₹500 is a ₹5 lakh valuation. Two years later a collector buys the whole thing for ₹20 lakh, and every holder gets four times their money.",
+                "The deliverables were a concept, a feature list and IA, UI for the dashboard, items listing and item detail, and a prototype. The audience was specified unusually precisely: 27–32, high-earning, Tier-1 Indian cities, crypto-curious, design-literate — and, stated outright in the brief, people for whom using the app adds to their social status.",
+              ],
+            },
+            {
+              kind: "callout",
+              title: "The line that set the direction",
+              body: "“Using the app adds to their social status.” That is a design instruction, not a demographic footnote. It is the difference between a trading terminal and an auction catalogue, and it decided the art direction.",
+            },
+          ],
+        },
+        {
+          id: "research",
+          kicker: "Research",
+          heading: "The category already failed, and it failed for UX reasons",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Before drawing anything I looked at what happened to the platforms that tried this in the West. The answer reframed the whole assignment.",
+                "Otis was acquired and its assets largely liquidated. Dibbs raised $13M and shut down. Collectable emailed every holder to withdraw their funds before a deadline. The survivors are not clean either: one was fined by the SEC for operating as an unregistered broker-dealer and carries a going-concern warning in its own filing; another discloses to investors that its market “frequently lacks liquidity,” and roughly nine in ten of its holdings have never exited.",
+              ],
+            },
+            {
+              kind: "stats",
+              items: [
+                { value: "3", label: "Platforms shut down or liquidated, 2022–2024", source: "Otis, Dibbs, Collectable" },
+                { value: "~90%", label: "Of one survivor’s holdings that have never exited", source: "platform’s own investor disclosure" },
+                { value: "15–25%", label: "Of returns eaten by fees, cited across the category" },
+              ],
+            },
+            {
+              kind: "lead",
+              text: "This is not two died and two survived. It is one liquidity-and-trust disease across the whole category — the survivors just have longer runways.",
+            },
+            {
+              kind: "prose",
+              body: [
+                "That gave me the thing a brief like this rarely hands you: a clear, evidenced reason to reject the obvious design. The obvious design is a dark trading app — dashboard, grid of items, line chart, Buy button. It satisfies the deliverables and fails the product, because it models a liquid market that does not exist.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "decisions",
+          kicker: "Product decisions",
+          heading: "Four decisions made before any screen was drawn",
+          blocks: [
+            {
+              kind: "decision",
+              title: "Weekly market sessions, not a continuous order book",
+              body: [
+                "A secondary market in 1,000 shares of one cricket ball is thin. A continuous order book would sit empty, and a UI that renders a busy book is a UI that does not understand its own product.",
+                "So the market opens once a week, on Saturday, 11:00–17:00, with a pre-session order queue and an opening auction. Concentrating a week of demand into one window is how a thin market gets a real spread and real fills — and it makes trading a Saturday-evening ritual for an audience that treats this as a social object rather than a day job.",
+              ],
+            },
+            {
+              kind: "decision",
+              title: "Design the closed state first",
+              body: [
+                "The consequence of weekly sessions is that the app is closed roughly 95% of the time. Most designers would draw the open state and treat closed as an error.",
+                "I did the opposite. Outside session hours the Buy button never goes dead — it changes state to “Queue order”, using the AMO (after-market order) language every Indian investor already knows from their broking app. Queued orders appear as a modifiable row: 4 sh @ ₹600 · Executes Sat, 11:00. There are three market states — open, closed, and halted for a buyout vote — and they exist as component variants across five screens rather than as separate designs.",
+              ],
+            },
+            {
+              kind: "decision",
+              title: "No FOMO mechanics, and say so out loud",
+              body: [
+                "The regulator is moving on urgency messaging, artificial scarcity and countdown pressure in adjacent investment products. It does not yet cover this category — I was careful not to imply it did.",
+                "But designing to it pre-emptively is the stronger position, and in a category that died of broken trust, restraint is the product. There are no scarcity counters, no panic timers, no projected-return headlines. A new listing shows subscription progress as a plain fact, not a race.",
+              ],
+            },
+            {
+              kind: "decision",
+              title: "Brass marks ownership, never action",
+              body: [
+                "The palette has one accent: brass. It is allowed on the percentage of an item you own, your holding badge, the authentication and vault marks, and the exited-item seal.",
+                "It is not allowed on primary buttons, links, or anything you tap to spend money — those are high-contrast neutral. This is the rule that keeps the app reading as a museum rather than a casino, and it means the single gold thing on any screen is always your stake.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "market",
+          kicker: "The market surfaces",
+          heading: "Dark for trading",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The dashboard leads with portfolio value and the day’s change, then the session state, then movers. Prices are set in tabular figures so digits do not jitter between updates, and every number uses Indian digit grouping — ₹6,12,000, never ₹612,000 — with lakh and crore abbreviations on aggregate figures and full rupees on per-share prices.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 3,
+              items: [
+                { src: "dashboard.png", caption: "Portfolio value, holdings and the session-state chip" },
+                { src: "dashboard-market.png", caption: "Top gainers and most-traded, by session volume" },
+                { src: "explore.png", caption: "Listing, filtered by category and momentum" },
+              ],
+            },
+            {
+              kind: "split",
+              weight: "text",
+              left: {
+                kind: "prose",
+                body: [
+                  "Item detail is the brief’s headline screen and the one that carries the art-direction argument. It opens as a market surface — price, last session’s change, price history, stats, your holding — and flips to light catalogue at the provenance divider.",
+                  "The order ticket keeps its guardrails visible rather than buried in terms: a 30% floor under any ask price to stop fat-finger sales, a five-day settlement lock before newly bought shares can be resold, and the fee breakdown shown before confirm, not after.",
+                ],
+              },
+              right: {
+                kind: "figure",
+                src: "item-detail.png",
+                frame: "mobile",
+                caption: "Item detail — the market half",
+              },
+            },
+            {
+              kind: "figures",
+              cols: 3,
+              items: [
+                { src: "item-overview.png", caption: "Stats and your holding — brass marks the stake" },
+                { src: "trade-buy.png", caption: "Order ticket with guardrails surfaced" },
+                { src: "order-open.png", caption: "A queued order, modifiable until the open" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "trust",
+          kicker: "The trust stack",
+          heading: "Light for the catalogue",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "A collectable pays no dividend and has no earnings. Share price is sentiment plus comparable sales, which means item detail cannot be a stock page — provenance, authentication, condition and custody have to carry the same visual weight as the chart.",
+                "Users are buying a fraction of a physical object they will never touch. Where is it, who insured it, who authenticated it, and what happens if the platform shuts down? That last question is not hypothetical in this category, so it gets an explicit answer rather than a paragraph in the terms.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 3,
+              items: [
+                { src: "item-object.png", caption: "The object’s story and specifications" },
+                { src: "item-custody.png", caption: "Certificate, audit trail, condition report, custody and insurance" },
+                { src: "account.png", caption: "What you actually own — the holding entity, stated plainly" },
+              ],
+            },
+            {
+              kind: "callout",
+              title: "What you own, in one sentence",
+              body: "Shares represent an economic interest in a series LLP, which holds title to the item. Every item detail says this, in the same words, above the terms link.",
+            },
+          ],
+        },
+        {
+          id: "buyout",
+          kicker: "The differentiator",
+          heading: "The buyout — an event, not a screen",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The brief spends a full page on the buyout. It is the primary way anyone actually makes money here, and it is the part most submissions would reduce to a success toast. I designed it as a flow with six stages and a persistent state the rest of the app has to respect.",
+              ],
+            },
+            {
+              kind: "flow",
+              steps: [
+                { label: "Offer received", note: "Push, then a takeover. Your payout in rupees, not just the headline figure" },
+                { label: "Offer detail", note: "Gross offer, minus taxes and fees, to net distributable" },
+                { label: "Vote", note: "48 hours. Approve, reject, or let the advisory board decide" },
+                { label: "Live tally", note: "Share-weighted and head-count-weighted, both shown" },
+                { label: "Decision", note: "Trading stays halted; a rejected buyer must return higher" },
+                { label: "Payout", note: "Per-share distribution with the TDS line, then the item exits" },
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 3,
+              items: [
+                { src: "buyout-notification.png", caption: "The offer arrives on the lock screen" },
+                { src: "buyout-review.png", caption: "Your payout, the approval threshold, and the live tally" },
+                { src: "buyout-payout.png", caption: "Distribution, with the tax line shown" },
+              ],
+            },
+            {
+              kind: "split",
+              weight: "media",
+              left: {
+                kind: "callout",
+                title: "The honest version",
+                body: "A buyout is not guaranteed to happen, and when it does it may land below your purchase price. That line appears wherever the buyout is mentioned. Most items, most of the time, show “no offer yet” as a plain statement rather than an empty space.",
+              },
+              right: {
+                kind: "figure",
+                src: "item-exited.png",
+                frame: "mobile",
+                caption: "After the exit — final price, and no longer tradable",
+              },
+            },
+            {
+              kind: "prose",
+              body: [
+                "One thing I deliberately did not fake: the deal-making itself. Finding a buyer and negotiating a price genuinely happens off-platform, and no honest app can simulate it. What the app can do is make everything from the moment an offer lands fully visible and voted on by the people it affects — which is precisely what holders of the collapsed platforms never got.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "system",
+          kicker: "Design system",
+          heading: "Two modes, one skeleton",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Dark is the market: prices, orders, portfolio, the book — screens where you are a trader. Light is the catalogue: provenance, custody, the vault, the buyout narrative — screens where you are an owner. The switch is the argument, so it had to be disciplined: mode changes only at the market–provenance boundary, never mid-section, and only colour changes between them. One type scale, one spacing scale, both modes.",
+                "Type is a high-contrast editorial serif for object names and section openers, a neo-grotesque with tabular figures for everything numeric, and a mono face used sparingly on certificate numbers and order-book rows. Uppercase labels with wide tracking over a hairline rule are the exhibition-wall device — it is what makes the provenance section read as a catalogue rather than a form.",
+              ],
+            },
+            {
+              kind: "swatches",
+              items: [
+                { hex: "#0E0D0B", name: "Ground — warm near-black, not #000" },
+                { hex: "#161512", name: "Surface" },
+                { hex: "#C8A24A", name: "Brass — ownership only" },
+                { hex: "#5FB37E", name: "Positive" },
+                { hex: "#D4705C", name: "Negative" },
+                { hex: "#FAF7F1", name: "Catalogue paper" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "Every text colour was checked against every surface it is allowed on rather than eyeballed, so the palette clears WCAG AA throughout. Green and red are non-negotiable in Indian investing interfaces, so both are deliberately desaturated to sit inside the palette instead of shouting over it — and neither is ever the only signal, always paired with a sign and an arrow.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "outcome",
+          kicker: "Outcome",
+          heading: "What it added up to",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Twenty-two screens, a token set across two modes, and an interactive prototype covering the full path — first run, browse, item detail, order ticket, queued order, portfolio, and the complete buyout sequence through to payout and exit.",
+                "The submission argues a position rather than presenting a styling exercise: that this category failed for reasons a designer can address, and that the market model, the closed state, and the buyout are where that work has to happen. The restraint — no urgency, no scarcity, no promised returns — is the part I would defend hardest.",
+              ],
+            },
+            {
+              kind: "list",
+              items: [
+                "The client and any identifying details are withheld; the product name here is not the one used in the submission.",
+                "Figures shown in the screens are illustrative, built for the concept rather than drawn from a live platform.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    gallery: [
+      "splash.png",
+      "dashboard.png",
+      "dashboard-market.png",
+      "dashboard-discovery.png",
+      "explore.png",
+      "explore-refine.png",
+      "item-detail.png",
+      "item-detail-market.png",
+      "item-overview.png",
+      "item-object.png",
+      "item-custody.png",
+      "item-activity.png",
+      "trade-buy.png",
+      "order-filled.png",
+      "order-open.png",
+      "portfolio.png",
+      "portfolio-activity.png",
+      "buyout-notification.png",
+      "buyout-review.png",
+      "buyout-payout.png",
+      "item-exited.png",
+      "account.png",
+    ],
+  },
+
 ];
 
 /* ------------------------------------------------------------

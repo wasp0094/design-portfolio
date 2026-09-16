@@ -69,7 +69,11 @@ function Tile({ p, size, i }: { p: WorkCard; size: Size; i: number }) {
           ))}
         </div>
         {p.professional && <span className="tile-pro">Professional</span>}
-        <span className="tile-year">{p.year}</span>
+        <div className="tile-meta">
+          <span className="tile-cat">{p.category}</span>
+          <span className="dot" aria-hidden />
+          <span className="tile-year">{p.year}</span>
+        </div>
       </div>
 
       <div className="tile-info">

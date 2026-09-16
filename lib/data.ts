@@ -158,6 +158,12 @@ export type Study = {
   };
 };
 
+/** What kind of work a card is, shown beside the year on the grid.
+ *  Answers the one question a visitor sizing me up actually has:
+ *  "have you done the thing I need?" Deliberately one word — the
+ *  card's tags carry the nuance. */
+export type ProjectCategory = "Product" | "Website" | "App" | "Client" | "Concept";
+
 export type Project = {
   slug: string;
   dir?: string;              // folder in public/projects/ (omit if no images yet)
@@ -166,6 +172,7 @@ export type Project = {
   role: string;
   timeline: string;
   year: string;
+  category: ProjectCategory; // card label beside the year — see ProjectCategory
   accent: string;            // theme colour (CSS var name)
   cover?: string;            // card image filename (omit → colourful lettermark)
   hero?: string;             // detail-page banner filename (defaults to cover)
@@ -200,6 +207,7 @@ export const projects: Project[] = [
     role: "UI/UX → Senior",
     timeline: "2+ years · ongoing",
     year: "2024 to Now",
+    category: "Product",
     accent: "violet",
     professional: true,
     cover: "dashboard.png",
@@ -1351,6 +1359,7 @@ export const projects: Project[] = [
     role: "UI/UX Design Intern",
     timeline: "2–3 month sprint",
     year: "2024",
+    category: "Website",
     accent: "blue",
     professional: true,
     cover: "new-home-hero.jpg",
@@ -1557,6 +1566,7 @@ export const projects: Project[] = [
     role: "Independent Product Design",
     timeline: "Ongoing",
     year: "2026",
+    category: "Product",
     accent: "teal",
     cover: "formi-webapp.png",
     hero: "dashboard.png",
@@ -2085,6 +2095,7 @@ export const projects: Project[] = [
     role: "Independent Product Design",
     timeline: "Ongoing",
     year: "2026",
+    category: "App",
     accent: "teal",
     cover: "home.png",
     hero: "splash.png",
@@ -2442,6 +2453,7 @@ export const projects: Project[] = [
     role: "Solo Freelance",
     timeline: "2 months",
     year: "2025",
+    category: "Client",
     accent: "teal",
     cover: "landing-hero.png",
     hero: "landing-hero.png",
@@ -2649,6 +2661,7 @@ export const projects: Project[] = [
     role: "Independent Project",
     timeline: "Concept · 2–3 months",
     year: "2024",
+    category: "Concept",
     accent: "coral",
     cover: "frame-44.png",
     hero: "frame-44.png",
@@ -2903,7 +2916,7 @@ export const projects: Project[] = [
    ------------------------------------------------------------ */
 export type WorkCard = Pick<
   Project,
-  | "slug" | "title" | "subtitle" | "role" | "timeline" | "year"
+  | "slug" | "title" | "subtitle" | "role" | "timeline" | "year" | "category"
   | "accent" | "cover" | "dir" | "summary" | "tags" | "metrics" | "professional"
 >;
 
@@ -2914,6 +2927,7 @@ export const workCards: WorkCard[] = projects.map((p) => ({
   role: p.role,
   timeline: p.timeline,
   year: p.year,
+  category: p.category,
   accent: p.accent,
   cover: p.cover,
   dir: p.dir,

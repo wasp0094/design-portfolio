@@ -33,6 +33,18 @@ export default function Hero() {
       </div>
 
       <div className="wrap hero-inner">
+        <motion.div
+          className="hero-top"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05, duration: 0.5, ease: [0.2, 0.7, 0.2, 1] as const }}
+        >
+          <span className="badge-available" data-hover>
+            <span className={profile.available ? "dot-live" : "dot-idle"} aria-hidden />
+            {profile.available ? profile.availability.open : profile.availability.closed}
+          </span>
+        </motion.div>
+
         <motion.h1 className="hero-title" variants={container} initial="hidden" animate="show">
           <span className="line">
             <motion.span className="word" variants={line}>

@@ -14,6 +14,11 @@ export const profile = {
   role: "Product & UI/UX Designer",
   location: "New Delhi, India",
   available: true,
+  /* the hero availability badge — `available` chooses the line */
+  availability: {
+    open: "Available for new work",
+    closed: "Not taking new work right now",
+  },
   tagline: [
     "I turn ambiguous",
     "problems into",
@@ -218,4 +223,261 @@ export const recognition = {
     org: "Girl Code It",
     text: "Ran a Git & GitHub fundamentals session for 300+ students and mentored 5+ through a UI development bootcamp.",
   },
+};
+
+/* ============================================================
+   BRANDING — logo and identity work.
+
+   Artwork lives in public/branding/. The section is built to be
+   correct before those files exist: a card with no `image`, or one
+   whose `image` 404s, falls back to the client's initials on the
+   tinted stage, so a missing screenshot is a quieter card rather
+   than a broken one. `placeholder: true` flags borrowed or
+   not-final artwork with the same loud badge the case studies use.
+   ============================================================ */
+export type BrandingWork = {
+  slug: string;      // also the filename stem in public/branding/
+  client: string;
+  sector?: string;   // mono micro-label; only ever from the client's own name
+  year: string;
+  accent: string;
+  note?: string;
+  href: string;      // the Dribbble shot
+  image?: string;    // filename inside public/branding/
+  placeholder?: boolean;
+};
+
+export const branding: BrandingWork[] = [
+  {
+    slug: "bkp",
+    client: "BKP Knowledge Partners",
+    sector: "Knowledge partners",
+    // TODO(owner): confirm the year on each Dribbble shot.
+    year: "2025",
+    accent: "blue",
+    href: "https://dribbble.com/shots/25966126-Logo-Design-for-BKP-Knowledge-Partners",
+    image: "bkp.png",
+  },
+  {
+    slug: "bridgevalue",
+    client: "Bridgevalue Research and Consulting",
+    sector: "Research & consulting",
+    year: "2025",
+    accent: "teal",
+    href: "https://dribbble.com/shots/25965621-Logo-Design-for-Logo-Design-for-Bridgevalue-Research-and-Consulting-Inc",
+    image: "bridgevalue.png",
+  },
+  {
+    slug: "navikarana",
+    client: "Navikarana Labs",
+    sector: "Labs",
+    year: "2025",
+    accent: "violet",
+    href: "https://dribbble.com/shots/25963492-Logo-Design-for-Navikarana-Labs",
+    image: "navikarana.png",
+  },
+];
+// TODO(owner): `note` is left empty on purpose — one honest line each
+// beats an invented one. The card lays out correctly with or without it.
+
+/* ============================================================
+   LAB — small things shipped outside client work: side projects,
+   live landing pages, and AI experiments.
+
+   Entirely data-driven. The grid uses auto-fill, so three entries
+   and eight both land in tidy rows with no stretched orphan, and
+   adding one is a single object here and nothing else. An entry
+   with `placeholder: true` renders dashed and inert until its URL
+   exists. An empty array removes the section from the page.
+   ============================================================ */
+export type LabKind = "side-project" | "live-site" | "experiment";
+
+export const LAB_KINDS: Record<LabKind, { label: string; accent: string }> = {
+  "side-project": { label: "Side project", accent: "teal" },
+  "live-site": { label: "Live site", accent: "blue" },
+  experiment: { label: "AI experiment", accent: "violet" },
+};
+
+export type LabEntry = {
+  title: string;
+  blurb: string;   // one line, aim for under ~95 characters
+  kind: LabKind;
+  year: string;
+  href: string;    // the live URL; empty string while `placeholder` is true
+  placeholder?: boolean;
+};
+
+// TODO(owner): replace all three. They exist so the section can be seen
+// and reviewed before the real entries land, one per flavour.
+export const lab: LabEntry[] = [
+  {
+    title: "Untitled side project",
+    blurb: "One line: what it does, and who it turned out to be for.",
+    kind: "side-project",
+    year: "2026",
+    href: "",
+    placeholder: true,
+  },
+  {
+    title: "Untitled landing page",
+    blurb: "One line: whose site it is, and the one job it had to do.",
+    kind: "live-site",
+    year: "2026",
+    href: "",
+    placeholder: true,
+  },
+  {
+    title: "Untitled AI experiment",
+    blurb: "One line: what you tried, and what actually came out of it.",
+    kind: "experiment",
+    year: "2026",
+    href: "",
+    placeholder: true,
+  },
+];
+
+/* ============================================================
+   PRICING — the single source of truth for the price guide.
+
+   ⚠ PLACEHOLDER FIGURES. Tune the numbers in this object and
+   nowhere else: the component reads the selected tier and does no
+   arithmetic of its own, so no figure is buried in component logic.
+   USD only — no toggle, no conversion.
+
+   Shape: one project type is selected at a time, and each type owns
+   its own sub-options. Switching type swaps the sub-options and
+   selects that type's first one, so there is never a state with a
+   type but no tier. `DEFAULT_TYPE` / the first tier of that group
+   are what the page loads with.
+
+   `from: true` means "starting at" — a minimum that real scope
+   pushes upward, shown as "From $X".
+   `custom: true` carries no price at all: some scopes can't be
+   guessed from a menu, and inventing a number for them would be
+   worse than admitting it.
+   `soon: true` on a group shows it but makes it unselectable.
+
+   Set each figure at the level you are HAPPY to work at, not the
+   level you hope to win: the number shown is what gets quoted back
+   at you.
+
+   No `as const` here on purpose — it would make every price a
+   literal type and every array readonly, which breaks useState
+   inference and .find() downstream.
+   ============================================================ */
+export type PriceTier = {
+  id: string;
+  label: string;
+  note: string;
+  price: number;   // USD; ignored when `custom` is true
+  from?: boolean;
+  custom?: boolean;
+};
+
+export type PriceGroup = {
+  id: string;
+  label: string;
+  short: string;   // the label on the type selector, kept to one or two words
+  note?: string;
+  accent: string;
+  soon?: boolean;
+  tiers: PriceTier[];
+};
+
+/** what the section loads with, alongside that group's first tier */
+export const DEFAULT_TYPE = "website";
+
+export const PRICING: { currency: string; groups: PriceGroup[] } = {
+  currency: "USD",
+
+  groups: [
+    {
+      id: "website",
+      label: "Website design",
+      short: "Website",
+      note: "Design only. Front-end build is quoted separately.",
+      accent: "coral",
+      tiers: [
+        {
+          id: "web-small",
+          label: "3–4 pages",
+          note: "Home, about, one or two more. The essentials, done properly.",
+          price: 1200,
+        },
+        {
+          id: "web-large",
+          label: "8–10 pages",
+          note: "A full marketing site with room for services and case studies.",
+          price: 2600,
+        },
+        {
+          id: "web-custom",
+          label: "Custom scope",
+          note: "More pages, a CMS, or something that doesn't fit the two above.",
+          price: 0,
+          custom: true,
+        },
+      ],
+    },
+    {
+      id: "app",
+      label: "App & product design",
+      short: "App design",
+      note: "Scoped in conversation, not by screen count — the number of screens is an outcome of the work, not an input to it.",
+      accent: "blue",
+      tiers: [
+        {
+          id: "app-start",
+          label: "Starting point",
+          note: "Flows, screens, and the system holding them together.",
+          price: 3000,
+          from: true,
+        },
+        {
+          id: "app-custom",
+          label: "Custom scope",
+          note: "An existing product, a rescue, or a build that spans platforms.",
+          price: 0,
+          custom: true,
+        },
+      ],
+    },
+    {
+      id: "brand",
+      label: "Brand & identity",
+      short: "Branding",
+      accent: "violet",
+      tiers: [
+        {
+          id: "brand-logo",
+          label: "Logo only",
+          note: "Mark and wordmark, exported and ready to use.",
+          price: 600,
+        },
+        {
+          id: "brand-kit",
+          label: "Logo + brand kit",
+          note: "Logo, typography, colour, and the rules for using them.",
+          price: 1400,
+          from: true,
+        },
+        {
+          id: "brand-custom",
+          label: "Custom scope",
+          note: "A full rebrand, or identity work across more than one product.",
+          price: 0,
+          custom: true,
+        },
+      ],
+    },
+    {
+      id: "audit",
+      label: "UX audit",
+      short: "UX audit",
+      note: "A written, screen-by-screen review of a product that already exists. Not open for bookings yet.",
+      accent: "teal",
+      soon: true,
+      tiers: [],
+    },
+  ],
 };

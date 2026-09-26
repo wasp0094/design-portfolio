@@ -447,6 +447,10 @@ body.cursor-hover .cursor-ring {
 /* footer variant on the dark contact background */
 .footer-resume { margin-top: clamp(28px, 4vw, 44px); background: var(--yellow); color: var(--ink); border-color: var(--bg); box-shadow: 4px 4px 0 var(--bg); }
 .footer-resume:hover { box-shadow: 6px 6px 0 var(--bg); }
+.footer-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.footer-ctas .resume-btn { margin-top: clamp(28px, 4vw, 44px); }
+.footer-cal { background: transparent; color: var(--paper); border-color: var(--paper); box-shadow: 4px 4px 0 var(--bg); }
+.footer-cal:hover { box-shadow: 6px 6px 0 var(--bg); }
 
 .cap-block { border: 1.5px solid var(--ink); border-radius: 22px; background: var(--paper); overflow: hidden; box-shadow: 5px 5px 0 var(--ink); }
 .cap-row { padding: 20px 22px; border-bottom: 1.5px solid var(--line); }

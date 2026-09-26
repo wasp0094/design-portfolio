@@ -26,6 +26,7 @@ export const profile = {
   // TODO: replace with Aditi's real LinkedIn URL
   email: "makedesignwithaditi@gmail.com",
   resume: "https://wasp0094.github.io/resume.pdf",
+  cal: "https://cal.com/designwithaditi/discovery?layout=mobile&overlayCalendar=true",
   socials: [
     { label: "Behance", handle: "designwithaditi", href: "https://www.behance.net/designwithaditi" },
     { label: "Dribbble", handle: "designwithaditii", href: "https://dribbble.com/designwithaditii" },

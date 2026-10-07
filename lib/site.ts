@@ -1,6 +1,6 @@
 /* ============================================================
    SITE CONTENT — everything about Aditi rather than about a
-   project: the intro, the stats, the timeline, the skills.
+   project: the intro, what she does, the experience, the awards.
 
    This module is client-safe on purpose. The case studies live in
    lib/data.ts, which is marked server-only, because a client component
@@ -11,21 +11,17 @@
 
 export const profile = {
   name: "Aditi Agarwal",
-  role: "Product & UI/UX Designer",
+  role: "Product Designer & Design Engineer",
   location: "New Delhi, India",
   available: true,
-  tagline: [
-    "I turn ambiguous",
-    "problems into",
-    "interfaces people",
-    "actually use.",
-  ],
   intro:
-    "Product & UI/UX designer with 2+ years taking B2B and healthtech products from messy research all the way to shipped, high-fidelity UI: design systems, two-sided products, and the calm interfaces in between.",
+    "Product designer and design engineer with 2+ years taking B2B and healthtech products from messy research to shipped, high-fidelity UI. Research, product design, visual design, brand and build, in one pair of hands.",
   phone: "+91 98183 77310",
   // TODO: replace with Aditi's real LinkedIn URL
   email: "makedesignwithaditi@gmail.com",
   resume: "https://wasp0094.github.io/resume.pdf",
+  // cal.com discovery call; "Say hello" opens it. If emptied, the button falls back to email.
+  booking: "https://cal.com/designwithaditi/discovery?overlayCalendar=true",
   socials: [
     { label: "Behance", handle: "designwithaditi", href: "https://www.behance.net/designwithaditi" },
     { label: "Dribbble", handle: "designwithaditii", href: "https://dribbble.com/designwithaditii" },
@@ -34,158 +30,156 @@ export const profile = {
   ],
 };
 
-export const stats = [
-  { value: 2, suffix: "+", label: "Years shipping product" },
-  { value: 23, suffix: "", label: "Screens in one build" },
-  { value: 5, suffix: "", label: "Hackathon awards" },
-  { value: 300, suffix: "+", label: "Students mentored" },
-];
-
-/* brand logo (in /public/logos/) + a background colour that suits it,
-   used for the card cover and the detail-page hero */
-export const BRAND: Record<string, { logo: string; bg: string; dark?: boolean }> = {
-  "formi-app": { logo: "formi.svg", bg: "#1A7A8A", dark: true },
-  fourcore: { logo: "fourcore.svg", bg: "#0B1C30", dark: true },
-  "conqr-platform": { logo: "conqr.svg", bg: "#F5EEE7" },
-  autumn: { logo: "autumn.svg", bg: "#FBEDDF" },
-};
-
-export type TimelineItem = {
-  year: string;
-  type: string;          // shown as a tag
-  accent: string;        // palette var
+/* The four things Aditi does. `primary` ones lead the page: they get the
+   large tinted cards and the hero highlights. `work` links each discipline to
+   the case studies that prove it, by project slug. */
+export type Capability = {
+  id: "product" | "engineering" | "visual" | "brand";
   title: string;
-  org?: string;
-  description: string;
-  image?: string;        // filename in public/timeline/
-  placeholder?: boolean; // dashed styling until real details are added
+  accent: string; // palette var
+  primary?: boolean;
+  blurb: string;
+  skills: string[];
+  work: { label: string; slug: string }[];
 };
 
-export const timeline: TimelineItem[] = [
+export const capabilities: Capability[] = [
   {
-    year: "2020",
-    type: "Education",
-    accent: "violet",
-    title: "Started B.Tech, Computer Science",
-    org: "Maharaja Agrasen Institute of Technology",
-    description:
-      "Where the foundation was laid: computer science, with a growing pull toward how products actually feel to use.",
-  },
-  {
-    year: "2022",
-    type: "Recognition",
-    accent: "coral",
-    title: "Hackathon breakthroughs",
-    org: "Google Solution Challenge · Smart India Hackathon",
-    description:
-      "Top 50 Global and Top 15 nationally with Proctify, my first taste of designing real products under pressure.",
-  },
-  {
-    year: "2022–23",
-    type: "Learning",
+    id: "product",
+    title: "Product Design",
     accent: "yellow",
-    title: "Design certifications",
-    org: "Accenture · NPTEL · InnovateU",
-    description:
-      "UX Design, Product Design & Development, and more, turning instinct into deliberate craft.",
-  },
-  {
-    year: "Feb 2024",
-    type: "First role",
-    accent: "blue",
-    title: "UI/UX Design Intern at FourCore",
-    org: "Breach & Attack Simulation platform",
-    description:
-      "My first design internship, stepping straight into complex B2B cybersecurity.",
-  },
-  {
-    year: "2024",
-    type: "Conversion",
-    accent: "teal",
-    title: "Converted to full-time UI/UX Designer",
-    org: "FourCore",
-    description:
-      "Earned a full-time seat and built the product’s first design system from the ground up.",
-  },
-  {
-    year: "Oct 2024",
-    type: "Judge",
-    accent: "pink",
-    title: "Design competition judge",
-    org: "Design Verse · BVCOE, New Delhi",
-    description:
-      "Invited to judge Design Verse, a two-day design seminar & competition (IEEE Student Branch), reviewing student projects and awarding the winning teams.",
-    // image kept in public/timeline/ — reference removed for now
-  },
-  {
-    year: "Aug 2025",
-    type: "Promotion",
-    accent: "teal",
-    title: "Promoted to Senior UI/UX Designer",
-    org: "FourCore",
-    description:
-      "Now leading a junior designer and working directly with product and engineering to ship features.",
-  },
-];
-
-export type Skill = { name: string; tier?: "primary" | "medium" };
-
-export const capabilities: { title: string; accent: string; skills: Skill[] }[] = [
-  {
-    title: "Design",
-    accent: "coral",
-    skills: [
-      { name: "Product Design", tier: "primary" },
-      { name: "UI/UX Design", tier: "primary" },
-      { name: "Design Systems", tier: "primary" },
-      { name: "User Research", tier: "medium" },
-      { name: "Prototyping", tier: "medium" },
-      { name: "Interaction Design" },
-      { name: "Wireframing" },
-      { name: "Typography" },
+    primary: true,
+    blurb:
+      "Research-led product work, from the first interview to shipped UI. I map the problem with real users before I draw a screen, then carry it through flows, high-fidelity design and the system that keeps it consistent.",
+    skills: ["User Research", "Wireframing", "Prototyping", "Interaction Design", "Design Systems", "PRD Authoring"],
+    work: [
+      { label: "FourCore", slug: "fourcore-platform" },
+      { label: "Formi", slug: "formi" },
+      { label: "Vaulted", slug: "vaulted" },
     ],
   },
   {
-    title: "Tools",
-    accent: "blue",
-    skills: [
-      { name: "Figma", tier: "primary" },
-      { name: "Figma Make", tier: "primary" },
-      { name: "Sketch" },
-      { name: "Canva" },
-      { name: "Git" },
-      { name: "GitHub" },
-      { name: "GitLab" },
-    ],
-  },
-  {
-    title: "AI & Productivity",
+    id: "engineering",
+    title: "Design Engineering",
     accent: "violet",
-    skills: [
-      { name: "Figma AI", tier: "primary" },
-      { name: "ChatGPT (GPT-5)", tier: "primary" },
-      { name: "Claude Design", tier: "primary" },
-      { name: "Prompt Engineering", tier: "medium" },
-      { name: "AI-assisted UX Research", tier: "medium" },
-      { name: "OpenAI Codex" },
-      { name: "OpenCode" },
-      { name: "PRD Authoring" },
-      { name: "Design Documentation" },
-      { name: "Frontend Prototyping" },
+    primary: true,
+    blurb:
+      "A computer science degree sits under the design work. I prototype and build my own designs in code, write developer-ready specs with every state and token accounted for, and work in Git alongside engineering, so what ships matches what was designed.",
+    skills: ["React & Next.js", "Coded Prototypes", "Developer-ready Specs", "Design Tokens", "Git & GitHub"],
+    work: [
+      { label: "Shell Ivory Studio", slug: "shell-ivory" },
+      { label: "Solène", slug: "solene" },
+      { label: "Formi Patient App", slug: "formi-app" },
+    ],
+  },
+  {
+    id: "visual",
+    title: "Visual Design",
+    accent: "coral",
+    blurb:
+      "Websites and apps with a point of view. Type, colour, layout and iconography tuned until the interface feels considered, not just correct.",
+    skills: ["Web Design", "Mobile UI", "Typography", "Iconography", "Illustration"],
+    work: [
+      { label: "Solène", slug: "solene" },
+      { label: "FourCore: Landing", slug: "fourcore" },
+      { label: "Autumn", slug: "autumn" },
+    ],
+  },
+  {
+    id: "brand",
+    title: "Brand Identity",
+    accent: "pink",
+    blurb:
+      "Identities built to scale: logo, colour and type, then the guidelines and collateral that keep a brand recognisable everywhere it shows up.",
+    skills: ["Logo & Identity", "Brand Guidelines", "Colour & Type Systems", "Marketing Collateral"],
+    work: [
+      { label: "Conqr.ai", slug: "conqr" },
+      { label: "FourCore", slug: "fourcore-platform" },
     ],
   },
 ];
+
+export const toolkit: { title: string; items: string[] }[] = [
+  { title: "Tools", items: ["Figma", "Figma Make", "Sketch", "Canva", "Git", "GitHub", "GitLab"] },
+  {
+    title: "AI",
+    items: [
+      "Figma AI",
+      "ChatGPT (GPT-5)",
+      "Claude Design",
+      "OpenAI Codex",
+      "OpenCode",
+      "Prompt Engineering",
+      "AI-assisted UX Research",
+    ],
+  },
+];
+
+export type ExperienceItem = {
+  period: string;
+  role: string;
+  org: string;
+  kind: string; // shown as a tag
+  description: string;
+  current?: boolean;
+  slug?: string; // links the row to its case study
+};
+
+/* current role first; one row per employer */
+export const experience: ExperienceItem[] = [
+  {
+    period: "2026 to now",
+    role: "Web Designer & Design Engineer",
+    org: "Shell Ivory Studio",
+    kind: "Ongoing",
+    current: true,
+    description:
+      "Designing the homepage for a marketing and creative studio and prototyping it in code as one continuous, scroll-driven experience.",
+    slug: "shell-ivory",
+  },
+  {
+    period: "Feb 2024 to Jul 2026",
+    role: "Founding UI/UX Designer to Lead UI/UX Designer",
+    org: "FourCore",
+    kind: "Full-time",
+    description:
+      "Joined as the first designer on a breach and attack simulation platform, redesigned the product and its marketing site, and built the design system from the ground up. Went on to lead UI/UX, guiding a junior designer and shipping features with product and engineering.",
+    slug: "fourcore-platform",
+  },
+  {
+    period: "2026, ongoing",
+    role: "Independent Product Designer",
+    org: "Formi",
+    kind: "Independent",
+    description:
+      "Designing a two-sided physiotherapy platform end to end: a therapist dashboard, a patient app, and the design system they share.",
+    slug: "formi",
+  },
+  {
+    period: "2025",
+    role: "Freelance Brand & Product Designer",
+    org: "Conqr.ai",
+    kind: "Freelance",
+    description:
+      "A solo two-month engagement: brand, design system, and a launch landing page for a legal-AI product.",
+    slug: "conqr",
+  },
+];
+
+/* Order of the work on the home page. The first `featuredCount` get the
+   large alternating rows; the rest sit in the "Other projects" grid. Case
+   studies use the same order to pick what to show under "More projects". */
+export const workOrder = ["fourcore-platform", "formi", "shell-ivory", "solene", "vaulted", "conqr", "fourcore", "formi-app", "autumn"];
+export const featuredCount = 5;
 
 export const marqueeWords = [
   "Product Design",
+  "Design Engineering",
+  "UX Research",
   "Design Systems",
-  "User Research",
-  "Prototyping",
-  "Interaction Design",
-  "Healthtech",
+  "Visual Design",
+  "Brand Identity",
   "0 → 1",
-  "Figma",
-  "Typography",
   "Design that ships",
 ];
 
@@ -199,6 +193,13 @@ export const recognition = {
     "Runner-Up, Evotech 5.0 Ideathon",
     "Top 50 / 115, DotSlash 5.0",
   ],
+  /* invited roles — moved here from the old timeline */
+  judging: {
+    title: "Design competition judge",
+    org: "Design Verse · BVCOE, New Delhi",
+    year: "Oct 2024",
+    text: "Invited to judge a two-day design seminar and competition (IEEE Student Branch), reviewing student projects and awarding the winning teams.",
+  },
   certifications: {
     featured: { name: "UX Design", by: "Accenture" },
     others: [
@@ -210,7 +211,7 @@ export const recognition = {
   education: {
     degree: "B.Tech, Computer Science",
     school: "Maharaja Agrasen Institute of Technology",
-    years: "2020, 2024",
+    years: "2020 to 2024",
     cgpa: "8.91 / 10",
   },
   mentorship: {

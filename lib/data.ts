@@ -167,8 +167,9 @@ export type Project = {
   timeline: string;
   year: string;
   accent: string;            // theme colour (CSS var name)
-  cover?: string;            // card image filename (omit → colourful lettermark)
+  cover?: string;            // 4:3 card image; the cover-mock.jpg files are exported from design/portfolio-mockups.pen
   hero?: string;             // detail-page banner filename (defaults to cover)
+  showcase?: string;         // wide multi-screen board (from design/portfolio-mockups.pen); leads the detail page when set
   heroGrid?: string[];       // optional four-image bento hero
   layout?: "web" | "mobile"; // gallery column style
   summary: string;           // one-liner for the card
@@ -197,12 +198,13 @@ export const projects: Project[] = [
     dir: "fourcore-platform",
     title: "FourCore",
     subtitle: "Breach & attack simulation product",
-    role: "UI/UX → Senior",
-    timeline: "2+ years · ongoing",
-    year: "2024 to Now",
+    role: "Founding → Lead UI/UX Designer",
+    timeline: "2+ years",
+    year: "2024 to 2026",
     accent: "violet",
     professional: true,
-    cover: "dashboard.png",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "dashboard.png",
     layout: "web",
     summary:
@@ -222,7 +224,7 @@ export const projects: Project[] = [
     metrics: [
       { value: "40+", label: "New screens" },
       { value: "5+", label: "Features shipped" },
-      { value: "2+ yrs", label: "Ongoing" },
+      { value: "2+ yrs", label: "At FourCore" },
     ],
     caseStudy: [
       {
@@ -297,9 +299,9 @@ export const projects: Project[] = [
         { label: "Company", value: "FourCore, breach & attack simulation (cybersecurity)" },
         {
           label: "Role",
-          value: "UI/UX Design Intern → UI/UX Designer → Senior UI/UX Designer",
+          value: "Founding UI/UX Designer → Lead UI/UX Designer",
         },
-        { label: "Timeline", value: "2024 to present · 2+ years, ongoing" },
+        { label: "Timeline", value: "Feb 2024 to Jul 2026 · 2+ years" },
         {
           label: "Scope",
           value:
@@ -1348,12 +1350,13 @@ export const projects: Project[] = [
     dir: "fourcore",
     title: "FourCore: Landing",
     subtitle: "Breach and attack simulation platform",
-    role: "UI/UX Design Intern",
+    role: "Founding UI/UX Designer",
     timeline: "2–3 month sprint",
     year: "2024",
     accent: "blue",
     professional: true,
-    cover: "new-home-hero.jpg",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "new-home-hero.jpg",
     layout: "web",
     summary:
@@ -1427,7 +1430,7 @@ export const projects: Project[] = [
       },
       meta: [
         { label: "Company", value: "FourCore, breach & attack simulation (cybersecurity)" },
-        { label: "Role", value: "UI/UX Design Intern, first project after joining" },
+        { label: "Role", value: "Founding UI/UX Designer, first project after joining" },
         { label: "Scope", value: "5–6 page marketing website, redesigned solo" },
         { label: "Timeline", value: "2–3 month sprint" },
         { label: "Status", value: "Live, and unchanged since it shipped" },
@@ -1558,7 +1561,8 @@ export const projects: Project[] = [
     timeline: "Ongoing",
     year: "2026",
     accent: "teal",
-    cover: "formi-webapp.png",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "dashboard.png",
     heroGrid: ["patient-progress.png", "analytics.png", "programme-builder-step2.png", "alerts.png"],
     layout: "web",
@@ -2085,8 +2089,9 @@ export const projects: Project[] = [
     role: "Independent Product Design",
     timeline: "Ongoing",
     year: "2026",
-    accent: "teal",
-    cover: "home.png",
+    accent: "yellow",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "splash.png",
     layout: "mobile",
     captions: true,
@@ -2442,8 +2447,9 @@ export const projects: Project[] = [
     role: "Solo Freelance",
     timeline: "2 months",
     year: "2025",
-    accent: "teal",
-    cover: "landing-hero.png",
+    accent: "pink",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "landing-hero.png",
     layout: "web",
     summary:
@@ -2650,7 +2656,8 @@ export const projects: Project[] = [
     timeline: "Concept · 2–3 months",
     year: "2024",
     accent: "coral",
-    cover: "frame-44.png",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "frame-44.png",
     layout: "mobile",
     summary:
@@ -2898,11 +2905,9 @@ export const projects: Project[] = [
     role: "Product Design — concept",
     timeline: "2.5-day design sprint",
     year: "2026",
-    accent: "yellow",
-    /* the grid's `wide` tile sizes its media by the cover's intrinsic aspect,
-       so a portrait phone frame would stretch the tile to ~3x the row height.
-       cover-wide.png is a landscape composite of three screens, built for it. */
-    cover: "cover-wide.png",
+    accent: "lime",
+    cover: "cover-mock.jpg",
+    showcase: "showcase.jpg",
     hero: "item-detail.png",
     layout: "mobile",
     captions: true,
@@ -3241,6 +3246,419 @@ export const projects: Project[] = [
     ],
   },
 
+  {
+    slug: "shell-ivory",
+    dir: "shell-ivory",
+    title: "Shell Ivory Studio",
+    subtitle: "A studio homepage, prototyped as one continuous scroll",
+    role: "Web Design & Prototype",
+    timeline: "Ongoing",
+    year: "2026",
+    accent: "tomato",
+    cover: "cover-mock.jpg",
+    showcase: "board-key-scenes.jpg",
+    hero: "scene-hero.jpg",
+    layout: "web",
+    summary:
+      "The homepage for a creative studio built for women-led brands, taken from Figma into a working scroll-driven prototype where every section hands off to the next.",
+    overview: [
+      "Shell Ivory Studio is a marketing and creative studio. Its homepage runs as one continuous piece of choreography rather than a stack of sections: seven scenes, each one transforming into the next as you scroll.",
+      "A static mockup cannot show that, so the design was rebuilt as a coded prototype, with the geometry lifted straight from the Figma exports so the motion plays out on the real layout.",
+    ],
+    highlights: [
+      "Seven scenes, from the hero to the footer, choreographed as a single scroll.",
+      "A coded prototype using the exact geometry of the Figma artboards, so motion is tested on the real design.",
+      "A tight system: three brand colours and four typefaces, each with one job.",
+      "Working interactions: expanding service rows, project pages, and a step-by-step newsletter field.",
+    ],
+    tags: ["Web Design", "Design Engineering", "Motion", "Prototype"],
+    tools: ["Figma", "HTML, CSS & JavaScript"],
+    metrics: [
+      { value: "7", label: "Scenes" },
+      { value: "8", label: "Services" },
+      { value: "1", label: "Continuous scroll" },
+    ],
+    study: {
+      meta: [
+        { label: "Brand", value: "Shell Ivory Studio, a marketing and creative studio" },
+        { label: "Role", value: "Homepage design and scroll-driven prototype" },
+        { label: "Scope", value: "Hero, who we are, services, selected works, process, clarity, footer" },
+        { label: "Stack", value: "Figma for design; HTML, CSS and JavaScript for the prototype" },
+        { label: "Status", value: "Ongoing · 2026. The work shown here is in progress" },
+      ],
+      glance: [
+        { value: "7", label: "Scenes in one continuous scroll" },
+        { value: "1440", label: "Artboard width the whole stage scales from" },
+        { value: "3", label: "Brand colours: blue, ivory and red" },
+        { value: "4", label: "Typefaces, each with one job" },
+      ],
+      glanceNote:
+        "A studio homepage designed as motion, not as a stack of sections, and prototyped in code so the transitions could be judged by scrolling rather than imagined from stills. The project is still ongoing, so this is a look at work in progress.",
+      sections: [
+        {
+          id: "overview",
+          kicker: "Overview",
+          heading: "A homepage that moves as one piece",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Shell Ivory Studio is a marketing and creative studio. Its homepage has seven things to say: who it is, what it believes, what it offers, what it has made, how it works, why that matters, and how to get in touch.",
+                "Rather than stacking those as seven blocks, the design treats the page as one piece of choreography. Each scene transforms into the next, so scrolling feels like a single continuous move through the studio rather than a list.",
+              ],
+            },
+            {
+              kind: "flow",
+              steps: [
+                { label: "Hero", note: "Cards, wordmark, then the headline." },
+                { label: "Who we are", note: "A portrait that opens into the next scene." },
+                { label: "Services", note: "Eight rows that expand." },
+                { label: "Selected works", note: "A collage that opens into project pages." },
+                { label: "Process", note: "Four steps, moving sideways." },
+                { label: "Clarity", note: "The closing statement." },
+                { label: "Footer", note: "Newsletter and sign-off." },
+              ],
+            },
+          ],
+        },
+        {
+          id: "system",
+          kicker: "Visual system",
+          heading: "Three colours, four typefaces",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The palette is deliberately small. A muted blue and a warm ivory trade places as the ground from scene to scene, and red is mostly kept for the things you can act on: the primary buttons and the newsletter field.",
+              ],
+            },
+            {
+              kind: "swatches",
+              items: [
+                { hex: "#395583", name: "Blue" },
+                { hex: "#F4F1EA", name: "Ivory" },
+                { hex: "#D80019", name: "Red" },
+                { hex: "#383838", name: "Ink" },
+                { hex: "#A4C7FF", name: "Highlight" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "Type is four faces with one job each. A condensed sans sets the display lines large enough to become part of the composition. A condensed text face carries the body copy, a wide sans handles navigation and labels, and a handwritten script is kept for annotations.",
+                "Secondary actions are set in square brackets rather than drawn as buttons, which keeps the red rectangles rare and makes them easy to find.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "hero",
+          kicker: "Hero",
+          heading: "An opening in three beats",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The page opens on blue: a strip of work and the wordmark, with almost nothing else. As you scroll, the cards shrink away, the ground turns to ivory, and the headline arrives line by line around a portrait: stop explaining your value personally, build a brand system that does it consistently.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "scene-intro.jpg", caption: "First beat: the work and the wordmark" },
+                { src: "scene-hero.jpg", caption: "Third beat: the headline, portrait and calls to action" },
+              ],
+            },
+            {
+              kind: "decision",
+              title: "The headline is the layout",
+              body: [
+                "The display type is set large enough to run the full width, and the portrait sits inside the sentence rather than beside it. The words break around the image, so the hero reads as one composed spread instead of a headline next to a picture.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "services",
+          kicker: "Who we are and services",
+          heading: "The frame that swallows the page",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Who we are sits on ivory with a framed portrait to one side. Keep scrolling and that frame grows until it fills the screen, and the photograph inside it becomes the background of the services scene. The section change is the image itself, not a cut.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "scene-who.jpg", caption: "Who we are: the frame before it opens" },
+                { src: "scene-services.jpg", caption: "Services: the same photograph, now the ground" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "The eight services are a list of rows. The open row grows, shows its number, and reveals the two actions for that service, so the list stays scannable and only one service asks for attention at a time.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "works",
+          kicker: "Selected works and process",
+          heading: "A collage, then a walk sideways",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Selected works is a loose collage of six pieces at different sizes, set against oversized display type. Three of them open into full project pages as you scroll, each with a main image and a side frame.",
+              ],
+            },
+            { kind: "figure", src: "scene-works.jpg", caption: "Selected works: the collage", frame: "wide" },
+            {
+              kind: "prose",
+              body: [
+                "The process scene changes direction. Its four steps, research and discovery, strategy and planning, design and direction, analysis and refinement, move horizontally, and each finished step collapses into a small card on a rail so you can see how far through you are.",
+              ],
+            },
+            { kind: "figure", src: "scene-process.jpg", caption: "Process: step two of four, with step one collapsed onto the rail", frame: "wide" },
+          ],
+        },
+        {
+          id: "close",
+          kicker: "Clarity and footer",
+          heading: "One line to leave with",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The closing statement, clarity moves faster than confusion, is spread across the screen with small pieces of work drifting between the words, and it carries the page’s main call to action.",
+                "The footer speaks to the visitor who is not ready for that: not ready to apply, not ready to leave either. The newsletter field asks one thing at a time, sliding from email to phone to name, so it never looks like a form.",
+              ],
+            },
+            {
+              kind: "figures",
+              cols: 2,
+              items: [
+                { src: "scene-clarity.jpg", caption: "Clarity: the closing statement" },
+                { src: "scene-footer.jpg", caption: "Footer: newsletter, sitemap and sign-off" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "build",
+          kicker: "Design engineering",
+          heading: "Prototyped in code, on the real geometry",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The prototype is a single page of HTML, CSS and JavaScript. Every position and size in it is lifted from the Figma exports in artboard units, 1440 wide, and the whole stage scales as one, so what moves on screen is the actual design and not an approximation of it.",
+              ],
+            },
+            {
+              kind: "list",
+              items: [
+                "One scroll position drives everything: each scene reads the same timeline and places itself.",
+                "A chapter rail at the foot of the screen jumps to any of the ten chapters, including the three project pages.",
+                "The service rows, project pages and newsletter field are interactive, not just animated.",
+                "Motion is reduced for visitors who ask their system for less of it.",
+              ],
+            },
+            {
+              kind: "callout",
+              title: "Still in progress",
+              body: "This project is ongoing. The structure, type and motion are designed, but the body copy in these screens is placeholder text and the final words are not written yet.",
+            },
+          ],
+        },
+      ],
+    },
+    gallery: [
+      "scene-intro.jpg",
+      "scene-hero.jpg",
+      "scene-who.jpg",
+      "scene-services.jpg",
+      "scene-works.jpg",
+      "scene-process.jpg",
+      "scene-clarity.jpg",
+      "scene-footer.jpg",
+    ],
+    captions: true,
+  },
+  {
+    slug: "solene",
+    dir: "solene",
+    title: "Solène",
+    subtitle: "Beauty e-commerce homepage, wireframe to code",
+    role: "Web Design & Build",
+    timeline: "Homepage · desktop and mobile",
+    year: "2026",
+    accent: "sand",
+    cover: "cover-mock.jpg",
+    showcase: "board-wire-to-final.jpg",
+    hero: "hifi-desktop.jpg",
+    layout: "web",
+    summary:
+      "A homepage for a beauty brand taken the whole way: lo-fi wireframes, a hi-fi design for desktop and mobile, then a working Next.js build.",
+    overview: [
+      "Solène is a homepage for a clean-beauty e-commerce brand, designed at 1440 for desktop and 390 for mobile.",
+      "I took it from annotated lo-fi wireframes to a hi-fi design, then built the design as a working Next.js page with a product filter, a wishlist, and a bag that counts.",
+    ],
+    highlights: [
+      "Lo-fi wireframes for desktop and mobile, with every section numbered and named.",
+      "A warm, editorial visual system: cream, burgundy and terracotta, with three typefaces.",
+      "Nine sections, from the announcement bar to the footer, designed at two breakpoints.",
+      "Built in Next.js and Tailwind, one component per section.",
+    ],
+    tags: ["Web Design", "E-commerce", "Design Engineering", "Next.js"],
+    tools: ["pen.dev", "Next.js", "Tailwind CSS"],
+    metrics: [
+      { value: "9", label: "Sections" },
+      { value: "2", label: "Breakpoints" },
+      { value: "3", label: "Stages" },
+    ],
+    study: {
+      meta: [
+        { label: "Brand", value: "Solène, clean beauty: skincare, makeup, haircare, body and fragrance" },
+        { label: "Role", value: "Wireframes, visual design and front-end build" },
+        { label: "Scope", value: "E-commerce homepage at 1440 (desktop) and 390 (mobile)" },
+        { label: "Stack", value: "pen.dev for design, Next.js and Tailwind CSS for the build" },
+      ],
+      glance: [
+        { value: "9", label: "Sections, announcement bar to footer" },
+        { value: "1440 + 390", label: "Designed for desktop and mobile" },
+        { value: "3", label: "Stages: lo-fi, hi-fi, code" },
+        { value: "6", label: "Colours in the whole system" },
+      ],
+      glanceNote:
+        "A beauty e-commerce homepage designed in three passes: structure first as lo-fi wireframes, then the visual design, then a working build, with desktop and mobile carried through every stage.",
+      sections: [
+        {
+          id: "overview",
+          kicker: "Overview",
+          heading: "A homepage that sells the ritual",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "Solène is a clean-beauty brand selling skincare, makeup, haircare, body and fragrance. Its homepage has a lot to carry in one scroll: a featured product and an offer, the reasons to trust the brand, a way into each category, the best sellers, the current promotions, and a newsletter sign-up.",
+                "I designed it in three passes so each decision was made at the right level of detail: the order and weight of sections as wireframes, the look once the structure was settled, and the behaviour in code.",
+              ],
+            },
+            {
+              kind: "flow",
+              steps: [
+                { label: "Lo-fi wireframes", note: "Grey boxes and numbered sections, desktop and mobile." },
+                { label: "Hi-fi design", note: "Colour, type and photography on the same structure." },
+                { label: "Build", note: "A working Next.js page, one component per section." },
+              ],
+            },
+          ],
+        },
+        {
+          id: "wireframes",
+          kicker: "Wireframes",
+          heading: "Structure before style",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The lo-fi pass has no brand in it on purpose. Every section is numbered and named in the margin: header and navigation, the hero with its featured product, offer and call to action, categories, the product listing, offers and promotions, and the footer.",
+                "Working in grey kept the questions structural. The hero pairs the headline and two calls to action with a product card that floats over the image, so there is a way to buy above the fold. A trust strip sits directly under it, before any browsing starts.",
+              ],
+            },
+            {
+              kind: "figure",
+              src: "lofi-desktop.jpg",
+              caption: "Lo-fi wireframe, desktop 1440. Scroll inside the frame for the full page.",
+              frame: "scroll",
+            },
+          ],
+        },
+        {
+          id: "visual",
+          kicker: "Visual design",
+          heading: "Warm, quiet, and a little editorial",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The palette is six colours. Cream and ivory alternate as section grounds, so the page has rhythm without rules or boxes. Burgundy is the one strong colour, used for the announcement bar, the primary buttons, the sale panel and the footer. Terracotta is kept for small accents like the eyebrow labels.",
+              ],
+            },
+            {
+              kind: "swatches",
+              items: [
+                { hex: "#F3ECE1", name: "Cream" },
+                { hex: "#E8DCCB", name: "Cream deep" },
+                { hex: "#FBF7F0", name: "Ivory" },
+                { hex: "#3B121A", name: "Burgundy" },
+                { hex: "#2A1A17", name: "Ink" },
+                { hex: "#A8563C", name: "Terracotta" },
+              ],
+            },
+            {
+              kind: "prose",
+              body: [
+                "Three typefaces share the work. Lexend Exa, wide and light, sets the headlines in capitals. Bodoni Moda is used once, for the wordmark. Instrument Sans carries the body copy and the interface.",
+                "The category images are cut into arches, which gives the grid a shape of its own and separates it from the square product cards that follow.",
+              ],
+            },
+            { kind: "figure", src: "board-sections.jpg", caption: "Shop by ritual, best sellers, and the week’s offers", frame: "wide" },
+            {
+              kind: "figure",
+              src: "hifi-desktop.jpg",
+              caption: "Hi-fi design, desktop 1440. Scroll inside the frame for the full page.",
+              frame: "scroll",
+            },
+          ],
+        },
+        {
+          id: "mobile",
+          kicker: "Mobile",
+          heading: "Not a squeezed desktop",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "The mobile design at 390 is its own layout. Search moves out of the header into a full-width bar, and the navigation links become a row of category chips directly under it, so the two most common ways into the catalogue are both in reach before the hero.",
+              ],
+            },
+            { kind: "figure", src: "board-wire-to-final.jpg", caption: "Lo-fi and hi-fi, desktop and mobile, side by side", frame: "wide" },
+          ],
+        },
+        {
+          id: "build",
+          kicker: "Design engineering",
+          heading: "From canvas to working page",
+          blocks: [
+            {
+              kind: "prose",
+              body: [
+                "I built the design in Next.js with Tailwind CSS. The design tokens carried straight across: the colours and the three font roles in the design file are the same colours and font roles in the stylesheet.",
+              ],
+            },
+            {
+              kind: "list",
+              items: [
+                "One component per section: header, hero, categories, best sellers, offers, newsletter and footer.",
+                "The best sellers filter works, with an empty state for a category that has nothing in it yet.",
+                "Add to bag updates the count in the header through shared cart state, and each card has a wishlist toggle.",
+                "The mobile header opens a menu and keeps the category chips selectable.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    gallery: ["hifi-desktop.jpg", "lofi-desktop.jpg", "hifi-mobile.jpg", "lofi-mobile.jpg"],
+    captions: true,
+  },
 ];
 
 /* ------------------------------------------------------------

@@ -1,83 +1,65 @@
 "use client";
 
 import { motion } from "motion/react";
-import { profile } from "@/lib/site";
+import { capabilities, profile } from "@/lib/site";
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
-};
-const line = {
-  hidden: { y: "110%" },
-  show: { y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const } },
-};
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 22 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: [0.2, 0.7, 0.2, 1] as const },
+});
+
 export default function Hero() {
   return (
     <header className="hero" id="top">
-      <div className="hero-blobs" aria-hidden>
-        <motion.span
-          className="hero-blob b1"
-          animate={{ y: [0, 30, 0], x: [0, -20, 0] }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.span
-          className="hero-blob b2"
-          animate={{ y: [0, -26, 0], x: [0, 22, 0] }}
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.span
-          className="hero-blob b3"
-          animate={{ scale: [1, 1.18, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
+      <div className="wrap hero-grid">
+        <div className="hero-copy">
+          <motion.p className="hero-hello" {...rise(0.05)}>
+            Hi, I’m Aditi, a designer in {profile.location.split(",")[0]}
+          </motion.p>
 
-      <div className="wrap hero-inner">
-        <motion.h1 className="hero-title" variants={container} initial="hidden" animate="show">
-          <span className="line">
-            <motion.span className="word" variants={line}>
-              I turn
-            </motion.span>
-          </span>
-          <span className="line">
-            <motion.span className="word" variants={line}>
-              messy <span className="hl">problems</span>
-            </motion.span>
-          </span>
-          <span className="line">
-            <motion.span className="word" variants={line}>
-              into interfaces
-            </motion.span>
-          </span>
-          <span className="line">
-            <motion.span className="word" variants={line}>
-              people <span className="hl">use</span>
-              <span className="star">✦</span>
-            </motion.span>
-          </span>
-        </motion.h1>
+          <motion.h1 className="hero-title" {...rise(0.12)}>
+            I research, <span className="mark mark-yellow">design</span> and{" "}
+            <span className="mark mark-violet">build</span> digital products.
+          </motion.h1>
 
-        <motion.div
-          className="hero-intro"
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.85, duration: 0.8, ease: [0.2, 0.7, 0.2, 1] as const }}
-        >
-          <div className="hero-avatar" data-hover>
-            <img className="hero-avatar-illustration" src="/aditi-avatar.png" alt="Portrait of Aditi Agarwal" />
-            <img className="hero-avatar-photo" src="/aditi-photo.jpg" alt="" aria-hidden="true" />
+          <motion.p className="hero-sub" {...rise(0.2)}>
+            {profile.intro}
+          </motion.p>
+
+          <motion.div className="hero-actions" {...rise(0.28)}>
+            <a className="btn btn-primary btn-lg" href="#work">
+              See my work <span aria-hidden>↓</span>
+            </a>
+            <a className="btn btn-lg" href={profile.resume} target="_blank" rel="noopener noreferrer">
+              Resume <span aria-hidden>↗</span>
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.div className="hero-art" {...rise(0.2)}>
+          <div className="hero-portrait">
+            <img className="hero-portrait-illustration" src="/aditi-avatar.png" alt="Portrait of Aditi Agarwal" />
+            <img className="hero-portrait-photo" src="/aditi-photo.jpg" alt="" aria-hidden="true" />
           </div>
-          <div className="hero-statement-wrap">
-            <span className="hero-statement-kicker">The short version</span>
-            <p className="hero-statement">
-              Product &amp; UI/UX designer with <span className="hl hl-1">2+ years</span> taking{" "}
-              <span className="hl hl-2">B2B</span> and <span className="hl hl-3">healthtech</span>{" "}
-              products from messy research all the way to{" "}
-              <span className="hl hl-4">shipped, high-fidelity UI</span>: design systems, two-sided
-              products, and the <span className="hl hl-1">calm interfaces</span> in between.
-            </p>
-            <span className="hero-sign">{profile.name} · {profile.location}</span>
-          </div>
+
+          {/* the four disciplines, pinned around the portrait */}
+          {capabilities.map((c) => (
+            <a
+              key={c.id}
+              href="#about"
+              className={`hero-chip hero-chip-${c.id}`}
+              style={{ ["--accent" as string]: `var(--${c.accent})` }}
+            >
+              {c.title}
+            </a>
+          ))}
+
+          {profile.available && (
+            <span className="hero-available">
+              <i aria-hidden /> Available for work
+            </span>
+          )}
         </motion.div>
       </div>
     </header>

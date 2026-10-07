@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Archivo, JetBrains_Mono } from "next/font/google";
+import { Schibsted_Grotesk, Cabin, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Cursor from "@/components/ui/Cursor";
 import Nav from "@/components/sections/Nav";
 import { SITE } from "./sitemap";
 
-const display = Bricolage_Grotesque({
+const display = Schibsted_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
-const body = Archivo({
+const body = Cabin({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -28,13 +27,13 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: "Aditi Agarwal — Product & UI/UX Designer",
+  title: "Aditi Agarwal — Product Designer & Design Engineer",
   description:
-    "Product & UI/UX designer in New Delhi taking B2B and healthtech products from research to shipped, high-fidelity UI. Selected work: Formi, Conqr.ai, Autumn.",
+    "Product designer and design engineer in New Delhi taking B2B and healthtech products from research to shipped, high-fidelity UI. Selected work: FourCore, Formi, Conqr.ai.",
   openGraph: {
-    title: "Aditi Agarwal — Product & UI/UX Designer",
+    title: "Aditi Agarwal — Product Designer & Design Engineer",
     description:
-      "Turning ambiguous problems into interfaces people actually use. Design systems, two-sided products, and calm healthtech UI.",
+      "I research, design and build digital products: product design, design engineering, visual design and brand identity.",
     type: "website",
     url: SITE,
     siteName: "Aditi Agarwal",
@@ -48,7 +47,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
-        <Cursor />
         <Nav />
         {children}
       </body>

@@ -8,8 +8,10 @@ import StudyHero from "@/components/case/StudyHero";
 import StudyBody from "@/components/case/StudyBody";
 // GATE DISABLED — see lib/data.ts
 // import GateCta from "@/components/case/GateCta";
-import { BRAND } from "@/lib/site";
-import { projects, type Project } from "@/lib/data";
+import Contact from "@/components/sections/Contact";
+import { ProjectRow } from "@/components/sections/ProjectRows";
+import { workOrder } from "@/lib/site";
+import { projects, workCards, type Project } from "@/lib/data";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -72,18 +74,6 @@ function DetailHero({ p }: { p: Project }) {
     );
   }
 
-  if (BRAND[p.slug]) {
-    return (
-      <figure
-        className={`detail-hero logo-hero${BRAND[p.slug].dark ? " on-dark" : ""}`}
-        style={{ background: BRAND[p.slug].bg }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hero-logo" src={`/logos/${BRAND[p.slug].logo}`} alt={`${p.title} logo`} />
-      </figure>
-    );
-  }
-
   if (heroSrc) {
     return (
       <figure className={`detail-hero${p.layout === "mobile" ? " is-mobile" : ""}`}>
@@ -109,8 +99,12 @@ export default async function ProjectPage({
   const p = projects.find((x) => x.slug === slug);
   if (!p) notFound();
 
-  const idx = projects.findIndex((x) => x.slug === slug);
-  const next = projects[(idx + 1) % projects.length];
+  /* the two projects that follow this one in the home page's order */
+  const at = workOrder.indexOf(slug);
+  const more = [1, 2]
+    .map((n) => workOrder[(at + n) % workOrder.length])
+    .map((s) => workCards.find((c) => c.slug === s))
+    .filter((c) => c !== undefined);
   const study = p.study && p.study.sections.length > 0 ? p.study : null;
   /* GATE DISABLED — gated studies used to hide their `more` blocks and screens
      behind a password on /full. Everything is now shown here instead.
@@ -120,6 +114,7 @@ export default async function ProjectPage({
   const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0);
 
   return (
+    <>
     <main className="detail" style={{ ["--accent" as string]: `var(--${p.accent})` }}>
       <div className="wrap">
         <Reveal>
@@ -151,7 +146,12 @@ export default async function ProjectPage({
         </header>
 
         <Reveal delay={0.1}>
-          {study?.hero ? (
+          {p.showcase && p.dir ? (
+            <figure className="detail-hero is-showcase">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/projects/${p.dir}/${p.showcase}`} alt={`${p.title}: key screens`} />
+            </figure>
+          ) : study?.hero ? (
             <StudyHero hero={study.hero} dir={p.dir} title={p.title} />
           ) : (
             <DetailHero p={p} />
@@ -322,17 +322,20 @@ export default async function ProjectPage({
           </p>
         )}
 
-        <Link href={`/work/${next.slug}`} className="detail-next" data-hover>
-          <span className="lbl">Next project</span>
-          <span className="nm">
-            {next.title} <span className="arw">→</span>
-          </span>
-        </Link>
-
-        <Link href="/#contact" className="detail-cta" data-hover>
-          Like what you see? Let’s talk <span className="circle">↗</span>
-        </Link>
       </div>
+
+      <section className="more">
+        <div className="wrap work-head">
+          <h2 className="section-title">More projects</h2>
+        </div>
+        <div className="prows">
+          {more.map((c, i) => (
+            <ProjectRow key={c.slug} p={c} i={i} flip={i % 2 === 0} />
+          ))}
+        </div>
+      </section>
     </main>
+    <Contact />
+    </>
   );
 }

@@ -1,60 +1,60 @@
-"use client";
-
-import Reveal from "../ui/Reveal";
-import Magnetic from "../ui/Magnetic";
 import { profile } from "@/lib/site";
 
+/** Full-bleed footer: the pitch and the ways to reach Aditi, edge to edge. */
 export default function Contact() {
   const year = 2026;
   return (
     <footer className="contact" id="contact">
       <div className="wrap">
-        <span className="kicker contact-kicker">Let’s build something</span>
-        <Reveal>
-          <h2 className="contact-title">
-            <a href={`mailto:${profile.email}`}>Say hello</a>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <Magnetic strength={0.25}>
-            <a className="contact-mail" href={`mailto:${profile.email}`} data-hover>
-              {profile.email}
-              <span className="go">↗</span>
-            </a>
-          </Magnetic>
-        </Reveal>
+        <div className="contact-grid">
+          <div>
+            <h2 className="contact-title">Tell me about your project</h2>
+            <p className="contact-text">
+              Have a product to design, build or rebrand? I reply to every message, and I’m happy
+              to start with a quick intro call to see if it’s a match.
+            </p>
+            <div className="contact-actions">
+              <a
+                className="btn btn-primary btn-lg"
+                href={profile.booking || `mailto:${profile.email}`}
+                {...(profile.booking ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                Say hello <span aria-hidden>↗</span>
+              </a>
+              <a className="btn btn-lg" href={profile.resume} target="_blank" rel="noopener noreferrer">
+                Download resume <span aria-hidden>↓</span>
+              </a>
+            </div>
+          </div>
 
-        <Reveal delay={0.16}>
-          <a className="resume-btn footer-resume" href={profile.resume} target="_blank" rel="noopener noreferrer" data-hover>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-              <path d="M12 3v12" /><path d="M7 11l5 5 5-5" /><path d="M4 19h16" />
-            </svg>
-            Download resume
-          </a>
-        </Reveal>
-
-        <div className="contact-socials">
-          {profile.socials.map((s) => (
-            <a
-              key={s.label}
-              className="social-btn"
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-hover
-            >
-              {s.label} <span className="at">@{s.handle}</span>
-            </a>
-          ))}
-          <a className="social-btn" href={`tel:${profile.phone.replace(/\s/g, "")}`} data-hover>
-            {profile.phone}
-          </a>
+          <div className="contact-links">
+            <div>
+              <h3>Email me at</h3>
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </div>
+            <div>
+              <h3>Call</h3>
+              <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>{profile.phone}</a>
+            </div>
+            <div>
+              <h3>Follow</h3>
+              <ul>
+                {profile.socials.map((s) => (
+                  <li key={s.label}>
+                    <a href={s.href} target="_blank" rel="noopener noreferrer">
+                      {s.label} <span aria-hidden>↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="footer-bar">
-          <span>© {year} {profile.name}</span>
-          <span>Designed &amp; built with care · {profile.location}</span>
-          <span>Bricolage Grotesque · Archivo · JetBrains Mono</span>
+          <span>© {year} {profile.name} · {profile.role}</span>
+          <span>Designed and built with care in {profile.location}</span>
+          <a href="#">Back to top ↑</a>
         </div>
       </div>
     </footer>

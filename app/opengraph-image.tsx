@@ -24,7 +24,7 @@ export default async function Image() {
           height: "100%",
           display: "flex",
           padding: 56,
-          background: "#fbf3e7",
+          background: "#f8f4ee",
           fontFamily: "Archivo",
         }}
       >
@@ -36,9 +36,9 @@ export default async function Image() {
             justifyContent: "space-between",
             padding: "56px 64px",
             borderRadius: 40,
-            border: "3px solid #16130d",
-            background: "#fffdf7",
-            boxShadow: "14px 14px 0 #16130d",
+            border: "3px solid #1e1d1a",
+            background: "#ffffff",
+            boxShadow: "14px 14px 0 #1e1d1a",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -46,11 +46,11 @@ export default async function Image() {
               src={`data:image/png;base64,${avatar.toString("base64")}`}
               width={72}
               height={72}
-              style={{ borderRadius: 999, border: "3px solid #16130d" }}
+              style={{ borderRadius: 999, border: "3px solid #1e1d1a" }}
             />
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ fontSize: 24, color: "#16130d" }}>{profile.location}</div>
-              <div style={{ fontSize: 24, color: "#837a6b" }}>Portfolio · 2026</div>
+              <div style={{ fontSize: 24, color: "#1e1d1a" }}>{profile.location}</div>
+              <div style={{ fontSize: 24, color: "#6f6b63" }}>Portfolio · 2026</div>
             </div>
           </div>
 
@@ -61,32 +61,33 @@ export default async function Image() {
                 fontSize: 96,
                 lineHeight: 1,
                 letterSpacing: "-0.03em",
-                color: "#16130d",
+                color: "#1e1d1a",
               }}
             >
               {profile.name}
             </div>
-            <div style={{ fontSize: 34, color: "#4b4437", maxWidth: 700 }}>
-              I turn ambiguous problems into interfaces people actually use.
+            <div style={{ fontSize: 34, color: "#55524b", maxWidth: 700 }}>
+              I research, design and build digital products.
             </div>
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            {["Product Design", "Design Systems", "UI/UX"].map((t, i) => (
+            {["Product Design", "Design Engineering", "Brand"].map((t, i) => (
               <div
                 key={t}
                 style={{
                   fontSize: 24,
                   padding: "10px 22px",
                   borderRadius: 999,
-                  color: "#fffdf7",
-                  background: ["#ff5a34", "#2f49ff", "#7b3fe4"][i],
+                  color: "#1e1d1a",
+                  border: "3px solid #1e1d1a",
+                  background: ["#f6cf57", "#b9a5f5", "#f3b0da"][i],
                 }}
               >
                 {t}
               </div>
             ))}
-            <div style={{ marginLeft: "auto", fontSize: 26, color: "#16130d" }}>
+            <div style={{ marginLeft: "auto", fontSize: 26, color: "#1e1d1a" }}>
               designwithaditi.in
             </div>
           </div>

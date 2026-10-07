@@ -17,7 +17,7 @@ export function visibleSections(study: Study, detailed: boolean) {
   return study.sections.filter((s) => blocksFor(s, detailed).length > 0);
 }
 
-/** Contents rail + the numbered sections. Each section is an ordered list
+/** Reading progress + the sections. Each section is an ordered list
  *  of blocks, so screens and reasoning interleave instead of prose-then-gallery. */
 export default function StudyBody({
   study,
@@ -33,20 +33,14 @@ export default function StudyBody({
 
   return (
     <div className="study">
-      <StudyNav
-        sections={sections.map((s) => ({ id: s.id, kicker: s.kicker, heading: s.heading }))}
-        bodyId={BODY_ID}
-      />
+      <StudyNav bodyId={BODY_ID} />
 
       <div className="study-body" id={BODY_ID}>
-        {sections.map((s, i) => (
+        {sections.map((s) => (
           <section className="study-section" id={s.id} key={s.id}>
             <Reveal>
               <header className="study-section-head">
-                <div className="study-section-meta">
-                  <span className="study-section-num">{String(i + 1).padStart(2, "0")}</span>
-                  {s.kicker && <span className="study-section-kicker">{s.kicker}</span>}
-                </div>
+                {s.kicker && <span className="study-section-kicker">{s.kicker}</span>}
                 <h2 className="study-section-title">{s.heading}</h2>
               </header>
             </Reveal>

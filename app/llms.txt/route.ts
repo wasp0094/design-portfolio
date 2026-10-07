@@ -6,9 +6,7 @@ export const dynamic = "force-static";
 
 export function GET() {
   const work = projects.filter((p) => !p.template);
-  const primarySkills = capabilities
-    .flatMap((g) => g.skills.filter((s) => s.tier === "primary").map((s) => s.name))
-    .join(", ");
+  const disciplines = capabilities.map((c) => c.title).join(", ");
 
   const lines = [
     `# ${profile.name} — ${profile.role}`,
@@ -23,8 +21,9 @@ export function GET() {
     `## About`,
     `- Role: ${profile.role}`,
     `- Location: ${profile.location}`,
-    `- Core skills: ${primarySkills}`,
-    `- Currently: Senior/Product Designer at FourCore (breach-and-attack-simulation cybersecurity platform)`,
+    `- Disciplines: ${disciplines}`,
+    `- Currently: Web Designer & Design Engineer at Shell Ivory Studio`,
+    `- Previously: Founding to Lead UI/UX Designer at FourCore (breach-and-attack-simulation cybersecurity platform), Feb 2024 to Jul 2026`,
     ``,
     `## Recognition`,
     ...recognition.highlights.map((h) => `- ${h.rank} (${h.scope}) — ${h.event}${h.year ? ` ${h.year}` : ""}`),

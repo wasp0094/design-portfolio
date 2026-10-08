@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { unlock, type UnlockState } from "@/app/actions/unlock";
+import { track } from "@/components/Analytics";
 
 function Submit() {
   const { pending } = useFormStatus();
@@ -18,6 +19,10 @@ function Submit() {
 /** The password prompt shown in place of the detailed study. */
 export default function Unlock({ slug, title }: { slug: string; title: string }) {
   const [state, action] = useActionState<UnlockState, FormData>(unlock, {});
+
+  useEffect(() => {
+    if (state.error) track("unlock_failed", { case_study: slug, reason: state.error });
+  }, [state, slug]);
 
   return (
     <div className="gate">

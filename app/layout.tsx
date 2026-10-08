@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Schibsted_Grotesk, Cabin, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/sections/Nav";
+import Analytics from "@/components/Analytics";
 import { SITE } from "./sitemap";
 
 const display = Schibsted_Grotesk({
@@ -49,6 +50,7 @@ export default function RootLayout({
       <body>
         <Nav />
         {children}
+        <Analytics />
       </body>
     </html>
   );

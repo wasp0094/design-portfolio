@@ -1333,7 +1333,9 @@ main.detail .rise { --y: 34px; }
   transition: opacity var(--dur, .75s) var(--ease) var(--d), transform var(--dur, .75s) var(--ease) var(--d);
 }
 .reveal.is-in { opacity: 1; transform: none; }
-@keyframes rise { from { opacity: 0; transform: translateY(var(--y, 22px)); } }
+/* starts at 0.01, not 0: visually the same, but Chrome skips opacity:0 when
+   picking the LCP element and would otherwise wait for the fade to finish */
+@keyframes rise { from { opacity: 0.01; transform: translateY(var(--y, 22px)); } }
 
 /* ============================================================
    MOTION PREFERENCES

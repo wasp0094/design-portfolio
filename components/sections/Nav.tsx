@@ -44,7 +44,7 @@ export default function Nav() {
       <div className="wrap">
         <div className={`nav-inner${open ? " is-open" : ""}`}>
           <Link href="/#top" className="nav-brand" onClick={close}>
-            <img className="nav-logo" src="/aditi-avatar.png" alt="" width={32} height={32} />
+            <img className="nav-logo" src="/aditi-avatar.png" alt="" width={32} height={32} fetchPriority="high" />
             Aditi Agarwal
           </Link>
 

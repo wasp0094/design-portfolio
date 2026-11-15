@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: { qualities: [90] },
+  images: { qualities: [75, 90] },
   /* The Conqr platform and landing case studies were merged into one
      project at /work/conqr. Both former URLs are live and linked, so they
      redirect permanently rather than 404. */

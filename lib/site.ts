@@ -220,3 +220,34 @@ export const recognition = {
     text: "Ran a Git & GitHub fundamentals session for 300+ students and mentored 5+ through a UI development bootcamp.",
   },
 };
+
+export const privacy = {
+  updated: "15 November 2026",
+  sections: [
+    {
+      heading: "What this site collects",
+      body: [
+        "This is a personal portfolio. There are no accounts, no forms that store your details, and no advertising.",
+        "The site uses Google Analytics 4 to understand how it is used: which pages are viewed, which links and buttons are clicked, how far pages are scrolled, roughly how long a page stays open, and when text is copied. Google Analytics sets its own cookies and receives your IP address, browser and device details, which Google processes under its own privacy policy.",
+      ],
+    },
+    {
+      heading: "Cookies",
+      body: [
+        "Apart from the Google Analytics cookies, the site sets one functional cookie, cs_unlock_<project>, and only if you enter the password for a protected case study. It remembers that you unlocked that study for 30 days and holds nothing about who you are.",
+      ],
+    },
+    {
+      heading: "Booking a call and email",
+      body: [
+        "The “Say hello” button opens a booking page on cal.com. Anything you enter there is handled by Cal.com under its privacy policy. If you email me, I use your message and address only to reply to you.",
+      ],
+    },
+    {
+      heading: "Sharing and your choices",
+      body: [
+        "I do not sell or share your data with anyone beyond the services named above. You can block analytics cookies in your browser settings or with a content blocker and the site keeps working. To ask what I hold about you or to have it deleted, email me and I will act on it.",
+      ],
+    },
+  ],
+};

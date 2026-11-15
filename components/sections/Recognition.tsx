@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
 import Reveal from "../ui/Reveal";
 import { recognition } from "@/lib/site";
 
@@ -19,14 +16,14 @@ export default function Recognition() {
 
         <div className="award-grid">
           {r.highlights.map((a, i) => (
-            <motion.article
+            <Reveal
+              as="article"
               key={a.event}
               className="award"
               style={{ ["--accent" as string]: `var(--${a.accent})` }}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.2, 0.7, 0.2, 1] as const }}
+              y={24}
+              duration={0.6}
+              delay={i * 0.08}
             >
               <div className="award-top">
                 <span className="tag">{a.scope}</span>
@@ -34,7 +31,7 @@ export default function Recognition() {
               </div>
               <span className="award-rank">{a.rank}</span>
               <span className="award-event">{a.event}</span>
-            </motion.article>
+            </Reveal>
           ))}
         </div>
 

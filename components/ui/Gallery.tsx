@@ -91,9 +91,10 @@ function Shot({ it, i, onOpen }: { it: Item; i: number; onOpen: () => void }) {
   const [orient, setOrient] = useState("");
 
   return (
-    <motion.figure
+    <motion.div
       className={`shot ${orient}`}
       role="button"
+      aria-label={it.caption ? undefined : `Open screen ${i + 1}`}
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } }}
@@ -105,7 +106,7 @@ function Shot({ it, i, onOpen }: { it: Item; i: number; onOpen: () => void }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={it.src}
-        alt={it.caption ?? ""}
+        alt=""
         loading="lazy"
         onLoad={(e) => {
           const im = e.currentTarget;
@@ -114,7 +115,7 @@ function Shot({ it, i, onOpen }: { it: Item; i: number; onOpen: () => void }) {
         }}
       />
       <span className="shot-zoom" aria-hidden>⤢</span>
-      {it.caption && <figcaption>{it.caption}</figcaption>}
-    </motion.figure>
+      {it.caption && <span className="shot-cap">{it.caption}</span>}
+    </motion.div>
   );
 }

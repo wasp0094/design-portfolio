@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Reveal from "@/components/ui/Reveal";
@@ -153,46 +154,54 @@ export default async function ProjectPage({
     />
     <main className="detail" style={{ ["--accent" as string]: `var(--${p.accent})` }}>
       <div className="wrap">
-        <Reveal>
+        <div className="rise" style={{ ["--d" as string]: "0s" }}>
           <Link href="/#work" className="detail-back" data-hover>
             <span className="arw">←</span> All work
           </Link>
-        </Reveal>
+        </div>
 
         <header className="detail-head">
-          <Reveal>
+          <div className="rise" style={{ ["--d" as string]: "0s" }}>
             <div className="detail-eyebrow">
               {p.role} <i /> {p.timeline} <i /> {p.year}
             </div>
             {p.professional && <span className="detail-pro">Professional experience</span>}
-          </Reveal>
-          <Reveal delay={0.06}>
+          </div>
+          <div className="rise" style={{ ["--d" as string]: "0.06s" }}>
             <h1 className="detail-title">{p.title}</h1>
-          </Reveal>
-          <Reveal delay={0.12}>
+          </div>
+          <div className="rise" style={{ ["--d" as string]: "0.12s" }}>
             <p className="detail-sub">{p.subtitle}</p>
-          </Reveal>
-          <Reveal delay={0.18}>
+          </div>
+          <div className="rise" style={{ ["--d" as string]: "0.18s" }}>
             <div className="detail-tags">
               {p.tags.map((t) => (
                 <span key={t}>{t}</span>
               ))}
             </div>
-          </Reveal>
+          </div>
         </header>
 
-        <Reveal delay={0.1}>
+        <div className="rise" style={{ ["--d" as string]: "0.1s" }}>
           {p.showcase && p.dir ? (
             <figure className="detail-hero is-showcase">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/projects/${p.dir}/${p.showcase}`} alt={`${p.title}: key screens`} />
+              <Image
+                src={`/projects/${p.dir}/${p.showcase}`}
+                alt={`${p.title}: key screens`}
+                width={2400}
+                height={1350}
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                quality={90}
+                loading="eager"
+                fetchPriority="high"
+              />
             </figure>
           ) : study?.hero ? (
             <StudyHero hero={study.hero} dir={p.dir} title={p.title} />
           ) : (
             <DetailHero p={p} />
           )}
-        </Reveal>
+        </div>
 
         {study ? (
           <>

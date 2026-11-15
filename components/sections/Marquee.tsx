@@ -1,49 +1,44 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { marqueeWords } from "@/lib/site";
 
-gsap.registerPlugin(ScrollTrigger);
-
-/** Infinite marquee whose speed + direction react to scroll velocity (GSAP). */
+/** Infinite CSS marquee whose speed + direction react to scroll velocity. */
 export default function Marquee() {
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const track = trackRef.current!;
-    const ctx = gsap.context(() => {
-      const base = 22; // seconds per loop
-      let direction = -1;
+    const anim = trackRef.current?.getAnimations()[0];
+    if (!anim) return;
+    let direction = 1, rate = 1, target = 1, lastY = scrollY, lastT = performance.now();
+    let raf = 0, settle = 0;
 
-      // track holds the words twice, so -50% is one seamless loop
-      const loop = gsap.to(track, {
-        xPercent: -50,
-        duration: base,
-        ease: "none",
-        repeat: -1,
-      });
+    const tick = () => {
+      rate += (target - rate) * 0.12;
+      anim.playbackRate = rate;
+      raf = Math.abs(target - rate) > 0.01 ? requestAnimationFrame(tick) : 0;
+    };
+    const onScroll = () => {
+      const now = performance.now();
+      const v = ((scrollY - lastY) / Math.max(now - lastT, 1)) * 1000;
+      lastY = scrollY;
+      lastT = now;
+      if (v) direction = v > 0 ? 1 : -1;
+      target = direction * Math.min(5, 1 + Math.abs(v) / 400);
+      clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        target = direction;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, 300);
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
 
-      const st = ScrollTrigger.create({
-        trigger: track,
-        start: "top bottom",
-        end: "bottom top",
-        onUpdate: (self) => {
-          const v = self.getVelocity();
-          if (v < 0 && direction !== 1) { direction = 1; loop.timeScale(-1); }
-          else if (v > 0 && direction !== -1) { direction = -1; loop.timeScale(1); }
-          const boost = gsap.utils.clamp(1, 5, 1 + Math.abs(v) / 400);
-          gsap.to(loop, { timeScale: direction * boost, duration: 0.3, overwrite: true });
-          gsap.to(loop, { timeScale: direction * 1, duration: 0.6, delay: 0.3, overwrite: false });
-        },
-      });
-
-      return () => { loop.kill(); st.kill(); };
-    }, track);
-
-    return () => ctx.revert();
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+      clearTimeout(settle);
+    };
   }, []);
 
   const items = [...marqueeWords, ...marqueeWords];

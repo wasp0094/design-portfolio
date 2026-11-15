@@ -48,7 +48,7 @@ export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: st
               <span className="n">
                 {String(i + 1).padStart(2, "0")} / {count}
               </span>
-              <h4>{s.title}</h4>
+              <h3>{s.title}</h3>
               {s.body.map((p, j) => (
                 <p key={j}>{p}</p>
               ))}
@@ -88,7 +88,7 @@ export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: st
               {/* the pinned column is hidden on narrow screens, so each shot
                   carries its own copy there instead */}
               <figcaption className="bk-scrolly-inline">
-                <h4>{s.title}</h4>
+                <h3>{s.title}</h3>
                 {s.body.map((p, j) => (
                   <p key={j}>{p}</p>
                 ))}

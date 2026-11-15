@@ -66,15 +66,15 @@ export default function Block({ block: b, dir }: Props) {
           <header className="bk-persona-head">
             {b.photo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img className="bk-persona-photo" src={src(dir, b.photo)} alt="" />
+              <img className="bk-persona-photo" src={src(dir, b.photo)} alt="" loading="lazy" />
             ) : (
               <span className="bk-persona-mark">{b.name.charAt(0)}</span>
             )}
             <div>
-              <h4>
+              <h3>
                 {b.name}
                 {b.age != null && <span className="age">, {b.age}</span>}
-              </h4>
+              </h3>
               <div className="role">{b.role}</div>
             </div>
           </header>
@@ -83,7 +83,7 @@ export default function Block({ block: b, dir }: Props) {
 
           <div className="bk-persona-cols">
             <div>
-              <h5>Goals</h5>
+              <h4>Goals</h4>
               <ul>
                 {b.goals.map((g) => (
                   <li key={g}>{g}</li>
@@ -91,7 +91,7 @@ export default function Block({ block: b, dir }: Props) {
               </ul>
             </div>
             <div>
-              <h5>Frustrations</h5>
+              <h4>Frustrations</h4>
               <ul>
                 {b.frustrations.map((f) => (
                   <li key={f}>{f}</li>
@@ -114,7 +114,7 @@ export default function Block({ block: b, dir }: Props) {
               >
                 {b.columns.map((col, ci) => (
                   <div className="bk-theme-cell" key={col}>
-                    <h5>{col}</h5>
+                    <h3>{col}</h3>
                     <ul>
                       {(row.cells[ci] ?? []).map((c) => (
                         <li key={c}>{c}</li>
@@ -250,7 +250,7 @@ export default function Block({ block: b, dir }: Props) {
     case "callout":
       return (
         <aside className="bk-callout">
-          {b.title && <h5>{b.title}</h5>}
+          {b.title && <h3>{b.title}</h3>}
           <p>{b.body}</p>
         </aside>
       );

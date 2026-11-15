@@ -261,7 +261,13 @@ img, svg { display: block; max-width: 100%; }
   border-block: var(--bw) solid var(--ink); background: var(--yellow);
   overflow: hidden; padding: 13px 0;
 }
-.marquee-track { display: flex; width: max-content; will-change: transform; }
+.marquee-track {
+  display: flex; width: max-content; will-change: transform;
+  /* the negative delay banks 100 loops of history so scroll-up (reverse
+     playback) never rewinds to time 0, where a reversed animation stops */
+  animation: marquee 22s linear -2200s infinite;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
 .marquee-item {
   display: inline-flex; align-items: center;
   font-family: var(--ff-display); font-weight: 700;
@@ -666,7 +672,8 @@ img, svg { display: block; max-width: 100%; }
 .gallery .shot.wide { column-span: all; }
 .gallery .shot:not(:first-child).wide { margin-top: clamp(14px, 1.6vw, 20px); }
 .gallery .shot img { width: 100%; height: auto; display: block; }
-.gallery .shot figcaption {
+.gallery .shot-cap {
+  display: block;
   padding: 10px 14px; border-top: var(--bw) solid var(--ink);
   font-size: 13px; font-weight: 600; color: var(--ink-2); background: var(--bg);
 }
@@ -933,7 +940,7 @@ img, svg { display: block; max-width: 100%; }
   object-fit: cover; object-position: center top; display: grid; place-items: center;
 }
 .bk-persona-mark { background: var(--accent); font-family: var(--ff-display); font-weight: 700; font-size: 21px; }
-.bk-persona-head h4 { font-family: var(--ff-display); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+.bk-persona-head h3 { font-family: var(--ff-display); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
 .bk-persona-head .age { font-weight: 500; color: var(--ink-3); }
 .bk-persona-head .role { font-size: 13.5px; font-weight: 500; color: var(--ink-3); margin-top: 3px; }
 .bk-persona-quote {
@@ -941,7 +948,7 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 22px; padding-left: 16px; border-left: 3px solid var(--ink);
 }
 .bk-persona-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 32px); }
-.bk-persona-cols h5, .bk-theme-cell h5, .bk-decision-cell h5 {
+.bk-persona-cols h4, .bk-theme-cell h3, .bk-decision-cell h5 {
   font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
   text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px;
 }
@@ -1069,7 +1076,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: 0.08em; margin-bottom: 14px;
   padding: 2px 8px; border-radius: 6px; background: var(--accent); border: var(--bw) solid var(--ink);
 }
-.bk-scrolly-panel h4 {
+.bk-scrolly-panel h3 {
   font-family: var(--ff-display); font-weight: 700; font-size: clamp(21px, 2.3vw, 26px);
   line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 14px;
 }
@@ -1122,7 +1129,7 @@ img, svg { display: block; max-width: 100%; }
   .bk-scrolly-collage[data-count] > :nth-child(n + 2) { display: none; }
   .bk-scrolly-collage[data-count] > :nth-child(1) { width: 68%; margin: 0; }
   .bk-scrolly-inline { display: block; padding-top: 18px; }
-  .bk-scrolly-inline h4 {
+  .bk-scrolly-inline h3 {
     font-family: var(--ff-display); font-weight: 700; font-size: 21px;
     line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 10px;
   }
@@ -1154,7 +1161,7 @@ img, svg { display: block; max-width: 100%; }
   box-shadow: inset 6px 0 0 var(--accent);
   padding-left: calc(clamp(18px, 2.2vw, 26px) + 6px);
 }
-.bk-callout h5 {
+.bk-callout h3 {
   font-family: var(--ff-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
   text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
 }
@@ -1315,6 +1322,18 @@ img, svg { display: block; max-width: 100%; }
   .gate-row { flex-direction: column; }
   .gate-submit { justify-content: center; }
 }
+
+/* entrance fade for above-the-fold content; CSS rather than JS so it
+   starts at first paint instead of after hydration (LCP) */
+.rise { animation: rise var(--dur, .75s) cubic-bezier(.2, .7, .2, 1) var(--d, 0s) backwards; }
+.hero .rise { --dur: .7s; }
+main.detail .rise { --y: 34px; }
+.reveal {
+  opacity: 0; transform: translateY(var(--y));
+  transition: opacity var(--dur, .75s) var(--ease) var(--d), transform var(--dur, .75s) var(--ease) var(--d);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+@keyframes rise { from { opacity: 0; transform: translateY(var(--y, 22px)); } }
 
 /* ============================================================
    MOTION PREFERENCES

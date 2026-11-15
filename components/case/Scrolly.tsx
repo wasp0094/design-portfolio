@@ -8,7 +8,7 @@ import type { ScrollyStep } from "@/lib/data";
  *  sticks while the images move past it, and the copy crossfades to whichever
  *  screen is nearest the middle of the viewport. Below 900px the pin is
  *  dropped and each screen carries its own caption inline instead. */
-export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: string }) {
+export default function Scrolly({ steps, dir, title }: { steps: ScrollyStep[]; dir?: string; title: string }) {
   const { scrollY } = useScroll();
   const [active, setActive] = useState(0);
   const shots = useRef<(HTMLElement | null)[]>([]);
@@ -70,7 +70,7 @@ export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: st
             >
               {frames.length === 1 ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={src(frames[0])} alt={s.title} loading="lazy" />
+                <img src={src(frames[0])} alt={`${title}: ${s.title}`} loading="lazy" />
               ) : (
                 <div className="bk-scrolly-collage" data-count={frames.length}>
                   {frames.map((f, k) => (
@@ -78,8 +78,7 @@ export default function Scrolly({ steps, dir }: { steps: ScrollyStep[]; dir?: st
                     <img
                       key={f}
                       src={src(f)}
-                      alt={k === 0 ? s.title : ""}
-                      aria-hidden={k > 0}
+                      alt={`${title}: ${s.title} (${k + 1} of ${frames.length})`}
                       loading="lazy"
                     />
                   ))}

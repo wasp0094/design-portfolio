@@ -32,7 +32,7 @@ export default function Hero() {
         <div className="hero-art rise" style={{ ["--d" as string]: "0.2s" }}>
           <div className="hero-portrait">
             <Image className="hero-portrait-illustration" src="/aditi-avatar.png" alt="Portrait of Aditi Agarwal" fill unoptimized loading="eager" fetchPriority="high" />
-            <Image className="hero-portrait-photo" src="/aditi-photo.jpg" alt="" aria-hidden="true" fill sizes="(max-width: 900px) 90vw, 40vw" quality={75} fetchPriority="low" />
+            <Image className="hero-portrait-photo" src="/aditi-photo.jpg" alt="Photo of Aditi Agarwal" aria-hidden="true" fill sizes="(max-width: 900px) 90vw, 40vw" quality={75} fetchPriority="low" />
           </div>
 
           {/* the four disciplines, pinned around the portrait */}

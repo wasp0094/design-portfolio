@@ -10,6 +10,7 @@ import Unlock from "@/components/case/Unlock";
 import { relock } from "@/app/actions/unlock";
 import { hasAccess } from "@/lib/gate";
 import { projects } from "@/lib/data";
+import { prettify } from "@/lib/alt";
 
 /* The gated long version of a case study. Reads a cookie, so it always
    renders per-request — never prerendered, never cached. The `more` blocks
@@ -92,7 +93,7 @@ export default async function FullStudyPage({
         </Reveal>
 
         <StudyHead study={study} />
-        <StudyBody study={study} dir={p.dir} detailed />
+        <StudyBody study={study} dir={p.dir} title={p.title} detailed />
 
         {hasGallery && (
           <>
@@ -105,6 +106,7 @@ export default async function FullStudyPage({
               items={p.gallery!.map((f) => ({
                 src: f.startsWith("/") ? f : `/projects/${p.dir}/${f}`,
                 caption: undefined,
+                alt: `${p.title} screen: ${prettify(f)}`,
               }))}
             />
           </>

@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 
-type Item = { src: string; caption?: string };
+type Item = { src: string; caption?: string; alt: string };
 
 /** Masonry gallery (never crops) + a fullscreen lightbox with keyboard / arrow nav. */
 export default function Gallery({ items, cols }: { items: Item[]; cols: number }) {
@@ -74,7 +74,7 @@ export default function Gallery({ items, cols }: { items: Item[]; cols: number }
               onClick={(e) => e.stopPropagation()}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={items[open].src} alt={items[open].caption ?? ""} />
+              <img src={items[open].src} alt={items[open].alt} />
               <figcaption>
                 <span>{items[open].caption ?? ""}</span>
                 <span className="lb-count">{open + 1} / {items.length}</span>
@@ -94,7 +94,6 @@ function Shot({ it, i, onOpen }: { it: Item; i: number; onOpen: () => void }) {
     <motion.div
       className={`shot ${orient}`}
       role="button"
-      aria-label={it.caption ? undefined : `Open screen ${i + 1}`}
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } }}
@@ -106,7 +105,7 @@ function Shot({ it, i, onOpen }: { it: Item; i: number; onOpen: () => void }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={it.src}
-        alt=""
+        alt={it.alt}
         loading="lazy"
         onLoad={(e) => {
           const im = e.currentTarget;

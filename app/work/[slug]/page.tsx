@@ -14,20 +14,10 @@ import { ProjectRow } from "@/components/sections/ProjectRows";
 import { workOrder } from "@/lib/site";
 import { projects, workCards, type Project } from "@/lib/data";
 import { SITE } from "@/app/sitemap";
+import { prettify } from "@/lib/alt";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
-}
-
-/** turn a filename into a readable caption: "programme-builder-step1.png" → "Programme builder step 1" */
-function prettify(file: string): string {
-  return file
-    .replace(/\.[a-z0-9]+$/i, "")
-    .replace(/-/g, " ")
-    .replace(/(\d+)/g, " $1")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/^./, (c) => c.toUpperCase());
 }
 
 function linkLabel(url: string): string {
@@ -86,7 +76,7 @@ function DetailHero({ p }: { p: Project }) {
     return (
       <figure className={`detail-hero${p.layout === "mobile" ? " is-mobile" : ""}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={heroSrc} alt={`${p.title} — hero`} />
+        <img src={heroSrc} alt={`${p.title}: ${p.subtitle}`} />
       </figure>
     );
   }
@@ -233,7 +223,7 @@ export default async function ProjectPage({
               </Reveal>
             )}
             {/* GATE DISABLED — `detailed` renders the formerly gated `more` blocks */}
-            <StudyBody study={study} dir={p.dir} detailed />
+            <StudyBody study={study} dir={p.dir} title={p.title} detailed />
             {/* {gate && (
               <Reveal>
                 <GateCta slug={p.slug} teaser={gate.teaser} includes={gate.includes} />
@@ -333,12 +323,12 @@ export default async function ProjectPage({
                     <figure className="cmp-item before">
                       <span className="cmp-tag">Before</span>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={`/projects/${p.dir}/${c.before}`} alt={`${c.label} — before`} loading="lazy" />
+                      <img src={`/projects/${p.dir}/${c.before}`} alt={`${p.title}: ${c.label} — before`} loading="lazy" />
                     </figure>
                     <figure className="cmp-item after">
                       <span className="cmp-tag">After</span>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={`/projects/${p.dir}/${c.after}`} alt={`${c.label} — after`} loading="lazy" />
+                      <img src={`/projects/${p.dir}/${c.after}`} alt={`${p.title}: ${c.label} — after`} loading="lazy" />
                     </figure>
                   </div>
                 </div>
@@ -368,7 +358,8 @@ export default async function ProjectPage({
                  folder — used by conqr, which merged two projects into one */
               items={p.gallery!.map((f) => ({
                 src: f.startsWith("/") ? f : `/projects/${p.dir}/${f}`,
-                caption: p.captions ? prettify(f.split("/").pop()!) : undefined,
+                caption: p.captions ? prettify(f) : undefined,
+                alt: `${p.title} screen: ${prettify(f)}`,
               }))}
             />
           </>

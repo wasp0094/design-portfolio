@@ -63,7 +63,7 @@ export function OtherGrid({ cards }: { cards: WorkCard[] }) {
             className="ocard"
             style={{ ["--accent" as string]: `var(--${p.accent})` }}
           >
-            <div className="ocard-media">{src && <Image src={src} alt="" width={1600} height={1200} sizes="(max-width: 760px) 100vw, 33vw" quality={90} />}</div>
+            <div className="ocard-media">{src && <Image src={src} alt={`${p.title}: ${p.subtitle}`} width={1600} height={1200} sizes="(max-width: 760px) 100vw, 33vw" quality={90} />}</div>
             <div className="ocard-body">
               <h3>{p.title}</h3>
               <p>{p.subtitle}</p>

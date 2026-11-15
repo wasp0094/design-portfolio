@@ -22,10 +22,12 @@ export function visibleSections(study: Study, detailed: boolean) {
 export default function StudyBody({
   study,
   dir,
+  title,
   detailed = false,
 }: {
   study: Study;
   dir?: string;
+  title: string;
   detailed?: boolean;
 }) {
   const sections = visibleSections(study, detailed);
@@ -48,7 +50,7 @@ export default function StudyBody({
             <div className="study-blocks">
               {blocksFor(s, detailed).map((b, j) => (
                 <Reveal key={j} delay={Math.min(j, 2) * 0.05}>
-                  <Block block={b} dir={dir} />
+                  <Block block={b} dir={dir} title={title} />
                 </Reveal>
               ))}
             </div>

@@ -1,10 +1,11 @@
+import { prettify } from "@/lib/alt";
 import type { Block } from "@/lib/data";
 import Scrolly from "./Scrolly";
 
 /* One renderer per block kind. Server components — nothing here needs state.
    `dir` is the project's folder in public/projects/, prefixed onto every src. */
 
-type Props = { block: Block; dir?: string };
+type Props = { block: Block; dir?: string; title: string };
 
 const src = (dir: string | undefined, file: string) =>
   file.startsWith("/") ? file : `/projects/${dir}/${file}`;
@@ -13,7 +14,7 @@ const src = (dir: string | undefined, file: string) =>
  *  yet, so a stand-in can never quietly pass as the real thing. */
 const Stand = () => <span className="bk-placeholder">Placeholder</span>;
 
-export default function Block({ block: b, dir }: Props) {
+export default function Block({ block: b, dir, title }: Props) {
   switch (b.kind) {
     case "prose":
       return (
@@ -66,7 +67,7 @@ export default function Block({ block: b, dir }: Props) {
           <header className="bk-persona-head">
             {b.photo ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img className="bk-persona-photo" src={src(dir, b.photo)} alt="" loading="lazy" />
+              <img className="bk-persona-photo" src={src(dir, b.photo)} alt={`Persona: ${b.name}, ${b.role}`} loading="lazy" />
             ) : (
               <span className="bk-persona-mark">{b.name.charAt(0)}</span>
             )}
@@ -144,7 +145,7 @@ export default function Block({ block: b, dir }: Props) {
           >
             {b.placeholder && <Stand />}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src(dir, b.src)} alt={b.caption ?? ""} loading="lazy" />
+            <img src={src(dir, b.src)} alt={b.caption ?? `${title}: ${prettify(b.src)}`} loading="lazy" />
             {b.caption && <figcaption>{b.caption}</figcaption>}
           </figure>
 
@@ -162,7 +163,7 @@ export default function Block({ block: b, dir }: Props) {
       );
 
     case "scrolly":
-      return <Scrolly steps={b.steps} dir={dir} />;
+      return <Scrolly steps={b.steps} dir={dir} title={title} />;
 
     case "link":
       return (
@@ -203,7 +204,7 @@ export default function Block({ block: b, dir }: Props) {
             >
               {it.placeholder && <Stand />}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src(dir, it.src)} alt={it.caption ?? ""} loading="lazy" />
+              <img src={src(dir, it.src)} alt={it.caption ?? `${title}: ${prettify(it.src)}`} loading="lazy" />
               {it.caption && <figcaption>{it.caption}</figcaption>}
             </figure>
           ))}
@@ -224,12 +225,12 @@ export default function Block({ block: b, dir }: Props) {
             <figure className="cmp-item before">
               <span className="cmp-tag">Before</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src(dir, b.before)} alt={`${b.label ?? "Screen"} — before`} loading="lazy" />
+              <img src={src(dir, b.before)} alt={`${title}: ${b.label ?? "screen"} — before`} loading="lazy" />
             </figure>
             <figure className="cmp-item after">
               <span className="cmp-tag">After</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src(dir, b.after)} alt={`${b.label ?? "Screen"} — after`} loading="lazy" />
+              <img src={src(dir, b.after)} alt={`${title}: ${b.label ?? "screen"} — after`} loading="lazy" />
             </figure>
           </div>
         </div>
@@ -282,10 +283,10 @@ export default function Block({ block: b, dir }: Props) {
             .join(" ")}
         >
           <div className="bk-split-cell">
-            <Block block={b.left} dir={dir} />
+            <Block block={b.left} dir={dir} title={title} />
           </div>
           <div className="bk-split-cell">
-            <Block block={b.right} dir={dir} />
+            <Block block={b.right} dir={dir} title={title} />
           </div>
         </div>
       );

@@ -23,7 +23,7 @@ export default function StudyHero({
       {hero.web && (
         <div className="study-hero-web">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={src(hero.web)} alt={`${title} — web dashboard`} />
+          <img src={src(hero.web)} alt={`${title}: ${hero.webLabel ?? "desktop screen"}`} />
           {hero.webLabel && <span className="study-hero-tag">{hero.webLabel}</span>}
         </div>
       )}
@@ -32,7 +32,7 @@ export default function StudyHero({
         <div className="study-hero-app">
           <div className="study-hero-device">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src(hero.app)} alt={`${title} — patient mobile app`} />
+            <img src={src(hero.app)} alt={`${title}: ${hero.appLabel ?? "mobile screen"}`} />
           </div>
           {hero.appLabel && <span className="study-hero-tag">{hero.appLabel}</span>}
         </div>

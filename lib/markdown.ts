@@ -126,6 +126,7 @@ export function siteMarkdown(): string {
     ``,
     `## Selected work`,
     ...work.map((p) => `- [${p.title}](${SITE}/work/${p.slug}.md): ${p.summary}`),
+    `- Every case study in one file: ${SITE}/llms-full.txt`,
     ``,
     `## About`,
     `- Role: ${profile.role}`,
@@ -145,6 +146,10 @@ export function siteMarkdown(): string {
     `- Privacy: ${SITE}/privacy`,
     ``,
   ].join("\n");
+}
+
+export function siteMarkdownFull(): string {
+  return [siteMarkdown(), ...projects.filter((p) => !p.template).map(projectMarkdown)].join("\n---\n\n");
 }
 
 export function privacyMarkdown(): string {

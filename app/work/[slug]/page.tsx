@@ -125,7 +125,19 @@ export default async function ProjectPage({
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebPage",
+        "@id": `${SITE}/work/${p.slug}#webpage`,
+        url: `${SITE}/work/${p.slug}`,
+        name: `${p.title} — ${p.subtitle}`,
+        description: p.summary,
+        inLanguage: "en",
+        isPartOf: { "@id": `${SITE}/#website` },
+        breadcrumb: { "@id": `${SITE}/work/${p.slug}#breadcrumb` },
+        mainEntity: { "@id": `${SITE}/work/${p.slug}#work` },
+      },
+      {
         "@type": "CreativeWork",
+        "@id": `${SITE}/work/${p.slug}#work`,
         name: p.title,
         headline: `${p.title} — ${p.subtitle}`,
         description: p.summary,
@@ -137,6 +149,7 @@ export default async function ProjectPage({
       },
       {
         "@type": "BreadcrumbList",
+        "@id": `${SITE}/work/${p.slug}#breadcrumb`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE },
           { "@type": "ListItem", position: 2, name: "Work", item: `${SITE}/#work` },

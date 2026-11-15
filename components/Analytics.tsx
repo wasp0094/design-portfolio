@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { preconnect } from "react-dom";
 import { profile } from "@/lib/site";
 
 const GA_ID = "G-YDLQGRN17K";
@@ -30,6 +31,7 @@ function label(el: Element) {
 }
 
 export default function Analytics() {
+  preconnect("https://www.googletagmanager.com");
   const pathname = usePathname();
 
   useEffect(() => {

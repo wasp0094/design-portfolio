@@ -7,13 +7,11 @@ export const alt = `${profile.name} — ${profile.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const asset = (p: string) => readFile(join(process.cwd(), p));
-
 export default async function Image() {
   const [display, body, avatar] = await Promise.all([
-    asset("assets/bricolage-800.ttf"),
-    asset("assets/archivo-500.ttf"),
-    asset("public/aditi-avatar.png"),
+    readFile(join(process.cwd(), "assets/bricolage-800.ttf")),
+    readFile(join(process.cwd(), "assets/archivo-500.ttf")),
+    readFile(join(process.cwd(), "public/aditi-avatar.png")),
   ]);
 
   return new ImageResponse(

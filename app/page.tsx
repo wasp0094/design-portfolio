@@ -39,7 +39,40 @@ const jsonLd = {
       worksFor: { "@type": "Organization", name: experience[0].org },
       alumniOf: { "@type": "CollegeOrUniversity", name: recognition.education.school },
       knowsAbout: capabilities.flatMap((c) => [c.title, ...c.skills]),
+      makesOffer: capabilities.map((c) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: c.title, description: c.blurb, serviceType: c.skills },
+      })),
+      hasCredential: [
+        {
+          "@type": "EducationalOccupationalCredential",
+          name: recognition.education.degree,
+          credentialCategory: "degree",
+          recognizedBy: { "@type": "CollegeOrUniversity", name: recognition.education.school },
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          name: recognition.certifications.featured.name,
+          credentialCategory: "certificate",
+          recognizedBy: { "@type": "Organization", name: recognition.certifications.featured.by },
+        },
+        ...recognition.certifications.others.map((name) => ({
+          "@type": "EducationalOccupationalCredential",
+          name,
+          credentialCategory: "certificate",
+        })),
+      ],
+      award: recognition.highlights.map((h) => `${h.rank} (${h.scope}), ${h.event}${h.year ? ` ${h.year}` : ""}`),
       sameAs: profile.socials.map((s) => s.href),
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE}/#webpage`,
+      url: SITE,
+      name: `${profile.name} — ${profile.role}`,
+      inLanguage: "en",
+      isPartOf: { "@id": `${SITE}/#website` },
+      mainEntity: { "@id": `${SITE}/#person` },
     },
     {
       "@type": "WebSite",

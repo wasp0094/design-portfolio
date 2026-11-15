@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Schibsted_Grotesk, Cabin, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/sections/Nav";
@@ -41,6 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
 };
+
+export const viewport: Viewport = { themeColor: "#f8f4ee" };
 
 export default function RootLayout({
   children,

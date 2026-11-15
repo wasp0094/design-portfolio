@@ -12,6 +12,7 @@ import Contact from "@/components/sections/Contact";
 import { ProjectRow } from "@/components/sections/ProjectRows";
 import { workOrder } from "@/lib/site";
 import { projects, workCards, type Project } from "@/lib/data";
+import { SITE } from "@/app/sitemap";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -50,9 +51,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
   if (!p) return {};
+  const title = `${p.title} — ${p.subtitle} | Aditi Agarwal`;
+  const url = `/work/${p.slug}`;
+  const images = p.dir && p.cover ? [`/projects/${p.dir}/${p.cover}`] : undefined;
   return {
-    title: `${p.title} — Aditi Agarwal`,
+    title,
     description: p.summary,
+    alternates: { canonical: url, types: { "text/markdown": `${url}.md` } },
+    openGraph: { title, description: p.summary, url, type: "article", siteName: "Aditi Agarwal", images },
+    twitter: { card: "summary_large_image", title, description: p.summary, images },
   };
 }
 
@@ -113,8 +120,37 @@ export default async function ProjectPage({
        const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0 && !gate); */
   const hasGallery = Boolean(p.dir && p.gallery && p.gallery.length > 0);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        name: p.title,
+        headline: `${p.title} — ${p.subtitle}`,
+        description: p.summary,
+        url: `${SITE}/work/${p.slug}`,
+        image: p.dir && p.cover ? `${SITE}/projects/${p.dir}/${p.cover}` : undefined,
+        dateCreated: p.year,
+        keywords: p.tags.join(", "),
+        author: { "@id": `${SITE}/#person` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+          { "@type": "ListItem", position: 2, name: "Work", item: `${SITE}/#work` },
+          { "@type": "ListItem", position: 3, name: p.title, item: `${SITE}/work/${p.slug}` },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+    />
     <main className="detail" style={{ ["--accent" as string]: `var(--${p.accent})` }}>
       <div className="wrap">
         <Reveal>

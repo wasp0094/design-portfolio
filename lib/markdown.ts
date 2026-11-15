@@ -1,0 +1,99 @@
+import "server-only";
+import type { Block, Project } from "./data";
+import { SITE } from "@/app/sitemap";
+
+const img = (p: Project, src: string) =>
+  src.startsWith("/") ? `${SITE}${src}` : `${SITE}/projects/${p.dir}/${src}`;
+
+const list = (items: string[]) => items.map((i) => `- ${i}`).join("\n");
+
+function block(p: Project, b: Block): string {
+  switch (b.kind) {
+    case "prose":
+      return b.body.join("\n\n");
+    case "lead":
+      return `**${b.text}**`;
+    case "list":
+      return list(b.items);
+    case "stats":
+      return list(b.items.map((s) => `**${s.value}** ${s.label}${s.source ? ` (${s.source})` : ""}`));
+    case "quote":
+      return `> ${b.text}\n>\n> — ${b.author}${b.role ? `, ${b.role}` : ""}`;
+    case "persona":
+      return [
+        `#### Persona: ${b.name}${b.age ? `, ${b.age}` : ""} — ${b.role}`,
+        `Goals:\n${list(b.goals)}`,
+        `Frustrations:\n${list(b.frustrations)}`,
+        b.quote ? `> ${b.quote}` : "",
+      ].filter(Boolean).join("\n\n");
+    case "themes":
+      return [
+        `| Theme | ${b.columns.join(" | ")} |`,
+        `|${" --- |".repeat(b.columns.length + 1)}`,
+        ...b.rows.map((r) => `| ${r.label} | ${r.cells.map((c) => c.join("; ")).join(" | ")} |`),
+      ].join("\n");
+    case "figure":
+      return [
+        `![${b.caption ?? p.title}](${img(p, b.src)})`,
+        b.caption ? `*${b.caption}*` : "",
+        b.annotations ? b.annotations.map((a) => `${a.n}. ${a.text}`).join("\n") : "",
+      ].filter(Boolean).join("\n\n");
+    case "figures":
+      return b.items.map((i) => `![${i.caption ?? p.title}](${img(p, i.src)})`).join("\n");
+    case "compare":
+      return `${b.label ? `**${b.label}**\n\n` : ""}![Before](${img(p, b.before)})\n![After](${img(p, b.after)})`;
+    case "decision":
+      return `#### ${b.title}\n\n${b.body.join("\n\n")}`;
+    case "callout":
+      return `> ${b.title ? `**${b.title}** ` : ""}${b.body}`;
+    case "flow":
+      return b.steps.map((s, i) => `${i + 1}. ${s.label}${s.note ? ` — ${s.note}` : ""}`).join("\n");
+    case "swatches":
+      return list(b.items.map((s) => `${s.name}: ${s.hex}`));
+    case "scrolly":
+      return b.steps
+        .map((s) => [`#### ${s.title}`, s.body.join("\n\n"), ...[s.src].flat().map((f) => `![${s.title}](${img(p, f)})`)].join("\n\n"))
+        .join("\n\n");
+    case "link":
+      return `[${b.label}](${b.href})${b.note ? ` — ${b.note}` : ""}`;
+    case "todo":
+      return "";
+    case "split":
+      return [block(p, b.left), block(p, b.right)].filter(Boolean).join("\n\n");
+  }
+}
+
+export function projectMarkdown(p: Project): string {
+  const out: string[] = [
+    `# ${p.title} — ${p.subtitle}`,
+    `> ${p.summary}`,
+    `By Aditi Agarwal · ${p.role} · ${p.timeline} · ${p.year}`,
+    `Canonical: ${SITE}/work/${p.slug}`,
+    `Tags: ${p.tags.join(", ")}`,
+  ];
+  if (p.link) out.push(`Live: ${p.link}`);
+
+  const study = p.study?.sections.length ? p.study : null;
+  if (study) {
+    if (study.meta?.length) out.push(list(study.meta.map((m) => `**${m.label}:** ${m.value}`)));
+    if (study.glanceNote) out.push(study.glanceNote);
+    if (study.glance?.length) out.push(`## At a glance\n\n${list(study.glance.map((g) => `**${g.value}** ${g.label}`))}`);
+    for (const s of study.sections) {
+      const body = [...s.blocks, ...(s.more ?? [])].map((b) => block(p, b)).filter(Boolean);
+      if (body.length) out.push(`## ${s.heading}`, ...body);
+    }
+  } else {
+    out.push(p.overview.join("\n\n"), `## What I did\n\n${list(p.highlights)}`);
+    if (p.tools) out.push(`## Tools\n\n${p.tools.join(", ")}`);
+    if (p.metrics) out.push(`## At a glance\n\n${list(p.metrics.map((m) => `**${m.value}** ${m.label}`))}`);
+    for (const s of p.caseStudy ?? []) {
+      out.push(`## ${s.heading}`, s.body.join("\n\n"));
+      if (s.list) out.push(list(s.list));
+    }
+    for (const c of p.comparison ?? []) {
+      out.push(`**${c.label}**\n\n![Before](${img(p, c.before)})\n![After](${img(p, c.after)})`);
+    }
+  }
+
+  return out.join("\n\n") + "\n";
+}
